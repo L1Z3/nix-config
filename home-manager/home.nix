@@ -59,7 +59,7 @@
         # script to apply and commit nix changes
         apply = "$HOME/nix/home-manager/scripts/apply.sh";
       };
-      profileExtra = lib.mkAfter ''
+      profileExtra = ''
         # add .profile things here
       '';
       initExtra = ''
