@@ -100,6 +100,7 @@
 
     spotify
     vesktop
+    discord
 
     mcaselector
     prismlauncher
