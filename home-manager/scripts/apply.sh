@@ -5,7 +5,7 @@ pushd ~/nix
 apply-home () {
     echo "Running home-manager switch..."
     if home-manager switch --flake .#$USER@$HOSTNAME ; then
-        git add ./home-manager
+        git add ./home-manager ./flake.nix ./flake.lock ./pkgs ./overlays
     else
         exit 1
     fi
@@ -14,7 +14,7 @@ apply-home () {
 apply-system () {
     echo "Running  nixos-rebuild switch..."
     if sudo nixos-rebuild switch --flake .#$HOSTNAME ; then
-        git add ./nixos
+        git add ./nixos ./flake.nix ./flake.lock ./pkgs ./overlays
     else
         exit 1
     fi

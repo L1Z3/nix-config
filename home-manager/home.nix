@@ -2,6 +2,7 @@
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 {
   inputs,
+  outputs,
   lib,
   config,
   pkgs,
@@ -20,6 +21,9 @@
   nixpkgs = {
     # You can add overlays here
     overlays = [
+      outputs.overlays.additions
+      outputs.overlays.modifications
+      outputs.overlays.unstable-packages
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
 
@@ -105,12 +109,14 @@
     libreoffice
 
     mcaselector
-    prismlauncher
+    unstable.prismlauncher
+    nbt-explorer # custom package
+    etcher
   ];
 
   # required for some package
   nixpkgs.config.permittedInsecurePackages = [
-    "openssl-1.1.1w"
+    "openssl-1.1.1w" # for sublime
   ];
 
   # fix dark mode in gtk3 apps
