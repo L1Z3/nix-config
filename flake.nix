@@ -16,36 +16,26 @@
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-unstable,
+    # nixpkgs-unstable,
     home-manager,
     ...
   } @ inputs: let
-    system = "x86_64-linux";
-
     inherit (self) outputs;
+    # Supported systems for your flake packages, shell, etc.
+    systems = [
+      "x86_64-linux"
+    ];
+    # This is a function that generates an attribute by calling a function you
+    # pass to it, with each system as an argument
+    forAllSystems = nixpkgs.lib.genAttrs systems;
   in {
-    overlays = {
-      # This one brings our custom packages from the 'pkgs' directory
-      # additions = final: _prev: import ../pkgs final.pkgs;
-
-      # This one contains whatever you want to overlay
-      # You can change versions, add patches, set compilation flags, anything really.
-      # https://nixos.wiki/wiki/Overlays
-      modifications = final: prev: {
-        # example = prev.example.overrideAttrs (oldAttrs: rec {
-        # ...
-        # });
-      };
-
-      # When applied, the unstable nixpkgs set (declared in the flake inputs) will
-      # be accessible through 'pkgs.unstable'
-      unstable-packages = final: _prev: {
-        unstable = import nixpkgs-unstable {
-          inherit system;
-          config.allowUnfree = true;
-        };
-      };
-    };
+    # Accessible through 'nix build', 'nix shell', etc
+    packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+    # Formatter for your nix files, available through 'nix fmt'
+    # Other options beside 'alejandra' include 'nixpkgs-fmt'
+    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
+    # Your custom packages and modifications, exported as overlays
+    overlays = import ./overlays {inherit inputs;};
 
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'

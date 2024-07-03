@@ -21,7 +21,7 @@
   nixpkgs = {
     # You can add overlays here
     overlays = [
-      # outputs.overlays.additions
+      outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
       # If you want to use overlays exported from other flakes:
