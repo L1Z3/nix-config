@@ -3,4 +3,5 @@
 pkgs: {
   # example = pkgs.callPackage ./example { };
   nbt-explorer = pkgs.callPackage ./nbt-explorer.nix {};
+  balena-etcher = pkgs.callPackage ./balena-etcher.nix {};
 }

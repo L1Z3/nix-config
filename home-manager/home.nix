@@ -110,12 +110,12 @@
 
     mcaselector
     unstable.prismlauncher
-    nbt-explorer
+    nbt-explorer # custom package
   ];
 
   # required for some package
   nixpkgs.config.permittedInsecurePackages = [
-    "openssl-1.1.1w"
+    "openssl-1.1.1w" # for sublime
   ];
 
   # fix dark mode in gtk3 apps
