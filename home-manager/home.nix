@@ -14,6 +14,7 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
+    ./fixes/gnome-app-install-fix.nix
   ];
 
   nixpkgs = {
@@ -80,15 +81,12 @@
 
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
+  home.enableNixpkgsReleaseCheck = true;
   home.packages = with pkgs; [
     jq
     alejandra
-    vim
-    wget
-    curl
-    htop
     fastfetch
-    desktop-file-utils
+    vim
 
     adw-gtk3
     sublime4
@@ -102,6 +100,8 @@
 
     spotify
     vesktop
+    deluge
+    libreoffice
 
     mcaselector
     prismlauncher
@@ -128,16 +128,6 @@
   home.sessionVariables = {
     MOZ_ENABLE_WAYLAND = 1;
     # put variables here
-  };
-
-  xdg = {
-    enable = true;
-    mime.enable = true;
-    systemDirs.data = [
-      # Help Gnome find home-manager-installed apps
-      "$HOME/.nix-profile/share/applications"
-      "$HOME/testmeowmeowmeowmeow"
-    ];
   };
 
   # Nicely reload system units when changing configs
