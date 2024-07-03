@@ -2,6 +2,8 @@
   lib,
   stdenv,
   fetchurl,
+  fetchFromGitHub,
+  makeDesktopItem,
   bash,
   asar,
   autoPatchelfHook,
@@ -17,6 +19,23 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     url = "https://github.com/balena-io/etcher/releases/download/v${version}/balena-etcher_${version}_amd64.deb";
     hash = "sha256-wXdtKFeHKxGT8h+i3RrLNNBUYsVQ0hDabhzysue7be0=";
+  };
+
+  iconSrc = fetchFromGitHub {
+    owner = "balena-io";
+    repo = "etcher";
+    rev = "c748c2a9c022d1d61b44e70202d073b00cdbd08c";
+    sparseCheckout = ["assets/icon.png"];
+    hash = "sha256-gTl4+MUB/W6ZiwEmdEdoqJYn+dYZx8ColRXs670wdbk=";
+  };
+
+  desktopItem = makeDesktopItem {
+    categories = ["Utility"];
+    genericName = "OS image flasher";
+    desktopName = "balenaEtcher";
+    name = pname;
+    icon = pname;
+    exec = meta.mainProgram;
   };
 
   nativeBuildInputs = [
@@ -57,6 +76,9 @@ stdenv.mkDerivation rec {
 
     makeWrapper ${electron}/bin/electron $out/bin/${pname} \
       --add-flags $out/share/${pname}/resources/app.asar
+
+    install -D $iconSrc/assets/icon.png $out/share/icons/${pname}.png
+    install -D -t $out/share/applications ${desktopItem}/share/applications/*
 
     runHook postInstall
   '';
