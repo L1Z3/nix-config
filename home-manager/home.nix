@@ -120,7 +120,7 @@
       gtk-theme = "adw-gtk3-dark";
     };
     # caps lock backspace remap, plus double shift to caps lock
-    "org.gnome.desktop.input-sources" = {
+    "org/gnome/desktop/input-sources" = {
       xkb-options = ["shift:both_capslock" "lv3:ralt_switch" "caps:backspace"];
     };
   };
