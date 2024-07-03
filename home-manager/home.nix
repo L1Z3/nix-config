@@ -126,15 +126,15 @@
     # put variables here
   };
 
-  xdg = {
-    enable = true;
-    mime.enable = true;
-    systemDirs.data = [
-      # Help Gnome find home-manager-installed apps
-      "$HOME/.nix-profile/share/applications"
-      "$HOME/testmeowmeowmeowmeow"
-    ];
-  };
+  # xdg = {
+  #   enable = true;
+  #   mime.enable = true;
+  #   systemDirs.data = [
+  #     # Help Gnome find home-manager-installed apps
+  #     "$HOME/.nix-profile/share/applications"
+  #     "$HOME/testmeowmeowmeowmeow"
+  #   ];
+  # };
 
   # workaround so new home.packages appear in gnome search without logging out
   home.activation = {
