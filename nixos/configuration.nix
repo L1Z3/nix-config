@@ -1,21 +1,31 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
+# This is your system's configuration file.
+# Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
+  # You can import other NixOS modules here
+  imports = [
+    # If you want to use modules from other flakes (such as nixos-hardware):
+    # inputs.hardware.nixosModules.common-cpu-amd
+    # inputs.hardware.nixosModules.common-ssd
+
+    # You can also split up your configuration and import pieces of it here:
+    # ./users.nix
+
+    # Import your generated (nixos-generate-config) hardware configuration
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/vda";
   boot.loader.grub.useOSProber = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -78,26 +88,63 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.liz = {
-    isNormalUser = true;
-    description = "Elizabeth Jones";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    #  thunderbird
-        vim wget curl htop fastfetch git
-        sublime4 mpv vlc spotify
-        mcaselector prismlauncher
+  nixpkgs = {
+    # You can add overlays here
+    overlays = [
+      # If you want to use overlays exported from other flakes:
+      # neovim-nightly-overlay.overlays.default
+
+      # Or define it inline, for example:
+      # (final: prev: {
+      #   hi = final.hello.overrideAttrs (oldAttrs: {
+      #     patches = [ ./change-hello-to-hi.patch ];
+      #   });
+      # })
     ];
+    # Configure your nixpkgs instance
+    config = {
+      # Disable if you don't want unfree packages
+      allowUnfree = true;
+    };
   };
 
-   nixpkgs.config.permittedInsecurePackages = [
-     "openssl-1.1.1w"
-   ];
+  nix = let
+    flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+  in {
+    settings = {
+      # Enable flakes and new 'nix' command
+      experimental-features = "nix-command flakes";
+      # Opinionated: disable global registry
+      flake-registry = "";
+      # Workaround for https://github.com/NixOS/nix/issues/9574
+      nix-path = config.nix.nixPath;
+    };
+    # Opinionated: disable channels
+    channel.enable = false;
 
-  programs.bash.shellAliases = {
-    neofetch = "fastfetch";
-    rebuild = "sudo nixos-rebuild switch";
+    # Opinionated: make flake registry and nix path match flake inputs
+    registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
+    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+  };
+
+  # FIXME: Add the rest of your current configuration
+
+  networking.hostName = "nixvm";
+
+  # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
+  users.users = {
+    # FIXME: Replace with your username
+    liz = {
+      isNormalUser = true;
+      description = "Elizabeth Jones";
+      # Be sure to change the default password (using passwd) after rebooting on fresh install!
+      initialPassword = "correcthorsebatterystaple";
+      openssh.authorizedKeys.keys = [
+        # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
+      ];
+      # Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
+      extraGroups = ["networkmanager" "wheel"];
+    };
   };
 
   # environment.variables.GTK_THEME = "Adwaita:dark";
@@ -105,15 +152,19 @@
   # Install firefox.
   programs.firefox.enable = true;
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
   ];
+
+  # fix home.packages showing up in gnome search immediately (nvm, duplicates apps in search)
+  # system.userActivationScripts.linktosharedfolder.text = ''
+  #   if [[ ! -h "$HOME/.local/share/applications/nix-env" ]]; then
+  #     ln -s "$HOME/.nix-profile/share/applications" "$HOME/.local/share/applications/nix-env"
+  #   fi
+  # '';
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -123,14 +174,22 @@
   #   enableSSHSupport = true;
   # };
 
-  # List services that you want to enable:
-  
   # qemu guest additions
   services.qemuGuest.enable = true;
   services.spice-vdagentd.enable = true;
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  # This setups a SSH server. Very important if you're setting up a headless system.
+  # Feel free to remove if you don't need it.
+  services.openssh = {
+    enable = false;
+    settings = {
+      # Opinionated: forbid root login through SSH.
+      PermitRootLogin = "no";
+      # Opinionated: use keys only.
+      # Remove if you want to SSH using passwords
+      PasswordAuthentication = false;
+    };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -138,12 +197,6 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
-
+  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+  system.stateVersion = "24.05";
 }
