@@ -80,6 +80,7 @@
 
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
+  home.enableNixpkgsReleaseCheck = true;
   home.packages = with pkgs; [
     jq
     alejandra
@@ -126,16 +127,6 @@
     # put variables here
   };
 
-  # xdg = {
-  #   enable = true;
-  #   mime.enable = true;
-  #   systemDirs.data = [
-  #     # Help Gnome find home-manager-installed apps
-  #     "$HOME/.nix-profile/share/applications"
-  #     "$HOME/testmeowmeowmeowmeow"
-  #   ];
-  # };
-
   # workaround so new home.packages appear in gnome search without logging out
   home.activation = {
     linkDesktopApplications = {
@@ -151,6 +142,7 @@
         /run/current-system/sw/bin/desktop-file-install ${config.home.homeDirectory}/.nix-profile/share/applications/*.desktop --dir ${config.home.homeDirectory}/.local/share/applications/home-manager
         sed -i 's/Exec=/Exec=\/home\/${config.home.username}\/.nix-profile\/bin\//g' ${config.home.homeDirectory}/.local/share/applications/home-manager/*.desktop
         /run/current-system/sw/bin/update-desktop-database ${config.home.homeDirectory}/.local/share/applications
+        export XDG_DATA_DIRS=$(echo "$XDG_DATA_DIRS" | tr ':' '\n' | grep -v "$HOME/.nix-profile/share" | tr '\n' ':' | sed 's/:$//')
       '';
     };
   };
