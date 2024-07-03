@@ -60,6 +60,10 @@
       };
       profileExtra = ''
         # add .profile things here
+
+        # fixes for updating desktop files without restart
+        rm -rf ${config.home.homeDirectory}/.local/share/applications/home-manager
+        rm -rf ${config.home.homeDirectory}/.icons/nix-icons
         ls ~/.nix-profile/share/applications/*.desktop > ~/.cache/current_desktop_files.txt
       '';
       initExtra = ''
@@ -130,7 +134,9 @@
   };
 
   # workaround so new home.packages appear in gnome search without logging out
-  # programs.bash.profileExtra = "ls ~/.nix-profile/share/applications/*.desktop > ~/.cache/current_desktop_files.txt"; # moved up since it wouldn't work here
+  # programs.bash.profileExtra = libs.mkAfter ''
+  #   ls ~/.nix-profile/share/applications/*.desktop > ~/.cache/current_desktop_files.txt'
+  # ''; # moved up since it wouldn't work here
   home.activation = {
     linkDesktopApplications = {
       after = ["writeBoundary" "createXdgUserDirectories"];
