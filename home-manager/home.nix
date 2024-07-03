@@ -104,7 +104,7 @@
 
     spotify
     vesktop
-    discord
+    deluge
 
     mcaselector
     prismlauncher
