@@ -1,3 +1,4 @@
+# taken from https://github.com/nix-community/nur-combined/blob/0bcebe7ff5659da33b6a49fb0922d0bfc104c203/repos/AndrewKvalheim/packages/nbt-explorer.nix
 {
   fetchzip,
   fetchFromGitHub,

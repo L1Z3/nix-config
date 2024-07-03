@@ -2,5 +2,5 @@
 # You can build them using 'nix build .#example'
 pkgs: {
   # example = pkgs.callPackage ./example { };
-  nbt-explorer = pkgs.callPackage ./nbt-explorer {};
+  nbt-explorer = pkgs.callPackage ./nbt-explorer.nix {};
 }

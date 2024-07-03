@@ -110,6 +110,7 @@
 
     mcaselector
     unstable.prismlauncher
+    nbt-explorer
   ];
 
   # required for some package
