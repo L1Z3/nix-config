@@ -12,11 +12,11 @@
 }:
 stdenv.mkDerivation rec {
   pname = "etcher";
-  version = "1.19.21";
+  version = "1.18.12";
 
   src = fetchurl {
     url = "https://github.com/balena-io/etcher/releases/download/v${version}/balena-etcher_${version}_amd64.deb";
-    hash = "sha256-faFlhDuQsqCdKJ6kiHICQXrocoJgkv1LrNpxADAbhe0=";
+    hash = "sha256-Ucs187xTpbRJ7P32hCl8cHPxO3HCs44ZneAas043FXk=";
   };
 
   # sudo-prompt has hardcoded binary paths on Linux and we patch them here
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     description = "Flash OS images to SD cards and USB drives, safely and easily";
     homepage = "https://etcher.io/";
     license = licenses.asl20;
-    mainProgram = pname;
+    mainProgram = "etcher";
     maintainers = with maintainers; [wegank];
     platforms = ["x86_64-linux"];
     sourceProvenance = with sourceTypes; [binaryNativeCode];
