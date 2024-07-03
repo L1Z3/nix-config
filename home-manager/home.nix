@@ -48,6 +48,7 @@
   # a program's config, use it as`programs.whatever` or `services.whatever`.
   # If you just want it available, stick it in packages.
   programs = {
+    home-manager.enable = true;
     bash = {
       enable = true;
       shellAliases = {
@@ -69,7 +70,12 @@
       userName = "Elizabeth Jones";
       userEmail = "10276179+L1Z3@users.noreply.github.com";
     };
-    home-manager.enable = true;
+    vscode = {
+      enable = true;
+      package = pkgs.vscodium;
+      extensions = with pkgs.vscode-extensions; [
+      ];
+    };
   };
 
   # Add stuff for your user as you see fit:
