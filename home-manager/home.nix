@@ -118,6 +118,9 @@
       color-scheme = "prefer-dark";
       gtk-theme = "adw-gtk3-dark";
     };
+    "org.gnome.desktop.input-sources" = {
+      xkb-options = ["shift:both_capslock" "lv3:ralt_switch" "caps:backspace"];
+    };
   };
 
   # Extra variables to add to PATH
