@@ -111,7 +111,7 @@
     mcaselector
     unstable.prismlauncher
     nbt-explorer # custom package
-    balena-etcher
+    etcher
   ];
 
   # required for some package
