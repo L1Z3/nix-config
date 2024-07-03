@@ -28,35 +28,6 @@
       #     patches = [ ./change-hello-to-hi.patch ];
       #   });
       # })
-      (final: prev: {
-        xdg =
-          prev.xdg
-          // {
-            mime =
-              prev.xdg.mime
-              // {
-                config = prev.lib.mkIf prev.config.xdg.mime.enable {
-                  assertions = [(prev.hm.assertions.assertPlatform "xdg.mime" prev.pkgs (prev.pkgs.lib.platforms.linux))];
-
-                  home.packages = [
-                    # Explicitly install package to provide basic mime types.
-                    prev.pkgs.shared-mime-info
-
-                    # Make sure the target directories will be real directories.
-                    (prev.pkgs.runCommandLocal "dummy-xdg-mime-dirs1" {} ''
-                      mkdir -p $out/share/{applications,mime/packages}
-                    '')
-                    (prev.pkgs.runCommandLocal "dummy-xdg-mime-dirs2" {} ''
-                      mkdir -p $out/share/{applications,mime/packages}
-                    '')
-                  ];
-
-                  # Disable the home.extraProfileCommands section
-                  home.extraProfileCommands = "";
-                };
-              };
-          };
-      })
     ];
     # Configure your nixpkgs instance
     config = {
@@ -89,6 +60,7 @@
       };
       profileExtra = ''
         # add .profile things here
+        export XDG_DATA_DIRS=$(echo "$XDG_DATA_DIRS" | tr ':' '\n' | grep -v "$HOME/.nix-profile/share" | tr '\n' ':' | sed 's/:$//')
       '';
       initExtra = ''
         # add .bashrc things here
