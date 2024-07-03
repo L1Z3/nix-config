@@ -109,6 +109,7 @@
     libreoffice
 
     mcaselector
+    unstable.prismlauncher
   ];
 
   # required for some package

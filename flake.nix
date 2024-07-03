@@ -20,6 +20,8 @@
     home-manager,
     ...
   } @ inputs: let
+    system = "x86_64-linux";
+
     inherit (self) outputs;
   in {
     overlays = {
@@ -39,11 +41,12 @@
       # be accessible through 'pkgs.unstable'
       unstable-packages = final: _prev: {
         unstable = import nixpkgs-unstable {
-          # system = final.system;
+          inherit system;
           config.allowUnfree = true;
         };
       };
     };
+
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
