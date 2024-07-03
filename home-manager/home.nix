@@ -54,6 +54,7 @@
         neofetch = "fastfetch";
         rebuild = "sudo nixos-rebuild switch";
         subl = "sublime4";
+        # script to apply and commit nix changes
         apply = "$HOME/nix/home-manager/scripts/apply.sh";
       };
       profileExtra = ''
@@ -63,7 +64,11 @@
         # add .bashrc things here
       '';
     };
-    git.enable = true;
+    git = {
+      enable = true;
+      userName = "Elizabeth Jones";
+      userEmail = "10276179+L1Z3@users.noreply.github.com";
+    };
     home-manager.enable = true;
   };
 
