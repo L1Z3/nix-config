@@ -6,12 +6,12 @@
   ...
 }: {
   # workaround so new home.packages appear in gnome search without logging out
-  # TODO figure out how to make libs.mkAfter work here
-  # programs.bash.profileExtra = libs.mkAfter ''
-  #   rm -rf ${config.home.homeDirectory}/.local/share/applications/home-manager
-  #   rm -rf ${config.home.homeDirectory}/.icons/nix-icons
-  #   ls ~/.nix-profile/share/applications/*.desktop > ~/.cache/current_desktop_files.txt'
-  # '';
+  # TODO figure out how to make lib.mkAfter work here
+  programs.bash.profileExtra = lib.mkAfter ''
+    rm -rf ${config.home.homeDirectory}/.local/share/applications/home-manager
+    rm -rf ${config.home.homeDirectory}/.icons/nix-icons
+    ls ~/.nix-profile/share/applications/*.desktop > ~/.cache/current_desktop_files.txt
+  '';
   home.activation = {
     linkDesktopApplications = {
       after = ["writeBoundary" "createXdgUserDirectories"];

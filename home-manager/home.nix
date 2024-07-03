@@ -59,13 +59,8 @@
         # script to apply and commit nix changes
         apply = "$HOME/nix/home-manager/scripts/apply.sh";
       };
-      profileExtra = ''
+      profileExtra = lib.mkAfter ''
         # add .profile things here
-
-        # fixes for updating desktop files without restart
-        rm -rf ${config.home.homeDirectory}/.local/share/applications/home-manager
-        rm -rf ${config.home.homeDirectory}/.icons/nix-icons
-        ls ~/.nix-profile/share/applications/*.desktop > ~/.cache/current_desktop_files.txt
       '';
       initExtra = ''
         # add .bashrc things here
