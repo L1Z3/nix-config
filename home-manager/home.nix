@@ -134,9 +134,12 @@
   };
 
   # workaround so new home.packages appear in gnome search without logging out
+  # TODO figure out how to make libs.mkAfter work here
   # programs.bash.profileExtra = libs.mkAfter ''
+  #   rm -rf ${config.home.homeDirectory}/.local/share/applications/home-manager
+  #   rm -rf ${config.home.homeDirectory}/.icons/nix-icons
   #   ls ~/.nix-profile/share/applications/*.desktop > ~/.cache/current_desktop_files.txt'
-  # ''; # moved up since it wouldn't work here
+  # '';
   home.activation = {
     linkDesktopApplications = {
       after = ["writeBoundary" "createXdgUserDirectories"];
@@ -161,12 +164,6 @@
             ln -sf "$desktop_file" ${config.home.homeDirectory}/.local/share/applications/home-manager/$(basename $desktop_file)
           fi
         done
-
-        # Fix Exec paths in desktop entries
-        # If there are new desktop files, fix Exec paths in them
-        #for new_file in "${config.home.homeDirectory}/.local/share/applications/home-manager/"; do
-        #  sed -i 's|Exec=|Exec=${config.home.homeDirectory}/.nix-profile/bin/|g' "$new_file"
-        #done
 
         # Update desktop database
         ${pkgs.desktop-file-utils}/bin/update-desktop-database ${config.home.homeDirectory}/.local/share/applications
