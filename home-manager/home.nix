@@ -101,6 +101,7 @@
     spotify
     vesktop
     deluge
+    libreoffice
 
     mcaselector
     prismlauncher
