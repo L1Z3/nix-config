@@ -60,7 +60,7 @@
       };
       profileExtra = ''
         # add .profile things here
-        export XDG_DATA_DIRS=$(echo "$XDG_DATA_DIRS" | tr ':' '\n' | grep -v "$HOME/.nix-profile/share" | tr '\n' ':' | sed 's/:$//')
+        ls ~/.nix-profile/share/applications/*.desktop > ~/.cache/current_desktop_files.txt
       '';
       initExtra = ''
         # add .bashrc things here
@@ -129,19 +129,35 @@
   };
 
   # workaround so new home.packages appear in gnome search without logging out
+  # programs.bash.profileExtra = lib.mkAfter "ls ~/.nix-profile/share/applications/*.desktop > ~/.cache/current_desktop_files.txt"; # moved up since it wouldn't work here
   home.activation = {
     linkDesktopApplications = {
       after = ["writeBoundary" "createXdgUserDirectories"];
       before = [];
       data = ''
-        rm -rf ${config.home.homeDirectory}/.nix-desktop-files
         rm -rf ${config.home.homeDirectory}/.local/share/applications/home-manager
         rm -rf ${config.home.homeDirectory}/.icons/nix-icons
-        mkdir -p ${config.home.homeDirectory}/.nix-desktop-files
+        mkdir -p ${config.home.homeDirectory}/.local/share/applications/home-manager
         mkdir -p ${config.home.homeDirectory}/.icons
         ln -sf ${config.home.homeDirectory}/.nix-profile/share/icons ${config.home.homeDirectory}/.icons/nix-icons
-        ${pkgs.desktop-file-utils}/bin/desktop-file-install ${config.home.homeDirectory}/.nix-profile/share/applications/*.desktop --dir ${config.home.homeDirectory}/.local/share/applications/home-manager
-        sed -i 's/Exec=/Exec=\/home\/${config.home.username}\/.nix-profile\/bin\//g' ${config.home.homeDirectory}/.local/share/applications/home-manager/*.desktop
+
+        # Read the list of current desktop files
+        current_files=$(cat ${config.home.homeDirectory}/.cache/current_desktop_files.txt)
+
+        # Symlink new desktop entries
+        for desktop_file in ${config.home.homeDirectory}/.nix-profile/share/applications/*.desktop; do
+          if ! echo "$current_files" | grep -q "$(basename $desktop_file)"; then
+            ln -sf "$desktop_file" ${config.home.homeDirectory}/.local/share/applications/home-manager/$(basename $desktop_file)
+          fi
+        done
+
+        # Fix Exec paths in desktop entries
+        # If there are new desktop files, fix Exec paths in them
+        #for new_file in "${config.home.homeDirectory}/.local/share/applications/home-manager/"; do
+        #  sed -i 's|Exec=|Exec=${config.home.homeDirectory}/.nix-profile/bin/|g' "$new_file"
+        #done
+
+        # Update desktop database
         ${pkgs.desktop-file-utils}/bin/update-desktop-database ${config.home.homeDirectory}/.local/share/applications
       '';
     };
