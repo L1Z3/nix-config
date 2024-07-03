@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+pushd ~/nix
+
+apply-home () {
+    if home-manager switch --flake .#$USER@$HOSTNAME ; then
+        git add ./home-manager
+    else
+        exit 1
+    fi
+}
+
+apply-system () {
+    if sudo nixos-rebuild switch --flake .#$HOSTNAME ; then
+        git add ./nixos
+    else
+        exit 1
+    fi
+}
+
+alejandra . &>/dev/null \
+    || ( alejandra . ; echo "formatting failed!" && exit 1)
+
+# Shows your changes
+git diff -U0 '*.nix'
+
+case $1 in
+  sys | system)
+     apply-system ;;
+  home)
+     apply-home ;;
+  *)
+     apply-system || (popd && exit)
+     apply-home ;;
+esac
+
+
+# Extract latest home-manager generation ID
+home_gen_id=$(home-manager generations | head -n 1 | awk '{print $5}')
+
+# Extract latest nixos generation ID and version
+system_gen=$(nixos-rebuild list-generations --json | jq -r '.[0]')
+system_gen_id=$(echo "$system_gen" | jq -r '.generation')
+nixos_version=$(echo "$system_gen" | jq -r '.nixosVersion')
+
+# Construct commit message
+commit_message="home: id $home_gen_id; system: id $system_gen_id, nixos $nixos_version"
+
+git commit -m "$commit_message"
+
+popd

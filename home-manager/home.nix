@@ -54,6 +54,7 @@
         neofetch = "fastfetch";
         rebuild = "sudo nixos-rebuild switch";
         subl = "sublime4";
+        apply = "$HOME/nix/home-manager/scripts/apply.sh";
       };
       profileExtra = ''
         # add .profile things here
