@@ -28,6 +28,35 @@
       #     patches = [ ./change-hello-to-hi.patch ];
       #   });
       # })
+      (final: prev: {
+        xdg =
+          prev.xdg
+          // {
+            mime =
+              prev.xdg.mime
+              // {
+                config = prev.lib.mkIf prev.config.xdg.mime.enable {
+                  assertions = [(prev.hm.assertions.assertPlatform "xdg.mime" prev.pkgs (prev.pkgs.lib.platforms.linux))];
+
+                  home.packages = [
+                    # Explicitly install package to provide basic mime types.
+                    prev.pkgs.shared-mime-info
+
+                    # Make sure the target directories will be real directories.
+                    (prev.pkgs.runCommandLocal "dummy-xdg-mime-dirs1" {} ''
+                      mkdir -p $out/share/{applications,mime/packages}
+                    '')
+                    (prev.pkgs.runCommandLocal "dummy-xdg-mime-dirs2" {} ''
+                      mkdir -p $out/share/{applications,mime/packages}
+                    '')
+                  ];
+
+                  # Disable the home.extraProfileCommands section
+                  home.extraProfileCommands = "";
+                };
+              };
+          };
+      })
     ];
     # Configure your nixpkgs instance
     config = {
@@ -139,10 +168,9 @@
         mkdir -p ${config.home.homeDirectory}/.nix-desktop-files
         mkdir -p ${config.home.homeDirectory}/.icons
         ln -sf ${config.home.homeDirectory}/.nix-profile/share/icons ${config.home.homeDirectory}/.icons/nix-icons
-        /run/current-system/sw/bin/desktop-file-install ${config.home.homeDirectory}/.nix-profile/share/applications/*.desktop --dir ${config.home.homeDirectory}/.local/share/applications/home-manager
+        ${pkgs.desktop-file-utils}/bin/desktop-file-install ${config.home.homeDirectory}/.nix-profile/share/applications/*.desktop --dir ${config.home.homeDirectory}/.local/share/applications/home-manager
         sed -i 's/Exec=/Exec=\/home\/${config.home.username}\/.nix-profile\/bin\//g' ${config.home.homeDirectory}/.local/share/applications/home-manager/*.desktop
-        /run/current-system/sw/bin/update-desktop-database ${config.home.homeDirectory}/.local/share/applications
-        export XDG_DATA_DIRS=$(echo "$XDG_DATA_DIRS" | tr ':' '\n' | grep -v "$HOME/.nix-profile/share" | tr '\n' ':' | sed 's/:$//')
+        ${pkgs.desktop-file-utils}/bin/update-desktop-database ${config.home.homeDirectory}/.local/share/applications
       '';
     };
   };
