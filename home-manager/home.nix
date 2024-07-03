@@ -130,7 +130,7 @@
   };
 
   # workaround so new home.packages appear in gnome search without logging out
-  # programs.bash.profileExtra = lib.mkAfter "ls ~/.nix-profile/share/applications/*.desktop > ~/.cache/current_desktop_files.txt"; # moved up since it wouldn't work here
+  # programs.bash.profileExtra = "ls ~/.nix-profile/share/applications/*.desktop > ~/.cache/current_desktop_files.txt"; # moved up since it wouldn't work here
   home.activation = {
     linkDesktopApplications = {
       after = ["writeBoundary" "createXdgUserDirectories"];
@@ -142,8 +142,12 @@
         mkdir -p ${config.home.homeDirectory}/.icons
         ln -sf ${config.home.homeDirectory}/.nix-profile/share/icons ${config.home.homeDirectory}/.icons/nix-icons
 
-        # Read the list of current desktop files
-        current_files=$(cat ${config.home.homeDirectory}/.cache/current_desktop_files.txt)
+        # Check if the cached desktop files list exists
+        if [ -f ${config.home.homeDirectory}/.cache/current_desktop_files.txt ]; then
+          current_files=$(cat ${config.home.homeDirectory}/.cache/current_desktop_files.txt)
+        else
+          current_files=""
+        fi
 
         # Symlink new desktop entries
         for desktop_file in ${config.home.homeDirectory}/.nix-profile/share/applications/*.desktop; do
