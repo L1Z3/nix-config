@@ -75,27 +75,30 @@
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   home.packages = with pkgs; [
+    jq
     alejandra
-    adw-gtk3
     vim
     wget
     curl
     htop
     fastfetch
+    desktop-file-utils
+
+    adw-gtk3
     sublime4
     mpv
     vlc
-    spotify
-    vesktop
-    mcaselector
-    prismlauncher
-    audacity
     handbrake
+    audacity
     gparted
     gimp
-    desktop-file-utils
     qpwgraph
-    jq
+
+    spotify
+    vesktop
+
+    mcaselector
+    prismlauncher
   ];
 
   # required for some package
