@@ -83,12 +83,8 @@
   home.packages = with pkgs; [
     jq
     alejandra
-    vim
-    wget
-    curl
-    htop
     fastfetch
-    desktop-file-utils
+    vim
 
     adw-gtk3
     sublime4
@@ -138,6 +134,25 @@
       "$HOME/.nix-profile/share/applications"
       "$HOME/testmeowmeowmeowmeow"
     ];
+  };
+
+  # workaround so new home.packages appear in gnome search without logging out
+  home.activation = {
+    linkDesktopApplications = {
+      after = ["writeBoundary" "createXdgUserDirectories"];
+      before = [];
+      data = ''
+        rm -rf ${config.home.homeDirectory}/.nix-desktop-files
+        rm -rf ${config.home.homeDirectory}/.local/share/applications/home-manager
+        rm -rf ${config.home.homeDirectory}/.icons/nix-icons
+        mkdir -p ${config.home.homeDirectory}/.nix-desktop-files
+        mkdir -p ${config.home.homeDirectory}/.icons
+        ln -sf ${config.home.homeDirectory}/.nix-profile/share/icons ${config.home.homeDirectory}/.icons/nix-icons
+        /run/current-system/sw/bin/desktop-file-install ${config.home.homeDirectory}/.nix-profile/share/applications/*.desktop --dir ${config.home.homeDirectory}/.local/share/applications/home-manager
+        sed -i 's/Exec=/Exec=\/home\/${config.home.username}\/.nix-profile\/bin\//g' ${config.home.homeDirectory}/.local/share/applications/home-manager/*.desktop
+        /run/current-system/sw/bin/update-desktop-database ${config.home.homeDirectory}/.local/share/applications
+      '';
+    };
   };
 
   # Nicely reload system units when changing configs
