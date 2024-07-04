@@ -16,6 +16,7 @@
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
     ./fixes/gnome-app-install-fix.nix
+    ./gnome-custom-keybinds.nix
   ];
 
   nixpkgs = {
@@ -119,8 +120,8 @@
     "openssl-1.1.1w" # for sublime
   ];
 
-  # fix dark mode in gtk3 apps
   dconf.settings = {
+    # fix dark mode in gtk3 apps
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
       gtk-theme = "adw-gtk3-dark";
