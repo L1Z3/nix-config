@@ -17,6 +17,7 @@
     # ./nvim.nix
     ./fixes/gnome-app-install-fix.nix
     ./gnome-custom-keybinds.nix
+    ./dconf.nix
   ];
 
   nixpkgs = {
@@ -102,6 +103,8 @@
     alejandra
     fastfetch
     vim
+    git-filter-repo
+    dconf2nix
 
     adw-gtk3
     sublime4
@@ -130,15 +133,12 @@
     "openssl-1.1.1w" # for sublime
   ];
 
-  dconf.settings = {
-    # fix dark mode in gtk3 apps
-    "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
-      gtk-theme = "adw-gtk3-dark";
-    };
-    # caps lock backspace remap, plus double shift to caps lock
-    "org/gnome/desktop/input-sources" = {
-      xkb-options = ["shift:both_capslock" "lv3:ralt_switch" "caps:backspace"];
+  # gnome dark theme for gtk apps
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome.gnome-themes-extra;
     };
   };
 

@@ -61,9 +61,9 @@
   services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "";
+    variant = "";
   };
 
   # Enable CUPS to print documents.
@@ -147,6 +147,12 @@
     };
   };
 
+  qt = {
+    enable = true;
+    platformTheme = "gnome";
+    style = "adwaita-dark";
+  };
+
   # environment.variables.GTK_THEME = "Adwaita:dark";
 
   # Install firefox.
@@ -162,13 +168,6 @@
     curl
     htop
   ];
-
-  # fix home.packages showing up in gnome search immediately (nvm, duplicates apps in search)
-  # system.userActivationScripts.linktosharedfolder.text = ''
-  #   if [[ ! -h "$HOME/.local/share/applications/nix-env" ]]; then
-  #     ln -s "$HOME/.nix-profile/share/applications" "$HOME/.local/share/applications/nix-env"
-  #   fi
-  # '';
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
