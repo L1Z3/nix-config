@@ -1,3 +1,4 @@
+# from https://discourse.nixos.org/t/nixos-options-to-configure-gnome-keyboard-shortcuts/7275/7
 {lib, ...}: {
   # add custom gnome keybinds
   dconf.settings = let
@@ -44,6 +45,7 @@
           }
         ]);
   in
+    # add custom binds here
     mkSettings [
       {
         name = "Gnome Console";

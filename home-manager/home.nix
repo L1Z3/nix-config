@@ -112,7 +112,8 @@
     mcaselector
     unstable.prismlauncher
     nbt-explorer # custom package
-    etcher
+    etcher # custom package, since it's not in repos anymore
+    calibre
   ];
 
   # required for some package
