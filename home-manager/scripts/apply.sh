@@ -11,6 +11,7 @@ apply-home () {
     fi
     echo "Package changes in new home generation:"
     nix store diff-closures $(ls -t1d $HOME/.local/state/nix/profiles/home-manager-*-link | head -2 | tac)
+    echo -e "\n"
 }
 
 apply-system () {
@@ -22,6 +23,7 @@ apply-system () {
     fi
     echo "Package changes in new system generation:"
     nix store diff-closures $(ls -t1d /nix/var/nix/profiles/system-*-link | head -2 | tac)
+    echo -e "\n"
 }
 
 alejandra . &>/dev/null \
