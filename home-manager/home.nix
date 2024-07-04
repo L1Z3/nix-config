@@ -63,10 +63,14 @@
         subl = "sublime4";
         # script to apply and commit nix changes
         apply = "$HOME/nix/home-manager/scripts/apply.sh";
-        home-diff = "nix store diff-closures $(ls -t1d $HOME/.local/state/nix/profiles/home-manager-*-link | head -2 | tac)";
-        home-diff-all = "nix profile diff-closures --profile ~/.local/state/nix/profiles/home-manager";
-        sys-diff = "nix store diff-closures $(ls -t1d /nix/var/nix/profiles/system-*-link | head -2 | tac)";
-        sys-diff-all = "nix profile diff-closures --profile /nix/var/nix/profiles/system";
+        # list package changes in last home-manager generation
+        diff-home = "nix store diff-closures $(ls -t1d $HOME/.local/state/nix/profiles/home-manager-*-link | head -2 | tac)";
+        # list package changes in all home-manager generations
+        diff-home-all = "nix profile diff-closures --profile ~/.local/state/nix/profiles/home-manager";
+        # list package changes in last system generation
+        diff-sys = "nix store diff-closures $(ls -t1d /nix/var/nix/profiles/system-*-link | head -2 | tac)";
+        # list package changes in all system generations
+        diff-sys-all = "nix profile diff-closures --profile /nix/var/nix/profiles/system";
       };
       profileExtra = ''
         # add .profile things here
