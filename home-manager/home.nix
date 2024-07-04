@@ -102,6 +102,7 @@
     alejandra
     fastfetch
     vim
+    git-filter-repo
 
     adw-gtk3
     sublime4
