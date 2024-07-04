@@ -103,6 +103,7 @@
     fastfetch
     vim
     git-filter-repo
+    dconf2nix
 
     adw-gtk3
     sublime4
