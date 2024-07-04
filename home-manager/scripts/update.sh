@@ -5,7 +5,7 @@ pushd ~/nix
 PINK="$(tput bold)$(tput setaf 201)"
 RESET_COLOR="$(tput sgr0)"
 echo_pink () {
-	$PINK $1 $RESET_COLOR
+	echo -e $PINK$1$RESET_COLOR
 }
 
 if nix flake update; then
