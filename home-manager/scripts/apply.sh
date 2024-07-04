@@ -2,26 +2,32 @@
 
 pushd ~/nix
 
+PINK="$(tput bold)$(tput setaf 201)"
+RESET_COLOR="$(tput sgr0)"
+echo_pink () {
+    $PINK$1$RESET_COLOR
+}
+
 apply-home () {
-    echo "Running home-manager switch..."
+    echo_pink "Running home-manager switch..."
     if home-manager switch --flake .#$USER@$HOSTNAME ; then
         git add ./home-manager ./flake.nix ./flake.lock ./pkgs ./overlays
     else
         exit 1
     fi
-    echo "Package changes in new home generation:"
+    echo_pink "Package changes in new home generation:"
     nix store diff-closures $(ls -t1d $HOME/.local/state/nix/profiles/home-manager-*-link | head -2 | tac)
     echo -e "\n"
 }
 
 apply-system () {
-    echo "Running  nixos-rebuild switch..."
+    echo_pink "Running  nixos-rebuild switch..."
     if sudo nixos-rebuild switch --flake .#$HOSTNAME ; then
         git add ./nixos ./flake.nix ./flake.lock ./pkgs ./overlays
     else
         exit 1
     fi
-    echo "Package changes in new system generation:"
+    echo_pink "Package changes in new system generation:"
     nix store diff-closures $(ls -t1d /nix/var/nix/profiles/system-*-link | head -2 | tac)
     echo -e "\n"
 }

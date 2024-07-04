@@ -2,12 +2,18 @@
 
 pushd ~/nix
 
+PINK="$(tput bold)$(tput setaf 201)"
+RESET_COLOR="$(tput sgr0)"
+echo_pink () {
+	$PINK$1$RESET_COLOR
+}
+
 if nix flake update; then
-	echo "Flake update succeeded! Applying changes..."
+	echo_pink "Flake update succeeded! Applying changes..."
 	./home-manager/scripts/apply.sh
 else
-	echo "Flake update failed!"
+	echo_pink "Flake update failed!"
 fi
 
 
-popd
+pop
