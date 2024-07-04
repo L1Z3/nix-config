@@ -63,6 +63,8 @@
         subl = "sublime4";
         # script to apply and commit nix changes
         apply = "$HOME/nix/home-manager/scripts/apply.sh";
+        # update system
+        update-all = "$HOME/nix/home-manager/scripts/update.sh";
         # list package changes in last home-manager generation
         diff-home = "nix store diff-closures $(ls -t1d $HOME/.local/state/nix/profiles/home-manager-*-link | head -2 | tac)";
         # list package changes in all home-manager generations
