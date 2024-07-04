@@ -161,6 +161,8 @@
     wget
     curl
     htop
+    # colored text
+    ansi
   ];
 
   # fix home.packages showing up in gnome search immediately (nvm, duplicates apps in search)
