@@ -2,26 +2,42 @@
 
 pushd ~/nix
 
+PINK="$(tput bold)$(tput setaf 201)"
+RESET_COLOR="$(tput sgr0)"
+echo_pink () {
+    echo -e $PINK$1$RESET_COLOR
+}
+
+get_home_gen_id () {
+    # home-manager generations | head -n 1 | awk '{print $5}'
+    ls -t1d $HOME/.local/state/nix/profiles/home-manager-*-link | head -1 | awk -F'-' '{print $(NF-1)}'
+}
+
+get_sys_gen_id () {
+    # nixos-rebuild list-generations --json | jq -r '.[0]' | jq -r '.generation'
+    ls -t1d /nix/var/nix/profiles/system-*-link | head -1 | awk -F'-' '{print $(NF-1)}'
+}
+
 apply-home () {
-    echo "Running home-manager switch..."
+    echo_pink "Running home-manager switch..."
     if home-manager switch --flake .#$USER@$HOSTNAME ; then
         git add ./home-manager ./flake.nix ./flake.lock ./pkgs ./overlays
     else
         exit 1
     fi
-    echo "Package changes in new home generation:"
+    echo_pink "Package changes in new home generation ($(get_home_gen_id)):"
     nix store diff-closures $(ls -t1d $HOME/.local/state/nix/profiles/home-manager-*-link | head -2 | tac)
     echo -e "\n"
 }
 
 apply-system () {
-    echo "Running  nixos-rebuild switch..."
+    echo_pink "Running  nixos-rebuild switch..."
     if sudo nixos-rebuild switch --flake .#$HOSTNAME ; then
         git add ./nixos ./flake.nix ./flake.lock ./pkgs ./overlays
     else
         exit 1
     fi
-    echo "Package changes in new system generation:"
+    echo_pink "Package changes in new system generation ($(get_sys_gen_id)):"
     nix store diff-closures $(ls -t1d /nix/var/nix/profiles/system-*-link | head -2 | tac)
     echo -e "\n"
 }
@@ -44,7 +60,7 @@ esac
 
 
 # Extract latest home-manager generation ID
-home_gen_id=$(home-manager generations | head -n 1 | awk '{print $5}')
+home_gen_id=$(get_home_gen_id)
 
 # Extract latest nixos generation ID and version
 system_gen=$(nixos-rebuild list-generations --json | jq -r '.[0]')
