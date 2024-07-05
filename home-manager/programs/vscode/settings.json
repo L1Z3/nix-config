@@ -1,7 +1,33 @@
 {
     "nix.enableLanguageServer": true,
-    "nix.serverPath": "nil",
-    "nix.formatterPath": "alejandra",
-    // "nix.serverPath": "nixd"
-  }
+    // "nix.serverPath": "nil",
+    // "nix.serverSettings": {
+    //   // formatting with alejandra
+    //   "nil": { "formatting": { "command": ["alejandra", "--"] } }
+    // },
+    "nix.serverPath": "nixd",
+    "nix.serverSettings": {
+        // settings for 'nixd' LSP
+        "nixd": {
+            "nixpkgs": {
+            // For flake.
+            "expr": "import (builtins.getFlake \"/home/liz/nix\").inputs.nixpkgs { }   "
+            },
+            "formatting": {
+                "command": ["alejandra", "--"]
+            },
+            "options": {
+                // By default, this entriy will be read from `import <nixpkgs> { }`
+                // You can write arbitary nix expression here, to produce valid "options" declaration result.
+                // Tip: for flake-based configuration, utilize `builtins.getFlake`
+                "nixos": {
+                    "expr": "(builtins.getFlake \"/home/liz/nix\").nixosConfigurations.\"nixvm\".options"
+                },
+                "home-manager": {
+                    "expr": "(builtins.getFlake \"/home/liz/nix\").homeConfigurations.\"liz@nixvm\".options"
+                }
+            }
+        }
+    }
+}
   

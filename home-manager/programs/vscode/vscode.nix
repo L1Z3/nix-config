@@ -37,6 +37,11 @@ in {
       ];
   };
 
+  # language server
+  home.packages = with pkgs; [
+    # nil
+    unstable.nixd # unstable so i can have 2.2.2 hover feature
+  ];
   xdg.configFile = {
     # "VSCode/User/keybindings.json".source =mkIf isLinux { keybindingsFile;
     # TODO make the path relative to flake dir somehow (still needs to expand to absolute path for nix reasons)
