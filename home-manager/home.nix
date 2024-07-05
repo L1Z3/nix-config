@@ -77,6 +77,9 @@
         # TODO figure out a better way to document frequently used commands; currently just throwing them in an alias so i remember they exist
         dconf-watch = "dconf watch /";
         # TODO add commands to remove old system/home-manager generations
+        nix-cleanup-all = "sudo nix-collect-garbage --delete-old";
+        nix-cleanup-aggressive = "sudo nix-collect-garbage --delete-older-than 1d";
+        nix-cleanup-relaxed = "sudo nix-collect-garbage --delete-older-than 30d";
       };
       profileExtra = ''
         # add .profile things here
@@ -124,6 +127,14 @@
     nbt-explorer # custom package
     etcher # custom package, since it's not in repos anymore
   ];
+  
+  # garbage collect for home-manager generations
+  nix.gc = {
+    automatic = true;
+    frequency = "weekly";
+    options = "--delete-older-than 30d";
+    # persistent = true; # not available until home-manager for 24.11
+  };
 
   # required for some package
   nixpkgs.config.permittedInsecurePackages = [
