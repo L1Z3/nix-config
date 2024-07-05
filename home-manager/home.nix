@@ -90,9 +90,20 @@
     vscode = {
       enable = true;
       package = pkgs.vscodium;
-      extensions = with pkgs.vscode-extensions; [
-        jnoortheen.nix-ide
-      ];
+      extensions = with pkgs.vscode-extensions;
+        [
+          jnoortheen.nix-ide
+          k--kato.intellij-idea-keybindings
+        ]
+        ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+          # add marketplace extensions not in nixpkgs here
+          # {
+          #   name = "remote-ssh-edit";
+          #   publisher = "ms-vscode-remote";
+          #   version = "0.47.2";
+          #   sha256 = "1hp6gjh4xp2m1xlm1jsdzxw9d8frkiidhph6nvl24d0h8z34w49g";
+          # }
+        ];
     };
   };
 
