@@ -76,6 +76,7 @@
         diff-sys-all = "nix profile diff-closures --profile /nix/var/nix/profiles/system";
         # TODO figure out a better way to document frequently used commands; currently just throwing them in an alias so i remember they exist
         dconf-watch = "dconf watch /";
+        # TODO add commands to remove old system/home-manager generations
       };
       profileExtra = ''
         # add .profile things here
