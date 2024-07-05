@@ -61,7 +61,6 @@
       enable = true;
       shellAliases = {
         neofetch = "fastfetch";
-        rebuild = "sudo nixos-rebuild switch";
         subl = "sublime4";
         # script to apply and commit nix changes
         apply = "$HOME/nix/home-manager/scripts/apply.sh";
@@ -75,6 +74,8 @@
         diff-sys = "nix store diff-closures $(ls -t1d /nix/var/nix/profiles/system-*-link | head -2 | tac)";
         # list package changes in all system generations
         diff-sys-all = "nix profile diff-closures --profile /nix/var/nix/profiles/system";
+        # TODO figure out a better way to document frequently used commands; currently just throwing them in an alias so i remember they exist
+        dconf-watch = "dconf watch /";
       };
       profileExtra = ''
         # add .profile things here
