@@ -36,6 +36,6 @@ in {
   xdg.configFile = {
     # "VSCode/User/keybindings.json".source =mkIf isLinux { keybindingsFile;
     # TODO make the path relative to flake dir somehow
-    "${vsCodeDir}/User/settings.json".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/nix/programs/vscode/settings.json";
+    "${vsCodeDir}/User/settings.json".source = mkOutOfStoreSymlink "/home/liz/nix/programs/vscode/settings.json";
   };
 }
