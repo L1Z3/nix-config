@@ -133,6 +133,14 @@
     "openssl-1.1.1w" # for sublime
   ];
 
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome.gnome-themes-extra;
+    };
+  };
+
   # Extra variables to add to PATH
   home.sessionPath = [
     # put PATH things here
