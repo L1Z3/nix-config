@@ -123,7 +123,7 @@
     deluge
     libreoffice
 
-    # nil
+    nil
 
     mcaselector
     unstable.prismlauncher
