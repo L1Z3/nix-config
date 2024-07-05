@@ -4,6 +4,8 @@
   ...
 }: let
   inherit (config.lib.file) mkOutOfStoreSymlink;
+  pathToHere = "${config.home.homeDirectory}/nix/home-manager/programs/vscode";
+
   vsCodium = true;
   vsCodePackage =
     if vsCodium
@@ -36,6 +38,6 @@ in {
   xdg.configFile = {
     # "VSCode/User/keybindings.json".source =mkIf isLinux { keybindingsFile;
     # TODO make the path relative to flake dir somehow (still needs to expand to absolute path for nix reasons)
-    "${vsCodeDir}/User/settings.json".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/nix/home-manager/programs/vscode/settings.json";
+    "${vsCodeDir}/User/settings.json".source = mkOutOfStoreSymlink "${pathToHere}/settings.json";
   };
 }
