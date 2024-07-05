@@ -18,6 +18,7 @@
     ./fixes/gnome-app-install-fix.nix
     ./gnome-custom-keybinds.nix
     ./dconf.nix
+    ./programs/vscode/vscode.nix
   ];
 
   nixpkgs = {
@@ -87,12 +88,6 @@
       userName = "Elizabeth Jones";
       userEmail = "10276179+L1Z3@users.noreply.github.com";
     };
-    vscode = {
-      enable = true;
-      package = pkgs.vscodium;
-      extensions = with pkgs.vscode-extensions; [
-      ];
-    };
   };
 
   # Add stuff for your user as you see fit:
@@ -121,6 +116,8 @@
     vesktop
     deluge
     libreoffice
+
+    nil
 
     mcaselector
     unstable.prismlauncher
