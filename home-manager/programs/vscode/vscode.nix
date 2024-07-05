@@ -37,6 +37,12 @@ in {
       ];
   };
 
+  # language server
+  home.packages = with pkgs; [
+    # nil
+    nixd
+  ];
+
   xdg.configFile = {
     # "VSCode/User/keybindings.json".source =mkIf isLinux { keybindingsFile;
     # TODO make the path relative to flake dir somehow (still needs to expand to absolute path for nix reasons)
