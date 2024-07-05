@@ -133,6 +133,7 @@
     "openssl-1.1.1w" # for sublime
   ];
 
+  # gnome dark theme for gtk apps
   gtk = {
     enable = true;
     theme = {

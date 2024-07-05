@@ -22,23 +22,6 @@ with lib.hm.gvariant; {
       xkb-options = ["shift:both_capslock" "lv3:ralt_switch" "caps:backspace"];
     };
 
-    # "org/gnome/desktop/interface" = {
-    #   clock-format = "24h";
-    #   clock-show-date = true;
-    #   clock-show-weekday = true;
-    #   color-scheme = "prefer-dark";
-    #   document-font-name = "Roboto 11";
-    #   enable-hot-corners = false;
-    #   font-antialiasing = "grayscale";
-    #   font-hinting = "slight";
-    #   font-name = "Roboto 11";
-    #   gtk-theme = "Adwaita-dark";
-    #   icon-theme = "Adwaita";
-    #   monospace-font-name = "Monospace 10";
-    #   show-battery-percentage = true;
-    #   toolkit-accessibility = false;
-    # };
-
     "org/gnome/desktop/peripherals/mouse" = {
       accel-profile = "default";
       natural-scroll = false;
