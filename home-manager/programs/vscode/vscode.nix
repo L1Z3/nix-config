@@ -40,7 +40,7 @@ in {
   # language server
   home.packages = with pkgs; [
     # nil
-    nixd
+    unstable.nixd # unstable so i can have 2.2.2 hover feature
   ];
   xdg.configFile = {
     # "VSCode/User/keybindings.json".source =mkIf isLinux { keybindingsFile;
