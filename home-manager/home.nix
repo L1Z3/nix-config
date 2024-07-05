@@ -123,6 +123,8 @@
     deluge
     libreoffice
 
+    nil
+
     mcaselector
     unstable.prismlauncher
     nbt-explorer # custom package
