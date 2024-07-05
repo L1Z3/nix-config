@@ -1,7 +1,10 @@
 {
     "nix.enableLanguageServer": true,
     "nix.serverPath": "nil",
-    "nix.formatterPath": "alejandra",
+    "nix.serverSettings": {
+      // formatting with alejandra
+      "nil": { "formatting": { "command": ["alejandra", "--"] } }
+    },
     // "nix.serverPath": "nixd"
   }
   
