@@ -6,7 +6,7 @@
   inherit (config.lib.file) mkOutOfStoreSymlink;
   pathToHere = "${config.home.homeDirectory}/nix/home-manager/programs/vscode";
 
-  vsCodium = true;
+  vsCodium = false;
   vsCodePackage =
     if vsCodium
     then pkgs.vscodium
