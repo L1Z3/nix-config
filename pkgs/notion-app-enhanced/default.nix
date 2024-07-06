@@ -20,11 +20,11 @@
     buildCommand = ''
       ${oA.buildCommand}
 
-      ${asar}/bin/asar extract $out/resources/app.asar app
-      ${dos2unix}/bin/dos2unix app/renderer/preload.js
-      patch -p0 < ${notion-patch}
-      ${dos2unix}/bin/unix2dos app/renderer/preload.js
-      ${asar}/bin/asar pack app $out/resources/app.asar
+      ${asar}/bin/asar extract $out/resources/app.asar $out/app
+      ${dos2unix}/bin/dos2unix $out/app/renderer/preload.js
+      patch -p0 $out/app/renderer/preload.js ${notion-patch}
+      ${dos2unix}/bin/unix2dos $out/app/renderer/preload.js
+      ${asar}/bin/asar pack $out/app $out/resources/app.asar
     '';
   });
 in
