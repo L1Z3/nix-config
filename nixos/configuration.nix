@@ -167,6 +167,14 @@
   };
 
   programs = {
+    # can't enable steam in home-manager, so system-wide instead
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+      # dedicatedServer.openFirewall = true;
+      localNetworkGameTransfers.openFirewall = true;
+      # protontricks.enable = true; # only in unstable, TODO enable in future update
+    };
     # TODO reenable when actually needed so i can figure out how to use properly
     # nix-ld = {
     #   enable = true;
@@ -175,6 +183,7 @@
     #   ];
     # };
   };
+  hardware.steam-hardware.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
