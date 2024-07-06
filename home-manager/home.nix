@@ -181,15 +181,16 @@
     # put variables here
   };
 
-  services.activitywatch = {
-    enable = true;
-    package = pkgs.aw-server-rust;
-    watchers = {
-      awatcher = {
-        package = pkgs.awatcher;
-      };
-    };
-  };
+  # TODO re-enable in future; all wayland watchers seem pretty broken right now
+  # services.activitywatch = {
+  #   enable = true;
+  #   package = pkgs.aw-server-rust;
+  #   watchers = {
+  #     awatcher = {
+  #       package = pkgs.awatcher;
+  #     };
+  #   };
+  # };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
