@@ -123,9 +123,9 @@
       telegram-desktop
       deluge
       libreoffice
-      notion-app-enhanced-fixed
-      asar # to make notion work again on linux https://github.com/notion-enhancer/notion-enhancer/issues/812
+      notion-app-enhanced # custom package to fix issue (TODO upstream this)
       obsidian
+      gitkraken
 
       steam
       unstable.mcaselector # TODO maybe try adding custom .desktop file
