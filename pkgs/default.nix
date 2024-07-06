@@ -4,4 +4,5 @@ pkgs: {
   # example = pkgs.callPackage ./example { };
   nbt-explorer = pkgs.callPackage ./nbt-explorer.nix {};
   etcher = pkgs.callPackage ./etcher.nix {};
+  notion-app-enhanced = pkgs.callPackage ./notion-app-enhanced {};
 }

@@ -166,7 +166,15 @@
   # environment.variables.GTK_THEME = "Adwaita:dark";
 
   # Install firefox.
-  programs.firefox.enable = true;
+  programs = {
+    firefox.enable = true;
+    # nix-ld = {
+    #   enable = true;
+    #   libraries = with pkgs; [
+    #     libz
+    #   ];
+    # };
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

@@ -7,8 +7,29 @@
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
-    # example = prev.example.overrideAttrs (oldAttrs: rec {
-    # ...
+    # TODO clean this up once i figure out notion app stuff
+    # notion-app-enhanced = prev.notion-app-enhanced.overrideAttrs (oldAttrs: rec {
+    #   # pname = oldAttrs.pname;
+    #   # version = oldAttrs.version;
+    #   # src = prev.fetchurl {
+    #   #   url = "https://github.com/notion-enhancer/notion-repackaged/releases/download/v${version}/Notion-Enhanced-${version}.AppImage";
+    #   #   sha256 = "sha256-SqeMnoMzxxaViJ3NPccj3kyMc1xvXWULM6hQIDZySWY=";
+    #   # };
+    #   appimageContents =
+    #     oldAttrs
+    #     .appimageContents
+    #     .overrideAttrs (oA: {
+    #       buildCommand = ''
+    #         ${oA.buildCommand}
+
+    #         ${prev.pkgs.asar}/bin/asar extract $out/resources/app.asar $out/app.unpacked
+    #         ${prev.pkgs.dos2unix}/bin/dos2unix $out/app.unpacked/renderer/preload.js
+    #         patch $out/app.unpacked/renderer/preload.js ${./notion-fix.patch}
+    #         ${prev.pkgs.dos2unix}/bin/unix2dos $out/app.unpacked/renderer/preload.js
+    #         rm $out/resources/app.asar
+    #         ${prev.pkgs.asar}/bin/asar pack $out/app.unpacked $out/resources/app.asar
+    #       '';
+    #     });
     # });
   };
 
