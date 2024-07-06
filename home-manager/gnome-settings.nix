@@ -195,7 +195,7 @@
 in
   with lib.hm.gvariant; {
     # this is a hack to allow gui editing of default apps. TODO: reconsider how to do this more elegantly
-    # $XDG_CONFIG_HOME/gnome-mimeapps.list will take precedence over $XDG_CONFIG_DIRS/mimeapps.list,
+    # $XDG_CONFIG_HOME/gnome-mimeapps.list will take precedence over $XDG_CONFIG_DIRS/mimeapps.list, (see https://specifications.freedesktop.org/mime-apps-spec/mime-apps-spec-1.0.html)
     # but changes can still be made to mimeapps.list in the GUI. the activation script will copy
     # these changes to home-manager's mimeapps.list, which will then symlink to the gnome-mimeapps.list file.
     xdg.configFile = {
