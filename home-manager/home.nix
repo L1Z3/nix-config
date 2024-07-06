@@ -124,6 +124,7 @@
       deluge
       libreoffice
 
+      steam
       mcaselector
       unstable.prismlauncher
       nbt-explorer # custom package
