@@ -19,6 +19,7 @@
     ./gnome-custom-keybinds.nix
     ./dconf.nix
     ./programs/vscode/vscode.nix
+    ./autostart.nix
   ];
 
   nixpkgs = {
