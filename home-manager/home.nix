@@ -137,7 +137,8 @@
     gparted
     etcher # custom package, since it's not in repos anymore
     # TODO needs non-declarative configs due to sensitive data, try to find workaround
-    duplicacy-web
+    duplicacy-web # custom package, since it was never merged into nixpkgs
+    duplicacy-mount # my own custom package, since it's a fork
 
     # messaging
     vesktop

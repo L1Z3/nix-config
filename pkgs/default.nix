@@ -8,4 +8,5 @@ pkgs: {
   awatcher = pkgs.callPackage ./awatcher {};
   olympus = pkgs.callPackage ./olympus/package.nix {};
   duplicacy-web = pkgs.callPackage ./duplicacy-web.nix {};
+  duplicacy-mount = pkgs.callPackage ./duplicacy-mount.nix {};
 }
