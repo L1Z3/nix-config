@@ -16,7 +16,8 @@
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
     ./gnome-settings.nix
-    ./programs/vscode/vscode.nix
+    ./programs/vscode
+    ./programs/htop
   ];
 
   nixpkgs = {
@@ -90,13 +91,6 @@
       enable = true;
       userName = "Elizabeth Jones";
       userEmail = "10276179+L1Z3@users.noreply.github.com";
-    };
-    htop = {
-      enable = true;
-      # settings = {
-      #   hide_kernel_threads = 1;
-      #   hide_userland_thread = 1;
-      # };
     };
   };
 
