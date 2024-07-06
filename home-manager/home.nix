@@ -80,6 +80,7 @@
         nix-cleanup-all = "sudo nix-collect-garbage --delete-old";
         nix-cleanup-aggressive = "sudo nix-collect-garbage --delete-older-than 1d";
         nix-cleanup-relaxed = "sudo nix-collect-garbage --delete-older-than 30d";
+        duplicacy-do-mount = "mkdir -p ${config.home.homeDirectory}/mnt/duplicacy-backup/ && ${pkgs.duplicacy-mount}/bin/duplicacy-mount mount-storage b2://duplicacy-jones1167 ${config.home.homeDirectory}/mnt/duplicacy-backup/ -e -flat";
       };
       profileExtra = ''
         # add .profile things here
@@ -215,17 +216,18 @@
   services.arrpc.enable = true;
 
   # duplicacy backup service
-  # systemd.user.services.duplicacy = {
-  #   enable = true;
-  #   Unit = {
-  #     Description = "Duplicacy";
-  #   };
-  #   Service = {
-  #     ExecStart = "${pkgs.duplicacy}/bin/duplicacy_webd";
-  #     Restart = "always";
-  #   };
-  #   }
-  # };
+  systemd.user.services.duplicacy = {
+    Unit = {
+      Description = "Duplicacy";
+    };
+    Service = {
+      ExecStart = "${pkgs.duplicacy-web}/bin/duplicacy_web -background";
+      Restart = "on-failure";
+    };
+    Install = {
+      WantedBy = ["default.target"];
+    };
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
