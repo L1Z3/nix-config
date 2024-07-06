@@ -20,7 +20,7 @@ get_sys_gen_id () {
 
 apply-home () {
     echo_pink "Running home-manager switch..."
-    if home-manager switch --flake .#$USER@$HOSTNAME ; then
+    if home-manager switch --flake .#$USER@$HOSTNAME ${@:2} ; then
         git add ./home-manager ./flake.nix ./flake.lock ./pkgs ./overlays
     else
         exit 1
@@ -32,7 +32,7 @@ apply-home () {
 
 apply-system () {
     echo_pink "Running  nixos-rebuild switch..."
-    if sudo nixos-rebuild switch --flake .#$HOSTNAME ; then
+    if sudo nixos-rebuild switch --flake .#$HOSTNAME ${@:2} ; then
         git add ./nixos ./flake.nix ./flake.lock ./pkgs ./overlays
     else
         exit 1
