@@ -6,7 +6,7 @@
   asar,
   dos2unix,
 }: let
-  pname = "notion-app-enhanced";
+  pname = "notion-app-enhanced-fixed";
   version = "2.0.18-1";
 
   src = fetchurl {
@@ -33,8 +33,8 @@ in
     inherit pname version src;
 
     extraInstallCommands = ''
-      install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
-      substituteInPlace $out/share/applications/${pname}.desktop \
+      install -m 444 -D ${appimageContents}/notion-app-enhanced.desktop -t $out/share/applications
+      substituteInPlace $out/share/applications/notion-app-enhanced.desktop \
         --replace 'Exec=AppRun' 'Exec=${pname}'
       cp -r ${appimageContents}/usr/share/icons $out/share
     '';
@@ -45,6 +45,6 @@ in
       license = licenses.unfree;
       maintainers = with maintainers; [sei40kr];
       platforms = ["x86_64-linux"];
-      mainProgram = "notion-app-enhanced";
+      mainProgram = "notion-app-enhanced-fixed";
     };
   }
