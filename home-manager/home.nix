@@ -125,7 +125,7 @@
       libreoffice
 
       steam
-      mcaselector
+      unstable.mcaselector
       unstable.prismlauncher
       nbt-explorer # custom package
       etcher # custom package, since it's not in repos anymore
