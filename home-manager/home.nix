@@ -136,6 +136,8 @@
     qpwgraph
     gparted
     etcher # custom package, since it's not in repos anymore
+    # TODO needs non-declarative configs due to sensitive data, try to find workaround
+    duplicacy
 
     # messaging
     vesktop
@@ -210,6 +212,19 @@
 
   # arRPC for vesktop
   services.arrpc.enable = true;
+
+  # duplicacy backup service
+  # systemd.user.services.duplicacy = {
+  #   enable = true;
+  #   Unit = {
+  #     Description = "Duplicacy";
+  #   };
+  #   Service = {
+  #     ExecStart = "${pkgs.duplicacy}/bin/duplicacy_webd";
+  #     Restart = "always";
+  #   };
+  #   }
+  # };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
