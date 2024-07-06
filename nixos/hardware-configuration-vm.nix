@@ -9,25 +9,17 @@
   ...
 }: {
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
+    (modulesPath + "/profiles/qemu-guest.nix")
   ];
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
+  boot.initrd.availableKernelModules = ["ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/926a3e43-e0ac-4e63-a167-4f5802000f56";
+    device = "/dev/disk/by-uuid/8d1ec14c-3508-48d2-b86d-853e64947b94";
     fsType = "ext4";
-  };
-
-  boot.initrd.luks.devices."luks-3335479a-143b-41c4-9305-35f0f2e199a0".device = "/dev/disk/by-uuid/3335479a-143b-41c4-9305-35f0f2e199a0";
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/8716-9D95";
-    fsType = "vfat";
-    options = ["fmask=0022" "dmask=0022"];
   };
 
   swapDevices = [];
@@ -37,8 +29,7 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp1s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

@@ -21,8 +21,10 @@
   ];
 
   # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/vda";
+  # boot.loader.grub.enable = true;
+  # boot.loader.grub.device = "/dev/vda";
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.useOSProber = true;
 
   # networking.hostName = "nixos"; # Define your hostname.
@@ -137,7 +139,7 @@
 
   # FIXME: Add the rest of your current configuration
 
-  networking.hostName = "nixvm";
+  networking.hostName = "envy";
 
   # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users = {
@@ -186,8 +188,8 @@
   # };
 
   # qemu guest additions
-  services.qemuGuest.enable = true;
-  services.spice-vdagentd.enable = true;
+  # services.qemuGuest.enable = true;
+  # services.spice-vdagentd.enable = true;
 
   # This setups a SSH server. Very important if you're setting up a headless system.
   # Feel free to remove if you don't need it.
