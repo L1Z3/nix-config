@@ -30,9 +30,27 @@
       binding = "<Control><Alt>t";
     }
   ];
+  # gnome-related packages
+  packages = with pkgs; [
+    adw-gtk3
+    gnome.dconf-editor
+  ];
+  # gnome extensions to install and enable
+  extensions = with pkgs.gnomeExtensions; [
+    advanced-alttab-window-switcher
+    appindicator
+    blur-my-shell
+    clipboard-history
+    focused-window-d-bus
+    impatience
+    steal-my-focus-window
+    tiling-assistant
+  ];
 in
   # nautilus bookmarks
   with lib.hm.gvariant; {
+    home.packages = packages ++ extensions;
+
     gtk.gtk3.bookmarks = nautilusBookmarks;
 
     # autostart programs implementation
@@ -145,6 +163,11 @@ in
         {
           # below here is all other custom dconf entries
 
+          # enable the extensions specified above
+          "org/gnome/shell" = {
+            enabled-extensions = builtins.map (extension: extension.extensionUuid) extensions;
+          };
+
           # set gnome background to blobs
           "org/gnome/desktop/background" = {
             color-shading-type = "solid";
@@ -237,11 +260,6 @@ in
 
           "org/gnome/nautilus/preferences" = {
             show-create-link = true;
-          };
-
-          "org/gnome/shell" = {
-            disable-user-extensions = false;
-            enabled-extensions = ["force-show-osk@bruh.ltd" "focus-my-window@varianto25.com" "noannoyance@sindex.com" "background-logo@fedorahosted.org" "openweather-extension@jenslody.de" "emoji-selector@maestroschan.fr" "noannoyance@daase.net" "drive-menu@gnome-shell-extensions.gcampax.github.com" "improvedosk@nick-shmyrev.dev" "auto-move-windows@gnome-shell-extensions.gcampax.github.com" "smart-auto-move@khimaros.com" "clipboard-history@alexsaveau.dev" "blur-my-shell@aunetx" "focused-window-dbus@flexagoon.com" "tiling-assistant@leleat-on-github" "window-calls-extended@hseliger.eu" "appindicatorsupport@rgcjonas.gmail.com" "steal-my-focus-window@steal-my-focus-window" "advanced-alt-tab@G-dH.github.com" "impatience@gfxmonk.net"];
           };
 
           "org/gnome/shell/extensions/net/gfxmonk/impatience" = {
