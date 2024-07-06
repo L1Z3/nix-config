@@ -15,11 +15,8 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
-    ./fixes/gnome-app-install-fix.nix
-    ./gnome-custom-keybinds.nix
-    ./dconf.nix
+    ./gnome-settings.nix
     ./programs/vscode/vscode.nix
-    ./autostart.nix
   ];
 
   nixpkgs = {
@@ -196,6 +193,7 @@
   xdg.desktopEntries = {
     fod-frp = {
       name = "fod frp";
+      # TODO move this toml file to store if possible (though it contains sensitive data so idk how)
       exec = "frpc -c /home/liz/.config/frp-configs/fod-frpc-p2p.toml";
       terminal = true;
     };
