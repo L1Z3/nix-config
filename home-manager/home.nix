@@ -144,6 +144,7 @@
     unstable.prismlauncher
     unstable.mcaselector # TODO maybe try adding custom .desktop file
     nbt-explorer # custom package
+    olympus # TODO currently custom, switch to upstream nixpkgs when ready
   ];
 
   # garbage collect for home-manager generations
