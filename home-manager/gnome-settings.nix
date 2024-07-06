@@ -202,20 +202,21 @@ in
       # TODO make the path relative to flake dir somehow (still needs to expand to absolute path for nix reasons)
       "gnome-mimeapps.list".source = mkOutOfStoreSymlink "${pathToHere}/mimeapps.list";
     };
-    imports = [
-      ({config, ...}: {
-        home.activation.update-mimeapps = {
-          after = ["writeBoundary" "createXdgUserDirectories"];
-          before = [];
-          data = ''
-            # copy the user's mimeapps.list to the home-manager directory
-            if [ -f ${config.home.homeDirectory}/.config/mimeapps.list ]; then
-              cp ${config.home.homeDirectory}/.config/mimeapps.list ${pathToHere}/mimeapps.list
-            fi
-          '';
-        };
-      })
-    ];
+    # TODO temporarily disabling this because it would override my mimeapps.list if I changed to new system. need 2 way sync (like with mkOutOfStoreSymlink directly to mimeapps.list)
+    # imports = [
+    #   ({config, ...}: {
+    #     home.activation.update-mimeapps = {
+    #       after = ["writeBoundary" "createXdgUserDirectories"];
+    #       before = [];
+    #       data = ''
+    #         # copy the user's mimeapps.list to the home-manager directory
+    #         if [ -f ${config.home.homeDirectory}/.config/mimeapps.list ]; then
+    #           cp ${config.home.homeDirectory}/.config/mimeapps.list ${pathToHere}/mimeapps.list
+    #         fi
+    #       '';
+    #     };
+    #   })
+    # ];
 
     home.packages = packages ++ extensions;
 
