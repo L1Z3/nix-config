@@ -141,7 +141,6 @@
     obsidian
 
     # game stuff
-    steam
     unstable.prismlauncher
     unstable.mcaselector # TODO maybe try adding custom .desktop file
     nbt-explorer # custom package
