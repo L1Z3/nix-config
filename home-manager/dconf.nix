@@ -36,6 +36,10 @@ in
         secondary-color = "#000000";
       };
 
+      "org/gnome/desktop/interface" = {
+        enable-hot-corners = false;
+      };
+
       # fix dark mode in gtk3 apps
       # "org/gnome/desktop/interface" = {
       #   color-scheme = "prefer-dark";
