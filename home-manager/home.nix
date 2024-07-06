@@ -223,7 +223,7 @@
     Service = {
       Type = "simple";
       WorkingDirectory = "${pkgs.duplicacy-web}/bin";
-      ExecStart = "\"${pkgs.duplicacy-web}/bin/duplicacy_web -background\"";
+      ExecStart = "${pkgs.duplicacy-web}/bin/duplicacy-web -background";
       Restart = "on-failure";
     };
     Install = {
