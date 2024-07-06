@@ -120,6 +120,7 @@
 
       spotify
       vesktop
+      telegram-desktop
       deluge
       libreoffice
 
