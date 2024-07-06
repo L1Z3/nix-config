@@ -25,7 +25,7 @@
   # boot.loader.grub.device = "/dev/vda";
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.useOSProber = true;
+  # boot.loader.grub.useOSProber = true;
 
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -203,6 +203,13 @@
       PasswordAuthentication = false;
     };
   };
+
+  # enable swap
+  # swapDevices = [ {
+  #   device = "/swapfile";
+  #   size = 8*1024;
+  # } ];
+  zramSwap.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
