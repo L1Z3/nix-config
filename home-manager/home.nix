@@ -123,7 +123,7 @@
       telegram-desktop
       deluge
       libreoffice
-      notion-app-enhanced-fixed
+      notion-app-enhanced
       asar # to make notion work again on linux https://github.com/notion-enhancer/notion-enhancer/issues/812
       obsidian
 
