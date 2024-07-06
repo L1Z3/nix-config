@@ -38,6 +38,7 @@ in
 
       "org/gnome/desktop/interface" = {
         enable-hot-corners = false;
+        show-battery-percentage = true;
       };
 
       # fix dark mode in gtk3 apps
