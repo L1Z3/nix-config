@@ -125,6 +125,7 @@
     audacity
     gimp
     deluge
+    obs-studio
 
     # system tools
     qpwgraph
