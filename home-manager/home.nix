@@ -193,6 +193,14 @@
   #   };
   # };
 
+  xdg.desktopEntries = {
+    fod-frp = {
+      name = "fod frp";
+      exec = "frpc -c /home/liz/.config/frp-configs/fod-frpc-p2p.toml";
+      terminal = true;
+    };
+  };
+
   # arRPC for vesktop
   services.arrpc.enable = true;
 
