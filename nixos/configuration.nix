@@ -176,12 +176,21 @@
       # protontricks.enable = true; # only in unstable, TODO enable in future update
     };
     # TODO reenable when actually needed so i can figure out how to use properly
-    # nix-ld = {
-    #   enable = true;
-    #   libraries = with pkgs; [
-    #     libz
-    #   ];
-    # };
+    nix-ld = {
+      enable = true;
+      libraries = with pkgs; [
+        libz
+        zlib
+        fuse
+        fuse3
+        icu
+        nss
+        expat
+      ];
+    };
+    fuse = {
+      userAllowOther = true;
+    };
   };
   hardware.steam-hardware.enable = true;
 

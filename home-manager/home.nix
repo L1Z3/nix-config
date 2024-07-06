@@ -80,6 +80,7 @@
         nix-cleanup-all = "sudo nix-collect-garbage --delete-old";
         nix-cleanup-aggressive = "sudo nix-collect-garbage --delete-older-than 1d";
         nix-cleanup-relaxed = "sudo nix-collect-garbage --delete-older-than 30d";
+        duplicacy-do-mount = "mkdir -p ${config.home.homeDirectory}/mnt/duplicacy-backup/ && ${pkgs.duplicacy-mount}/bin/duplicacy-mount mount-storage b2://duplicacy-jones1167 ${config.home.homeDirectory}/mnt/duplicacy-backup/ -e -flat";
       };
       profileExtra = ''
         # add .profile things here
@@ -136,6 +137,9 @@
     qpwgraph
     gparted
     etcher # custom package, since it's not in repos anymore
+    # TODO needs non-declarative configs due to sensitive data, try to find workaround
+    duplicacy-web # custom package, since it was never merged into nixpkgs
+    duplicacy-mount # my own custom package, since it's a fork
 
     # messaging
     vesktop
@@ -210,6 +214,22 @@
 
   # arRPC for vesktop
   services.arrpc.enable = true;
+
+  # duplicacy backup service
+  systemd.user.services.duplicacy = {
+    Unit = {
+      Description = "Duplicacy";
+    };
+    Service = {
+      Type = "simple";
+      WorkingDirectory = "${pkgs.duplicacy-web}/bin";
+      ExecStart = "${pkgs.duplicacy-web}/bin/duplicacy-web -background";
+      Restart = "on-failure";
+    };
+    Install = {
+      WantedBy = ["default.target"];
+    };
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
