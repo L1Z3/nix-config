@@ -126,6 +126,7 @@
     gimp
     deluge
     obs-studio
+    obs-studio-plugins.input-overlay
 
     # system tools
     qpwgraph
