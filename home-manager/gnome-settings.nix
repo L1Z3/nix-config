@@ -189,11 +189,38 @@
       edge-tiling = false;
     };
   };
+  # pathToHere = builtins.getFlakePath;
+  inherit (config.lib.file) mkOutOfStoreSymlink;
+  pathToHere = "${config.home.homeDirectory}/nix/home-manager";
 in
-  # nautilus bookmarks
   with lib.hm.gvariant; {
+    # this is a hack to allow gui editing of default apps. TODO: reconsider how to do this more elegantly
+    # $XDG_CONFIG_HOME/gnome-mimeapps.list will take precedence over $XDG_CONFIG_DIRS/mimeapps.list,
+    # but changes can still be made to mimeapps.list in the GUI. the activation script will copy
+    # these changes to home-manager's mimeapps.list, which will then symlink to the gnome-mimeapps.list file.
+    xdg.configFile = {
+      # TODO make the path relative to flake dir somehow (still needs to expand to absolute path for nix reasons)
+      "gnome-mimeapps.list".source = mkOutOfStoreSymlink "${pathToHere}/mimeapps.list";
+    };
+    # TODO temporarily disabling this because it would override my mimeapps.list if I changed to new system. need 2 way sync (like with mkOutOfStoreSymlink directly to mimeapps.list)
+    # imports = [
+    #   ({config, ...}: {
+    #     home.activation.update-mimeapps = {
+    #       after = ["writeBoundary" "createXdgUserDirectories"];
+    #       before = [];
+    #       data = ''
+    #         # copy the user's mimeapps.list to the home-manager directory
+    #         if [ -f ${config.home.homeDirectory}/.config/mimeapps.list ]; then
+    #           cp ${config.home.homeDirectory}/.config/mimeapps.list ${pathToHere}/mimeapps.list
+    #         fi
+    #       '';
+    #     };
+    #   })
+    # ];
+
     home.packages = packages ++ extensions;
 
+    # nautilus bookmarks
     gtk.gtk3.bookmarks = nautilusBookmarks;
 
     # jank workaround so new home.packages appear in gnome search without logging out

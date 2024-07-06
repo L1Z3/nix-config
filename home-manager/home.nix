@@ -61,10 +61,11 @@
       shellAliases = {
         neofetch = "fastfetch";
         subl = "sublime4";
+        # TODO potentially make thing to automatically add aliases for scripts in scripts dir?
         # script to apply and commit nix changes
         apply = "$HOME/nix/home-manager/scripts/apply.sh";
         # update system
-        update-all = "$HOME/nix/home-manager/scripts/update.sh";
+        update-all = "$HOME/nix/home-manager/scripts/update-all.sh";
         # list package changes in last home-manager generation
         diff-home = "nix store diff-closures $(ls -t1d $HOME/.local/state/nix/profiles/home-manager-*-link | head -2 | tac)";
         # list package changes in all home-manager generations
