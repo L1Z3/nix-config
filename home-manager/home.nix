@@ -97,69 +97,54 @@
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   home.enableNixpkgsReleaseCheck = true;
-  home.packages =
-    (with pkgs; [
-      # misc command line tools
-      jq
-      alejandra
-      fastfetch
-      dconf2nix
-      unstable.yt-dlp
-      frp
+  home.packages = with pkgs; [
+    # misc command line tools
+    jq
+    alejandra
+    fastfetch
+    dconf2nix
+    unstable.yt-dlp
+    frp
 
-      # browsers
-      firefox
-      ungoogled-chromium
+    # browsers
+    firefox
+    ungoogled-chromium
 
-      # editors and git stuff
-      sublime4
-      vim
-      git-filter-repo
-      unstable.gitkraken
+    # editors and git stuff
+    sublime4
+    vim
+    git-filter-repo
+    unstable.gitkraken
 
-      # media
-      spotify
-      mpv
-      vlc
-      handbrake
-      audacity
-      gimp
-      deluge
+    # media
+    spotify
+    mpv
+    vlc
+    handbrake
+    audacity
+    gimp
+    deluge
 
-      # system tools
-      qpwgraph
-      gparted
-      etcher # custom package, since it's not in repos anymore
+    # system tools
+    qpwgraph
+    gparted
+    etcher # custom package, since it's not in repos anymore
 
-      # messaging
-      vesktop
-      telegram-desktop
+    # messaging
+    vesktop
+    telegram-desktop
 
-      # office, etc
-      libreoffice
-      notion-app-enhanced # custom package to fix issue (TODO upstream this)
-      obsidian
+    # office, etc
+    libreoffice
+    notion-app-enhanced # custom package to fix issue (TODO upstream this)
+    obsidian
 
-      # game stuff
-      steam
-      unstable.prismlauncher
-      unstable.mcaselector # TODO maybe try adding custom .desktop file
-      nbt-explorer # custom package
-
-      # gnome things
-      adw-gtk3
-      gnome.dconf-editor
-    ])
-    ++ (with pkgs.gnomeExtensions; [
-      advanced-alttab-window-switcher
-      appindicator
-      blur-my-shell
-      clipboard-history
-      focused-window-d-bus
-      impatience
-      steal-my-focus-window
-      tiling-assistant
-    ]);
+    # game stuff
+    steam
+    unstable.prismlauncher
+    unstable.mcaselector # TODO maybe try adding custom .desktop file
+    nbt-explorer # custom package
+  ];
 
   # garbage collect for home-manager generations
   nix.gc = {
