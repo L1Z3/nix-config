@@ -16,17 +16,16 @@
 
   notion-patch = ./notion-fix.patch;
 
-  appimageContents = (appimageTools.extract {inherit pname version src;}).overrideAttrs (oA: {
-    buildCommand = ''
-      ${oA.buildCommand}
-
+  appimageContents = appimageTools.extract {
+    inherit pname version src;
+    postExtract = ''
       ${asar}/bin/asar extract $out/resources/app.asar app
       ${dos2unix}/bin/dos2unix app/renderer/preload.js
       patch app/renderer/preload.js ${notion-patch}
       ${dos2unix}/bin/unix2dos app/renderer/preload.js
       ${asar}/bin/asar pack app $out/resources/app.asar
     '';
-  });
+  };
 in
   appimageTools.wrapType2 {
     inherit pname version src;
