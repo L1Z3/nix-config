@@ -124,6 +124,7 @@
       deluge
       libreoffice
       notion-app-enhanced
+      obsidian
 
       steam
       unstable.mcaselector # TODO maybe try adding custom .desktop file
