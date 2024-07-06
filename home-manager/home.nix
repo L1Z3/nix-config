@@ -106,6 +106,7 @@
       vim
       git-filter-repo
       dconf2nix
+      unstable.yt-dlp
 
       adw-gtk3
       sublime4
