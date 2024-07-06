@@ -189,9 +189,18 @@
       edge-tiling = false;
     };
   };
+  # pathToHere = builtins.getFlakePath;
+  inherit (config.lib.file) mkOutOfStoreSymlink;
+  pathToHere = "${config.home.homeDirectory}/nix/home-manager";
 in
   # nautilus bookmarks
   with lib.hm.gvariant; {
+    # default apps
+    xdg.configFile = {
+      # TODO make the path relative to flake dir somehow (still needs to expand to absolute path for nix reasons)
+      "mimeapps.list".source = mkOutOfStoreSymlink "${pathToHere}/mimeapps.list";
+    };
+
     home.packages = packages ++ extensions;
 
     gtk.gtk3.bookmarks = nautilusBookmarks;

@@ -1,0 +1,11 @@
+[Default Applications]
+application/x-desktop=sublime_text.desktop
+text/plain=sublime_text.desktop
+x-scheme-handler/notion=notion-app-enhanced.desktop
+application/zip=org.gnome.FileRoller.desktop
+x-scheme-handler/gitkraken=GitKraken.desktop
+
+[Added Associations]
+application/x-desktop=sublime_text.desktop;
+text/plain=sublime_text.desktop;
+application/zip=org.gnome.FileRoller.desktop;
