@@ -13,14 +13,14 @@
     sha256 = "sha256-SqeMnoMzxxaViJ3NPccj3kyMc1xvXWULM6hQIDZySWY=";
   };
 
-  polyfill-patch = "./polyfill.js";
+  notion-patch = "./notion-fix.patch";
 
   appimageContents = (appimageTools.extract {inherit pname version src;}).overrideAttrs (oA: {
     buildCommand = ''
       ${oA.buildCommand}
 
       ${asar}/bin/asar extract $out/resources/app.asar app
-      sed -e '/\"use strict\";/r${polyfill-patch}' app/renderer/preload.js > app/renderer/preload.js
+      patch -p0 < ${notion-patch}
       ${asar}/bin/asar pack app $out/resources/app.asar
     '';
   });
