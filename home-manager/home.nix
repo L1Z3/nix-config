@@ -98,40 +98,56 @@
   home.enableNixpkgsReleaseCheck = true;
   home.packages =
     (with pkgs; [
+      # misc command line tools
       jq
       alejandra
       fastfetch
-      vim
-      git-filter-repo
       dconf2nix
       unstable.yt-dlp
       frp
 
-      adw-gtk3
+      # browsers
+      firefox
+      ungoogled-chromium
+
+      # editors and git stuff
       sublime4
+      vim
+      git-filter-repo
+      unstable.gitkraken
+
+      # media
+      spotify
       mpv
       vlc
       handbrake
       audacity
-      gparted
       gimp
-      qpwgraph
-      gnome.dconf-editor
+      deluge
 
-      spotify
+      # system tools
+      qpwgraph
+      gparted
+      etcher # custom package, since it's not in repos anymore
+
+      # messaging
       vesktop
       telegram-desktop
-      deluge
+
+      # office, etc
       libreoffice
       notion-app-enhanced # custom package to fix issue (TODO upstream this)
       obsidian
-      gitkraken
 
+      # game stuff
       steam
-      unstable.mcaselector # TODO maybe try adding custom .desktop file
       unstable.prismlauncher
+      unstable.mcaselector # TODO maybe try adding custom .desktop file
       nbt-explorer # custom package
-      etcher # custom package, since it's not in repos anymore
+
+      # gnome things
+      adw-gtk3
+      gnome.dconf-editor
     ])
     ++ (with pkgs.gnomeExtensions; [
       advanced-alttab-window-switcher
