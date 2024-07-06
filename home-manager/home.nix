@@ -181,6 +181,16 @@
     # put variables here
   };
 
+  services.activitywatch = {
+    enable = true;
+    package = pkgs.aw-server-rust;
+    watchers = {
+      aw-awatcher = {
+        package = pkgs.awatcher;
+      };
+    };
+  };
+
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
