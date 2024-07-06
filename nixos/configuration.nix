@@ -126,11 +126,12 @@
     registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
 
-    # automatic garbage collection
+    # automatic garbage collection for system generations
     gc = {
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 30d";
+      persistent = true;
     };
   };
 

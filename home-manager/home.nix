@@ -127,6 +127,14 @@
     nbt-explorer # custom package
     etcher # custom package, since it's not in repos anymore
   ];
+  
+  # garbage collect for home-manager generations
+  nix.gc = {
+    automatic = true;
+    frequency = "weekly";
+    options = "--delete-older-than 30d";
+    # persistent = true; # not available until home-manager for 24.11
+  };
 
   # required for some package
   nixpkgs.config.permittedInsecurePackages = [
