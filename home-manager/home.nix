@@ -108,6 +108,7 @@
       git-filter-repo
       dconf2nix
       unstable.yt-dlp
+      frp
 
       adw-gtk3
       sublime4
