@@ -4,6 +4,7 @@
   lib,
   fetchurl,
   asar,
+  dos2unix,
 }: let
   pname = "notion-app-enhanced";
   version = "2.0.18-1";
@@ -13,14 +14,16 @@
     sha256 = "sha256-SqeMnoMzxxaViJ3NPccj3kyMc1xvXWULM6hQIDZySWY=";
   };
 
-  notion-patch = "./notion-fix.patch";
+  notion-patch = ./notion-fix.patch;
 
   appimageContents = (appimageTools.extract {inherit pname version src;}).overrideAttrs (oA: {
     buildCommand = ''
       ${oA.buildCommand}
 
       ${asar}/bin/asar extract $out/resources/app.asar app
+      ${dos2unix}/bin/dos2unix app/renderer/preload.js
       patch -p0 < ${notion-patch}
+      ${dos2unix}/bin/unix2dos app/renderer/preload.js
       ${asar}/bin/asar pack app $out/resources/app.asar
     '';
   });
