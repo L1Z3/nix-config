@@ -93,6 +93,12 @@
       userName = "Elizabeth Jones";
       userEmail = "10276179+L1Z3@users.noreply.github.com";
     };
+    obs-studio = {
+      enable = true;
+      plugins = with pkgs.obs-studio-plugins; [
+        input-overlay
+      ];
+    };
   };
 
   # Add stuff for your user as you see fit:
@@ -125,8 +131,6 @@
     audacity
     gimp
     deluge
-    obs-studio
-    obs-studio-plugins.input-overlay
 
     # system tools
     qpwgraph
