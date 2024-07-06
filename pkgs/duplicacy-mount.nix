@@ -14,16 +14,16 @@ buildGoModule rec {
     # for some reason the release 3.0.1 source is not actually the latest commit even though the corresponding binary is
     # so just have the latest commit hash here
     rev = "3b2c5874e2fcfa557abf1b29c0d065b611a0dd05";
-    hash = "sha256-2MXhTeBtW9ZOcAfjZCI9gdToCbYw3am5KlUHyP/EWH4=";
+    hash = "sha256-Xjc5cJMy2/gJA/WHD+tzzzvjRIFqjr8XTCSfuhG94g4=";
   };
 
   buildInputs = [fuse];
 
-  postInstall = ''
-    mv $out/bin/duplicacy $out/bin/${pname}
-  '';
+  # postInstall = ''
+  #   mv $out/bin/duplicacy $out/bin/${pname}
+  # '';
 
-  vendorHash = "sha256-/mMLz7WOK+RJNNnSWnq1SvaCbD4K9tRPhCmsJS2kLRw=";
+  vendorHash = "sha256-yuSub6ojVucO/ZN0stRla6GdKotaEqHRVe2SRPRHnhU=";
 
   doCheck = false;
 
