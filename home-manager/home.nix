@@ -185,7 +185,7 @@
     enable = true;
     package = pkgs.aw-server-rust;
     watchers = {
-      aw-awatcher = {
+      awatcher = {
         package = pkgs.awatcher;
       };
     };
