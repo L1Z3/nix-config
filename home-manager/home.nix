@@ -127,7 +127,7 @@
     nbt-explorer # custom package
     etcher # custom package, since it's not in repos anymore
   ];
-  
+
   # garbage collect for home-manager generations
   nix.gc = {
     automatic = true;
