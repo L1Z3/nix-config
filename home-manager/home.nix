@@ -120,10 +120,13 @@
 
       spotify
       vesktop
+      telegram-desktop
       deluge
       libreoffice
+      notion-app-enhanced
 
-      mcaselector
+      steam
+      unstable.mcaselector # TODO maybe try adding custom .desktop file
       unstable.prismlauncher
       nbt-explorer # custom package
       etcher # custom package, since it's not in repos anymore
