@@ -168,12 +168,12 @@
   # Install firefox.
   programs = {
     firefox.enable = true;
-    nix-ld = {
-      enable = true;
-      libraries = with pkgs; [
-        libz
-      ];
-    };
+    # nix-ld = {
+    #   enable = true;
+    #   libraries = with pkgs; [
+    #     libz
+    #   ];
+    # };
   };
 
   # List packages installed in system profile. To search, run:
