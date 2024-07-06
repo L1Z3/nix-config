@@ -1,15 +1,20 @@
 # Generated via dconf2nix: https://github.com/gvolpe/dconf2nix
-{lib, ...}:
+{
+  lib,
+  pkgs,
+  ...
+}:
 with lib.hm.gvariant; {
   dconf.settings = {
-    # "org/gnome/desktop/background" = {
-    #   color-shading-type = "solid";
-    #   picture-options = "zoom";
-    #   picture-uri = "file:///usr/share/backgrounds/gnome/blobs-l.svg";
-    #   picture-uri-dark = "file:///usr/share/backgrounds/gnome/blobs-d.svg";
-    #   primary-color = "#241f31";
-    #   secondary-color = "#000000";
-    # };
+    # set gnome background to blobs
+    "org/gnome/desktop/background" = {
+      color-shading-type = "solid";
+      picture-options = "zoom";
+      picture-uri = "file://${pkgs.gnome.gnome-backgrounds}/share/backgrounds/gnome/blobs-l.svg";
+      picture-uri-dark = "file://${pkgs.gnome.gnome-backgrounds}/share/backgrounds/gnome/blobs-d.svg";
+      primary-color = "#241f31";
+      secondary-color = "#000000";
+    };
 
     # fix dark mode in gtk3 apps
     # "org/gnome/desktop/interface" = {
