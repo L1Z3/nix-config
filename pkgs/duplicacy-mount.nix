@@ -17,8 +17,8 @@ buildGoModule rec {
 
   buildInputs = [fuse];
 
-  modPostBuild = ''
-    mv $dir/bin/duplicacy $dir/bin/${pname}
+  postInstall = ''
+    mv $out/bin/duplicacy $out/bin/${pname}
   '';
 
   vendorHash = "sha256-/mMLz7WOK+RJNNnSWnq1SvaCbD4K9tRPhCmsJS2kLRw=";
