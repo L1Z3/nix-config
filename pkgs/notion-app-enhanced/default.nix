@@ -27,8 +27,10 @@
     '';
   };
 in
-  appimageTools.wrapType2 {
-    inherit pname version src;
+  appimageTools.wrapAppImage {
+    inherit pname version;
+
+    src = appimageContents;
 
     extraInstallCommands = ''
       install -m 444 -D ${appimageContents}/notion-app-enhanced.desktop -t $out/share/applications
