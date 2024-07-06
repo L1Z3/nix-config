@@ -166,11 +166,8 @@
     style = "adwaita-dark";
   };
 
-  # environment.variables.GTK_THEME = "Adwaita:dark";
-
-  # Install firefox.
   programs = {
-    firefox.enable = true;
+    # TODO reenable when actually needed so i can figure out how to use properly
     # nix-ld = {
     #   enable = true;
     #   libraries = with pkgs; [

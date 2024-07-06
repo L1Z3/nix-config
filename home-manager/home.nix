@@ -106,6 +106,10 @@
       unstable.yt-dlp
       frp
 
+      # browsers
+      firefox
+      ungoogled-chromium
+
       # editors and git stuff
       sublime4
       vim
