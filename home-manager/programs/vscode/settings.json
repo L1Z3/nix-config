@@ -10,8 +10,8 @@
         // settings for 'nixd' LSP
         "nixd": {
             "nixpkgs": {
-            // For flake.
-            "expr": "import (builtins.getFlake \"/home/liz/nix\").inputs.nixpkgs { }   "
+                // For flake.
+                "expr": "import (builtins.getFlake \"/home/liz/nix\").inputs.nixpkgs { }   "
             },
             "formatting": {
                 "command": ["alejandra", "--"]

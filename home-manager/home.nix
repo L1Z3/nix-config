@@ -98,36 +98,47 @@
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   home.enableNixpkgsReleaseCheck = true;
-  home.packages = with pkgs; [
-    jq
-    alejandra
-    fastfetch
-    vim
-    git-filter-repo
-    dconf2nix
+  home.packages =
+    (with pkgs; [
+      jq
+      alejandra
+      fastfetch
+      vim
+      git-filter-repo
+      dconf2nix
 
-    adw-gtk3
-    sublime4
-    mpv
-    vlc
-    handbrake
-    audacity
-    gparted
-    gimp
-    qpwgraph
-    gnome.dconf-editor
+      adw-gtk3
+      sublime4
+      mpv
+      vlc
+      handbrake
+      audacity
+      gparted
+      gimp
+      qpwgraph
+      gnome.dconf-editor
 
-    spotify
-    vesktop
-    deluge
-    libreoffice
+      spotify
+      vesktop
+      deluge
+      libreoffice
 
-    mcaselector
-    unstable.prismlauncher
-    nbt-explorer # custom package
-    etcher # custom package, since it's not in repos anymore
-  ];
-  
+      mcaselector
+      unstable.prismlauncher
+      nbt-explorer # custom package
+      etcher # custom package, since it's not in repos anymore
+    ])
+    ++ (with pkgs.gnomeExtensions; [
+      advanced-alttab-window-switcher
+      appindicator
+      blur-my-shell
+      clipboard-history
+      focused-window-d-bus
+      impatience
+      steal-my-focus-window
+      tiling-assistant
+    ]);
+
   # garbage collect for home-manager generations
   nix.gc = {
     automatic = true;
