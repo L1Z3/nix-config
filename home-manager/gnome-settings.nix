@@ -5,6 +5,27 @@
   ...
 }: let
   autostartPrograms = with pkgs; [vesktop telegram-desktop firefox];
+
+  customKeybinds = [
+    {
+      name = "Gnome Console";
+      command = "kgx";
+      binding = "<Control><Alt>t";
+    }
+  ];
+
+  # gnome extensions to install and enable
+  extensions = with pkgs.gnomeExtensions; [
+    advanced-alttab-window-switcher
+    appindicator
+    blur-my-shell
+    clipboard-history
+    focused-window-d-bus
+    impatience
+    steal-my-focus-window
+    tiling-assistant
+  ];
+
   deckIP = "192.168.1.36";
   nautilusBookmarks = [
     "file:///home/liz/Classes/Semester%2006.5 Semester 06.5"
@@ -23,29 +44,13 @@
     "sftp://REDACTED@REDACTED/ifs/CS/replicated/home/REDACTED/mc_servers/fod fod mc server"
     "sftp://deck@${deckIP}/home/deck/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/instances Deck MC Instances"
   ];
-  customKeybinds = [
-    {
-      name = "Gnome Console";
-      command = "kgx";
-      binding = "<Control><Alt>t";
-    }
-  ];
+
   # gnome-related packages
   packages = with pkgs; [
     adw-gtk3
     gnome.dconf-editor
   ];
-  # gnome extensions to install and enable
-  extensions = with pkgs.gnomeExtensions; [
-    advanced-alttab-window-switcher
-    appindicator
-    blur-my-shell
-    clipboard-history
-    focused-window-d-bus
-    impatience
-    steal-my-focus-window
-    tiling-assistant
-  ];
+
   customDconf = {
     # below here is all other custom dconf entries
 
