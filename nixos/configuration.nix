@@ -27,6 +27,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
   # boot.loader.grub.useOSProber = true;
 
+  # switching to latest kernel temporaily until LTS goes past 6.9 (to fix HP Envy speakers)
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
