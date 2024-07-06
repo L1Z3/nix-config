@@ -95,9 +95,13 @@ with lib.hm.gvariant; {
       show-create-link = true;
     };
 
-    "org/gnome/shell" = {
-      disable-user-extensions = false;
-      enabled-extensions = ["force-show-osk@bruh.ltd" "focus-my-window@varianto25.com" "noannoyance@sindex.com" "background-logo@fedorahosted.org" "openweather-extension@jenslody.de" "emoji-selector@maestroschan.fr" "noannoyance@daase.net" "drive-menu@gnome-shell-extensions.gcampax.github.com" "improvedosk@nick-shmyrev.dev" "auto-move-windows@gnome-shell-extensions.gcampax.github.com" "smart-auto-move@khimaros.com" "clipboard-history@alexsaveau.dev" "blur-my-shell@aunetx" "focused-window-dbus@flexagoon.com" "tiling-assistant@leleat-on-github" "window-calls-extended@hseliger.eu" "appindicatorsupport@rgcjonas.gmail.com" "steal-my-focus-window@steal-my-focus-window" "advanced-alt-tab@G-dH.github.com" "impatience@gfxmonk.net"];
+    # "org/gnome/shell" = {
+    #   disable-user-extensions = false;
+    #   enabled-extensions = ["force-show-osk@bruh.ltd" "focus-my-window@varianto25.com" "noannoyance@sindex.com" "background-logo@fedorahosted.org" "openweather-extension@jenslody.de" "emoji-selector@maestroschan.fr" "noannoyance@daase.net" "drive-menu@gnome-shell-extensions.gcampax.github.com" "improvedosk@nick-shmyrev.dev" "auto-move-windows@gnome-shell-extensions.gcampax.github.com" "smart-auto-move@khimaros.com" "clipboard-history@alexsaveau.dev" "blur-my-shell@aunetx" "focused-window-dbus@flexagoon.com" "tiling-assistant@leleat-on-github" "window-calls-extended@hseliger.eu" "appindicatorsupport@rgcjonas.gmail.com" "steal-my-focus-window@steal-my-focus-window" "advanced-alt-tab@G-dH.github.com" "impatience@gfxmonk.net"];
+    # };
+
+    "org/gnome/shell/extensions/net/gfxmonk/impatience" = {
+      speed-factor = 0.5;
     };
 
     "org/gnome/shell/app-switcher" = {
