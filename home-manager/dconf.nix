@@ -5,6 +5,24 @@
   ...
 }:
 with lib.hm.gvariant; {
+  gtk.gtk3.bookmarks = [
+    "file:///home/liz/Classes/Semester%2006.5 Semester 06.5"
+    "file:///home/liz/.var/app Flatpak Data"
+    "file:///home/liz/Applications Applications"
+    "file:///home/liz/Documents"
+    "file:///home/liz/Pictures"
+    "file:///home/liz/Videos"
+    "file:///home/liz/Downloads"
+    "file:///home/liz/.local/share/icons icons"
+    "sftp://deck@192.168.1.36/home/deck Deck Home Folder"
+    "sftp://deck@192.168.1.36/run/media/mmcblk0p1 Deck SD Card"
+    "sftp://deck@192.168.1.36/home/deck/.steam/steam/steamapps/common/Celeste Celeste Install Folder"
+    "sftp://deck@192.168.1.36/home/deck/.steam/steam/userdata/REDACTED/760/remote/504230/screenshots Celeste Screenshots Folder"
+    "sftp://deck@192.168.1.36/home/deck/.local/share/Celeste Celeste Saves Folder"
+    "sftp://REDACTED@REDACTED/ifs/CS/replicated/home/REDACTED/mc_servers/fod fod mc server"
+    "sftp://deck@192.168.1.36/home/deck/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/instances Deck MC Instances"
+  ];
+
   dconf.settings = {
     # set gnome background to blobs
     "org/gnome/desktop/background" = {
