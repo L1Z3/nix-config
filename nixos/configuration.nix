@@ -180,6 +180,14 @@
       enable = true;
       libraries = with pkgs; [
         libz
+        stdenv.cc.cc
+        zlib
+        fuse3
+        icu
+        nss
+        openssl
+        curl
+        expat
       ];
     };
   };
