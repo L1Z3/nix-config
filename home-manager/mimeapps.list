@@ -149,6 +149,7 @@ audio/x-it=vlc.desktop
 audio/x-mod=vlc.desktop
 audio/x-s3m=vlc.desktop
 audio/x-xm=vlc.desktop
+x-scheme-handler/everest=/home/liz/.local/share/applications/Olympus.desktop
 
 [Added Associations]
 application/x-desktop=sublime_text.desktop;

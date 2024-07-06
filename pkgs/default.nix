@@ -6,4 +6,5 @@ pkgs: {
   etcher = pkgs.callPackage ./etcher.nix {};
   notion-app-enhanced = pkgs.callPackage ./notion-app-enhanced {};
   awatcher = pkgs.callPackage ./awatcher {};
+  olympus = pkgs.callPackage ./olympus/package.nix {};
 }
