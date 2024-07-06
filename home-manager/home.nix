@@ -91,6 +91,13 @@
       userName = "Elizabeth Jones";
       userEmail = "10276179+L1Z3@users.noreply.github.com";
     };
+    htop = {
+      enable = true;
+      # settings = {
+      #   hide_kernel_threads = 1;
+      #   hide_userland_thread = 1;
+      # };
+    };
   };
 
   # Add stuff for your user as you see fit:
