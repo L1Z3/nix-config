@@ -221,6 +221,8 @@
       Description = "Duplicacy";
     };
     Service = {
+      Type = "simple";
+      WorkingDirectory = "${pkgs.duplicacy-web}/bin";
       ExecStart = "${pkgs.duplicacy-web}/bin/duplicacy_web -background";
       Restart = "on-failure";
     };
