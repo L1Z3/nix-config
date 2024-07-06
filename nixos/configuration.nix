@@ -215,6 +215,12 @@
     };
   };
 
+  # fix HP Envy autorotate causing airplane mode
+  services.udev.extraHwdb = ''
+    evdev:input:b0019v0000p0000e0000-*
+      KEYBOARD_KEY_08=unknown
+  '';
+
   # enable swap
   # swapDevices = [ {
   #   device = "/swapfile";
