@@ -229,11 +229,30 @@
     };
   };
 
+  # enable magic sysrq
+  boot.kernel.sysctl."kernel.sysrq" = 1;
+
   # fix HP Envy autorotate causing airplane mode
   services.udev.extraHwdb = ''
     evdev:input:b0019v0000p0000e0000-*
       KEYBOARD_KEY_08=unknown
   '';
+
+  # earlyoom to prevent freezes (better than oomd in my experience)
+  systemd.oomd.enable = false;
+  services.earlyoom = {
+    enable = true;
+    freeMemThreshold = 8;
+    freeMemKillThreshold = 4;
+    freeSwapThreshold = 4;
+    freeSwapKillThreshold = 2;
+    enableNotifications = true;
+    extraArgs = [
+      "-r 0" # no periodic memory logging; change to 1 to print memory left once per sec
+      "--prefer '^(spotify|Web Content|Isolated Web Co)$'"
+      "--avoid '^(home-manager|nixos-rebuild|duplicacy|duplicati|rsync|packagekitd|gnome-shell|gnome-session-c|gnome-session-b|lightdm|sddm|sddm-helper|gdm|gdm-wayland-ses|gdm-session-wor|gdm-x-session|Xorg|Xwayland|systemd|systemd-logind|dbus-daemon|dbus-broker|cinnamon|cinnamon-sessio|kwin_x11|kwin_wayland|plasmashell|ksmserver|plasma_session|startplasma-way|sway|i3|xfce4-session|mate-session|marco|lxqt-session|openbox|cryptsetup)$'"
+    ];
+  };
 
   # enable swap
   # swapDevices = [ {
