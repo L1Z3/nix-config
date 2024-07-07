@@ -63,7 +63,7 @@
     };
 
     # attempt to auto-save session
-    "org/gnome/SessionManager" = {
+    "org/gnome/gnome-session" = {
       auto-save-session = true;
     };
 
