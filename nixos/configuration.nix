@@ -182,7 +182,7 @@
         # libz
         # zlib
         fuse
-        fuse3
+        # fuse3
         # icu
         # nss
         # expat
