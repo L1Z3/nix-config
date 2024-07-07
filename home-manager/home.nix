@@ -94,6 +94,17 @@
       '';
       initExtra = ''
         # add .bashrc things here
+        # ssh to brown
+        sshb() {
+            #do things with parameters like $1 such as
+            if [ $# -eq 0 ]
+              then
+              ssh REDACTED@REDACTED
+              else
+              ssh -t REDACTED@REDACTED host="$1"
+            fi
+
+        }
       '';
     };
     git = {
