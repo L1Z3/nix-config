@@ -8,9 +8,8 @@
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
     # TODO find a way to move this to gnome-settings.nix
-    # TODO test and enable this
     # from https://discourse.nixos.org/t/gdm-background-image-and-theme/12632/10
-    # TODO also consider if this is worth it; it might make gnome updates painful since it has to recompile gnome
+    # TODO this will break in a future gnome update
     gnome = prev.gnome.overrideScope (selfg: superg: {
       gnome-shell = superg.gnome-shell.overrideAttrs (old: {
         patches =
@@ -25,11 +24,12 @@
               prev.pkgs.writeText "bg.patch" ''
                 --- a/data/theme/gnome-shell-sass/widgets/_login-lock.scss
                 +++ b/data/theme/gnome-shell-sass/widgets/_login-lock.scss
-                @@ -15,4 +15,5 @@ $_gdm_dialog_width: 23em;
+                @@ -15,4 +15,6 @@ $_gdm_dialog_width: 23em;
                  /* Login Dialog */
                  .login-dialog {
                    background-color: $_gdm_bg;
                 +  background-image: url('file://${prev.pkgs.gnome.gnome-backgrounds}/share/backgrounds/gnome/blobs-l.svg');
+                +  filter: blur(4px);
                  }
               '')
           ];
