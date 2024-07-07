@@ -21,10 +21,11 @@
     ./programs/syncplay
   ];
   # TODO list:
-  #    figure out how to set profile image for gnome user
-  #    setup virt-manager
-  #    setup jetbrains things
-  #
+  #   figure out how to set profile image for gnome user
+  #   setup virt-manager
+  #   make PRs for duplicacy-mount(?), notion-app-enhanced, and maybe after some effort making it clean, duplicacy-web
+  #   get repo in ready state for pushing to github (ensure no sensitive data, squash commit messages, etc)
+  #   fix telegram desktop tray icon
 
   nixpkgs = {
     # You can add overlays here
@@ -119,6 +120,7 @@
     dconf2nix
     unstable.yt-dlp
     frp
+    # htop, via programs/htop
 
     # browsers
     firefox
@@ -133,6 +135,7 @@
     unstable.jetbrains.rust-rover
     git-filter-repo
     unstable.gitkraken
+    # vscode, via programs/vscode
 
     # media
     spotify
@@ -142,6 +145,7 @@
     audacity
     gimp
     deluge
+    # syncplay, via programs/syncplay
 
     # system tools
     qpwgraph
@@ -150,6 +154,7 @@
     # TODO needs non-declarative configs due to sensitive data, try to find workaround
     duplicacy-web # custom package, since it was never merged into nixpkgs
     duplicacy-mount # my own custom package, since it's a fork
+    wireshark
 
     # messaging
     vesktop
@@ -159,6 +164,7 @@
     libreoffice
     notion-app-enhanced # custom package to fix issue (TODO upstream this)
     obsidian
+    xournalpp
 
     # game stuff
     unstable.prismlauncher

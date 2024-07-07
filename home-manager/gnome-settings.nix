@@ -6,6 +6,11 @@
 }: let
   autostartPrograms = with pkgs; [vesktop telegram-desktop firefox];
 
+  # TODO play with fonts
+  # fonts.fontconfig = {
+  #   enable = true;
+  # };
+
   customKeybinds = [
     {
       name = "Gnome Console";
@@ -24,6 +29,7 @@
     impatience
     steal-my-focus-window
     tiling-assistant
+    quick-settings-audio-panel # volume mixer in quick settings
   ];
 
   deckIP = "192.168.1.36";
@@ -51,6 +57,7 @@
   packages = with pkgs; [
     adw-gtk3
     gnome.dconf-editor
+    gnome.gnome-power-manager
   ];
 
   customDconf = {
@@ -59,6 +66,19 @@
     # enable the extensions specified above
     "org/gnome/shell" = {
       enabled-extensions = builtins.map (extension: extension.extensionUuid) extensions;
+    };
+
+    # attempt to auto-save session
+    # TODO doesn't work, find alternative
+    # TODO try https://github.com/nlpsuge/gnome-shell-extension-another-window-session-manager
+    # "org/gnome/gnome-session" = {
+    #   auto-save-session = true;
+    # };
+
+    # quick settings audio panel settings
+    "org/gnome/shell/extensions/quick-settings-audio-panel" = {
+      merge-panel = true;
+      panel-position = "bottom";
     };
 
     # set gnome background to blobs
