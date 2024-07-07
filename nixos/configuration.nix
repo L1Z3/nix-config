@@ -179,13 +179,13 @@
     nix-ld = {
       enable = true;
       libraries = with pkgs; [
-        # libz
-        # zlib
-        # fuse
-        # fuse3
-        # icu
-        # nss
-        # expat
+        libz
+        zlib
+        fuse
+        fuse3
+        icu
+        nss
+        expat
       ];
     };
     fuse = {
