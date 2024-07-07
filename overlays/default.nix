@@ -7,6 +7,31 @@
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
+    # TODO find a way to move this to gnome-settings.nix
+    # TODO test and enable this
+    # from https://discourse.nixos.org/t/gdm-background-image-and-theme/12632/10
+    # gnome = prev.gnome.overrideScope (selfg: superg: {
+    #       gnome-shell = superg.gnome-shell.overrideAttrs (old: {
+    #         patches = (old.patches or []) ++ [
+    #           (let
+    #             # bg = pkgs.fetchurl {
+    #             #   url = "https://orig00.deviantart.net/0054/f/2015/129/b/9/reflection_by_yuumei-d8sqdu2.jpg";
+    #             #   sha256 = "0f0vlmdj5wcsn20qg79ir5cmpmz5pysypw6a711dbaz2r9x1c79l";
+    #             # };
+    #           in prev.pkgs.writeText "bg.patch" ''
+    #             --- a/data/theme/gnome-shell-sass/widgets/_login-lock.scss
+    #             +++ b/data/theme/gnome-shell-sass/widgets/_login-lock.scss
+    #             @@ -15,4 +15,5 @@ $_gdm_dialog_width: 23em;
+    #              /* Login Dialog */
+    #              .login-dialog {
+    #                background-color: $_gdm_bg;
+    #             +  background-image: url('file://${prev.pkgs.gnome.gnome-backgrounds}/share/backgrounds/gnome/blobs-l.svg');
+    #              }
+    #           '')
+    #         ];
+    #       });
+    #     });
+
     # TODO clean this up once i figure out notion app stuff
     # notion-app-enhanced = prev.notion-app-enhanced.overrideAttrs (oldAttrs: rec {
     #   # pname = oldAttrs.pname;

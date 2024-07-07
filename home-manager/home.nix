@@ -19,7 +19,12 @@
     ./programs/vscode
     ./programs/htop
   ];
-  # TODO figure out how to set profile image for gnome user
+  # TODO list:
+  #    figure out how to set profile image for gnome user
+  #    setup virt-manager
+  #    setup jetbrains things
+  #
+
   nixpkgs = {
     # You can add overlays here
     overlays = [
@@ -121,6 +126,10 @@
     # editors and git stuff
     sublime4
     vim
+    unstable.jetbrains.pycharm-professional
+    unstable.jetbrains.idea-ultimate
+    unstable.jetbrains.clion
+    unstable.jetbrains.rust-rover
     git-filter-repo
     unstable.gitkraken
 
