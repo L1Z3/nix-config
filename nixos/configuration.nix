@@ -208,6 +208,10 @@
     curl
   ];
 
+  # allow spotify local discovery
+  networking.firewall.allowedTCPPorts = [57621];
+  networking.firewall.allowedUDPPorts = [5353];
+
   # enable kernel stuff for obs virtual camera
   # boot.extraModulePackages = with config.boot.kernelPackages; [v4l2loopback];
   # boot.kernelModules = [
