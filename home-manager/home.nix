@@ -19,7 +19,7 @@
     ./programs/vscode
     ./programs/htop
   ];
-
+  # TODO figure out how to set profile image for gnome user
   nixpkgs = {
     # You can add overlays here
     overlays = [
