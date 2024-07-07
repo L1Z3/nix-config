@@ -157,6 +157,7 @@
     gimp
     deluge
     # syncplay, via programs/syncplay
+    stremio
 
     # system tools
     qpwgraph
