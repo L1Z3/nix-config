@@ -3,7 +3,7 @@
   buildGoModule,
   fetchFromGitHub,
   fuse,
-  fuse3,
+  makeWrapper,
 }:
 buildGoModule rec {
   pname = "duplicacy-mount";
@@ -18,7 +18,14 @@ buildGoModule rec {
     hash = "sha256-Xjc5cJMy2/gJA/WHD+tzzzvjRIFqjr8XTCSfuhG94g4=";
   };
 
-  buildInputs = [fuse fuse3];
+  buildInputs = [fuse];
+
+  nativeBuildInputs = [makeWrapper];
+
+  preFixup = ''
+    wrapProgram $out/bin/${pname} \
+      --prefix LD_LIBRARY_PATH : "${lib.getLib fuse}/lib"
+  '';
 
   postInstall = ''
     mv $out/bin/duplicacy $out/bin/${pname}
