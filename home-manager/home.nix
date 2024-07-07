@@ -141,6 +141,7 @@
     audacity
     gimp
     deluge
+    syncplay
 
     # system tools
     qpwgraph
