@@ -229,6 +229,9 @@
     };
   };
 
+  # enable magic sysrq
+  boot.kernel.sysctl."kernel.sysrq" = 1;
+
   # fix HP Envy autorotate causing airplane mode
   services.udev.extraHwdb = ''
     evdev:input:b0019v0000p0000e0000-*
