@@ -180,15 +180,16 @@
       enable = true;
       libraries = with pkgs; [
         libz
-        stdenv.cc.cc
         zlib
+        fuse
         fuse3
         icu
         nss
-        openssl
-        curl
         expat
       ];
+    };
+    fuse = {
+      userAllowOther = true;
     };
   };
   hardware.steam-hardware.enable = true;
