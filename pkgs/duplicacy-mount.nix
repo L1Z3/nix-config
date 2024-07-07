@@ -3,6 +3,7 @@
   buildGoModule,
   fetchFromGitHub,
   fuse,
+  fuse3,
 }:
 buildGoModule rec {
   pname = "duplicacy-mount";
@@ -17,7 +18,7 @@ buildGoModule rec {
     hash = "sha256-Xjc5cJMy2/gJA/WHD+tzzzvjRIFqjr8XTCSfuhG94g4=";
   };
 
-  buildInputs = [fuse];
+  buildInputs = [fuse fuse3];
 
   postInstall = ''
     mv $out/bin/duplicacy $out/bin/${pname}
