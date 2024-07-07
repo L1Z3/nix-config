@@ -62,6 +62,12 @@
       enabled-extensions = builtins.map (extension: extension.extensionUuid) extensions;
     };
 
+    # quick settings audio panel settings
+    "org/gnome/shell/extensions/quick-settings-audio-panel" = {
+      merge-panel = true;
+      panel-position = "bottom";
+    };
+
     # set gnome background to blobs
     "org/gnome/desktop/background" = {
       color-shading-type = "solid";
