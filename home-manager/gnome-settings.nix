@@ -24,6 +24,7 @@
     impatience
     steal-my-focus-window
     tiling-assistant
+    quick-settings-audio-panel # volume mixer in quick settings
   ];
 
   deckIP = "192.168.1.36";
