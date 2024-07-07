@@ -120,6 +120,7 @@
     dconf2nix
     unstable.yt-dlp
     frp
+    # htop, via programs/htop
 
     # browsers
     firefox
@@ -134,6 +135,7 @@
     unstable.jetbrains.rust-rover
     git-filter-repo
     unstable.gitkraken
+    # vscode, via programs/vscode
 
     # media
     spotify
@@ -143,6 +145,7 @@
     audacity
     gimp
     deluge
+    # syncplay, via programs/syncplay
 
     # system tools
     qpwgraph
@@ -151,6 +154,7 @@
     # TODO needs non-declarative configs due to sensitive data, try to find workaround
     duplicacy-web # custom package, since it was never merged into nixpkgs
     duplicacy-mount # my own custom package, since it's a fork
+    wireshark
 
     # messaging
     vesktop
