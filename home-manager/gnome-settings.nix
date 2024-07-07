@@ -6,6 +6,8 @@
 }: let
   autostartPrograms = with pkgs; [vesktop telegram-desktop firefox];
 
+  # TODO figure out what thing caused the dots in the gnome dash that indicate open apps to appear on top of the apps
+
   # TODO play with fonts
   # fonts.fontconfig = {
   #   enable = true;
@@ -20,6 +22,7 @@
   ];
 
   # gnome extensions to install and enable
+  # TODO it'd be cool to have some custom machinery that lets me edit the settings adjacent to each extension
   extensions = with pkgs.gnomeExtensions; [
     advanced-alttab-window-switcher
     appindicator
@@ -30,6 +33,8 @@
     steal-my-focus-window
     tiling-assistant
     quick-settings-audio-panel # volume mixer in quick settings
+    custom-accent-colors # yippee :)
+    user-themes
   ];
 
   deckIP = "192.168.1.36";
@@ -43,7 +48,7 @@
     "file://${config.home.homeDirectory}/Pictures"
     "file://${config.home.homeDirectory}/Videos"
     "file://${config.home.homeDirectory}/Downloads"
-    "file://${config.home.homeDirectory}/.local/share/icons icons"
+    # "file://${config.home.homeDirectory}/.local/share/icons icons"
     "sftp://deck@${deckIP}/home/deck Deck Home Folder"
     "sftp://deck@${deckIP}/run/media/mmcblk0p1 Deck SD Card"
     "sftp://deck@${deckIP}/home/deck/.steam/steam/steamapps/common/Celeste Celeste Install Folder"
@@ -58,6 +63,8 @@
     adw-gtk3
     gnome.dconf-editor
     gnome.gnome-power-manager
+    gnome.gnome-themes-extra
+    gnome.gnome-tweaks
   ];
 
   customDconf = {
@@ -74,6 +81,27 @@
     # "org/gnome/gnome-session" = {
     #   auto-save-session = true;
     # };
+
+    "org/gnome/shell/extensions/user-theme" = {
+      name = "Custom-Accent-Colors";
+    };
+
+    # custom accent colors
+    "org/gnome/shell/extensions/custom-accent-colors" = {
+      # options:
+      # default (blue, no option set), green, yellow, orange, red, pink, purple, brown
+      accent-color = "pink";
+      theme-shell = true;
+      theme-gtk3 = true;
+      theme-flatpak = true;
+    };
+
+    # fix dark mode in gtk3 apps
+    # (alternative to setting this dconf option is home-manager gtk.theme option but that conflicts with custom accent colors)
+    # requires pkgs.gnome.gnome-themes-extra
+    "org/gnome/desktop/interface" = {
+      gtk-theme = "Adwaita-dark";
+    };
 
     # quick settings audio panel settings
     "org/gnome/shell/extensions/quick-settings-audio-panel" = {
@@ -95,12 +123,6 @@
       enable-hot-corners = false;
       show-battery-percentage = true;
     };
-
-    # fix dark mode in gtk3 apps
-    # "org/gnome/desktop/interface" = {
-    #   color-scheme = "prefer-dark";
-    #   gtk-theme = "adw-gtk3-dark";
-    # };
 
     # caps lock backspace remap, plus double shift to caps lock
     "org/gnome/desktop/input-sources" = {
@@ -151,6 +173,16 @@
       unmaximize = [];
     };
 
+    "org/gnome/shell/keybindings" = {
+      switch-to-application-1 = [];
+      switch-to-application-2 = [];
+      switch-to-application-3 = [];
+      switch-to-application-4 = [];
+      toggle-application-view = [];
+      toggle-overview = [];
+      toggle-quick-settings = ["<Control><Super>s"];
+    };
+
     "org/gnome/desktop/wm/preferences" = {
       button-layout = "appmenu:minimize,maximize,close";
       num-workspaces = 4;
@@ -193,16 +225,6 @@
       next-entry = ["<Super>period"];
       prev-entry = ["<Super>comma"];
       window-width-percentage = 20;
-    };
-
-    "org/gnome/shell/keybindings" = {
-      switch-to-application-1 = [];
-      switch-to-application-2 = [];
-      switch-to-application-3 = [];
-      switch-to-application-4 = [];
-      toggle-application-view = [];
-      toggle-overview = [];
-      toggle-quick-settings = [];
     };
 
     "org/gnome/shell/overrides" = {

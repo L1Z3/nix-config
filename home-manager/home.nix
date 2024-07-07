@@ -157,6 +157,7 @@
     gimp
     deluge
     # syncplay, via programs/syncplay
+    stremio
 
     # system tools
     qpwgraph
@@ -197,13 +198,17 @@
     "openssl-1.1.1w" # for sublime
   ];
 
-  # gnome dark theme for gtk apps
   gtk = {
     enable = true;
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome.gnome-themes-extra;
-    };
+    # gnome dark theme for gtk apps
+    # disabled in favor of dconf since this setting causes color accents extension to fail
+    # theme = {
+    #   name = "Adwaita-dark";
+    #   package = pkgs.gnome.gnome-themes-extra;
+    # };
+    # idk if this is necessary, but a line like this was in settings.ini before i did gtk.enable
+    gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+    gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
   };
 
   # Extra variables to add to PATH
