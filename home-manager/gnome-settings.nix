@@ -57,6 +57,7 @@
   packages = with pkgs; [
     adw-gtk3
     gnome.dconf-editor
+    gnome.gnome-power-manager
   ];
 
   customDconf = {
