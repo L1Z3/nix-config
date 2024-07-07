@@ -62,6 +62,11 @@
       enabled-extensions = builtins.map (extension: extension.extensionUuid) extensions;
     };
 
+    # attempt to auto-save session
+    "org/gnome/SessionManager" = {
+      auto-save-session = true;
+    };
+
     # quick settings audio panel settings
     "org/gnome/shell/extensions/quick-settings-audio-panel" = {
       merge-panel = true;
