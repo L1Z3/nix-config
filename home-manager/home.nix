@@ -18,6 +18,7 @@
     ./gnome-settings.nix
     ./programs/vscode
     ./programs/htop
+    ./programs/syncplay
   ];
   # TODO list:
   #    figure out how to set profile image for gnome user
