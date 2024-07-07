@@ -151,6 +151,16 @@
       unmaximize = [];
     };
 
+    "org/gnome/shell/keybindings" = {
+      switch-to-application-1 = [];
+      switch-to-application-2 = [];
+      switch-to-application-3 = [];
+      switch-to-application-4 = [];
+      toggle-application-view = [];
+      toggle-overview = [];
+      toggle-quick-settings = ["<Control><Super>s"];
+    };
+
     "org/gnome/desktop/wm/preferences" = {
       button-layout = "appmenu:minimize,maximize,close";
       num-workspaces = 4;
@@ -193,16 +203,6 @@
       next-entry = ["<Super>period"];
       prev-entry = ["<Super>comma"];
       window-width-percentage = 20;
-    };
-
-    "org/gnome/shell/keybindings" = {
-      switch-to-application-1 = [];
-      switch-to-application-2 = [];
-      switch-to-application-3 = [];
-      switch-to-application-4 = [];
-      toggle-application-view = [];
-      toggle-overview = [];
-      toggle-quick-settings = [];
     };
 
     "org/gnome/shell/overrides" = {
