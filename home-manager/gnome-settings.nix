@@ -63,9 +63,11 @@
     };
 
     # attempt to auto-save session
-    "org/gnome/gnome-session" = {
-      auto-save-session = true;
-    };
+    # TODO doesn't work, find alternative
+    # TODO try https://github.com/nlpsuge/gnome-shell-extension-another-window-session-manager
+    # "org/gnome/gnome-session" = {
+    #   auto-save-session = true;
+    # };
 
     # quick settings audio panel settings
     "org/gnome/shell/extensions/quick-settings-audio-panel" = {
