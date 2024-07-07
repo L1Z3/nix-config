@@ -208,6 +208,12 @@
     curl
   ];
 
+  # enable kernel stuff for obs virtual camera
+  boot.extraModulePackages = with config.boot.kernelPackages; [v4l2loopback];
+  boot.kernelModules = [
+    "v4l2loopback"
+  ];
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
