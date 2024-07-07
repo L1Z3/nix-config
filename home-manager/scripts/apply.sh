@@ -25,6 +25,7 @@ apply-home () {
     else
         exit 1
     fi
+    # TODO only show diff if this command created a new generation
     echo_pink "Package changes in new home generation ($(get_home_gen_id)):"
     nix store diff-closures $(ls -t1d $HOME/.local/state/nix/profiles/home-manager-*-link | head -2 | tac)
     echo -e "\n"
@@ -37,6 +38,7 @@ apply-system () {
     else
         exit 1
     fi
+    # TODO only show diff if this command created a new generation
     echo_pink "Package changes in new system generation ($(get_sys_gen_id)):"
     nix store diff-closures $(ls -t1d /nix/var/nix/profiles/system-*-link | head -2 | tac)
     echo -e "\n"
@@ -45,7 +47,8 @@ apply-system () {
 alejandra . &>/dev/null \
     || ( alejandra . ; echo "formatting failed!" && exit 1)
 
-# Shows your changes
+# Shows your changes 
+# TODO make this work
 git diff -U0 '*.(nix|sh)'
 
 case $1 in
