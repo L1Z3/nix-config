@@ -6,6 +6,11 @@
 }: let
   autostartPrograms = with pkgs; [vesktop telegram-desktop firefox];
 
+  # TODO play with fonts
+  # fonts.fontconfig = {
+  #   enable = true;
+  # };
+
   customKeybinds = [
     {
       name = "Gnome Console";

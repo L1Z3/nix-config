@@ -25,7 +25,7 @@
   #   setup virt-manager
   #   make PRs for duplicacy-mount(?), notion-app-enhanced, and maybe after some effort making it clean, duplicacy-web
   #   get repo in ready state for pushing to github (ensure no sensitive data, squash commit messages, etc)
-  #   fix obs virtual cam
+  #   fix telegram desktop tray icon
 
   nixpkgs = {
     # You can add overlays here
@@ -164,6 +164,7 @@
     libreoffice
     notion-app-enhanced # custom package to fix issue (TODO upstream this)
     obsidian
+    xournalpp
 
     # game stuff
     unstable.prismlauncher
