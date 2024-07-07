@@ -88,12 +88,24 @@
         nix-cleanup-aggressive = "sudo nix-collect-garbage --delete-older-than 1d";
         nix-cleanup-relaxed = "sudo nix-collect-garbage --delete-older-than 30d";
         duplicacy-do-mount = "mkdir -p ${config.home.homeDirectory}/mnt/duplicacy-backup/ && ${pkgs.duplicacy-mount}/bin/duplicacy-mount mount-storage b2://duplicacy-jones1167 ${config.home.homeDirectory}/mnt/duplicacy-backup/ -e -flat";
+        "home apply" = "apply home";
       };
       profileExtra = ''
         # add .profile things here
       '';
       initExtra = ''
         # add .bashrc things here
+        # ssh to brown
+        sshb() {
+            #do things with parameters like $1 such as
+            if [ $# -eq 0 ]
+              then
+              ssh REDACTED@REDACTED
+              else
+              ssh -t REDACTED@REDACTED host="$1"
+            fi
+
+        }
       '';
     };
     git = {
