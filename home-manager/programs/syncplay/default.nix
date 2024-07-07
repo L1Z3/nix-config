@@ -7,7 +7,7 @@
   pathToHere = "${config.home.homeDirectory}/nix/home-manager/programs/syncplay";
 in {
   home.packages = with pkgs; [
-    syncplay
+    unstable.syncplay
   ];
 
   xdg.configFile = {
