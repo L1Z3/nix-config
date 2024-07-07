@@ -10,6 +10,7 @@
     # TODO find a way to move this to gnome-settings.nix
     # TODO test and enable this
     # from https://discourse.nixos.org/t/gdm-background-image-and-theme/12632/10
+    # TODO also consider if this is worth it; it might make gnome updates painful since it has to recompile gnome
     gnome = prev.gnome.overrideScope (selfg: superg: {
       gnome-shell = superg.gnome-shell.overrideAttrs (old: {
         patches =

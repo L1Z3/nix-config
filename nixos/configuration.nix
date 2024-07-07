@@ -5,6 +5,7 @@
   lib,
   config,
   pkgs,
+  outputs,
   ...
 }: {
   # You can import other NixOS modules here
@@ -98,6 +99,9 @@
     overlays = [
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
+      outputs.overlays.additions
+      outputs.overlays.modifications
+      outputs.overlays.unstable-packages
 
       # Or define it inline, for example:
       # (final: prev: {
