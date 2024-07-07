@@ -20,8 +20,8 @@ buildGoModule rec {
 
   buildInputs = [fuse];
 
+  # the amount of pain it took me to track down what was going wrong and how to fix it...
   nativeBuildInputs = [makeWrapper];
-
   preFixup = ''
     wrapProgram $out/bin/${pname} \
       --prefix LD_LIBRARY_PATH : "${lib.getLib fuse}/lib"
