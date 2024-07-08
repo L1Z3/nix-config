@@ -162,7 +162,7 @@
         # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
       ];
       # Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
-      extraGroups = ["networkmanager" "wheel" "ydotool"];
+      extraGroups = ["networkmanager" "wheel" "ydotool" "libvirtd" "qemu-libvirtd" "kvm"];
     };
   };
 
@@ -203,6 +203,11 @@
     };
   };
   hardware.steam-hardware.enable = true;
+
+  # enable virtual-manager
+  # (vm configs stored in /var/lib/libvirt/qemu/)
+  programs.virt-manager.enable = true;
+  virtualisation.libvirtd.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
