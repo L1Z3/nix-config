@@ -79,6 +79,10 @@
     #   auto-save-session = true;
     # };
 
+    "org/gnome/shell/extensions/user-theme" = {
+      name = "Custom-Accent-Colors";
+    };
+
     # custom accent colors
     "org/gnome/shell/extensions/custom-accent-colors" = {
       accent-color = "pink";
