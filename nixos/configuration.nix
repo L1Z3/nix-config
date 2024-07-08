@@ -201,6 +201,7 @@
       enable = true;
       # group = "wheel"; # not available in stable yet, so i have to add myself to ydotool group
     };
+    virt-manager.enable = true;
   };
   hardware.steam-hardware.enable = true;
 
