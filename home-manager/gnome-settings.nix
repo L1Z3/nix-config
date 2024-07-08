@@ -84,6 +84,9 @@
 
     "org/gnome/shell/extensions/smart-auto-move" = {
       activate-workspace = false;
+      overides = ''
+        '{"firefox":[{"query":{"title":"New Tab — Mozilla Firefox"},"action":0}]}'
+      '';
     };
 
     "org/gnome/shell/extensions/another-window-session-manager" = {
