@@ -57,6 +57,11 @@
     username = "liz";
     homeDirectory = "/home/liz";
   };
+  # set user icon
+  # requires that /var/lib/AccountsService/users/$USER has Icon field pointing to $HOME/.face (which is default)
+  # (if user icon was previously set by gnome gui, the Icon field will be set to /var/lib/AccountsService/icons/$USER; in this case
+  # delete the file or change the Icon field in /var/lib/AccountsService/users/$USER to point to $HOME/.face)
+  home.file.".face".source = ../media/madeline.jpg;
 
   # The general thing seems to be that if you want home-manager to manage
   # a program's config, use it as`programs.whatever` or `services.whatever`.
