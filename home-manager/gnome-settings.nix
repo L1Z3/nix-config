@@ -34,11 +34,11 @@
       steal-my-focus-window
       tiling-assistant
       quick-settings-audio-panel # volume mixer in quick settings
-      custom-accent-colors # yippee :)
       user-themes
       easyeffects-preset-selector
     ]
     ++ (with pkgs.unstable.gnomeExtensions; [
+      custom-accent-colors # yippee :)
       another-window-session-manager # auto-save session
     ]);
 
