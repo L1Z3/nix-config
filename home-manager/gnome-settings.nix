@@ -61,7 +61,7 @@
     adw-gtk3
     gnome.dconf-editor
     gnome.gnome-power-manager
-    gnome.gnome-tweaks
+    # gnome.gnome-tweaks # conflicts with some files needed for extensions due to nix store linking stuff i think
   ];
 
   customDconf = {
