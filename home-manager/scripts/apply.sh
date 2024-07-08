@@ -21,7 +21,7 @@ get_sys_gen_id () {
 apply-home () {
     echo_pink "Running home-manager switch..."
     if home-manager switch --flake .#$USER@$HOSTNAME ${@:2} ; then
-        git add ./home-manager ./flake.nix ./flake.lock ./pkgs ./overlays ./media
+        git add ./home-manager ./flake.nix ./flake.lock ./pkgs ./overlays ./media ./secret
     else
         exit 1
     fi
@@ -34,7 +34,7 @@ apply-home () {
 apply-system () {
     echo_pink "Running  nixos-rebuild switch..."
     if sudo nixos-rebuild switch --flake .#$HOSTNAME ${@:2} ; then
-        git add ./nixos ./flake.nix ./flake.lock ./pkgs ./overlays ./media
+        git add ./nixos ./flake.nix ./flake.lock ./pkgs ./overlays ./media ./secret
     else
         exit 1
     fi
@@ -74,5 +74,8 @@ nixos_version=$(echo "$system_gen" | jq -r '.nixosVersion')
 commit_message="home: id $home_gen_id; system: id $system_gen_id, nixos $nixos_version"
 
 git commit -m "$commit_message"
+
+# copy changes to clean directory
+rsync -r --exclude="secret" --exclude=".git" --quiet ~/nix/* ~/nix_cleaned
 
 popd
