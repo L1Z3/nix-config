@@ -22,6 +22,8 @@
   ];
   # TODO list:
   #   make PRs for duplicacy-mount(?), notion-app-enhanced, and maybe after some effort making it clean, duplicacy-web
+  #   try my hand at packaging virtualhere and making a PR for it
+  #   try out fancy riced terminal setups
   #   get repo in ready state for pushing to github (ensure no sensitive data, squash commit messages, etc)
   #   fix telegram desktop tray icon
   #   fix macos vm
