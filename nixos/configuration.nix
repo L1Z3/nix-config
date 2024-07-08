@@ -205,6 +205,7 @@
   hardware.steam-hardware.enable = true;
 
   # enable virtual-manager
+  # (vm configs stored in /var/lib/libvirt/qemu/)
   programs.virt-manager.enable = true;
   virtualisation.libvirtd.enable = true;
 

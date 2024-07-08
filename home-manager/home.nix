@@ -21,11 +21,10 @@
     ./programs/syncplay
   ];
   # TODO list:
-  #   figure out how to set profile image for gnome user
-  #   setup virt-manager
   #   make PRs for duplicacy-mount(?), notion-app-enhanced, and maybe after some effort making it clean, duplicacy-web
   #   get repo in ready state for pushing to github (ensure no sensitive data, squash commit messages, etc)
   #   fix telegram desktop tray icon
+  #   fix macos vm
 
   nixpkgs = {
     # You can add overlays here
@@ -61,6 +60,7 @@
   # requires that /var/lib/AccountsService/users/$USER has Icon field pointing to $HOME/.face (which is default)
   # (if user icon was previously set by gnome gui, the Icon field will be set to /var/lib/AccountsService/icons/$USER; in this case
   # delete the file or change the Icon field in /var/lib/AccountsService/users/$USER to point to $HOME/.face)
+  # also, this requires users.${user}.homeMode to be at least 711 so gdm can access this file
   home.file.".face".source = ../media/madeline.jpg;
 
   # The general thing seems to be that if you want home-manager to manage
