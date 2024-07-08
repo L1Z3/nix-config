@@ -34,11 +34,13 @@
       steal-my-focus-window
       tiling-assistant
       quick-settings-audio-panel # volume mixer in quick settings
-      custom-accent-colors # yippee :)
       user-themes
       easyeffects-preset-selector
+      # TODO add script to delete saved windows on monitor config change (or better yet, make PR to fix behavior)
+      smart-auto-move
     ]
     ++ (with pkgs.unstable.gnomeExtensions; [
+      custom-accent-colors # yippee :)
       another-window-session-manager # auto-save session
     ]);
 
@@ -80,12 +82,22 @@
       enabled-extensions = builtins.map (extension: extension.extensionUuid) extensions;
     };
 
-    # attempt to auto-save session
-    # TODO doesn't work, find alternative
-    # TODO try https://github.com/nlpsuge/gnome-shell-extension-another-window-session-manager
-    # "org/gnome/gnome-session" = {
-    #   auto-save-session = true;
-    # };
+    "org/gnome/shell/extensions/smart-auto-move" = {
+      activate-workspace = false;
+      overides = ''
+        '{"firefox":[{"query":{"title":"New Tab — Mozilla Firefox"},"action":0}]}'
+      '';
+    };
+
+    "org/gnome/shell/extensions/another-window-session-manager" = {
+      enable-restore-previous-session = true;
+      enable-autoclose-session = true;
+      # custom window rules for automatic closing, needs ydotool
+      close-window-rules = ''
+        '{"/home/liz/.nix-profile/share/applications/firefox.desktop":{"type":"shortcut","value":{"1":{"shortcut":"Ctrl+Q","order":1,"keyval":113,"keycode":24,"state":4},"2":{"shortcut":"Space","order":2,"keyval":32,"keycode":65,"state":0},"3":{"shortcut":"Space","order":3,"keyval":32,"keycode":65,"state":0},"4":{"shortcut":"Space","order":4,"keyval":32,"keycode":65,"state":0},"5":{"shortcut":"Space","order":5,"keyval":32,"keycode":65,"state":0},"6":{"shortcut":"Space","order":6,"keyval":32,"keycode":65,"state":0},"7":{"shortcut":"Space","order":7,"keyval":32,"keycode":65,"state":0},"8":{"shortcut":"Space","order":8,"keyval":32,"keycode":65,"state":0},"9":{"shortcut":"Space","order":9,"keyval":32,"keycode":65,"state":0},"10":{"shortcut":"Space","order":10,"keyval":32,"keycode":65,"state":0},"11":{"shortcut":"Space","order":11,"keyval":32,"keycode":65,"state":0},"12":{"shortcut":"Space","order":12,"keyval":32,"keycode":65,"state":0}},"enabled":true,"appId":"firefox.desktop","appDesktopFilePath":"/home/liz/.nix-profile/share/applications/firefox.desktop","appName":"Firefox","keyDelay":1},"/run/current-system/sw/share/applications/org.gnome.Console.desktop":{"type":"shortcut","value":{"1":{"shortcut":"Shift+Ctrl+W","order":1,"keyval":87,"keycode":25,"state":5},"2":{"shortcut":"Right","order":2,"keyval":65363,"keycode":114,"state":0},"3":{"shortcut":"Right","order":3,"keyval":65363,"keycode":114,"state":0},"4":{"shortcut":"Right","order":4,"keyval":65363,"keycode":114,"state":0},"5":{"shortcut":"Right","order":5,"keyval":65363,"keycode":114,"state":0},"6":{"shortcut":"Right","order":6,"keyval":65363,"keycode":114,"state":0},"7":{"shortcut":"Space","order":7,"keyval":32,"keycode":65,"state":0},"8":{"shortcut":"Space","order":8,"keyval":32,"keycode":65,"state":0},"9":{"shortcut":"Space","order":9,"keyval":32,"keycode":65,"state":0},"10":{"shortcut":"Space","order":10,"keyval":32,"keycode":65,"state":0}},"enabled":true,"appId":"org.gnome.Console.desktop","appDesktopFilePath":"/run/current-system/sw/share/applications/org.gnome.Console.desktop","appName":"Console","keyDelay":0}}'
+      '';
+      restore-previous-delay = 5;
+    };
 
     "org/gnome/shell/extensions/user-theme" = {
       name = "Custom-Accent-Colors";

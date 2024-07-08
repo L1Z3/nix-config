@@ -160,7 +160,7 @@
         # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
       ];
       # Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
-      extraGroups = ["networkmanager" "wheel"];
+      extraGroups = ["networkmanager" "wheel" "ydotool"];
     };
   };
 
@@ -194,6 +194,10 @@
     };
     fuse = {
       userAllowOther = true;
+    };
+    ydotool = {
+      enable = true;
+      # group = "wheel"; # not available in stable yet, so i have to add myself to ydotool group
     };
   };
   hardware.steam-hardware.enable = true;
