@@ -317,8 +317,22 @@ in
           }
           else {
             # Application does *not* have a desktopItem entry. Try to find a
-            # matching .desktop name in /share/apaplications
-            source = pkg + "/share/applications/" + pkg.pname + ".desktop";
+            # matching .desktop name in /share/applications
+            source = with builtins; let
+              appsPath = "${pkg}/share/applications";
+              attrSetToList = attrSet: (lib.attrsets.mapAttrsToList (name: _: name) attrSet);
+            in (
+              # if there's a desktop file by the app's pname, use that
+              if (pathExists "${appsPath}/${pkg.pname}.desktop")
+              then "${appsPath}/${pkg.pname}.desktop"
+              # if there's not, find the first desktop file in the app's directory and assume that's good enough
+              else
+                (
+                  if pathExists "${appsPath}"
+                  then "${appsPath}/${head (attrSetToList (readDir "${appsPath}"))}"
+                  else throw "no desktop file for app ${pkg.pname}"
+                )
+            );
           };
       })
       autostartPrograms);
