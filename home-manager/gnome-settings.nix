@@ -36,6 +36,7 @@
       quick-settings-audio-panel # volume mixer in quick settings
       user-themes
       easyeffects-preset-selector
+      # TODO add script to delete saved windows on monitor config change (or better yet, make PR to fix behavior)
       smart-auto-move
     ]
     ++ (with pkgs.unstable.gnomeExtensions; [
