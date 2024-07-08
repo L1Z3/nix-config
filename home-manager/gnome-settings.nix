@@ -85,7 +85,9 @@
 
     # custom accent colors
     "org/gnome/shell/extensions/custom-accent-colors" = {
-      accent-color = "pink";
+      # options:
+      # default (blue, no option set), green, yellow, orange, red, pink, purple, brown
+      accent-color = "purple";
       theme-shell = true;
       theme-gtk3 = true;
       theme-flatpak = true;

@@ -199,13 +199,13 @@
   ];
 
   # gnome dark theme for gtk apps
-  gtk = {
-    enable = true;
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome.gnome-themes-extra;
-    };
-  };
+  # gtk = {
+  #   enable = true;
+  #   theme = {
+  #     name = "Adwaita-dark";
+  #     package = pkgs.gnome.gnome-themes-extra;
+  #   };
+  # };
 
   # Extra variables to add to PATH
   home.sessionPath = [
