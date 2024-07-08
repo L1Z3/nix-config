@@ -319,10 +319,23 @@ in
             # Application does *not* have a desktopItem entry. Try to find a
             # matching .desktop name in /share/applications
             # exception for telegram-desktop TODO make this cleaner
-            source =
-              if (pkg.pname == "telegram-desktop")
-              then pkg + "/share/applications/org.telegram.desktop.desktop"
-              else pkg + "/share/applications/" + pkg.pname + ".desktop";
+            source = with builtins; let
+              appsPath = "${pkg}/share/applications";
+              attrSetToList = attrSet: (lib.attrsets.mapAttrsToList (name: _: name) attrSet);
+            in (
+              if (pathExists "${appsPath}/${pkg.pname}.desktop")
+              then "${appsPath}/${pkg.pname}.desktop"
+              else
+                (
+                  if pathExists "${appsPath}"
+                  then "${appsPath}/${head (attrSetToList (readDir "${appsPath}"))}"
+                  else throw "no desktop file for app ${pkg.pname}"
+                )
+            );
+            # source =
+            #   if (pkg.pname == "telegram-desktop")
+            #   then pkg + "/share/applications/org.telegram.desktop.desktop"
+            #   else pkg + "/share/applications/" + pkg.pname + ".desktop";
           };
       })
       autostartPrograms);
