@@ -62,7 +62,7 @@
     gnome.dconf-editor
     gnome.gnome-power-manager
     gnome.gnome-themes-extra
-    gnome.gnome-tweaks # conflicts with some files needed for extensions due to nix store linking stuff i think
+    gnome.gnome-tweaks
   ];
 
   customDconf = {
@@ -88,13 +88,14 @@
     "org/gnome/shell/extensions/custom-accent-colors" = {
       # options:
       # default (blue, no option set), green, yellow, orange, red, pink, purple, brown
-      accent-color = "purple";
+      accent-color = "pink";
       theme-shell = true;
       theme-gtk3 = true;
       theme-flatpak = true;
     };
 
-    # fix dark mode in gtk3 apps (alternative is home-manager gtk.theme but that conflicts with custom accent colors)
+    # fix dark mode in gtk3 apps
+    # (alternative to setting this dconf option is home-manager gtk.theme option but that conflicts with custom accent colors)
     # requires pkgs.gnome.gnome-themes-extra
     "org/gnome/desktop/interface" = {
       gtk-theme = "Adwaita-dark";
