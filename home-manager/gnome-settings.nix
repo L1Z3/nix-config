@@ -59,6 +59,7 @@
     adw-gtk3
     gnome.dconf-editor
     gnome.gnome-power-manager
+    gnome.gnome-tweaks
   ];
 
   customDconf = {
@@ -75,6 +76,14 @@
     # "org/gnome/gnome-session" = {
     #   auto-save-session = true;
     # };
+
+    # custom accent colors
+    "org/gnome/shell/extensions/custom-accent-colors" = {
+      accent-color = "pink";
+      theme-shell = true;
+      theme-gtk3 = true;
+      theme-flatpak = true;
+    };
 
     # quick settings audio panel settings
     "org/gnome/shell/extensions/quick-settings-audio-panel" = {
