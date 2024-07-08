@@ -23,21 +23,24 @@
 
   # gnome extensions to install and enable
   # TODO it'd be cool to have some custom machinery that lets me edit the settings adjacent to each extension
-  extensions = with pkgs.gnomeExtensions; [
-    advanced-alttab-window-switcher
-    appindicator
-    blur-my-shell
-    clipboard-history
-    focused-window-d-bus
-    impatience
-    steal-my-focus-window
-    tiling-assistant
-    quick-settings-audio-panel # volume mixer in quick settings
-    custom-accent-colors # yippee :)
-    user-themes
-    easyeffects-preset-selector
-    another-window-session-manager # auto-save session
-  ];
+  extensions = with pkgs.gnomeExtensions;
+    [
+      advanced-alttab-window-switcher
+      appindicator
+      blur-my-shell
+      clipboard-history
+      focused-window-d-bus
+      impatience
+      steal-my-focus-window
+      tiling-assistant
+      quick-settings-audio-panel # volume mixer in quick settings
+      custom-accent-colors # yippee :)
+      user-themes
+      easyeffects-preset-selector
+    ]
+    ++ (with pkgs.unstable.gnomeExtensions; [
+      another-window-session-manager # auto-save session
+    ]);
 
   deckIP = "192.168.1.36";
   nautilusBookmarks = [
