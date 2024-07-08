@@ -23,19 +23,24 @@
 
   # gnome extensions to install and enable
   # TODO it'd be cool to have some custom machinery that lets me edit the settings adjacent to each extension
-  extensions = with pkgs.gnomeExtensions; [
-    advanced-alttab-window-switcher
-    appindicator
-    blur-my-shell
-    clipboard-history
-    focused-window-d-bus
-    impatience
-    steal-my-focus-window
-    tiling-assistant
-    quick-settings-audio-panel # volume mixer in quick settings
-    custom-accent-colors # yippee :)
-    user-themes
-  ];
+  extensions = with pkgs.gnomeExtensions;
+    [
+      advanced-alttab-window-switcher
+      appindicator
+      blur-my-shell
+      clipboard-history
+      focused-window-d-bus
+      impatience
+      steal-my-focus-window
+      tiling-assistant
+      quick-settings-audio-panel # volume mixer in quick settings
+      custom-accent-colors # yippee :)
+      user-themes
+      easyeffects-preset-selector
+    ]
+    ++ (with pkgs.unstable.gnomeExtensions; [
+      another-window-session-manager # auto-save session
+    ]);
 
   deckIP = "192.168.1.36";
   nautilusBookmarks = [
@@ -320,7 +325,8 @@ in
             # matching .desktop name in /share/applications
             source = with builtins; let
               appsPath = "${pkg}/share/applications";
-              attrSetToList = attrSet: (lib.attrsets.mapAttrsToList (name: _: name) attrSet);
+              # function to filter out subdirs of /share/applications
+              filterFiles = dirContents: lib.attrsets.filterAttrs (_: fileType: elem fileType ["regular" "symlink"]) dirContents;
             in (
               # if there's a desktop file by the app's pname, use that
               if (pathExists "${appsPath}/${pkg.pname}.desktop")
@@ -329,14 +335,13 @@ in
               else
                 (
                   if pathExists "${appsPath}"
-                  then "${appsPath}/${head (attrSetToList (readDir "${appsPath}"))}"
+                  then "${appsPath}/${head (attrNames (filterFiles (readDir "${appsPath}")))}"
                   else throw "no desktop file for app ${pkg.pname}"
                 )
             );
           };
       })
       autostartPrograms);
-
     # this first part is the implementation of custom keybinds
     dconf.settings =
       lib.mkMerge
