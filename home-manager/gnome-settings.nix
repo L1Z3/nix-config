@@ -20,6 +20,7 @@
   ];
 
   # gnome extensions to install and enable
+  # TODO it'd be cool to have some custom machinery that lets me edit the settings adjacent to each extension
   extensions = with pkgs.gnomeExtensions; [
     advanced-alttab-window-switcher
     appindicator
@@ -31,6 +32,7 @@
     tiling-assistant
     quick-settings-audio-panel # volume mixer in quick settings
     custom-accent-colors # yippee :)
+    user-themes
   ];
 
   deckIP = "192.168.1.36";
