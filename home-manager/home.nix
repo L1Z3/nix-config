@@ -198,14 +198,15 @@
     "openssl-1.1.1w" # for sublime
   ];
 
-  # gnome dark theme for gtk apps
-  # gtk = {
-  #   enable = true;
-  #   theme = {
-  #     name = "Adwaita-dark";
-  #     package = pkgs.gnome.gnome-themes-extra;
-  #   };
-  # };
+  gtk = {
+    enable = true;
+    # gnome dark theme for gtk apps
+    # disabled in favor of dconf since this setting causes color accents extension to fail
+    # theme = {
+    #   name = "Adwaita-dark";
+    #   package = pkgs.gnome.gnome-themes-extra;
+    # };
+  };
 
   # Extra variables to add to PATH
   home.sessionPath = [
