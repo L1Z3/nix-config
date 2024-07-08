@@ -61,7 +61,7 @@
     adw-gtk3
     gnome.dconf-editor
     gnome.gnome-power-manager
-    # gnome.gnome-tweaks # conflicts with some files needed for extensions due to nix store linking stuff i think
+    gnome.gnome-tweaks # conflicts with some files needed for extensions due to nix store linking stuff i think
   ];
 
   customDconf = {
@@ -93,6 +93,11 @@
       theme-flatpak = true;
     };
 
+    # fix dark mode in gtk3 apps (alternative is home-manager gtk.theme but that conflicts with custom accent colors)
+    # "org/gnome/desktop/interface" = {
+    #   gtk-theme = "adw-gtk3-dark";
+    # };
+
     # quick settings audio panel settings
     "org/gnome/shell/extensions/quick-settings-audio-panel" = {
       merge-panel = true;
@@ -113,12 +118,6 @@
       enable-hot-corners = false;
       show-battery-percentage = true;
     };
-
-    # fix dark mode in gtk3 apps
-    # "org/gnome/desktop/interface" = {
-    #   color-scheme = "prefer-dark";
-    #   gtk-theme = "adw-gtk3-dark";
-    # };
 
     # caps lock backspace remap, plus double shift to caps lock
     "org/gnome/desktop/input-sources" = {
