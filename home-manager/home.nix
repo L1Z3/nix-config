@@ -247,7 +247,10 @@
 
   # easyeffects systemd service
   # (as oppossed to .config/autostart like the built-in easyeffects option does)
-  services.easyeffects.enable = true;
+  services.easyeffects = {
+    enable = true;
+    preset = "Noise + Gain";
+  };
 
   # duplicacy backup service
   systemd.user.services.duplicacy = {

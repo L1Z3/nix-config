@@ -35,6 +35,8 @@
     quick-settings-audio-panel # volume mixer in quick settings
     custom-accent-colors # yippee :)
     user-themes
+    easyeffects-preset-selector
+    another-window-session-manager # auto-save session
   ];
 
   deckIP = "192.168.1.36";
