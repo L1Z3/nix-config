@@ -87,6 +87,15 @@
     #   auto-save-session = true;
     # };
 
+    "org/gnome/shell/extensions/another-window-session-manager" = {
+      enable-restore-previous-session = true;
+      enable-autoclose-session = false;
+      # custom window rules for automatic closing, needs ydotool
+      close-window-rules = ''
+        {"/home/liz/.nix-profile/share/applications/firefox.desktop":{"type":"shortcut","value":{"1":{"shortcut":"Ctrl+Q","order":1,"keyval":113,"keycode":24,"state":4},"2":{"shortcut":"Space","order":2,"keyval":32,"keycode":65,"state":0}},"enabled":true,"appId":"firefox.desktop","appDesktopFilePath":"/home/liz/.nix-profile/share/applications/firefox.desktop","appName":"Firefox","keyDelay":0}}
+      '';
+    };
+
     "org/gnome/shell/extensions/user-theme" = {
       name = "Custom-Accent-Colors";
     };
