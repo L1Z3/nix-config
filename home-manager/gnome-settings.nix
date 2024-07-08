@@ -6,6 +6,8 @@
 }: let
   autostartPrograms = with pkgs; [vesktop telegram-desktop firefox];
 
+  # TODO figure out what thing caused the dots in the gnome dash that indicate open apps to appear on top of the apps
+
   # TODO play with fonts
   # fonts.fontconfig = {
   #   enable = true;
@@ -46,7 +48,7 @@
     "file://${config.home.homeDirectory}/Pictures"
     "file://${config.home.homeDirectory}/Videos"
     "file://${config.home.homeDirectory}/Downloads"
-    "file://${config.home.homeDirectory}/.local/share/icons icons"
+    # "file://${config.home.homeDirectory}/.local/share/icons icons"
     "sftp://deck@${deckIP}/home/deck Deck Home Folder"
     "sftp://deck@${deckIP}/run/media/mmcblk0p1 Deck SD Card"
     "sftp://deck@${deckIP}/home/deck/.steam/steam/steamapps/common/Celeste Celeste Install Folder"
