@@ -82,6 +82,10 @@
       enabled-extensions = builtins.map (extension: extension.extensionUuid) extensions;
     };
 
+    "org/gnome/shell/extensions/smart-auto-move" = {
+      activate-workspace = false;
+    };
+
     "org/gnome/shell/extensions/another-window-session-manager" = {
       enable-restore-previous-session = true;
       enable-autoclose-session = true;
