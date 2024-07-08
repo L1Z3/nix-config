@@ -318,13 +318,14 @@ in
           else {
             # Application does *not* have a desktopItem entry. Try to find a
             # matching .desktop name in /share/applications
-            # exception for telegram-desktop TODO make this cleaner
             source = with builtins; let
               appsPath = "${pkg}/share/applications";
               attrSetToList = attrSet: (lib.attrsets.mapAttrsToList (name: _: name) attrSet);
             in (
+              # if there's a desktop file by the app's pname, use that
               if (pathExists "${appsPath}/${pkg.pname}.desktop")
               then "${appsPath}/${pkg.pname}.desktop"
+              # if there's not, find the first desktop file in the app's directory and assume that's good enough
               else
                 (
                   if pathExists "${appsPath}"
@@ -332,10 +333,6 @@ in
                   else throw "no desktop file for app ${pkg.pname}"
                 )
             );
-            # source =
-            #   if (pkg.pname == "telegram-desktop")
-            #   then pkg + "/share/applications/org.telegram.desktop.desktop"
-            #   else pkg + "/share/applications/" + pkg.pname + ".desktop";
           };
       })
       autostartPrograms);
