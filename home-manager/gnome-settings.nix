@@ -61,6 +61,7 @@
     adw-gtk3
     gnome.dconf-editor
     gnome.gnome-power-manager
+    gnome.gnome-themes-extra
     gnome.gnome-tweaks # conflicts with some files needed for extensions due to nix store linking stuff i think
   ];
 
@@ -95,7 +96,7 @@
 
     # fix dark mode in gtk3 apps (alternative is home-manager gtk.theme but that conflicts with custom accent colors)
     "org/gnome/desktop/interface" = {
-      gtk-theme = "adw-gtk3-dark"; # does this have to be adw-gtk3-dark?
+      gtk-theme = "adw-gtk3-dark";
     };
 
     # quick settings audio panel settings
