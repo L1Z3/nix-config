@@ -94,9 +94,9 @@
     };
 
     # fix dark mode in gtk3 apps (alternative is home-manager gtk.theme but that conflicts with custom accent colors)
-    # "org/gnome/desktop/interface" = {
-    #   gtk-theme = "adw-gtk3-dark";
-    # };
+    "org/gnome/desktop/interface" = {
+      gtk-theme = "Adwaita-dark"; # does this have to be adw-gtk3-dark?
+    };
 
     # quick settings audio panel settings
     "org/gnome/shell/extensions/quick-settings-audio-panel" = {
