@@ -36,6 +36,7 @@
       quick-settings-audio-panel # volume mixer in quick settings
       user-themes
       easyeffects-preset-selector
+      smart-auto-move
     ]
     ++ (with pkgs.unstable.gnomeExtensions; [
       custom-accent-colors # yippee :)
