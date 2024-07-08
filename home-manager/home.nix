@@ -245,6 +245,10 @@
   # arRPC for vesktop
   services.arrpc.enable = true;
 
+  # easyeffects systemd service
+  # (as oppossed to .config/autostart like the built-in easyeffects option does)
+  services.easyeffects.enable = true;
+
   # duplicacy backup service
   systemd.user.services.duplicacy = {
     Unit = {

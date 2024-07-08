@@ -337,7 +337,6 @@ in
           };
       })
       autostartPrograms);
-
     # this first part is the implementation of custom keybinds
     dconf.settings =
       lib.mkMerge
