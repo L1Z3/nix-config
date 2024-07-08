@@ -1,5 +1,6 @@
 # from https://github.com/NixOS/nixpkgs/issues/163080#issuecomment-1722465663
 # creates option users.users.${name}.icon to set user icon
+# doesn't seem to work if /var/lib/accountsservice/users/${name} already exists
 {
   config,
   lib,
