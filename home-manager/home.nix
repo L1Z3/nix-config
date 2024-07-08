@@ -206,6 +206,9 @@
     #   name = "Adwaita-dark";
     #   package = pkgs.gnome.gnome-themes-extra;
     # };
+    # idk if this is necessary, but a line like this was in settings.ini before i did gtk.enable
+    gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+    gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
   };
 
   # Extra variables to add to PATH
