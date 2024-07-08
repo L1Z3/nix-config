@@ -1,44 +1,44 @@
 # from https://github.com/NixOS/nixpkgs/issues/163080#issuecomment-1722465663
 # creates option users.users.${name}.icon to set user icon
 # doesn't seem to work if /var/lib/accountsservice/users/${name} already exists
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
-  inherit (lib) types;
+# {
+#   config,
+#   lib,
+#   pkgs,
+#   ...
+# }: let
+#   inherit (lib) types;
 
-  iconOptions.options.icon = lib.mkOption {
-    type = types.nullOr types.path;
-    default = null;
-  };
+#   iconOptions.options.icon = lib.mkOption {
+#     type = types.nullOr types.path;
+#     default = null;
+#   };
 
-  users = lib.filterAttrs (_: value: value.icon != null) config.users.users;
-  iconLinks = lib.mapAttrsToList (name: value: "ln -s ${value.icon} ${name}") users;
-  icons = pkgs.runCommand "user-icons" {} ''
-    mkdir $out
-    cd $out
-    ${builtins.concatStringsSep "\n" iconLinks}
-  '';
+#   users = lib.filterAttrs (_: value: value.icon != null) config.users.users;
+#   iconLinks = lib.mapAttrsToList (name: value: "ln -s ${value.icon} ${name}") users;
+#   icons = pkgs.runCommand "user-icons" {} ''
+#     mkdir $out
+#     cd $out
+#     ${builtins.concatStringsSep "\n" iconLinks}
+#   '';
 
-  templateText = lib.generators.toINI {} {
-    User.Icon = "${icons}/\${USER}";
-  };
-  templateFile = pkgs.writeText "user-template" templateText;
-  templateDir = "share/accountsservice/user-templates";
+#   templateText = lib.generators.toINI {} {
+#     User.Icon = "${icons}/\${USER}";
+#   };
+#   templateFile = pkgs.writeText "user-template" templateText;
+#   templateDir = "share/accountsservice/user-templates";
 
-  templates = pkgs.runCommand "user-templates" {meta.priority = 0;} ''
-    mkdir -p $out/${templateDir}
-    cd $out/${templateDir}
+#   templates = pkgs.runCommand "user-templates" {meta.priority = 0;} ''
+#     mkdir -p $out/${templateDir}
+#     cd $out/${templateDir}
 
-    ln -s ${templateFile} administrator
-    ln -s ${templateFile} standard
-  '';
-in {
-  options.users.users = lib.mkOption {
-    type = types.attrsOf (types.submodule iconOptions);
-  };
+#     ln -s ${templateFile} administrator
+#     ln -s ${templateFile} standard
+#   '';
+# in {
+#   options.users.users = lib.mkOption {
+#     type = types.attrsOf (types.submodule iconOptions);
+#   };
 
-  config.environment.systemPackages = [templates];
-}
+#   config.environment.systemPackages = [templates];
+# }
