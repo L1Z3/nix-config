@@ -150,9 +150,11 @@
 
   # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users = {
-    # FIXME: Replace with your username
     liz = {
       isNormalUser = true;
+      # to allow gdm to access $HOME/.face
+      # TODO should this be changed somehow to restrict access to only gdm?
+      homeMode = "711";
       description = "Elizabeth Jones";
       # Be sure to change the default password (using passwd) after rebooting on fresh install!
       initialPassword = "correcthorsebatterystaple";
@@ -160,7 +162,7 @@
         # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
       ];
       # Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
-      extraGroups = ["networkmanager" "wheel" "ydotool" "lizgdm"];
+      extraGroups = ["networkmanager" "wheel" "ydotool"];
     };
   };
 

@@ -58,8 +58,8 @@
     homeDirectory = "/home/liz";
   };
   # set user icon
-  # requires that /var/lib/AccountsService/users/$USER has Icon field pointing to $HOME/.face
-  # (if user icon was previously set by gnome gui, it will be set to /var/lib/AccountsService/icons/$USER; in this case
+  # requires that /var/lib/AccountsService/users/$USER has Icon field pointing to $HOME/.face (which is default)
+  # (if user icon was previously set by gnome gui, the Icon field will be set to /var/lib/AccountsService/icons/$USER; in this case
   # delete the file or change the Icon field in /var/lib/AccountsService/users/$USER to point to $HOME/.face)
   home.file.".face".source = ../media/madeline.jpg;
 
