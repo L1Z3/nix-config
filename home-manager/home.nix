@@ -161,6 +161,7 @@
 
     # system tools
     qpwgraph
+    easyeffects
     gparted
     etcher # custom package, since it's not in repos anymore
     # TODO needs non-declarative configs due to sensitive data, try to find workaround
