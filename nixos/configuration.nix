@@ -19,8 +19,6 @@
 
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
-    # gnome icon module
-    # ./gnome-icon.nix
   ];
 
   # Bootloader.
@@ -163,7 +161,6 @@
       ];
       # Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
       extraGroups = ["networkmanager" "wheel" "ydotool"];
-      # icon = ../media/madeline.jpg;
     };
   };
 
