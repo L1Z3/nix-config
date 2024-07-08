@@ -320,7 +320,8 @@ in
             # matching .desktop name in /share/applications
             source = with builtins; let
               appsPath = "${pkg}/share/applications";
-              attrSetToList = attrSet: (lib.attrsets.mapAttrsToList (name: _: name) attrSet);
+              # function to filter out subdirs of /share/applications
+              filterFiles = dirContents: lib.attrsets.filterAttrs (_: fileType: elem fileType ["regular" "symlink"]) dirContents;
             in (
               # if there's a desktop file by the app's pname, use that
               if (pathExists "${appsPath}/${pkg.pname}.desktop")
@@ -329,7 +330,7 @@ in
               else
                 (
                   if pathExists "${appsPath}"
-                  then "${appsPath}/${head (attrSetToList (readDir "${appsPath}"))}"
+                  then "${appsPath}/${head (attrNames (filterFiles (readDir "${appsPath}")))}"
                   else throw "no desktop file for app ${pkg.pname}"
                 )
             );
