@@ -218,9 +218,6 @@
 
   home.sessionVariables = {
     MOZ_ENABLE_WAYLAND = 1;
-    # nix-ld stuff
-    # NIX_LD = "/run/current-system/sw/share/nix-ld/lib/ld.so";
-    # NIX_LD_LIBRARY_PATH = "/run/current-system/sw/share/nix-ld/lib";
     # put variables here
   };
 

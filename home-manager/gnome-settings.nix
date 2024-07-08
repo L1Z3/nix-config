@@ -317,8 +317,12 @@ in
           }
           else {
             # Application does *not* have a desktopItem entry. Try to find a
-            # matching .desktop name in /share/apaplications
-            source = pkg + "/share/applications/" + pkg.pname + ".desktop";
+            # matching .desktop name in /share/applications
+            # exception for telegram-desktop TODO make this cleaner
+            source =
+              if (pkg.pname == "telegram-desktop")
+              then pkg + "/share/applications/org.telegram.desktop.desktop"
+              else pkg + "/share/applications/" + pkg.pname + ".desktop";
           };
       })
       autostartPrograms);
