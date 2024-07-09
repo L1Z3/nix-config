@@ -53,7 +53,6 @@
     };
   };
 
-  # TODO: Set your username
   home = {
     username = "liz";
     homeDirectory = "/home/liz";
@@ -175,6 +174,7 @@
     duplicacy-web # custom package, since it was never merged into nixpkgs
     duplicacy-mount # my own custom package, since it's a fork
     wireshark
+    httrack
 
     # messaging
     vesktop
