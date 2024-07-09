@@ -76,6 +76,6 @@ commit_message="home: id $home_gen_id; system: id $system_gen_id, nixos $nixos_v
 git commit -m "$commit_message"
 
 # copy changes to clean directory
-rsync -r --exclude="secret" --exclude=".git" --quiet ~/nix/* ~/nix_cleaned
+# rsync -r --exclude="secret" --exclude=".git" --quiet ~/nix/* ~/nix_cleaned
 
 popd

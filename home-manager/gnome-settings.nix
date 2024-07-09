@@ -23,6 +23,69 @@
 
   # gnome extensions to install and enable
   # TODO it'd be cool to have some custom machinery that lets me edit the settings adjacent to each extension
+  # data structure to define settings and extensions together:
+  # extensionsAndSettings = {
+  #   advanced-alttab-window-switcher = {};
+  #   appindicator.settings = {
+  #     legacy-tray-enabled = false;
+  #   };
+  #   blur-my-shell = {};
+  #   clipboard-history.settings = {
+  #     display-mode = 0;
+  #     history-size = 20;
+  #     next-entry = ["<Super>period"];
+  #     prev-entry = ["<Super>comma"];
+  #     window-width-percentage = 20;
+  #   };
+  #   focused-window-d-bus = {};
+  #   impatience = {
+  #     dconfPath = "net/gfxmonk/impatience";
+  #     settings = {speed-factor = 0.5;};
+  #   };
+  #   steal-my-focus-window = {};
+  #   tiling-assistant = {};
+  #   quick-settings-audio-panel.settings = { # volume mixer in quick settings
+  #     merge-panel = true;
+  #     panel-position = "bottom";
+  #   };
+  #   user-themes = {
+  #     dconfPath = "user-theme";
+  #     settings = {name = "Custom-Accent-Colors";};
+  #   };
+  #   easyeffects-preset-selector = {};
+  #   # TODO add script to delete saved windows on monitor config change (or better yet, make PR to fix behavior)
+  #   smart-auto-move.settings = {
+  #     activate-workspace = false;
+  #     overides = ''
+  #       '{"firefox":[{"query":{"title":"New Tab — Mozilla Firefox"},"action":0}]}'
+  #     '';
+  #   };
+
+  #   custom-accent-colors = { # yippee :)
+  #     channel = "unstable";
+  #     settings = {
+  #       # options:
+  #       # default (blue, no option set), green, yellow, orange, red, pink, purple, brown
+  #       accent-color = "pink";
+  #       theme-shell = true;
+  #       theme-gtk3 = true;
+  #       theme-flatpak = true;
+  #     };
+  #   };
+  #   another-window-session-manager = { # auto-save session
+  #     channel = "unstable";
+  #     settings = {
+  #       enable-restore-previous-session = true;
+  #       enable-autoclose-session = true;
+  #       # custom window rules for automatic closing, needs ydotool
+  #       close-window-rules = ''
+  #         '{"/home/liz/.nix-profile/share/applications/firefox.desktop":{"type":"shortcut","value":{"1":{"shortcut":"Ctrl+Q","order":1,"keyval":113,"keycode":24,"state":4},"2":{"shortcut":"Space","order":2,"keyval":32,"keycode":65,"state":0},"3":{"shortcut":"Space","order":3,"keyval":32,"keycode":65,"state":0},"4":{"shortcut":"Space","order":4,"keyval":32,"keycode":65,"state":0},"5":{"shortcut":"Space","order":5,"keyval":32,"keycode":65,"state":0},"6":{"shortcut":"Space","order":6,"keyval":32,"keycode":65,"state":0},"7":{"shortcut":"Space","order":7,"keyval":32,"keycode":65,"state":0},"8":{"shortcut":"Space","order":8,"keyval":32,"keycode":65,"state":0},"9":{"shortcut":"Space","order":9,"keyval":32,"keycode":65,"state":0},"10":{"shortcut":"Space","order":10,"keyval":32,"keycode":65,"state":0},"11":{"shortcut":"Space","order":11,"keyval":32,"keycode":65,"state":0},"12":{"shortcut":"Space","order":12,"keyval":32,"keycode":65,"state":0}},"enabled":true,"appId":"firefox.desktop","appDesktopFilePath":"/home/liz/.nix-profile/share/applications/firefox.desktop","appName":"Firefox","keyDelay":1},"/run/current-system/sw/share/applications/org.gnome.Console.desktop":{"type":"shortcut","value":{"1":{"shortcut":"Shift+Ctrl+W","order":1,"keyval":87,"keycode":25,"state":5},"2":{"shortcut":"Right","order":2,"keyval":65363,"keycode":114,"state":0},"3":{"shortcut":"Right","order":3,"keyval":65363,"keycode":114,"state":0},"4":{"shortcut":"Right","order":4,"keyval":65363,"keycode":114,"state":0},"5":{"shortcut":"Right","order":5,"keyval":65363,"keycode":114,"state":0},"6":{"shortcut":"Right","order":6,"keyval":65363,"keycode":114,"state":0},"7":{"shortcut":"Space","order":7,"keyval":32,"keycode":65,"state":0},"8":{"shortcut":"Space","order":8,"keyval":32,"keycode":65,"state":0},"9":{"shortcut":"Space","order":9,"keyval":32,"keycode":65,"state":0},"10":{"shortcut":"Space","order":10,"keyval":32,"keycode":65,"state":0}},"enabled":true,"appId":"org.gnome.Console.desktop","appDesktopFilePath":"/run/current-system/sw/share/applications/org.gnome.Console.desktop","appName":"Console","keyDelay":0}}'
+  #       '';
+  #       restore-previous-delay = 5;
+  #     };
+  #   };
+  # };
+
   extensions = with pkgs.gnomeExtensions;
     [
       advanced-alttab-window-switcher
@@ -113,17 +176,33 @@
       theme-flatpak = true;
     };
 
+    # quick settings audio panel settings
+    "org/gnome/shell/extensions/quick-settings-audio-panel" = {
+      merge-panel = true;
+      panel-position = "bottom";
+    };
+
+    "org/gnome/shell/extensions/net/gfxmonk/impatience" = {
+      speed-factor = 0.5;
+    };
+
+    "org/gnome/shell/extensions/appindicator" = {
+      legacy-tray-enabled = false;
+    };
+
+    "org/gnome/shell/extensions/clipboard-history" = {
+      display-mode = 0;
+      history-size = 20;
+      next-entry = ["<Super>period"];
+      prev-entry = ["<Super>comma"];
+      window-width-percentage = 20;
+    };
+
     # fix dark mode in gtk3 apps
     # (alternative to setting this dconf option is home-manager gtk.theme option but that conflicts with custom accent colors)
     # requires pkgs.gnome.gnome-themes-extra
     "org/gnome/desktop/interface" = {
       gtk-theme = "Adwaita-dark";
-    };
-
-    # quick settings audio panel settings
-    "org/gnome/shell/extensions/quick-settings-audio-panel" = {
-      merge-panel = true;
-      panel-position = "bottom";
     };
 
     # set gnome background to blobs
@@ -224,24 +303,8 @@
       show-create-link = true;
     };
 
-    "org/gnome/shell/extensions/net/gfxmonk/impatience" = {
-      speed-factor = 0.5;
-    };
-
     "org/gnome/shell/app-switcher" = {
       current-workspace-only = true;
-    };
-
-    "org/gnome/shell/extensions/appindicator" = {
-      legacy-tray-enabled = false;
-    };
-
-    "org/gnome/shell/extensions/clipboard-history" = {
-      display-mode = 0;
-      history-size = 20;
-      next-entry = ["<Super>period"];
-      prev-entry = ["<Super>comma"];
-      window-width-percentage = 20;
     };
 
     "org/gnome/shell/overrides" = {
