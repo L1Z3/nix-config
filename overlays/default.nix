@@ -82,4 +82,12 @@
       config.allowUnfree = true;
     };
   };
+
+  # local repo dev packages (for my WIP changes)
+  dev-packages = final: _prev: {
+    dev = import inputs.nixpkgs-unstable {
+      system = final.system;
+      config.allowUnfree = true;
+    };
+  };
 }

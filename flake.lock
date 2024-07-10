@@ -37,6 +37,37 @@
         "type": "github"
       }
     },
+    "nixpkgs-dev": {
+      "locked": {
+        "lastModified": 1720647018,
+        "narHash": "sha256-QMvqRI+02UYVB7sLTgaMU5VxAAVrpeyz/AW85Kuu7Z0=",
+        "ref": "refs/heads/update-activitywatch",
+        "rev": "aec927529ce6069ae8a5d367759fdb9732551927",
+        "revCount": 651558,
+        "type": "git",
+        "url": "file:///home/liz/projects/nixpkgs-fork-dev"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/liz/projects/nixpkgs-fork-dev"
+      }
+    },
+    "nixpkgs-master": {
+      "locked": {
+        "lastModified": 1720651488,
+        "narHash": "sha256-6qtEHLtWJthGt9G0YVblLD6qUWLwi0/2Riwokw52fr8=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "0764f58ca3d0464f5d1846dcec06284a43d67628",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1720031269,
@@ -57,6 +88,8 @@
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-dev": "nixpkgs-dev",
+        "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-unstable": "nixpkgs-unstable"
       }
     }
