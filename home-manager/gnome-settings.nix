@@ -309,6 +309,9 @@
       edge-tiling = false;
     };
   };
+
+  # TODO come back and finish thing for extensionsAndSettings
+  # extensionSettingsDconf = ...
   # pathToHere = builtins.getFlakePath;
   inherit (config.lib.file) mkOutOfStoreSymlink;
   pathToHere = "${config.home.homeDirectory}/nix/home-manager";
@@ -339,6 +342,8 @@ in
     # ];
 
     home.packages = packages ++ extensions;
+    # TODO enable when i change over the other extensionsAndSettings stuff
+    # home.packages = packages ++ map (name: if extensionsAndSettings.name ? channel then "pkgs.${channel}.gnomeExtensions.${name}" else "pkgs.gnomeExtensions.${name}") attrNames extensionsAndSettings
 
     # nautilus bookmarks
     gtk.gtk3.bookmarks = nautilusBookmarks;

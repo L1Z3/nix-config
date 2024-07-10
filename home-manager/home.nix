@@ -27,23 +27,32 @@
   #   get repo in ready state for pushing to github (ensure no sensitive data, squash commit messages, etc)
   #   fix telegram desktop tray icon
   #   fix macos vm
+  #   try packaging easytether
 
   nixpkgs = {
     # You can add overlays here
-    overlays = [
-      outputs.overlays.additions
-      outputs.overlays.modifications
-      outputs.overlays.unstable-packages
-      # If you want to use overlays exported from other flakes:
-      # neovim-nightly-overlay.overlays.default
+    overlays =
+      [
+        outputs.overlays.additions
+        outputs.overlays.modifications
+        outputs.overlays.unstable-packages
+        outputs.overlays.dev-packages
+        # If you want to use overlays exported from other flakes:
+        # neovim-nightly-overlay.overlays.default
 
-      # Or define it inline, for example:
-      # (final: prev: {
-      #   hi = final.hello.overrideAttrs (oldAttrs: {
-      #     patches = [ ./change-hello-to-hi.patch ];
-      #   });
-      # })
-    ];
+        # Or define it inline, for example:
+        # (final: prev: {
+        #   hi = final.hello.overrideAttrs (oldAttrs: {
+        #     patches = [ ./change-hello-to-hi.patch ];
+        #   });
+        # })
+      ]
+      # add on master packages if I have it enabled
+      ++ (
+        if outputs.overlays ? master-packages
+        then [outputs.overlays.master-packages]
+        else []
+      );
     # Configure your nixpkgs instance
     config = {
       # Disable if you don't want unfree packages
@@ -232,10 +241,10 @@
   # TODO re-enable in future; all wayland watchers seem pretty broken right now
   # services.activitywatch = {
   #   enable = true;
-  #   package = pkgs.aw-server-rust;
+  #   package = pkgs.dev.aw-server-rust; # TODO update to 0.13.1 and PR
   #   watchers = {
   #     awatcher = {
-  #       package = pkgs.awatcher;
+  #       package = pkgs.master.awatcher; # TODO switch to unstable
   #     };
   #   };
   # };
