@@ -237,15 +237,15 @@
   };
 
   # TODO re-enable in future; all wayland watchers seem pretty broken right now
-  services.activitywatch = {
-    enable = true;
-    package = pkgs.aw-server-rust;
-    watchers = {
-      awatcher = {
-        package = pkgs.master.awatcher; # TODO switch to unstable
-      };
-    };
-  };
+  # services.activitywatch = {
+  #   enable = true;
+  #   package = pkgs.aw-server-rust; # TODO update to 0.13.1 and PR
+  #   watchers = {
+  #     awatcher = {
+  #       package = pkgs.master.awatcher; # TODO switch to unstable
+  #     };
+  #   };
+  # };
 
   xdg.desktopEntries = {
     fod-frp = {
