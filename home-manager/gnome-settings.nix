@@ -6,8 +6,6 @@
 }: let
   autostartPrograms = with pkgs; [vesktop telegram-desktop firefox];
 
-  # TODO figure out what thing caused the dots in the gnome dash that indicate open apps to appear on top of the apps
-
   # TODO play with fonts
   # fonts.fontconfig = {
   #   enable = true;

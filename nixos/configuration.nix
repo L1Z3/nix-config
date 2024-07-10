@@ -25,6 +25,7 @@
   # boot.loader.grub.enable = true;
   # boot.loader.grub.device = "/dev/vda";
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 50; # idk if this is needed, but just in case
   boot.loader.efi.canTouchEfiVariables = true;
   # boot.loader.grub.useOSProber = true;
 
