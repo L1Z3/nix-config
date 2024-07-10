@@ -70,4 +70,16 @@
       config.allowUnfree = true;
     };
   };
+
+  # same, but for master branch (if we enabled master in flake.nix)
+  ${
+    if inputs ? nixpkgs-master
+    then "master-packages"
+    else null
+  } = final: _prev: {
+    master = import inputs.nixpkgs-master {
+      system = final.system;
+      config.allowUnfree = true;
+    };
+  };
 }

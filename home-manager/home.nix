@@ -30,20 +30,27 @@
 
   nixpkgs = {
     # You can add overlays here
-    overlays = [
-      outputs.overlays.additions
-      outputs.overlays.modifications
-      outputs.overlays.unstable-packages
-      # If you want to use overlays exported from other flakes:
-      # neovim-nightly-overlay.overlays.default
+    overlays =
+      [
+        outputs.overlays.additions
+        outputs.overlays.modifications
+        outputs.overlays.unstable-packages
+        # If you want to use overlays exported from other flakes:
+        # neovim-nightly-overlay.overlays.default
 
-      # Or define it inline, for example:
-      # (final: prev: {
-      #   hi = final.hello.overrideAttrs (oldAttrs: {
-      #     patches = [ ./change-hello-to-hi.patch ];
-      #   });
-      # })
-    ];
+        # Or define it inline, for example:
+        # (final: prev: {
+        #   hi = final.hello.overrideAttrs (oldAttrs: {
+        #     patches = [ ./change-hello-to-hi.patch ];
+        #   });
+        # })
+      ]
+      # add on master packages if I have it enabled
+      ++ (
+        if outputs.overlays ? master-packages
+        then [outputs.overlays.master-packages]
+        else []
+      );
     # Configure your nixpkgs instance
     config = {
       # Disable if you don't want unfree packages
@@ -230,15 +237,15 @@
   };
 
   # TODO re-enable in future; all wayland watchers seem pretty broken right now
-  # services.activitywatch = {
-  #   enable = true;
-  #   package = pkgs.aw-server-rust;
-  #   watchers = {
-  #     awatcher = {
-  #       package = pkgs.awatcher;
-  #     };
-  #   };
-  # };
+  services.activitywatch = {
+    enable = true;
+    package = pkgs.aw-server-rust;
+    watchers = {
+      awatcher = {
+        package = pkgs.master.awatcher; # TODO switch to unstable
+      };
+    };
+  };
 
   xdg.desktopEntries = {
     fod-frp = {
