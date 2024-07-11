@@ -353,7 +353,7 @@ in
     programs.bash.profileExtra = lib.mkAfter ''
       rm -rf ${config.home.homeDirectory}/.local/share/applications/home-manager
       rm -rf ${config.home.homeDirectory}/.icons/nix-icons
-      ls ~/.nix-profile/share/applications/*.desktop > ~/.cache/current_desktop_files.txt
+      ls ${config.home.homeDirectory}/.nix-profile/share/applications/*.desktop > ${config.home.homeDirectory}/.cache/current_desktop_files.txt
     '';
     home.activation = {
       linkDesktopApplications = {

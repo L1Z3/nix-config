@@ -188,6 +188,7 @@
     # messaging
     vesktop
     telegram-desktop
+    slack
 
     # office, etc
     libreoffice
