@@ -42,6 +42,13 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # hardware.bluetooth.settings = {
+  #   General = {
+  #     Class = "0x002c0414";
+  #   };
+  # };
+  # services.blueman.enable = true;
+
   # Set your time zone.
   time.timeZone = "America/New_York";
 
