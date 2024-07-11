@@ -42,11 +42,11 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  hardware.bluetooth.settings = {
-    General = {
-      Class = "0x002c0414";
-    };
-  };
+  # hardware.bluetooth.settings = {
+  #   General = {
+  #     Class = "0x002c0414";
+  #   };
+  # };
 
   # Set your time zone.
   time.timeZone = "America/New_York";
