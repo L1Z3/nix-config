@@ -27,6 +27,7 @@
   #   get repo in ready state for pushing to github (ensure no sensitive data, squash commit messages, etc)
   #   fix telegram desktop tray icon
   #   fix macos vm
+  #   try packaging easytether
 
   nixpkgs = {
     # You can add overlays here
@@ -238,15 +239,15 @@
   };
 
   # TODO re-enable in future; all wayland watchers seem pretty broken right now
-  services.activitywatch = {
-    enable = true;
-    package = pkgs.dev.aw-server-rust; # TODO update to 0.13.1 and PR
-    watchers = {
-      awatcher = {
-        package = pkgs.master.awatcher; # TODO switch to unstable
-      };
-    };
-  };
+  # services.activitywatch = {
+  #   enable = true;
+  #   package = pkgs.dev.aw-server-rust; # TODO update to 0.13.1 and PR
+  #   watchers = {
+  #     awatcher = {
+  #       package = pkgs.master.awatcher; # TODO switch to unstable
+  #     };
+  #   };
+  # };
 
   xdg.desktopEntries = {
     fod-frp = {

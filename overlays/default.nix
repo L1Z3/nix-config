@@ -85,7 +85,7 @@
 
   # local repo dev packages (for my WIP changes)
   dev-packages = final: _prev: {
-    dev = import inputs.nixpkgs-unstable {
+    dev = import inputs.nixpkgs-dev {
       system = final.system;
       config.allowUnfree = true;
     };
