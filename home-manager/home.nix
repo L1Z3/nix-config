@@ -173,7 +173,6 @@
     deluge
     # syncplay, via programs/syncplay
     stremio
-    blender
 
     # system tools
     qpwgraph
