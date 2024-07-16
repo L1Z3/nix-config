@@ -6,6 +6,7 @@
   stdenv,
   lib,
   fetchzip,
+  openssl,
 }:
 stdenv.mkDerivation rec {
   pname = "easytether";
@@ -16,6 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3dL5tNxa1hou0SunXOcf0Wkh//hNfzbuI2Dnmk/ibns=";
     stripRoot = false;
   };
+
+  runtimeInputs = [openssl];
 
   installPhase = ''
     runHook preInstall
