@@ -52,22 +52,6 @@
         "url": "file:///home/liz/projects/nixpkgs-fork-dev"
       }
     },
-    "nixpkgs-master": {
-      "locked": {
-        "lastModified": 1721164025,
-        "narHash": "sha256-L9I15dBaKbrToJKqfi1oD+fMMFRqS5SssLn32orvSQo=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "14c2175dadc76c6509f36183235363960db29748",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "master",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1720957393,
@@ -89,7 +73,6 @@
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-dev": "nixpkgs-dev",
-        "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-unstable": "nixpkgs-unstable"
       }
     }
