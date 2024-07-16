@@ -10,4 +10,5 @@ pkgs: {
   duplicacy-web = pkgs.callPackage ./duplicacy-web.nix {};
   duplicacy-mount = pkgs.callPackage ./duplicacy-mount.nix {};
   yuzu = pkgs.callPackage ./yuzu.nix {};
+  citra = pkgs.callPackage ./citra.nix {};
 }

@@ -203,7 +203,8 @@
     unstable.mcaselector # TODO maybe try adding custom .desktop file
     nbt-explorer # custom package
     olympus # TODO currently custom, switch to upstream nixpkgs when ready
-    yuzu # custom package pulling archived last AppImage TODO grab desktop file
+    yuzu # custom package pulling archived last AppImage
+    citra # custom package pulling archived last AppImage
   ];
 
   # garbage collect for home-manager generations
