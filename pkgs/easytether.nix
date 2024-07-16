@@ -6,6 +6,7 @@
   stdenv,
   lib,
   fetchzip,
+  makeWrapper,
   openssl_1_1,
 }:
 stdenv.mkDerivation rec {
@@ -18,6 +19,8 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
+  nativeBuildInputs = [makeWrapper];
+
   runtimeInputs = [openssl_1_1];
 
   installPhase = ''
@@ -25,7 +28,13 @@ stdenv.mkDerivation rec {
 
     mkdir -p "$out/bin"
     mkdir -p "$out/lib"
-    cp usr/bin/* "$out/bin"
+    cp -r usr/bin/* "$out/bin"
+    wrapProgram $out/bin/${pname}-usb \
+      --prefix LD_LIBRARY_PATH : "${lib.getLib openssl_1_1}/lib"
+    wrapProgram $out/bin/${pname}-bluetooth \
+    --prefix LD_LIBRARY_PATH : "${lib.getLib openssl_1_1}/lib"
+    wrapProgram $out/bin/${pname}-local \
+    --prefix LD_LIBRARY_PATH : "${lib.getLib openssl_1_1}/lib"
     cp -r usr/lib/* "$out/lib"
 
     runHook postInstall
