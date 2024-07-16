@@ -29,15 +29,18 @@ stdenv.mkDerivation rec {
     mkdir -p "$out/bin"
     mkdir -p "$out/lib"
     cp -r usr/bin/* "$out/bin"
+    cp -r usr/lib/* "$out/lib"
+
+    runHook postInstall
+  '';
+
+  postFixup = ''
     wrapProgram $out/bin/${pname}-usb \
-      --prefix LD_LIBRARY_PATH : "${lib.getLib openssl_1_1}/lib"
+    --prefix LD_LIBRARY_PATH : "${lib.getLib openssl_1_1}/lib"
     wrapProgram $out/bin/${pname}-bluetooth \
     --prefix LD_LIBRARY_PATH : "${lib.getLib openssl_1_1}/lib"
     wrapProgram $out/bin/${pname}-local \
     --prefix LD_LIBRARY_PATH : "${lib.getLib openssl_1_1}/lib"
-    cp -r usr/lib/* "$out/lib"
-
-    runHook postInstall
   '';
 
   meta = with lib; {
