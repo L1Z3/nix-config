@@ -1,4 +1,5 @@
 # TODO
+#   debug: fix _easytether: unknown (maybe need to add udev or systemd stuff)
 #   if want to upstream:
 #      add other OSes/architectures (and abstract across arch/OS)
 #      add option to enable service

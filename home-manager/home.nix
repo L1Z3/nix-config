@@ -185,7 +185,7 @@
     duplicacy-mount # my own custom package, since it's a fork
     wireshark
     httrack
-    easytether # my own packaging of easytether
+    # easytether # my own packaging of easytether TODO needs fixes
 
     # messaging
     vesktop
@@ -206,6 +206,8 @@
     olympus # TODO currently custom, switch to upstream nixpkgs when ready
     yuzu # custom package pulling archived last AppImage
     citra-qt # custom package pulling archived last AppImage
+    celeste64
+    celeste-classic
   ];
 
   # garbage collect for home-manager generations
