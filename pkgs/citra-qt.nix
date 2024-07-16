@@ -4,7 +4,7 @@
   p7zip,
   ...
 }: let
-  pname = "citra";
+  pname = "citra-qt";
   version = "20240303";
 
   filename = "citra-qt";

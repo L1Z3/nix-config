@@ -204,7 +204,7 @@
     nbt-explorer # custom package
     olympus # TODO currently custom, switch to upstream nixpkgs when ready
     yuzu # custom package pulling archived last AppImage
-    citra # custom package pulling archived last AppImage
+    citra-qt # custom package pulling archived last AppImage
   ];
 
   # garbage collect for home-manager generations
