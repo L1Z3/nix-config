@@ -11,4 +11,5 @@ pkgs: {
   duplicacy-mount = pkgs.callPackage ./duplicacy-mount.nix {};
   yuzu = pkgs.callPackage ./yuzu.nix {};
   citra-qt = pkgs.callPackage ./citra-qt.nix {};
+  easytether = pkgs.callPackage ./easytether.nix {};
 }
