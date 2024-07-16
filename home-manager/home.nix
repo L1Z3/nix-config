@@ -147,6 +147,7 @@
     unstable.yt-dlp
     frp
     # htop, via programs/htop
+    appimage-run
 
     # browsers
     firefox
