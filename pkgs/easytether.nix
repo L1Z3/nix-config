@@ -6,8 +6,9 @@
   stdenv,
   lib,
   fetchzip,
-  makeWrapper,
+  autoPatchelfHook,
   openssl_1_1,
+  bluez,
 }:
 stdenv.mkDerivation rec {
   pname = "easytether";
@@ -19,7 +20,14 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  nativeBuildInputs = [makeWrapper];
+  nativeBuildInputs = [
+    autoPatchelfHook
+  ];
+
+  buildInputs = [
+    openssl_1_1
+    bluez
+  ];
 
   runtimeInputs = [openssl_1_1];
 
@@ -28,19 +36,13 @@ stdenv.mkDerivation rec {
 
     mkdir -p "$out/bin"
     mkdir -p "$out/lib"
-    cp -r usr/bin/* "$out/bin"
+    install -m755 -D usr/bin/${pname}-usb $out/bin/${pname}-usb
+    install -m755 -D usr/bin/${pname}-bluetooth $out/bin/${pname}-bluetooth
+    install -m755 -D usr/bin/${pname}-local $out/bin/${pname}-local
+
     cp -r usr/lib/* "$out/lib"
 
     runHook postInstall
-  '';
-
-  postFixup = ''
-    wrapProgram $out/bin/${pname}-usb \
-    --prefix LD_LIBRARY_PATH : "${lib.getLib openssl_1_1}/lib"
-    wrapProgram $out/bin/${pname}-bluetooth \
-    --prefix LD_LIBRARY_PATH : "${lib.getLib openssl_1_1}/lib"
-    wrapProgram $out/bin/${pname}-local \
-    --prefix LD_LIBRARY_PATH : "${lib.getLib openssl_1_1}/lib"
   '';
 
   meta = with lib; {
