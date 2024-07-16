@@ -9,4 +9,6 @@ pkgs: {
   olympus = pkgs.callPackage ./olympus/package.nix {};
   duplicacy-web = pkgs.callPackage ./duplicacy-web.nix {};
   duplicacy-mount = pkgs.callPackage ./duplicacy-mount.nix {};
+  yuzu = pkgs.callPackage ./yuzu.nix {};
+  citra-qt = pkgs.callPackage ./citra-qt.nix {};
 }

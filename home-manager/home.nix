@@ -147,6 +147,7 @@
     unstable.yt-dlp
     frp
     # htop, via programs/htop
+    appimage-run
 
     # browsers
     firefox
@@ -195,12 +196,15 @@
     notion-app-enhanced # custom package to fix issue (TODO upstream this)
     obsidian
     xournalpp
+    zoom-us
 
     # game stuff
     unstable.prismlauncher
     unstable.mcaselector # TODO maybe try adding custom .desktop file
     nbt-explorer # custom package
     olympus # TODO currently custom, switch to upstream nixpkgs when ready
+    yuzu # custom package pulling archived last AppImage
+    citra-qt # custom package pulling archived last AppImage
   ];
 
   # garbage collect for home-manager generations
