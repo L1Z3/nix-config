@@ -195,13 +195,14 @@
     notion-app-enhanced # custom package to fix issue (TODO upstream this)
     obsidian
     xournalpp
+    zoom-us
 
     # game stuff
     unstable.prismlauncher
     unstable.mcaselector # TODO maybe try adding custom .desktop file
     nbt-explorer # custom package
     olympus # TODO currently custom, switch to upstream nixpkgs when ready
-    yuzu # custom package pulling archived last AppImage
+    yuzu # custom package pulling archived last AppImage TODO grab desktop file
   ];
 
   # garbage collect for home-manager generations
