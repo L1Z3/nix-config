@@ -85,7 +85,7 @@
   # enable network printer discovery
   services.avahi = {
     enable = true;
-    nssmdns = true;
+    nssmdns4 = true;
     openFirewall = true;
   };
 
@@ -158,11 +158,8 @@
     };
   };
 
-  # FIXME: Add the rest of your current configuration
-
   networking.hostName = "envy";
 
-  # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users = {
     liz = {
       isNormalUser = true;
@@ -234,12 +231,12 @@
     desktop-file-utils
     wget
     curl
-    # easytether # my own packaging of easytether TODO needs fixes
+    easytether # my own packaging of easytether TODO needs fixes
   ];
-  # services.udev.packages = [pkgs.easytether];
-  # nixpkgs.config.permittedInsecurePackages = [
-  #   "openssl-1.1.1w" # for easytether
-  # ];
+  services.udev.packages = [pkgs.easytether];
+  nixpkgs.config.permittedInsecurePackages = [
+    "openssl-1.1.1w" # for easytether
+  ];
 
   # allow spotify local discovery
   networking.firewall.allowedTCPPorts = [57621];
