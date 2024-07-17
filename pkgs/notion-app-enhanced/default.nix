@@ -20,7 +20,7 @@
       # fix https://github.com/notion-enhancer/notion-enhancer/issues/812
       ${asar}/bin/asar extract $out/resources/app.asar app
       ${dos2unix}/bin/dos2unix app/renderer/preload.js
-      patch app/renderer/preload.js ${./notion-fix.patch}
+      patch app/renderer/preload.js ${./notion-infinite-load-fix.patch}
       ${dos2unix}/bin/unix2dos app/renderer/preload.js
       ${asar}/bin/asar pack app $out/resources/app.asar
     '';

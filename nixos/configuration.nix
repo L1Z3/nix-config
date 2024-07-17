@@ -85,7 +85,7 @@
   # enable network printer discovery
   services.avahi = {
     enable = true;
-    nssmdns = true;
+    nssmdns4 = true;
     openFirewall = true;
   };
 
@@ -158,11 +158,8 @@
     };
   };
 
-  # FIXME: Add the rest of your current configuration
-
   networking.hostName = "envy";
 
-  # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users = {
     liz = {
       isNormalUser = true;
