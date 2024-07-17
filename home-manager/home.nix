@@ -185,7 +185,7 @@
     duplicacy-mount # my own custom package, since it's a fork
     wireshark
     httrack
-    # easytether # my own packaging of easytether TODO needs fixes
+    easytether # my own packaging of easytether TODO needs fixes
 
     # messaging
     vesktop
