@@ -46,6 +46,16 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
+  # Also expose the udev rules here, so it can be used as:
+  #   services.udev.packages = [ pkgs.easytether ];
+  # to allow non-root users to use the device.
+
+  extraInstallCommands = ''
+    install -m 444 \
+      -D usr/lib/99-easytether-usb.rules \
+      -t $out/lib/udev/rules.d
+  '';
+
   meta = with lib; {
     description = "Program to share internet connection from Android to PC";
     homepage = "http://www.mobile-stream.com/easytether";
