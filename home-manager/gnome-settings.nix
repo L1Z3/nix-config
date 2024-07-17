@@ -145,8 +145,9 @@
 
     "org/gnome/shell/extensions/smart-auto-move" = {
       activate-workspace = false;
+      sync-mode = "IGNORE";
       overides = ''
-        '{"firefox":[{"query":{"title":"New Tab — Mozilla Firefox"},"action":0}]}'
+        '{"firefox":[{"query":{"title":"New Tab — Mozilla Firefox"},"action":0},{"action":1,"threshold":0.7}],"VSCodium":[{"action":1,"threshold":0.7}]}'
       '';
     };
 
