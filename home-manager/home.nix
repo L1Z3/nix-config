@@ -214,6 +214,7 @@
 
   # flatpaks
   services.flatpak = {
+    enable = true;
     packages = [
       "org.telegram.desktop"
       "com.steamgriddb.steam-rom-manager"
