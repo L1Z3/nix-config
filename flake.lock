@@ -55,11 +55,11 @@
     },
     "nixpkgs-dev": {
       "locked": {
-        "lastModified": 1720740280,
-        "narHash": "sha256-in8INeHDJu9HIl2qXeWEK5fjPjX6E/Q0Hxoo8ztBZJE=",
-        "ref": "refs/heads/update-activitywatch",
-        "rev": "7aa6edcf6fdb5784a94bd134f00f3a53d1cf7943",
-        "revCount": 651564,
+        "lastModified": 1721241996,
+        "narHash": "sha256-4An0f26vnpKA9vm1FG0XtOxDaPHiTrziTekwaX3J3jE=",
+        "ref": "refs/heads/fix-notion-app-enhanced",
+        "rev": "3f7fcbb2f91ec01dfb2574567d668494a56304e7",
+        "revCount": 654572,
         "type": "git",
         "url": "file:///home/liz/projects/nixpkgs-fork-dev"
       },
