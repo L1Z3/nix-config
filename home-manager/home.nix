@@ -221,6 +221,7 @@
       enable = true;
       onCalendar = "weekly";
     };
+    update.onActivation = true;
     uninstallUnmanaged = true;
   };
 
