@@ -213,16 +213,16 @@
   ];
 
   # flatpaks
-  # services.flatpak = {
-  #   packages = [
-  #     "org.telegram.desktop"
-  #   ];
-  #   update.auto = {
-  #     enable = true;
-  #     onCalendar = "weekly";
-  #   };
-  #   uninstallUnmanaged = true;
-  # };
+  services.flatpak = {
+    packages = [
+      "org.telegram.desktop"
+    ];
+    update.auto = {
+      enable = true;
+      onCalendar = "weekly";
+    };
+    uninstallUnmanaged = true;
+  };
 
   # garbage collect for home-manager generations
   nix.gc = {

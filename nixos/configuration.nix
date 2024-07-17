@@ -224,7 +224,7 @@
   virtualisation.libvirtd.enable = true;
 
   # enable flatpak (managed with home-manager, just enabled here)
-  # services.flatpak.enable = true;
+  services.flatpak.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
