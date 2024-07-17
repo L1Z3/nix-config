@@ -217,14 +217,21 @@
     enable = true;
     packages = [
       "org.telegram.desktop"
-      "com.steamgriddb.steam-rom-manager"
+      "com.github.tchx84.Flatseal"
     ];
     update.auto = {
       enable = true;
       onCalendar = "weekly";
     };
-    update.onActivation = true;
     uninstallUnmanaged = true;
+
+    overrides = {
+      "org.telegram.desktop".Context = {
+        filesystems = [
+          # "xdg-config/git:ro" # Expose user Git config
+        ];
+      };
+    };
   };
 
   # garbage collect for home-manager generations
