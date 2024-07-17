@@ -215,7 +215,7 @@
   # flatpaks
   services.flatpak = {
     packages = [
-      # "org.telegram.desktop"
+      "org.telegram.desktop"
     ];
     update.auto = {
       enable = true;
