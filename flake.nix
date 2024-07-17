@@ -14,7 +14,7 @@
     # comment out if not needed, other things should adjust
     # nixpkgs-master.url = "github:nixos/nixpkgs/master";
 
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
 
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-24.05";
