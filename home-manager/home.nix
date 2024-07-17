@@ -213,12 +213,15 @@
   ];
 
   # flatpaks
-  services.flatpak.packages = [
-    # "org.telegram.desktop"
-  ];
-  services.flatpak.update.auto = {
-    enable = true;
-    onCalendar = "weekly";
+  services.flatpak = {
+    packages = {
+      # "org.telegram.desktop"
+    };
+    update.auto = {
+      enable = true;
+      onCalendar = "weekly";
+    };
+    uninstallUnmanaged = true;
   };
 
   # garbage collect for home-manager generations
