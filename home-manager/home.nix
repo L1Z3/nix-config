@@ -191,7 +191,7 @@
 
     # messaging
     vesktop
-    # telegram-desktop
+    telegram-desktop
     slack
 
     # office, etc
@@ -214,7 +214,7 @@
 
   # flatpaks
   services.flatpak.packages = [
-    "org.telegram.desktop"
+    # "org.telegram.desktop"
   ];
   services.flatpak.update.auto = {
     enable = true;
