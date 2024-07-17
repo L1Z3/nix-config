@@ -214,9 +214,9 @@
 
   # flatpaks
   services.flatpak = {
-    packages = {
-      # "org.telegram.desktop"
-    };
+    packages = [
+      "org.telegram.desktop"
+    ];
     update.auto = {
       enable = true;
       onCalendar = "weekly";
