@@ -191,7 +191,7 @@
 
     # messaging
     vesktop
-    telegram-desktop
+    # telegram-desktop
     slack
 
     # office, etc
