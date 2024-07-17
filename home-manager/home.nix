@@ -207,6 +207,7 @@
     yuzu # custom package pulling archived last AppImage
     citra-qt # custom package pulling archived last AppImage
     celeste64
+    dolphin
   ];
 
   # garbage collect for home-manager generations
