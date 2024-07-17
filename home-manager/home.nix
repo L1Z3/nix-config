@@ -221,16 +221,16 @@
     ];
     update.auto = {
       enable = true;
-      onCalendar = "weekly";
+      onCalendar = "daily";
     };
     uninstallUnmanaged = true;
 
     overrides = {
-      "org.telegram.desktop".Context = {
-        filesystems = [
-          # "xdg-config/git:ro" # Expose user Git config
-        ];
-      };
+      # "org.telegram.desktop".Context = {
+      #   filesystems = [
+      #
+      #   ];
+      # };
     };
   };
 
