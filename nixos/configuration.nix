@@ -231,13 +231,12 @@
     desktop-file-utils
     wget
     curl
-    easytether # my own packaging of easytether TODO needs fixes
+    # easytether # my own packaging of easytether TODO needs fixes
   ];
-  # easytether udev rules
-  services.udev.packages = [pkgs.easytether];
-  nixpkgs.config.permittedInsecurePackages = [
-    "openssl-1.1.1w" # for easytether
-  ];
+  # services.udev.packages = [pkgs.easytether];
+  # nixpkgs.config.permittedInsecurePackages = [
+  #   "openssl-1.1.1w" # for easytether
+  # ];
 
   # allow spotify local discovery
   networking.firewall.allowedTCPPorts = [57621];
