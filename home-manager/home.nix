@@ -216,6 +216,7 @@
   services.flatpak = {
     packages = [
       "org.telegram.desktop"
+      "com.steamgriddb.steam-rom-manager"
     ];
     update.auto = {
       enable = true;
