@@ -13,6 +13,9 @@
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
 
+    # enable declarative flatpak support
+    inputs.nix-flatpak.homeManagerModules.nix-flatpak
+
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
     ./gnome-settings.nix
@@ -188,7 +191,7 @@
 
     # messaging
     vesktop
-    telegram-desktop
+    # telegram-desktop
     slack
 
     # office, etc
@@ -207,6 +210,11 @@
     citra-qt # custom package pulling archived last AppImage
     celeste64
     dolphin-emu
+  ];
+
+  # flatpaks
+  services.flatpak.packages = [
+    "org.telegram.desktop"
   ];
 
   # garbage collect for home-manager generations
