@@ -217,6 +217,10 @@
   services.flatpak.packages = [
     "org.telegram.desktop"
   ];
+  services.flatpak.update.auto = {
+    enable = true;
+    onCalendar = "weekly";
+  };
 
   # garbage collect for home-manager generations
   nix.gc = {
