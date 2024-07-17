@@ -191,7 +191,7 @@
 
     # messaging
     vesktop
-    telegram-desktop
+    # telegram-desktop
     slack
 
     # office, etc
@@ -214,15 +214,24 @@
 
   # flatpaks
   services.flatpak = {
+    enable = true;
     packages = [
       "org.telegram.desktop"
+      "com.github.tchx84.Flatseal"
     ];
     update.auto = {
       enable = true;
-      onCalendar = "weekly";
+      onCalendar = "daily";
     };
-    update.onActivation = true;
     uninstallUnmanaged = true;
+
+    overrides = {
+      # "org.telegram.desktop".Context = {
+      #   filesystems = [
+      #
+      #   ];
+      # };
+    };
   };
 
   # garbage collect for home-manager generations
