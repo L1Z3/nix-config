@@ -28,9 +28,8 @@
   #   try my hand at packaging virtualhere and making a PR for it
   #   try out fancy riced terminal setups
   #   get repo in ready state for pushing to github (ensure no sensitive data, squash commit messages, etc)
-  #   fix telegram desktop tray icon
   #   fix macos vm
-  #   try packaging easytether
+  #   try finishing packaging easytether
 
   nixpkgs = {
     # You can add overlays here
@@ -134,6 +133,8 @@
       enable = true;
       plugins = with pkgs.obs-studio-plugins; [
         input-overlay
+        obs-vkcapture
+        obs-pipewire-audio-capture
       ];
     };
   };
