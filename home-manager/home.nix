@@ -195,7 +195,7 @@
 
     # office, etc
     libreoffice
-    notion-app-enhanced # custom package to fix issue (TODO upstream this)
+    dev.notion-app-enhanced # custom package to fix issue (TODO upstream this)
     obsidian
     xournalpp
     zoom-us
