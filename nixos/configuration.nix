@@ -232,6 +232,9 @@
   programs.virt-manager.enable = true;
   virtualisation.libvirtd.enable = true;
 
+  # enable containers (distrobox, docker, etc)
+  virtualisation.containers.enable = true;
+
   # enable flatpak (managed with home-manager, just enabled here)
   services.flatpak.enable = true;
 
