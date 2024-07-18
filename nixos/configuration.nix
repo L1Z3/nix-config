@@ -40,7 +40,7 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  networking.networkmanager.enable = true;
+  # networking.networkmanager.enable = true;
 
   # hardware.bluetooth.settings = {
   #   General = {
@@ -259,6 +259,7 @@
   ];
 
   # systemd.network.enable = true;
+  # systemd.services.NetworkManager-wait-online.enable = false;
   # systemd.network.networks."99-tun-easytether" = {
   #   enable = true;
   #   extraConfig = ''
@@ -284,11 +285,6 @@
   networking.firewall.allowedUDPPorts = [5353];
 
   # enable kernel stuff for obs virtual camera
-  # boot.extraModulePackages = with config.boot.kernelPackages; [v4l2loopback];
-  # boot.kernelModules = [
-  #   "v4l2loopback"
-  # ];
-  # OR these might be needed instead; TODO reboot and test which one works for obs
   boot.extraModulePackages = with config.boot.kernelPackages; [
     v4l2loopback
   ];
