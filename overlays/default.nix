@@ -42,26 +42,7 @@
       // {
         unstable-another-window-session-manager-patched = final.unstable.gnomeExtensions.another-window-session-manager.overrideAttrs (oldAttrs: rec {
           patches =
-            oldAttrs.patches or [];
-          # ++ [
-          #   prev.pkgs.writeText
-          #   "disable-logging.patch"
-          #   ''
-          #     diff --git a/utils/log.js b/utils/log.js
-          #     index cf21911..640e4e7 100644
-          #     --- a/utils/log.js
-          #     +++ b/utils/log.js
-          #     @@ -26,7 +26,6 @@ export const Log = class {
-          #       }
-
-          #       info(logContent) {
-          #     -        log(`[INFO   ][Another window session manager] $\{logContent}`);
-          #       }
-
-          #       warn(logContent) {
-
-          #   ''
-          # ];
+            (oldAttrs.patches or []) ++ [./dont-spam-log.patch];
         });
       };
     # unstable = prev.unstable.overrideScope (selfu: superu: {
