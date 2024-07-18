@@ -244,6 +244,7 @@
     wget
     curl
     distrobox
+    podman
     boxbuddy
     easytether # my own packaging of easytether TODO needs fixes
   ];
