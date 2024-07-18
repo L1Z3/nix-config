@@ -231,6 +231,8 @@
   # (vm configs stored in /var/lib/libvirt/qemu/)
   programs.virt-manager.enable = true;
   virtualisation.libvirtd.enable = true;
+  # enable spice for virt-manager
+  virtualisation.spiceUSBRedirection.enable = true;
 
   # enable containers (distrobox, docker, etc)
   virtualisation.containers.enable = true;
