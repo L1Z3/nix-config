@@ -231,6 +231,11 @@
   # (vm configs stored in /var/lib/libvirt/qemu/)
   programs.virt-manager.enable = true;
   virtualisation.libvirtd.enable = true;
+  # enable spice for virt-manager
+  virtualisation.spiceUSBRedirection.enable = true;
+
+  # enable containers (distrobox, docker, etc)
+  virtualisation.containers.enable = true;
 
   # enable flatpak (managed with home-manager, just enabled here)
   services.flatpak.enable = true;
@@ -243,12 +248,15 @@
     desktop-file-utils
     wget
     curl
-    # easytether # my own packaging of easytether TODO needs fixes
+    distrobox
+    boxbuddy
+    podman
+    easytether # my own packaging of easytether TODO needs fixes
   ];
-  # services.udev.packages = [pkgs.easytether];
-  # nixpkgs.config.permittedInsecurePackages = [
-  #   "openssl-1.1.1w" # for easytether
-  # ];
+  services.udev.packages = [pkgs.easytether];
+  nixpkgs.config.permittedInsecurePackages = [
+    "openssl-1.1.1w" # for easytether
+  ];
 
   # allow spotify local discovery
   networking.firewall.allowedTCPPorts = [57621];
