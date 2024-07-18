@@ -258,16 +258,51 @@
     "openssl-1.1.1w" # for easytether
   ];
 
+  # systemd.network.enable = true;
+  # systemd.services.NetworkManager-wait-online.enable = false;
+  # systemd.network.networks."99-tun-easytether" = {
+  #   enable = true;
+  #   extraConfig = ''
+  #     [Match]
+  #     Name=tun-easytether
+
+  #     [Network]
+  #     Description=EasyTether IPv4-only network
+  #     DNS=192.168.117.1
+
+  #     [Address]
+  #     Address=192.168.117.0/31
+  #     Peer=192.168.117.1/31
+  #     Broadcast=255.255.255.255
+
+  #     [Route]
+  #     Gateway=192.168.117.1
+  #   '';
+  # };
+  networking.networkmanager.ensureProfiles.profiles = {
+    tap-easytether = {
+      connection = {
+        autoconnect = "no";
+        id = "EasyTether";
+        interface-name = "tap-easytether";
+        read-only = "yes";
+        type = "tun";
+        uuid = "04366dd5-8fe6-483c-b675-cf05f1650cc2";
+      };
+      ipv4 = {method = "auto";};
+      ipv6 = {
+        addr-gen-mode = "stable-privacy";
+        method = "link-local";
+      };
+      tun = {mode = "2";};
+    };
+  };
+
   # allow spotify local discovery
   networking.firewall.allowedTCPPorts = [57621];
   networking.firewall.allowedUDPPorts = [5353];
 
   # enable kernel stuff for obs virtual camera
-  # boot.extraModulePackages = with config.boot.kernelPackages; [v4l2loopback];
-  # boot.kernelModules = [
-  #   "v4l2loopback"
-  # ];
-  # OR these might be needed instead; TODO reboot and test which one works for obs
   boot.extraModulePackages = with config.boot.kernelPackages; [
     v4l2loopback
   ];
