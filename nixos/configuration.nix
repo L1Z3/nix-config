@@ -257,6 +257,8 @@
   nixpkgs.config.permittedInsecurePackages = [
     "openssl-1.1.1w" # for easytether
   ];
+  # maybe needed for easytether
+  services.nscd.enableNsncd = true;
 
   # allow spotify local discovery
   networking.firewall.allowedTCPPorts = [57621];
