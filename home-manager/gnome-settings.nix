@@ -99,10 +99,10 @@
       easyeffects-preset-selector
       # TODO add script to delete saved windows on monitor config change (or better yet, make PR to fix behavior)
       smart-auto-move
+      unstable-another-window-session-manager-patched # auto-save session (patched to disable excessive logging)
     ]
     ++ (with pkgs.unstable.gnomeExtensions; [
       custom-accent-colors # yippee :)
-      another-window-session-manager # auto-save session
     ]);
 
   deckIP = "192.168.1.36";
