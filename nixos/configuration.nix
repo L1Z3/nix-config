@@ -243,6 +243,7 @@
     desktop-file-utils
     wget
     curl
+    distrobox
     easytether # my own packaging of easytether TODO needs fixes
   ];
   services.udev.packages = [pkgs.easytether];
