@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   # };
 
   src = fetchurl {
-    url = "http://www.mobile-stream.com/beta/debian/10/easytether_0.8.9_amd64.deb";
+    url = "http://www.mobile-stream.com/beta/ubuntu/20.04/easytether_0.8.9_amd64.deb";
     sha256 = "sha256-bsZEB0OND7TFPtBTTbeu8FzDmx8qPS6cS3X3YUI+sOc=";
   };
 
