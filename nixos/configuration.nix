@@ -279,6 +279,24 @@
   #     Gateway=192.168.117.1
   #   '';
   # };
+  networking.networkmanager.ensureProfiles.profiles = {
+    tap-easytether = {
+      connection = {
+        autoconnect = "no";
+        id = "EasyTether";
+        interface-name = "tap-easytether";
+        read-only = "yes";
+        type = "tun";
+        uuid = "04366dd5-8fe6-483c-b675-cf05f1650cc2";
+      };
+      ipv4 = {method = "auto";};
+      ipv6 = {
+        addr-gen-mode = "stable-privacy";
+        method = "link-local";
+      };
+      tun = {mode = "2";};
+    };
+  };
 
   # allow spotify local discovery
   networking.firewall.allowedTCPPorts = [57621];

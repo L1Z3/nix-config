@@ -6,8 +6,8 @@
 {
   stdenv,
   lib,
-  fetchurl,
-  dpkg,
+  fetchzip,
+  # dpkg,
   autoPatchelfHook,
   openssl_1_1,
   bluez,
@@ -16,24 +16,24 @@ stdenv.mkDerivation rec {
   pname = "easytether";
   version = "0.8.9";
 
-  # src = fetchzip {
-  #   url = "http://www.mobile-stream.com/beta/arch/${pname}-${version}-1-x86_64.pkg.tar.xz";
-  #   sha256 = "sha256-3dL5tNxa1hou0SunXOcf0Wkh//hNfzbuI2Dnmk/ibns=";
-  #   stripRoot = false;
-  # };
-
-  src = fetchurl {
-    url = "http://www.mobile-stream.com/beta/ubuntu/20.04/easytether_0.8.9_amd64.deb";
-    sha256 = "sha256-QCvPqtQeita845BGZ4YSw9QhAMxeeXpJJglJhTz9wC4=";
+  src = fetchzip {
+    url = "http://www.mobile-stream.com/beta/arch/${pname}-${version}-1-x86_64.pkg.tar.xz";
+    sha256 = "sha256-3dL5tNxa1hou0SunXOcf0Wkh//hNfzbuI2Dnmk/ibns=";
+    stripRoot = false;
   };
 
-  unpackPhase = ''
-    dpkg-deb -R $src .
-  '';
+  # src = fetchurl {
+  #   url = "http://www.mobile-stream.com/beta/ubuntu/20.04/easytether_0.8.9_amd64.deb";
+  #   sha256 = "sha256-QCvPqtQeita845BGZ4YSw9QhAMxeeXpJJglJhTz9wC4=";
+  # };
+
+  # unpackPhase = ''
+  #   dpkg-deb -R $src .
+  # '';
 
   nativeBuildInputs = [
     autoPatchelfHook
-    dpkg
+    # dpkg
   ];
 
   buildInputs = [
