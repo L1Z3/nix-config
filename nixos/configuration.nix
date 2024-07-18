@@ -244,6 +244,7 @@
     wget
     curl
     distrobox
+    boxbuddy
     easytether # my own packaging of easytether TODO needs fixes
   ];
   services.udev.packages = [pkgs.easytether];
