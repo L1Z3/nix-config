@@ -8,7 +8,7 @@
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
     # don't spam logs with another window session manager logs
-    unstable = prev.unstable.overrideScope (selfu: superu: {
+    unstable = final.unstable.overrideScope (selfu: superu: {
       gnomeExtensions = superu.gnomeExtensions.overrideScope (selfge: superge: {
         another-window-session-manager = superge.another-window-session-manager.overrideAttrs (oldAttrs: rec {
           patches =
