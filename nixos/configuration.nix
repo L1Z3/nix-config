@@ -258,24 +258,26 @@
     "openssl-1.1.1w" # for easytether
   ];
 
-  systemd.network.networks."99-tun-easytether" = {
-    extraConfig = ''
-      [Match]
-      Name=tun-easytether
+  # systemd.network.enable = true;
+  # systemd.network.networks."99-tun-easytether" = {
+  #   enable = true;
+  #   extraConfig = ''
+  #     [Match]
+  #     Name=tun-easytether
 
-      [Network]
-      Description=EasyTether IPv4-only network
-      DNS=192.168.117.1
+  #     [Network]
+  #     Description=EasyTether IPv4-only network
+  #     DNS=192.168.117.1
 
-      [Address]
-      Address=192.168.117.0/31
-      Peer=192.168.117.1/31
-      Broadcast=255.255.255.255
+  #     [Address]
+  #     Address=192.168.117.0/31
+  #     Peer=192.168.117.1/31
+  #     Broadcast=255.255.255.255
 
-      [Route]
-      Gateway=192.168.117.1
-    '';
-  };
+  #     [Route]
+  #     Gateway=192.168.117.1
+  #   '';
+  # };
 
   # allow spotify local discovery
   networking.firewall.allowedTCPPorts = [57621];
