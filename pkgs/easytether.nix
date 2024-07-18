@@ -6,7 +6,8 @@
 {
   stdenv,
   lib,
-  fetchzip,
+  fetchurl,
+  dpkg,
   autoPatchelfHook,
   openssl_1_1,
   bluez,
@@ -15,14 +16,24 @@ stdenv.mkDerivation rec {
   pname = "easytether";
   version = "0.8.9";
 
-  src = fetchzip {
-    url = "http://www.mobile-stream.com/beta/arch/${pname}-${version}-1-x86_64.pkg.tar.xz";
-    sha256 = "sha256-3dL5tNxa1hou0SunXOcf0Wkh//hNfzbuI2Dnmk/ibns=";
-    stripRoot = false;
+  # src = fetchzip {
+  #   url = "http://www.mobile-stream.com/beta/arch/${pname}-${version}-1-x86_64.pkg.tar.xz";
+  #   sha256 = "sha256-3dL5tNxa1hou0SunXOcf0Wkh//hNfzbuI2Dnmk/ibns=";
+  #   stripRoot = false;
+  # };
+
+  src = fetchurl {
+    url = "http://www.mobile-stream.com/beta/debian/10/easytether_0.8.9_amd64.deb";
+    sha256 = "sha256-bsZEB0OND7TFPtBTTbeu8FzDmx8qPS6cS3X3YUI+sOc=";
   };
+
+  unpackPhase = ''
+    dpkg-deb -R $src .
+  '';
 
   nativeBuildInputs = [
     autoPatchelfHook
+    dpkg
   ];
 
   buildInputs = [
@@ -41,7 +52,7 @@ stdenv.mkDerivation rec {
     install -m755 -D usr/bin/${pname}-bluetooth $out/bin/${pname}-bluetooth
     install -m755 -D usr/bin/${pname}-local $out/bin/${pname}-local
 
-    cp -r usr/lib/* "$out/lib"
+    # cp -r usr/lib/* "$out/lib"
 
     runHook postInstall
   '';
