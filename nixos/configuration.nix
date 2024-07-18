@@ -204,6 +204,7 @@
       localNetworkGameTransfers.openFirewall = true;
       # protontricks.enable = true; # only in unstable, TODO enable in future update
     };
+    gamescope.enable = true;
     # TODO reenable when actually needed so i can figure out how to use properly
     nix-ld = {
       enable = true;
@@ -297,6 +298,8 @@
       tun = {mode = "2";};
     };
   };
+  # networking.interfaces.tap-easytether.useDHCP = true;
+  # networking.networkmanager.dhcp = "dhcpcd";
 
   # allow spotify local discovery
   networking.firewall.allowedTCPPorts = [57621];
