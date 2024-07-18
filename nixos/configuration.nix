@@ -202,6 +202,7 @@
       remotePlay.openFirewall = true;
       # dedicatedServer.openFirewall = true;
       localNetworkGameTransfers.openFirewall = true;
+      gamescopeSession.enable = true;
       # protontricks.enable = true; # only in unstable, TODO enable in future update
     };
     gamescope.enable = true;
