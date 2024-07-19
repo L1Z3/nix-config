@@ -123,22 +123,6 @@
       #     patches = [ ./change-hello-to-hi.patch ];
       #   });
       # })
-      (final: prev: {
-        steam = prev.steam.override {
-          extraPkgs = pkgs: [
-            pkgs.xorg.libXcursor
-            pkgs.xorg.libXi
-            pkgs.xorg.libXinerama
-            pkgs.xorg.libXScrnSaver
-            pkgs.libpng
-            pkgs.libpulseaudio
-            pkgs.libvorbis
-            pkgs.stdenv.cc.cc.lib
-            pkgs.libkrb5
-            pkgs.keyutils
-          ];
-        };
-      })
     ];
     # Configure your nixpkgs instance
     config = {
@@ -220,6 +204,18 @@
       localNetworkGameTransfers.openFirewall = true;
       gamescopeSession.enable = true;
       # protontricks.enable = true; # only in unstable, TODO enable in future update
+      extraPackages = with pkgs; [
+        xorg.libXcursor
+        xorg.libXi
+        xorg.libXinerama
+        xorg.libXScrnSaver
+        libpng
+        libpulseaudio
+        libvorbis
+        stdenv.cc.cc.lib
+        libkrb5
+        keyutils
+      ];
     };
     gamescope.enable = true;
     # TODO reenable when actually needed so i can figure out how to use properly
