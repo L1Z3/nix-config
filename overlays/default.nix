@@ -49,10 +49,10 @@
     # steam launch with steamos version (workaround to allow steam input in wayland native games)
     steam-original = prev.steam-original.overrideAttrs (oldAttrs: rec {
       postInstall =
-        oldAttrs.postInstall
+        (oldAttrs.postInstall or "")
         + ''
-          rm $out/share/applications/steam.desktop
-          sed -e 's,steam,steam -steamos3,g' steam.desktop > $out/share/applications/steam.desktop
+          substituteInPlace $out/share/applications/steam.desktop \
+            --replace "Exec=steam" "Exec=steam -steamos3"
         '';
     });
     # unstable = prev.unstable.overrideScope (selfu: superu: {
