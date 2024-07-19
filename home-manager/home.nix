@@ -30,7 +30,7 @@
   #   get repo in ready state for pushing to github (ensure no sensitive data, squash commit messages, etc)
   #   fix macos vm
   #   try finishing packaging easytether
-  #   maybe manage secrets (bookmark names, syncplay config, etc) with private git submodule?
+  #   maybe manage secrets (bookmark names, syncplay config, sshb shortcut, etc) with private git submodule?
 
   nixpkgs = {
     # You can add overlays here
