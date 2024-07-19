@@ -45,6 +45,16 @@
             (oldAttrs.patches or []) ++ [./dont-spam-log.patch];
         });
       };
+
+    # steam launch with steamos version (workaround to allow steam input in wayland native games)
+    steam-original = prev.steam-original.overrideAttrs (oldAttrs: rec {
+      postInstall =
+        oldAttrs.postInstall
+        + ''
+          rm $out/share/applications/steam.desktop
+          sed -e 's,steam,steam -steamos3,g' steam.desktop > $out/share/applications/steam.desktop
+        '';
+    });
     # unstable = prev.unstable.overrideScope (selfu: superu: {
     # gnomeExtensions = superu.gnomeExtensions.overrideScope (selfge: superge: {
     # # gnomeExtensions = prev.gnomeExtensions.overrideScope (selfge: superge: {
