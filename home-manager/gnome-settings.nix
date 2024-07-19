@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  secrets,
   ...
 }: let
   autostartPrograms = with pkgs; [vesktop telegram-desktop firefox];
@@ -97,25 +98,7 @@
     ]);
 
   deckIP = "192.168.1.36";
-  nautilusBookmarks = [
-    "file://${config.home.homeDirectory}/Classes/Semester%2006.5 Semester 06.5"
-    "file://${config.home.homeDirectory}/.var/app Flatpak Data"
-    "file://${config.home.homeDirectory}/.config config"
-    "file://${config.home.homeDirectory}/.local/share local share"
-    # "file:///home/liz/Applications Applications"
-    "file://${config.home.homeDirectory}/Documents"
-    "file://${config.home.homeDirectory}/Pictures"
-    "file://${config.home.homeDirectory}/Videos"
-    "file://${config.home.homeDirectory}/Downloads"
-    # "file://${config.home.homeDirectory}/.local/share/icons icons"
-    "sftp://deck@${deckIP}/home/deck Deck Home Folder"
-    "sftp://deck@${deckIP}/run/media/mmcblk0p1 Deck SD Card"
-    "sftp://deck@${deckIP}/home/deck/.steam/steam/steamapps/common/Celeste Celeste Install Folder"
-    "sftp://deck@${deckIP}/home/deck/.steam/steam/userdata/REDACTED/760/remote/504230/screenshots Celeste Screenshots Folder"
-    "sftp://deck@${deckIP}/home/deck/.local/share/Celeste Celeste Saves Folder"
-    "sftp://REDACTED@REDACTED/ifs/CS/replicated/home/REDACTED/mc_servers/fod fod mc server"
-    "sftp://deck@${deckIP}/home/deck/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/instances Deck MC Instances"
-  ];
+  nautilusBookmarks = secrets.nautilusBookmarks;
 
   # gnome-related packages
   packages = with pkgs; [

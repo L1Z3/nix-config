@@ -16,6 +16,8 @@
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
 
+    secrets.url = "/home/liz/nix/secrets";
+
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";

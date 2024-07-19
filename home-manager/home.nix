@@ -7,7 +7,11 @@
   config,
   pkgs,
   ...
-}: {
+} @ args: let 
+  # TODO currently "secrets" are just secrets from GitHub; they are not securely stored on this machine
+  #      for actual secrets (e.g. passwords, etc), consider storing them some other way
+  secrets = inputs.secrets.secrets;
+in {
   # You can import other home-manager modules here
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
@@ -18,11 +22,13 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
-    ./gnome-settings.nix
+    # pass secrets to gnome-settings module
+    (import ./gnome-settings.nix (args // {inherit secrets;}))
     ./programs/vscode
     ./programs/htop
     ./programs/syncplay
   ];
+
   # TODO list:
   #   make PRs for duplicacy-mount(?), notion-app-enhanced, and maybe after some effort making it clean, duplicacy-web
   #   try my hand at packaging virtualhere and making a PR for it
@@ -112,18 +118,7 @@
       '';
       initExtra = ''
         # add .bashrc things here
-        # ssh to brown
-        sshb() {
-            #do things with parameters like $1 such as
-            if [ $# -eq 0 ]
-              then
-              ssh REDACTED@REDACTED
-              else
-              ssh -t REDACTED@REDACTED host="$1"
-            fi
-
-        }
-      '';
+      '' + secrets.bashInitExtra;
     };
     git = {
       enable = true;
