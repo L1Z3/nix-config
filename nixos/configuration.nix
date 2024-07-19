@@ -202,7 +202,26 @@
       remotePlay.openFirewall = true;
       # dedicatedServer.openFirewall = true;
       localNetworkGameTransfers.openFirewall = true;
+      # gamescopeSession.enable = true;
       # protontricks.enable = true; # only in unstable, TODO enable in future update
+      # extra packages that seem to make gamescope work in steam
+      # extraPackages = with pkgs; [
+      #   xorg.libXcursor
+      #   xorg.libXi
+      #   xorg.libXinerama
+      #   xorg.libXScrnSaver
+      #   libpng
+      #   libpulseaudio
+      #   libvorbis
+      #   stdenv.cc.cc.lib
+      #   libkrb5
+      #   keyutils
+      # ];
+    };
+    # gamescope.enable = true;
+    gamemode = {
+      enable = true;
+      enableRenice = true;
     };
     # TODO reenable when actually needed so i can figure out how to use properly
     nix-ld = {
@@ -251,12 +270,13 @@
     distrobox
     boxbuddy
     podman
-    easytether # my own packaging of easytether TODO needs fixes
+    # game-devices-udev-rules # attempt at fixing steam input in wayland native games (not working)
+    # easytether # my own packaging of easytether TODO needs fixes
   ];
-  services.udev.packages = [pkgs.easytether];
-  nixpkgs.config.permittedInsecurePackages = [
-    "openssl-1.1.1w" # for easytether
-  ];
+  # services.udev.packages = [pkgs.easytether];
+  # nixpkgs.config.permittedInsecurePackages = [
+  #   "openssl-1.1.1w" # for easytether
+  # ];
 
   # systemd.network.enable = true;
   # systemd.services.NetworkManager-wait-online.enable = false;
@@ -279,24 +299,26 @@
   #     Gateway=192.168.117.1
   #   '';
   # };
-  networking.networkmanager.ensureProfiles.profiles = {
-    tap-easytether = {
-      connection = {
-        autoconnect = "no";
-        id = "EasyTether";
-        interface-name = "tap-easytether";
-        read-only = "yes";
-        type = "tun";
-        uuid = "04366dd5-8fe6-483c-b675-cf05f1650cc2";
-      };
-      ipv4 = {method = "auto";};
-      ipv6 = {
-        addr-gen-mode = "stable-privacy";
-        method = "link-local";
-      };
-      tun = {mode = "2";};
-    };
-  };
+  # networking.networkmanager.ensureProfiles.profiles = {
+  #   tap-easytether = {
+  #     connection = {
+  #       autoconnect = "no";
+  #       id = "EasyTether";
+  #       interface-name = "tap-easytether";
+  #       read-only = "yes";
+  #       type = "tun";
+  #       uuid = "04366dd5-8fe6-483c-b675-cf05f1650cc2";
+  #     };
+  #     ipv4 = {method = "auto";};
+  #     ipv6 = {
+  #       addr-gen-mode = "stable-privacy";
+  #       method = "link-local";
+  #     };
+  #     tun = {mode = "2";};
+  #   };
+  # };
+  # networking.interfaces.tap-easytether.useDHCP = true;
+  # networking.networkmanager.dhcp = "dhcpcd";
 
   # allow spotify local discovery
   networking.firewall.allowedTCPPorts = [57621];

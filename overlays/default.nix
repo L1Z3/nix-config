@@ -45,6 +45,18 @@
             (oldAttrs.patches or []) ++ [./dont-spam-log.patch];
         });
       };
+
+    # TODO fix
+    # steam launch with steamos version (workaround to allow steam input in wayland native games) (Celeste with env SDL_VIDEODRIVER=wayland)
+    # steam-original = prev.steam-original.overrideAttrs (oldAttrs: rec {
+    #   postInstall =
+    #     (oldAttrs.postInstall or "")
+    #     + ''
+    #       substituteInPlace $out/share/applications/steam.desktop \
+    #         --replace "Exec=steam" "Exec=steam -steamos3"
+    #     '';
+    # });
+
     # unstable = prev.unstable.overrideScope (selfu: superu: {
     # gnomeExtensions = superu.gnomeExtensions.overrideScope (selfge: superge: {
     # # gnomeExtensions = prev.gnomeExtensions.overrideScope (selfge: superge: {
