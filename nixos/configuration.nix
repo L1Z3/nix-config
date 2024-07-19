@@ -123,6 +123,22 @@
       #     patches = [ ./change-hello-to-hi.patch ];
       #   });
       # })
+      (final: prev: {
+        steam = prev.steam.override {
+          extraPkgs = pkgs: [
+            pkgs.xorg.libXcursor
+            pkgs.xorg.libXi
+            pkgs.xorg.libXinerama
+            pkgs.xorg.libXScrnSaver
+            pkgs.libpng
+            pkgs.libpulseaudio
+            pkgs.libvorbis
+            pkgs.stdenv.cc.cc.lib
+            pkgs.libkrb5
+            pkgs.keyutils
+          ];
+        };
+      })
     ];
     # Configure your nixpkgs instance
     config = {
