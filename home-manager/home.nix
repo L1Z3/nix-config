@@ -7,7 +7,7 @@
   config,
   pkgs,
   ...
-} @ args: let 
+} @ args: let
   # TODO currently "secrets" are just secrets from GitHub; they are not securely stored on this machine
   #      for actual secrets (e.g. passwords, etc), consider storing them some other way
   secrets = inputs.secrets.secrets;
@@ -116,9 +116,11 @@ in {
       profileExtra = ''
         # add .profile things here
       '';
-      initExtra = ''
-        # add .bashrc things here
-      '' + secrets.bashInitExtra;
+      initExtra =
+        ''
+          # add .bashrc things here
+        ''
+        + secrets.bashInitExtra;
     };
     git = {
       enable = true;
