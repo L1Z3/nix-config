@@ -129,6 +129,7 @@
       enable = true;
       userName = "Elizabeth Jones";
       userEmail = "10276179+L1Z3@users.noreply.github.com";
+      extraConfig = {submodule.recurse = true;};
     };
     obs-studio = {
       enable = true;
