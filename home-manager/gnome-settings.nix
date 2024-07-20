@@ -21,81 +21,75 @@
   ];
 
   # gnome extensions to install and enable
-  # TODO it'd be cool to have some custom machinery that lets me edit the settings adjacent to each extension
   # data structure to define settings and extensions together:
-  # extensionsAndSettings = {
-  #   advanced-alttab-window-switcher = {};
-  #   appindicator.settings = {
-  #     legacy-tray-enabled = false;
-  #   };
-  #   blur-my-shell = {};
-  #   clipboard-history.settings = {
-  #     display-mode = 0;
-  #     history-size = 20;
-  #     next-entry = ["<Super>period"];
-  #     prev-entry = ["<Super>comma"];
-  #     window-width-percentage = 20;
-  #   };
-  #   focused-window-d-bus = {};
-  #   impatience = {
-  #     dconfPath = "net/gfxmonk/impatience";
-  #     settings = {speed-factor = 0.5;};
-  #   };
-  #   steal-my-focus-window = {};
-  #   tiling-assistant = {};
-  #   quick-settings-audio-panel.settings = { # volume mixer in quick settings
-  #     merge-panel = true;
-  #     panel-position = "bottom";
-  #   };
-  #   user-themes = {
-  #     dconfPath = "user-theme";
-  #     settings = {name = "Custom-Accent-Colors";};
-  #   };
-  #   easyeffects-preset-selector = {};
-
-  #   custom-accent-colors = { # yippee :)
-  #     channel = "unstable";
-  #     settings = {
-  #       # options:
-  #       # default (blue, no option set), green, yellow, orange, red, pink, purple, brown
-  #       accent-color = "pink";
-  #       theme-shell = true;
-  #       theme-gtk3 = true;
-  #       theme-flatpak = true;
-  #     };
-  #   };
-  #   another-window-session-manager = { # auto-save session
-  #     channel = "unstable";
-  #     settings = {
-  #       enable-restore-previous-session = true;
-  #       enable-autoclose-session = true;
-  #       # custom window rules for automatic closing, needs ydotool
-  #       close-window-rules = ''
-  #         '{"/home/liz/.nix-profile/share/applications/firefox.desktop":{"type":"shortcut","value":{"1":{"shortcut":"Ctrl+Q","order":1,"keyval":113,"keycode":24,"state":4},"2":{"shortcut":"Space","order":2,"keyval":32,"keycode":65,"state":0},"3":{"shortcut":"Space","order":3,"keyval":32,"keycode":65,"state":0},"4":{"shortcut":"Space","order":4,"keyval":32,"keycode":65,"state":0},"5":{"shortcut":"Space","order":5,"keyval":32,"keycode":65,"state":0},"6":{"shortcut":"Space","order":6,"keyval":32,"keycode":65,"state":0},"7":{"shortcut":"Space","order":7,"keyval":32,"keycode":65,"state":0},"8":{"shortcut":"Space","order":8,"keyval":32,"keycode":65,"state":0},"9":{"shortcut":"Space","order":9,"keyval":32,"keycode":65,"state":0},"10":{"shortcut":"Space","order":10,"keyval":32,"keycode":65,"state":0},"11":{"shortcut":"Space","order":11,"keyval":32,"keycode":65,"state":0},"12":{"shortcut":"Space","order":12,"keyval":32,"keycode":65,"state":0}},"enabled":true,"appId":"firefox.desktop","appDesktopFilePath":"/home/liz/.nix-profile/share/applications/firefox.desktop","appName":"Firefox","keyDelay":1},"/run/current-system/sw/share/applications/org.gnome.Console.desktop":{"type":"shortcut","value":{"1":{"shortcut":"Shift+Ctrl+W","order":1,"keyval":87,"keycode":25,"state":5},"2":{"shortcut":"Right","order":2,"keyval":65363,"keycode":114,"state":0},"3":{"shortcut":"Right","order":3,"keyval":65363,"keycode":114,"state":0},"4":{"shortcut":"Right","order":4,"keyval":65363,"keycode":114,"state":0},"5":{"shortcut":"Right","order":5,"keyval":65363,"keycode":114,"state":0},"6":{"shortcut":"Right","order":6,"keyval":65363,"keycode":114,"state":0},"7":{"shortcut":"Space","order":7,"keyval":32,"keycode":65,"state":0},"8":{"shortcut":"Space","order":8,"keyval":32,"keycode":65,"state":0},"9":{"shortcut":"Space","order":9,"keyval":32,"keycode":65,"state":0},"10":{"shortcut":"Space","order":10,"keyval":32,"keycode":65,"state":0}},"enabled":true,"appId":"org.gnome.Console.desktop","appDesktopFilePath":"/run/current-system/sw/share/applications/org.gnome.Console.desktop","appName":"Console","keyDelay":0}}'
-  #       '';
-  #       restore-previous-delay = 5;
-  #     };
-  #   };
-  # };
-
-  extensions = with pkgs.gnomeExtensions;
-    [
-      advanced-alttab-window-switcher
-      appindicator
-      blur-my-shell
-      clipboard-history
-      focused-window-d-bus
-      impatience
-      steal-my-focus-window
-      tiling-assistant
-      quick-settings-audio-panel # volume mixer in quick settings
-      user-themes
-      easyeffects-preset-selector
-      unstable-another-window-session-manager-patched # auto-save session (patched to disable excessive logging)
-    ]
-    ++ (with pkgs.unstable.gnomeExtensions; [
-      custom-accent-colors # yippee :)
-    ]);
+  # TODO make sure everything is using the correct datatypes (via lib.hm.gvariant)
+  extensionsAndSettings = with pkgs.gnomeExtensions;
+  with lib.hm.gvariant; [
+    advanced-alttab-window-switcher
+    {
+      package = appindicator;
+      dconfPath = "appindicator"; # pname is appindicator-support so this is needed
+      settings = {
+        legacy-tray-enabled = false;
+      };
+    }
+    blur-my-shell
+    {
+      package = clipboard-history;
+      settings = {
+        display-mode = 0;
+        history-size = 20;
+        next-entry = ["<Super>period"];
+        prev-entry = ["<Super>comma"];
+        window-width-percentage = 20;
+      };
+    }
+    focused-window-d-bus
+    {
+      package = impatience;
+      dconfPath = "net/gfxmonk/impatience";
+      settings = {speed-factor = 0.5;};
+    }
+    steal-my-focus-window
+    tiling-assistant
+    {
+      package = quick-settings-audio-panel; # volume mixer in quick settings
+      settings = {
+        merge-panel = true;
+        panel-position = "bottom";
+      };
+    }
+    {
+      package = user-themes;
+      dconfPath = "user-theme";
+      settings = {name = "Custom-Accent-Colors";};
+    }
+    easyeffects-preset-selector
+    {
+      package = pkgs.unstable.gnomeExtensions.custom-accent-colors; # yippee :)
+      settings = {
+        # options:
+        # default (blue, no option set), green, yellow, orange, red, pink, purple, brown
+        accent-color = "pink";
+        theme-shell = true;
+        theme-gtk3 = true;
+        theme-flatpak = true;
+      };
+    }
+    {
+      package = unstable-another-window-session-manager-patched; # auto-save session
+      dconfPath = "another-window-session-manager";
+      settings = {
+        enable-restore-previous-session = true;
+        enable-autoclose-session = true;
+        # custom window rules for automatic closing, needs ydotool
+        close-windows-rules = ''
+          '{"/home/liz/.nix-profile/share/applications/firefox.desktop":{"type":"shortcut","value":{"1":{"shortcut":"Ctrl+Q","order":1,"keyval":113,"keycode":24,"state":4},"2":{"shortcut":"Space","order":2,"keyval":32,"keycode":65,"state":0},"3":{"shortcut":"Space","order":3,"keyval":32,"keycode":65,"state":0},"4":{"shortcut":"Space","order":4,"keyval":32,"keycode":65,"state":0},"5":{"shortcut":"Space","order":5,"keyval":32,"keycode":65,"state":0},"6":{"shortcut":"Space","order":6,"keyval":32,"keycode":65,"state":0},"7":{"shortcut":"Space","order":7,"keyval":32,"keycode":65,"state":0},"8":{"shortcut":"Space","order":8,"keyval":32,"keycode":65,"state":0},"9":{"shortcut":"Space","order":9,"keyval":32,"keycode":65,"state":0},"10":{"shortcut":"Space","order":10,"keyval":32,"keycode":65,"state":0},"11":{"shortcut":"Space","order":11,"keyval":32,"keycode":65,"state":0},"12":{"shortcut":"Space","order":12,"keyval":32,"keycode":65,"state":0}},"enabled":true,"appId":"firefox.desktop","appDesktopFilePath":"/home/liz/.nix-profile/share/applications/firefox.desktop","appName":"Firefox","keyDelay":1},"/run/current-system/sw/share/applications/org.gnome.Console.desktop":{"type":"shortcut","value":{"1":{"shortcut":"Shift+Ctrl+W","order":1,"keyval":87,"keycode":25,"state":5},"2":{"shortcut":"Right","order":2,"keyval":65363,"keycode":114,"state":0},"3":{"shortcut":"Right","order":3,"keyval":65363,"keycode":114,"state":0},"4":{"shortcut":"Right","order":4,"keyval":65363,"keycode":114,"state":0},"5":{"shortcut":"Right","order":5,"keyval":65363,"keycode":114,"state":0},"6":{"shortcut":"Right","order":6,"keyval":65363,"keycode":114,"state":0},"7":{"shortcut":"Space","order":7,"keyval":32,"keycode":65,"state":0},"8":{"shortcut":"Space","order":8,"keyval":32,"keycode":65,"state":0},"9":{"shortcut":"Space","order":9,"keyval":32,"keycode":65,"state":0},"10":{"shortcut":"Space","order":10,"keyval":32,"keycode":65,"state":0}},"enabled":true,"appId":"org.gnome.Console.desktop","appDesktopFilePath":"/run/current-system/sw/share/applications/org.gnome.Console.desktop","appName":"Console","keyDelay":0}}'
+        '';
+        restore-previous-delay = 5;
+      };
+    }
+  ];
 
   nautilusBookmarks = secrets.nautilusBookmarks;
 
@@ -122,59 +116,8 @@
   extraProfile = backspaceRemapProfile + "";
   customDconf =
     backspaceRemapDconf
-    // {
+    // (with lib.hm.gvariant; {
       # below here is all other custom dconf entries
-
-      # enable the extensions specified above
-      "org/gnome/shell" = {
-        enabled-extensions = builtins.map (extension: extension.extensionUuid) extensions;
-      };
-
-      "org/gnome/shell/extensions/another-window-session-manager" = {
-        enable-restore-previous-session = true;
-        enable-autoclose-session = true;
-        # custom window rules for automatic closing, needs ydotool
-        close-window-rules = ''
-          '{"/home/liz/.nix-profile/share/applications/firefox.desktop":{"type":"shortcut","value":{"1":{"shortcut":"Ctrl+Q","order":1,"keyval":113,"keycode":24,"state":4},"2":{"shortcut":"Space","order":2,"keyval":32,"keycode":65,"state":0},"3":{"shortcut":"Space","order":3,"keyval":32,"keycode":65,"state":0},"4":{"shortcut":"Space","order":4,"keyval":32,"keycode":65,"state":0},"5":{"shortcut":"Space","order":5,"keyval":32,"keycode":65,"state":0},"6":{"shortcut":"Space","order":6,"keyval":32,"keycode":65,"state":0},"7":{"shortcut":"Space","order":7,"keyval":32,"keycode":65,"state":0},"8":{"shortcut":"Space","order":8,"keyval":32,"keycode":65,"state":0},"9":{"shortcut":"Space","order":9,"keyval":32,"keycode":65,"state":0},"10":{"shortcut":"Space","order":10,"keyval":32,"keycode":65,"state":0},"11":{"shortcut":"Space","order":11,"keyval":32,"keycode":65,"state":0},"12":{"shortcut":"Space","order":12,"keyval":32,"keycode":65,"state":0}},"enabled":true,"appId":"firefox.desktop","appDesktopFilePath":"/home/liz/.nix-profile/share/applications/firefox.desktop","appName":"Firefox","keyDelay":1},"/run/current-system/sw/share/applications/org.gnome.Console.desktop":{"type":"shortcut","value":{"1":{"shortcut":"Shift+Ctrl+W","order":1,"keyval":87,"keycode":25,"state":5},"2":{"shortcut":"Right","order":2,"keyval":65363,"keycode":114,"state":0},"3":{"shortcut":"Right","order":3,"keyval":65363,"keycode":114,"state":0},"4":{"shortcut":"Right","order":4,"keyval":65363,"keycode":114,"state":0},"5":{"shortcut":"Right","order":5,"keyval":65363,"keycode":114,"state":0},"6":{"shortcut":"Right","order":6,"keyval":65363,"keycode":114,"state":0},"7":{"shortcut":"Space","order":7,"keyval":32,"keycode":65,"state":0},"8":{"shortcut":"Space","order":8,"keyval":32,"keycode":65,"state":0},"9":{"shortcut":"Space","order":9,"keyval":32,"keycode":65,"state":0},"10":{"shortcut":"Space","order":10,"keyval":32,"keycode":65,"state":0}},"enabled":true,"appId":"org.gnome.Console.desktop","appDesktopFilePath":"/run/current-system/sw/share/applications/org.gnome.Console.desktop","appName":"Console","keyDelay":0}}'
-        '';
-        restore-previous-delay = 5;
-      };
-
-      "org/gnome/shell/extensions/user-theme" = {
-        name = "Custom-Accent-Colors";
-      };
-
-      # custom accent colors
-      "org/gnome/shell/extensions/custom-accent-colors" = {
-        # options:
-        # default (blue, no option set), green, yellow, orange, red, pink, purple, brown
-        accent-color = "pink";
-        theme-shell = true;
-        theme-gtk3 = true;
-        theme-flatpak = true;
-      };
-
-      # quick settings audio panel settings
-      "org/gnome/shell/extensions/quick-settings-audio-panel" = {
-        merge-panel = true;
-        panel-position = "bottom";
-      };
-
-      "org/gnome/shell/extensions/net/gfxmonk/impatience" = {
-        speed-factor = 0.5;
-      };
-
-      "org/gnome/shell/extensions/appindicator" = {
-        legacy-tray-enabled = false;
-      };
-
-      "org/gnome/shell/extensions/clipboard-history" = {
-        display-mode = 0;
-        history-size = 20;
-        next-entry = ["<Super>period"];
-        prev-entry = ["<Super>comma"];
-        window-width-percentage = 20;
-      };
 
       # fix dark mode in gtk3 apps
       # (alternative to setting this dconf option is home-manager gtk.theme option but that conflicts with custom accent colors)
@@ -260,7 +203,7 @@
       "org/gnome/mutter" = {
         dynamic-workspaces = false;
         edge-tiling = false;
-        workspaces-only-on-primary = false;
+        workspaces-only-on-primary = true;
       };
 
       "org/gnome/mutter/keybindings" = {
@@ -283,170 +226,172 @@
       "org/gnome/shell/overrides" = {
         edge-tiling = false;
       };
-    };
+    });
 
-  # TODO come back and finish thing for extensionsAndSettings
-  # extensionSettingsDconf = ... builtins.attrNames extensionsAndSettings
   # pathToHere = builtins.getFlakePath;
   inherit (config.lib.file) mkOutOfStoreSymlink;
   pathToHere = "${config.home.homeDirectory}/nix/home-manager";
-in
-  with lib.hm.gvariant; {
-    # this is a hack to allow gui editing of default apps. TODO: reconsider how to do this more elegantly
-    # $XDG_CONFIG_HOME/gnome-mimeapps.list will take precedence over $XDG_CONFIG_DIRS/mimeapps.list, (see https://specifications.freedesktop.org/mime-apps-spec/mime-apps-spec-1.0.html)
-    # but changes can still be made to mimeapps.list in the GUI. the activation script will copy
-    # these changes to home-manager's mimeapps.list, which will then symlink to the gnome-mimeapps.list file.
-    xdg.configFile = {
-      # TODO make the path relative to flake dir somehow (still needs to expand to absolute path for nix reasons)
-      "gnome-mimeapps.list".source = mkOutOfStoreSymlink "${pathToHere}/mimeapps.list";
-    };
-    # TODO temporarily disabling this because it would override my mimeapps.list if I changed to new system. need 2 way sync (like with mkOutOfStoreSymlink directly to mimeapps.list)
-    # imports = [
-    #   ({config, ...}: {
-    #     home.activation.update-mimeapps = {
-    #       after = ["writeBoundary" "createXdgUserDirectories"];
-    #       before = [];
-    #       data = ''
-    #         # copy the user's mimeapps.list to the home-manager directory
-    #         if [ -f ${config.home.homeDirectory}/.config/mimeapps.list ]; then
-    #           cp ${config.home.homeDirectory}/.config/mimeapps.list ${pathToHere}/mimeapps.list
-    #         fi
-    #       '';
-    #     };
-    #   })
-    # ];
+in {
+  imports = [
+    ./modules/gnome-extension-settings.nix
+  ];
 
-    home.packages = packages ++ extensions;
-    # TODO enable when i change over the other extensionsAndSettings stuff
-    # home.packages = packages ++ builtins.map (name: if extensionsAndSettings.name ? channel then "pkgs.${channel}.gnomeExtensions.${name}" else "pkgs.gnomeExtensions.${name}") builtins.attrNames extensionsAndSettings;
+  # this is a hack to allow gui editing of default apps. TODO: reconsider how to do this more elegantly
+  # $XDG_CONFIG_HOME/gnome-mimeapps.list will take precedence over $XDG_CONFIG_DIRS/mimeapps.list, (see https://specifications.freedesktop.org/mime-apps-spec/mime-apps-spec-1.0.html)
+  # but changes can still be made to mimeapps.list in the GUI. the activation script will copy
+  # these changes to home-manager's mimeapps.list, which will then symlink to the gnome-mimeapps.list file.
+  xdg.configFile = {
+    # TODO make the path relative to flake dir somehow (still needs to expand to absolute path for nix reasons)
+    "gnome-mimeapps.list".source = mkOutOfStoreSymlink "${pathToHere}/mimeapps.list";
+  };
+  # TODO temporarily disabling this because it would override my mimeapps.list if I changed to new system. need 2 way sync (like with mkOutOfStoreSymlink directly to mimeapps.list)
+  # imports = [
+  #   ({config, ...}: {
+  #     home.activation.update-mimeapps = {
+  #       after = ["writeBoundary" "createXdgUserDirectories"];
+  #       before = [];
+  #       data = ''
+  #         # copy the user's mimeapps.list to the home-manager directory
+  #         if [ -f ${config.home.homeDirectory}/.config/mimeapps.list ]; then
+  #           cp ${config.home.homeDirectory}/.config/mimeapps.list ${pathToHere}/mimeapps.list
+  #         fi
+  #       '';
+  #     };
+  #   })
+  # ];
 
-    # nautilus bookmarks
-    gtk.gtk3.bookmarks = nautilusBookmarks;
+  # calls into custom module that enables and configures settings for gnome extensions
+  gnomeExtensionSettings.enable = true;
+  gnomeExtensionSettings.extensionsAndSettings = extensionsAndSettings;
 
-    # jank workaround so new home.packages appear in gnome search without logging out
-    # TODO figure out how to make lib.mkAfter work here
-    programs.bash.profileExtra =
-      extraProfile
-      + ''
+  home.packages = packages;
+
+  # nautilus bookmarks
+  gtk.gtk3.bookmarks = nautilusBookmarks;
+
+  # jank workaround so new home.packages appear in gnome search without logging out
+  programs.bash.profileExtra =
+    extraProfile
+    + ''
+      rm -rf ${config.home.homeDirectory}/.local/share/applications/home-manager
+      rm -rf ${config.home.homeDirectory}/.icons/nix-icons
+      ls ${config.home.homeDirectory}/.nix-profile/share/applications/*.desktop > ${config.home.homeDirectory}/.cache/current_desktop_files.txt
+    '';
+  home.activation = {
+    linkDesktopApplications = {
+      after = ["writeBoundary" "createXdgUserDirectories"];
+      before = [];
+      data = ''
         rm -rf ${config.home.homeDirectory}/.local/share/applications/home-manager
         rm -rf ${config.home.homeDirectory}/.icons/nix-icons
-        ls ${config.home.homeDirectory}/.nix-profile/share/applications/*.desktop > ${config.home.homeDirectory}/.cache/current_desktop_files.txt
-      '';
-    home.activation = {
-      linkDesktopApplications = {
-        after = ["writeBoundary" "createXdgUserDirectories"];
-        before = [];
-        data = ''
-          rm -rf ${config.home.homeDirectory}/.local/share/applications/home-manager
-          rm -rf ${config.home.homeDirectory}/.icons/nix-icons
-          mkdir -p ${config.home.homeDirectory}/.local/share/applications/home-manager
-          mkdir -p ${config.home.homeDirectory}/.icons
-          ln -sf ${config.home.homeDirectory}/.nix-profile/share/icons ${config.home.homeDirectory}/.icons/nix-icons
+        mkdir -p ${config.home.homeDirectory}/.local/share/applications/home-manager
+        mkdir -p ${config.home.homeDirectory}/.icons
+        ln -sf ${config.home.homeDirectory}/.nix-profile/share/icons ${config.home.homeDirectory}/.icons/nix-icons
 
-          # Check if the cached desktop files list exists
-          if [ -f ${config.home.homeDirectory}/.cache/current_desktop_files.txt ]; then
-            current_files=$(cat ${config.home.homeDirectory}/.cache/current_desktop_files.txt)
-          else
-            current_files=""
+        # Check if the cached desktop files list exists
+        if [ -f ${config.home.homeDirectory}/.cache/current_desktop_files.txt ]; then
+          current_files=$(cat ${config.home.homeDirectory}/.cache/current_desktop_files.txt)
+        else
+          current_files=""
+        fi
+
+        # Symlink new desktop entries
+        for desktop_file in ${config.home.homeDirectory}/.nix-profile/share/applications/*.desktop; do
+          if ! echo "$current_files" | grep -q "$(basename $desktop_file)"; then
+            ln -sf "$desktop_file" ${config.home.homeDirectory}/.local/share/applications/home-manager/$(basename $desktop_file)
           fi
+        done
 
-          # Symlink new desktop entries
-          for desktop_file in ${config.home.homeDirectory}/.nix-profile/share/applications/*.desktop; do
-            if ! echo "$current_files" | grep -q "$(basename $desktop_file)"; then
-              ln -sf "$desktop_file" ${config.home.homeDirectory}/.local/share/applications/home-manager/$(basename $desktop_file)
-            fi
-          done
-
-          # Update desktop database
-          ${pkgs.desktop-file-utils}/bin/update-desktop-database ${config.home.homeDirectory}/.local/share/applications
-        '';
-      };
+        # Update desktop database
+        ${pkgs.desktop-file-utils}/bin/update-desktop-database ${config.home.homeDirectory}/.local/share/applications
+      '';
     };
+  };
 
-    # autostart programs implementation
-    home.file = builtins.listToAttrs (map
-      (pkg: {
-        name = ".config/autostart/" + pkg.pname + ".desktop";
-        value =
-          if pkg ? desktopItem
-          then {
-            # Application has a desktopItem entry.
-            # Assume that it was made with makeDesktopEntry, which exposes a
-            # text attribute with the contents of the .desktop file
-            text = pkg.desktopItem.text;
-          }
-          else {
-            # Application does *not* have a desktopItem entry. Try to find a
-            # matching .desktop name in /share/applications
-            source = with builtins; let
-              appsPath = "${pkg}/share/applications";
-              # function to filter out subdirs of /share/applications
-              filterFiles = dirContents: lib.attrsets.filterAttrs (_: fileType: elem fileType ["regular" "symlink"]) dirContents;
-            in (
-              # if there's a desktop file by the app's pname, use that
-              if (pathExists "${appsPath}/${pkg.pname}.desktop")
-              then "${appsPath}/${pkg.pname}.desktop"
-              # if there's not, find the first desktop file in the app's directory and assume that's good enough
-              else
-                (
-                  if pathExists "${appsPath}"
-                  then "${appsPath}/${head (attrNames (filterFiles (readDir "${appsPath}")))}"
-                  else throw "no desktop file for app ${pkg.pname}"
-                )
-            );
-          };
-      })
-      autostartPrograms);
-    # this first part is the implementation of custom keybinds
-    dconf.settings =
-      lib.mkMerge
-      [
-        (let
-          inherit (builtins) length head tail listToAttrs genList;
-          range = a: b:
-            if a < b
-            then [a] ++ range (a + 1) b
-            else [];
-          globalPath = "org/gnome/settings-daemon/plugins/media-keys";
-          path = "${globalPath}/custom-keybinding";
-          mkPath = id: "${globalPath}/custom${toString id}";
-          isEmpty = list: length list == 0;
-          mkSettings = settings: let
-            checkSettings = {
-              name,
-              command,
-              binding,
-            } @ this:
-              this;
-            aux = i: list:
-              if isEmpty list
-              then []
-              else let
-                hd = head list;
-                tl = tail list;
-                name = mkPath i;
-              in
-                aux (i + 1) tl
-                ++ [
-                  {
-                    name = mkPath i;
-                    value = checkSettings hd;
-                  }
-                ];
-            settingsList = aux 0 settings;
-          in
-            listToAttrs (settingsList
+  # autostart programs implementation
+  home.file = builtins.listToAttrs (map
+    (pkg: {
+      name = ".config/autostart/" + pkg.pname + ".desktop";
+      value =
+        if pkg ? desktopItem
+        then {
+          # Application has a desktopItem entry.
+          # Assume that it was made with makeDesktopEntry, which exposes a
+          # text attribute with the contents of the .desktop file
+          text = pkg.desktopItem.text;
+        }
+        else {
+          # Application does *not* have a desktopItem entry. Try to find a
+          # matching .desktop name in /share/applications
+          source = with builtins; let
+            appsPath = "${pkg}/share/applications";
+            # function to filter out subdirs of /share/applications
+            filterFiles = dirContents: lib.attrsets.filterAttrs (_: fileType: elem fileType ["regular" "symlink"]) dirContents;
+          in (
+            # if there's a desktop file by the app's pname, use that
+            if (pathExists "${appsPath}/${pkg.pname}.desktop")
+            then "${appsPath}/${pkg.pname}.desktop"
+            # if there's not, find the first desktop file in the app's directory and assume that's good enough
+            else
+              (
+                if pathExists "${appsPath}"
+                then "${appsPath}/${head (attrNames (filterFiles (readDir "${appsPath}")))}"
+                else throw "no desktop file for app ${pkg.pname}"
+              )
+          );
+        };
+    })
+    autostartPrograms);
+  # this first part is the implementation of custom keybinds
+  dconf.settings =
+    lib.mkMerge
+    [
+      (let
+        inherit (builtins) length head tail listToAttrs genList;
+        range = a: b:
+          if a < b
+          then [a] ++ range (a + 1) b
+          else [];
+        globalPath = "org/gnome/settings-daemon/plugins/media-keys";
+        path = "${globalPath}/custom-keybinding";
+        mkPath = id: "${globalPath}/custom${toString id}";
+        isEmpty = list: length list == 0;
+        mkSettings = settings: let
+          checkSettings = {
+            name,
+            command,
+            binding,
+          } @ this:
+            this;
+          aux = i: list:
+            if isEmpty list
+            then []
+            else let
+              hd = head list;
+              tl = tail list;
+              name = mkPath i;
+            in
+              aux (i + 1) tl
               ++ [
                 {
-                  name = globalPath;
-                  value = {
-                    custom-keybindings = genList (i: "/${mkPath i}/") (length settingsList);
-                  };
+                  name = mkPath i;
+                  value = checkSettings hd;
                 }
-              ]);
+              ];
+          settingsList = aux 0 settings;
         in
-          mkSettings customKeybinds)
-        # add custom dconf declared above
-        customDconf
-      ];
-  }
+          listToAttrs (settingsList
+            ++ [
+              {
+                name = globalPath;
+                value = {
+                  custom-keybindings = genList (i: "/${mkPath i}/") (length settingsList);
+                };
+              }
+            ]);
+      in
+        mkSettings customKeybinds)
+      # add custom dconf declared above
+      customDconf
+    ];
+}
