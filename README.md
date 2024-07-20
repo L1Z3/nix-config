@@ -1,0 +1,1 @@
+These are my configuration files for my main computer, an HP Envy x360 15-fe0053dx running NixOS. They are not built to be particularly modular or usable to anyone other than me, but I am publishing them in case anyone can find something useful in them.
