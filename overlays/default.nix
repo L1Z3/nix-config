@@ -32,6 +32,17 @@
     };
   };
 
+  # modifications that only are applied to system config, not home config
+  system-modifications = final: prev: {
+    # patch to prevent xdg-utils from override symlink, allowing mkOutOfStoreSymLink on mimeapps.list to work
+    # TODO test this, and also attempt to only patch this for gnome to prevent having to recompile everything that depends on xdg-utils
+    # TODO doesn't work, investigate why TODO maybe needs to be present in system and home
+    # xdg-utils = prev.xdg-utils.overrideAttrs (oldAttrs: rec {
+    #   patches =
+    #     (oldAttrs.patches or []) ++ [./xdg-utils-dont-override-symlink.patch];
+    # });
+  };
+
   # This one contains whatever you want to overlay
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays

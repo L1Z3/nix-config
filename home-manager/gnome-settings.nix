@@ -203,7 +203,7 @@
       "org/gnome/mutter" = {
         dynamic-workspaces = false;
         edge-tiling = false;
-        workspaces-only-on-primary = true;
+        workspaces-only-on-primary = false;
       };
 
       "org/gnome/mutter/keybindings" = {
@@ -236,7 +236,7 @@ in {
     ./modules/gnome-extension-settings.nix
   ];
 
-  # this is a hack to allow gui editing of default apps. TODO: reconsider how to do this more elegantly
+  # this is a hack to allow gui editing of default apps. TODO: reconsider how to do this more elegantly (maybe try continuing patching xdg-utils?)
   # $XDG_CONFIG_HOME/gnome-mimeapps.list will take precedence over $XDG_CONFIG_DIRS/mimeapps.list, (see https://specifications.freedesktop.org/mime-apps-spec/mime-apps-spec-1.0.html)
   # but changes can still be made to mimeapps.list in the GUI. the activation script will copy
   # these changes to home-manager's mimeapps.list, which will then symlink to the gnome-mimeapps.list file.
@@ -244,21 +244,6 @@ in {
     # TODO make the path relative to flake dir somehow (still needs to expand to absolute path for nix reasons)
     "gnome-mimeapps.list".source = mkOutOfStoreSymlink "${pathToHere}/mimeapps.list";
   };
-  # TODO temporarily disabling this because it would override my mimeapps.list if I changed to new system. need 2 way sync (like with mkOutOfStoreSymlink directly to mimeapps.list)
-  # imports = [
-  #   ({config, ...}: {
-  #     home.activation.update-mimeapps = {
-  #       after = ["writeBoundary" "createXdgUserDirectories"];
-  #       before = [];
-  #       data = ''
-  #         # copy the user's mimeapps.list to the home-manager directory
-  #         if [ -f ${config.home.homeDirectory}/.config/mimeapps.list ]; then
-  #           cp ${config.home.homeDirectory}/.config/mimeapps.list ${pathToHere}/mimeapps.list
-  #         fi
-  #       '';
-  #     };
-  #   })
-  # ];
 
   # calls into custom module that enables and configures settings for gnome extensions
   gnomeExtensionSettings.enable = true;

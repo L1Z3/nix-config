@@ -1,0 +1,12 @@
+diff --git a/scripts/xdg-mime.in b/scripts/xdg-mime.in
+index 18056df..51cf3c8 100644
+--- a/scripts/xdg-mime.in
++++ b/scripts/xdg-mime.in
+@@ -306,6 +306,7 @@ make_default_generic()
+     DEBUG 2 "make_default_generic $1 $2"
+     DEBUG 1 "Updating $out_file"
+     [ -f "$out_file" ] || touch "$out_file"
++    if [ -L "$out_file" ]; then out_file=$(readlink -f "$out_file"); fi
+     awk -v mimetype="$2" -v application="$1" '
+     BEGIN {
+         prefix=mimetype "="

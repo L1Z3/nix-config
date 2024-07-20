@@ -149,7 +149,11 @@ audio/x-it=vlc.desktop
 audio/x-mod=vlc.desktop
 audio/x-s3m=vlc.desktop
 audio/x-xm=vlc.desktop
-x-scheme-handler/everest=/home/liz/.local/share/applications/Olympus.desktop
+application/pdf=org.gnome.Evince.desktop
+application/xml=sublime_text.desktop
+x-scheme-handler/discord-712465656758665259=discord-712465656758665259.desktop
+x-scheme-handler/discord-719647875465871400=discord-719647875465871400.desktop
+x-scheme-handler/discord-455712169795780630=discord-455712169795780630.desktop
 
 [Added Associations]
 application/x-desktop=sublime_text.desktop;
@@ -287,3 +291,5 @@ audio/x-it=vlc.desktop;
 audio/x-mod=vlc.desktop;
 audio/x-s3m=vlc.desktop;
 audio/x-xm=vlc.desktop;
+application/pdf=org.gnome.Evince.desktop;
+application/xml=sublime_text.desktop;

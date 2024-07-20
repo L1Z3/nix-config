@@ -115,6 +115,7 @@
       # neovim-nightly-overlay.overlays.default
       outputs.overlays.additions
       outputs.overlays.modifications
+      outputs.overlays.system-modifications
       outputs.overlays.unstable-packages
 
       # Or define it inline, for example:
