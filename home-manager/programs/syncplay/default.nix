@@ -4,7 +4,6 @@
   ...
 }: let
   inherit (config.lib.file) mkOutOfStoreSymlink;
-  pathToHere = "${config.home.homeDirectory}/nix/home-manager/programs/syncplay";
 in {
   home.packages = with pkgs; [
     unstable.syncplay
@@ -12,6 +11,6 @@ in {
 
   xdg.configFile = {
     # TODO make the path relative to flake dir somehow (still needs to expand to absolute path for nix reasons)
-    "syncplay.ini".source = mkOutOfStoreSymlink "${pathToHere}/syncplay.ini";
+    "syncplay.ini".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/nix/secrets/syncplay.ini";
   };
 }

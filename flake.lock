@@ -90,7 +90,23 @@
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs",
         "nixpkgs-dev": "nixpkgs-dev",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "secrets": "secrets"
+      }
+    },
+    "secrets": {
+      "locked": {
+        "lastModified": 1721431193,
+        "narHash": "sha256-88k3PXlyEE0H/O11n6C63SYXrpl32sBb0R+5+uVVKxE=",
+        "ref": "refs/heads/master",
+        "rev": "54225de4b0436a6d57dc190a1312aca3b5585229",
+        "revCount": 3,
+        "type": "git",
+        "url": "file:///home/liz/nix/secrets"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/liz/nix/secrets"
       }
     }
   },
