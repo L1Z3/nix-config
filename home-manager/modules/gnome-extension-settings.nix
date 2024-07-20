@@ -33,7 +33,7 @@ in {
             then {dconfPath = attrSetElem.dconfPath;}
             else {dconfPath = packageToName attrSetElem.package;}
           ))
-        (filter (elem: ((typeOf elem) == "set") && elem ? settings) cfg.extensionsAndSettings);
+        (filter (elem: !(lib.isDerivation elem) && elem ? settings) cfg.extensionsAndSettings);
       extensionSettingsDconf = with builtins;
         listToAttrs (map (attrSetElem: {
             name = baseDconfPath + attrSetElem.dconfPath;
