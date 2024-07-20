@@ -97,7 +97,6 @@
       custom-accent-colors # yippee :)
     ]);
 
-  deckIP = "192.168.1.36";
   nautilusBookmarks = secrets.nautilusBookmarks;
 
   # gnome-related packages

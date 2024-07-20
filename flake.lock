@@ -39,11 +39,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1720954236,
-        "narHash": "sha256-1mEKHp4m9brvfQ0rjCca8P1WHpymK3TOr3v34ydv9bs=",
+        "lastModified": 1721226092,
+        "narHash": "sha256-UBvzVpo5sXSi2S/Av+t+Q+C2mhMIw/LBEZR+d6NMjws=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "53e81e790209e41f0c1efa9ff26ff2fd7ab35e27",
+        "rev": "c716603a63aca44f39bef1986c13402167450e0a",
         "type": "github"
       },
       "original": {
@@ -55,11 +55,11 @@
     },
     "nixpkgs-dev": {
       "locked": {
-        "lastModified": 1721245093,
-        "narHash": "sha256-w8lVDZ16oFMgjYFKF/R7PDEXbWbDk+2oT3Cy61V/nsU=",
+        "lastModified": 1721245211,
+        "narHash": "sha256-2dVsdVHnI6dUXgd6o5uFUb1jWTIcejqXGlGBKyznG9E=",
         "ref": "refs/heads/fix-notion-app-enhanced",
-        "rev": "d0880c8d63d98c113610c01cb79ce46a77475dde",
-        "revCount": 654573,
+        "rev": "7b80cc7eb2d762576d4f9db50addd3f44afd2221",
+        "revCount": 654594,
         "type": "git",
         "url": "file:///home/liz/projects/nixpkgs-fork-dev"
       },
@@ -70,11 +70,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1720957393,
-        "narHash": "sha256-oedh2RwpjEa+TNxhg5Je9Ch6d3W1NKi7DbRO1ziHemA=",
+        "lastModified": 1721379653,
+        "narHash": "sha256-8MUgifkJ7lkZs3u99UDZMB4kbOxvMEXQZ31FO3SopZ0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "693bc46d169f5af9c992095736e82c3488bf7dbb",
+        "rev": "1d9c2c9b3e71b9ee663d11c5d298727dace8d374",
         "type": "github"
       },
       "original": {
@@ -96,11 +96,11 @@
     },
     "secrets": {
       "locked": {
-        "lastModified": 1721431193,
-        "narHash": "sha256-88k3PXlyEE0H/O11n6C63SYXrpl32sBb0R+5+uVVKxE=",
+        "lastModified": 1721435176,
+        "narHash": "sha256-7nD5G3eeblxnfbxjgxYCneQsnKPs3e3TnXuC5qE5bQA=",
         "ref": "refs/heads/master",
-        "rev": "54225de4b0436a6d57dc190a1312aca3b5585229",
-        "revCount": 3,
+        "rev": "a8e2721a989273bef5da2641b62e19fe0a082cc6",
+        "revCount": 4,
         "type": "git",
         "url": "file:///home/liz/nix/secrets"
       },
