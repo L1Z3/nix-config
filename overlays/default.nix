@@ -57,34 +57,6 @@
     #     '';
     # });
 
-    # unstable = prev.unstable.overrideScope (selfu: superu: {
-    # gnomeExtensions = superu.gnomeExtensions.overrideScope (selfge: superge: {
-    # # gnomeExtensions = prev.gnomeExtensions.overrideScope (selfge: superge: {
-    #   another-window-session-manager = prev.unstable.gnomeExtensions.another-window-session-manager.overrideAttrs (oldAttrs: rec {
-    #     patches =
-    #       (oldAttrs.patches or [])
-    #       ++ [
-    #         prev.packages.writeText
-    #         "disable-logging.patch"
-    #         ''
-    #           diff --git a/utils/log.js b/utils/log.js
-    #           index cf21911..640e4e7 100644
-    #           --- a/utils/log.js
-    #           +++ b/utils/log.js
-    #           @@ -26,7 +26,6 @@ export const Log = class {
-    #             }
-
-    #             info(logContent) {
-    #           -        log(`[INFO   ][Another window session manager] $\{logContent}`);
-    #             }
-
-    #             warn(logContent) {
-
-    #         ''
-    #       ];
-    #   });
-    # });
-    # });
     # TODO find a way to move this to gnome-settings.nix
     # from https://discourse.nixos.org/t/gdm-background-image-and-theme/12632/10
     # TODO this will break in a future gnome update
