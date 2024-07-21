@@ -63,15 +63,14 @@ in
   buildDotnetModule rec {
     inherit pname;
 
-    # FIXME: I made up this version number.
-    version = "24.04.23.02";
+    version = "24.07.06.02";
 
     src = fetchFromGitHub {
       owner = "EverestAPI";
       repo = "Olympus";
-      rev = "6b4ceee45b51b913cf1d50bfb3ae645b21bba4f1";
+      rev = "5f3e40687eb825c57021f52d83a3bc9a82c04bdb";
       fetchSubmodules = true; # Required. See upstream's README.
-      hash = "sha256-FtvTELf8EZCkoAmMbgwxftxXOzdXy0P69RRMyPlRXUA=";
+      hash = "sha256-rNh6sH51poahiV0Mb61lHfzqOkPF2pW2wr7MOrfVSVs=";
     };
 
     executables = [];
