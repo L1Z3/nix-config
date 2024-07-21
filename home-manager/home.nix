@@ -88,7 +88,7 @@ in {
     bash = {
       enable = true;
       shellAliases = {
-        neofetch = "fastfetch";
+        neofetch = "fastfetch -c neofetch";
         subl = "sublime4";
         # TODO potentially make thing to automatically add aliases for scripts in scripts dir?
         # script to apply and commit nix changes
