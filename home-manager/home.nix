@@ -178,6 +178,8 @@ in {
     deluge
     # syncplay, via programs/syncplay
     stremio
+    davinci-resolve-studio-patched
+    kdenlive
 
     # system tools
     qpwgraph

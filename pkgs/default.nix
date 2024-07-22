@@ -12,4 +12,5 @@ pkgs: {
   yuzu = pkgs.callPackage ./yuzu.nix {};
   citra-qt = pkgs.callPackage ./citra-qt.nix {};
   easytether = pkgs.callPackage ./easytether.nix {};
+  davinci-resolve-studio-patched = pkgs.callPackage ./davinci-resolve-patched.nix {};
 }

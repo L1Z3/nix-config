@@ -74,6 +74,8 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  # TODO try hyprland sometime
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -132,11 +134,12 @@
     };
   };
 
-  # enable hardware encoding for OBS
+  # enable hardware encoding for OBS/Davinci Resolve
   hardware.opengl = {
     # hardware.graphics on unstable
     enable = true;
     extraPackages = with pkgs; [
+      intel-compute-runtime # for davinci resolve
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
       intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       libvdpau-va-gl
