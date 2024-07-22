@@ -26,6 +26,11 @@
   extensionsAndSettings = with pkgs.gnomeExtensions;
   with lib.hm.gvariant; [
     advanced-alttab-window-switcher
+    blur-my-shell
+    focused-window-d-bus
+    steal-my-focus-window
+    tiling-assistant
+    easyeffects-preset-selector
     {
       package = appindicator;
       dconfPath = "appindicator"; # pname is appindicator-support so this is needed
@@ -33,7 +38,6 @@
         legacy-tray-enabled = false;
       };
     }
-    blur-my-shell
     {
       package = clipboard-history;
       settings = {
@@ -44,14 +48,11 @@
         window-width-percentage = 20;
       };
     }
-    focused-window-d-bus
     {
       package = impatience;
       dconfPath = "net/gfxmonk/impatience";
       settings = {speed-factor = 0.5;};
     }
-    steal-my-focus-window
-    tiling-assistant
     {
       package = quick-settings-audio-panel; # volume mixer in quick settings
       settings = {
@@ -64,7 +65,6 @@
       dconfPath = "user-theme";
       settings = {name = "Custom-Accent-Colors";};
     }
-    easyeffects-preset-selector
     {
       package = pkgs.unstable.gnomeExtensions.custom-accent-colors; # yippee :)
       settings = {

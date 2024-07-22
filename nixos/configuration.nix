@@ -203,6 +203,7 @@
       remotePlay.openFirewall = true;
       # dedicatedServer.openFirewall = true;
       localNetworkGameTransfers.openFirewall = true;
+      # TODO gamescopesession is broken for me, try to figure out why
       # gamescopeSession.enable = true;
       # protontricks.enable = true; # only in unstable, TODO enable in future update
       # extra packages that seem to make gamescope work in steam
