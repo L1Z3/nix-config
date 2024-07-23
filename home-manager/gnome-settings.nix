@@ -119,6 +119,15 @@
     // (with lib.hm.gvariant; {
       # below here is all other custom dconf entries
 
+      "org/gnome/mutter" = {
+        # enable wayland fractional scaling
+        experimental-features = ["scale-monitor-framebuffer"];
+
+        dynamic-workspaces = false;
+        edge-tiling = false;
+        workspaces-only-on-primary = false;
+      };
+
       # fix dark mode in gtk3 apps
       # (alternative to setting this dconf option is home-manager gtk.theme option but that conflicts with custom accent colors)
       # requires pkgs.gnome.gnome-themes-extra
@@ -198,12 +207,6 @@
       "org/gnome/desktop/wm/preferences" = {
         button-layout = "appmenu:minimize,maximize,close";
         num-workspaces = 4;
-      };
-
-      "org/gnome/mutter" = {
-        dynamic-workspaces = false;
-        edge-tiling = false;
-        workspaces-only-on-primary = false;
       };
 
       "org/gnome/mutter/keybindings" = {
