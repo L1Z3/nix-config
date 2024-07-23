@@ -152,6 +152,7 @@ in {
     frp
     # htop, via programs/htop
     appimage-run
+    ffmpeg-full
 
     # browsers
     firefox
@@ -180,6 +181,7 @@ in {
     stremio
     davinci-resolve-studio-patched
     kdenlive
+    glaxnimate # optional dependency for kdenlive
 
     # system tools
     qpwgraph
