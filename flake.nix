@@ -8,14 +8,17 @@
     # unstable Nixpkgs, to grab some unstable packages
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    # local dev fork of nixpkgs
     nixpkgs-dev.url = "/home/liz/projects/nixpkgs-fork-dev";
 
     # master... just in case i really really want a package that isn't in unstable yet
     # comment out if not needed, other things should adjust
     # nixpkgs-master.url = "github:nixos/nixpkgs/master";
 
+    # declarative flatpak management
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
 
+    # local flake that contains info that I don't want publicized (not passwords, etc, just personal info)
     secrets.url = "/home/liz/nix/secrets";
 
     # Home manager
@@ -49,7 +52,6 @@
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
-      # FIXME replace with your hostname
       envy = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         # > Our main nixos configuration file <
@@ -60,7 +62,6 @@
     # Standalone home-manager configuration entrypoint
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
-      # FIXME replace with your username@hostname
       "liz@envy" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs;};
