@@ -92,6 +92,7 @@ in {
     bash = {
       enable = true;
       shellAliases = {
+        ls = "eza -g --git"; # modern ls alternative (default -g parameter to make `ls -lah` show groups)
         neofetch = "fastfetch -c neofetch";
         subl = "sublime4";
         # TODO potentially make thing to automatically add aliases for scripts in scripts dir?
@@ -160,6 +161,7 @@ in {
   home.enableNixpkgsReleaseCheck = true;
   home.packages = with pkgs; [
     # misc command line tools
+    unstable.eza
     jq
     alejandra
     fastfetch
