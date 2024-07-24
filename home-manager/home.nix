@@ -161,6 +161,7 @@ in {
   home.enableNixpkgsReleaseCheck = true;
   home.packages = with pkgs; [
     # misc command line tools
+    nix-tree
     unstable.eza
     jq
     alejandra
