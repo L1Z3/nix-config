@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  extensions,
   ...
 }: let
   inherit (config.lib.file) mkOutOfStoreSymlink;
@@ -26,15 +27,9 @@ in {
         github.copilot
         github.copilot-chat
       ]
-      ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-        # add marketplace extensions not in nixpkgs here
-        # {......
-        #   name = "remote-ssh-edit";
-        #   publisher = "ms-vscode-remote";
-        #   version = "0.47.2";mkIf isLinux {
-        #   sha256 = "1hp6gjh4xp2m1xlm1jsdzxw9d8frkiidhph6nvl24d0h8z34w49g";
-        # }
-      ];
+      ++ (with extensions.vscode-marketplace-release; [
+        # add non-nixpkgs extensions here
+      ]);
   };
 
   # language server

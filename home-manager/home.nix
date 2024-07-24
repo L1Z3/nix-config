@@ -24,7 +24,7 @@ in {
     # ./nvim.nix
     # pass secrets to gnome-settings module
     (import ./gnome-settings.nix (args // {inherit secrets;}))
-    ./programs/vscode
+    (import ./programs/vscode (args // {extensions = inputs.nix-vscode-extensions.extensions.${pkgs.system};}))
     ./programs/htop
     ./programs/syncplay
   ];
