@@ -242,7 +242,7 @@ in {
   nix.gc = {
     automatic = true;
     frequency = "weekly";
-    options = "--delete-older-than 30d";
+    options = "--delete-older-than 7d";
     # persistent = true; # not available until home-manager for 24.11
   };
 

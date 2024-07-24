@@ -157,6 +157,8 @@
       flake-registry = "";
       # Workaround for https://github.com/NixOS/nix/issues/9574
       nix-path = config.nix.nixPath;
+      # auto-optimize to reduce disk usage
+      auto-optimise-store = true;
     };
     # Opinionated: disable channels
     channel.enable = false;
@@ -169,7 +171,7 @@
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 30d";
+      options = "--delete-older-than 7d";
       persistent = true;
     };
   };
