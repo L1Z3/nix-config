@@ -121,7 +121,7 @@
 
       "org/gnome/mutter" = {
         # enable wayland fractional scaling
-        experimental-features = ["scale-monitor-framebuffer"];
+        # experimental-features = ["scale-monitor-framebuffer"];
 
         dynamic-workspaces = false;
         edge-tiling = false;
