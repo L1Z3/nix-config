@@ -20,6 +20,9 @@ in {
     # enable declarative flatpak support
     inputs.nix-flatpak.homeManagerModules.nix-flatpak
 
+    # enable prebuilt indexes for nix-index
+    inputs.nix-index-database.hmModules.nix-index
+
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
     # pass secrets to gnome-settings module

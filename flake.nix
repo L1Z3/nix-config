@@ -15,6 +15,10 @@
     # comment out if not needed, other things should adjust
     # nixpkgs-master.url = "github:nixos/nixpkgs/master";
 
+    # Home manager
+    home-manager.url = "github:nix-community/home-manager/release-24.05";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
     # declarative flatpak management
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
 
@@ -24,9 +28,9 @@
     # more vscode extensions
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
-    # Home manager
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    # pre-generated database for nix-index
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
