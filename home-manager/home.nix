@@ -34,7 +34,8 @@ in {
   #   try my hand at packaging virtualhere and making a PR for it
   #   try out fancy riced terminal setups
   #   fix macos vm
-  #   try finishing packaging easytether
+  #   try finishing packaging easytether, piavpn
+  #   figure out better development package workflow than just adding to home.packages and home-manager switching
 
   nixpkgs = {
     # You can add overlays here
@@ -117,6 +118,11 @@ in {
       initExtra =
         ''
           # add .bashrc things here
+
+          # use nix-locate (from programs.nix-index.enable) to find .so files within nixpkgs
+          find-so() {
+            nix-locate "$1" | grep -v "^("
+          }
         ''
         + secrets.bashInitExtra;
     };
@@ -136,6 +142,13 @@ in {
         obs-vkcapture
         obs-pipewire-audio-capture
       ];
+    };
+
+    # index nixpkgs for files/missing commands
+    # invoke `nix-index` to update index, invoke `nix-locate` to manually find something
+    nix-index = {
+      enable = true;
+      enableBashIntegration = true;
     };
   };
 
@@ -193,6 +206,7 @@ in {
     duplicacy-mount # my own custom package, since it's a fork
     wireshark
     httrack
+    # piavpn
 
     # messaging
     vesktop
