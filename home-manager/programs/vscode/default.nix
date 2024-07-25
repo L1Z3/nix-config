@@ -26,6 +26,7 @@ in {
         k--kato.intellij-idea-keybindings
         github.copilot
         github.copilot-chat
+        mkhl.direnv
       ]
       ++ (with extensions.vscode-marketplace-release; [
         # add non-nixpkgs extensions here

@@ -154,6 +154,13 @@ in {
       enable = true;
       enableBashIntegration = true;
     };
+
+    # direnv, a tool for automatically loading environments per directory (integrates with nix)
+    direnv = {
+      enable = true;
+      enableBashIntegration = true; # see note on other shells below
+      nix-direnv.enable = true;
+    };
   };
 
   # Add stuff for your user as you see fit:
@@ -180,6 +187,11 @@ in {
     # editors and git stuff
     sublime4
     vim
+    # TODO many projects need per-project dependencies. (e.g. GL for MC projects).
+    #      jetbrains ides don't like per-project environments and it's annoying to have to open them in a `nix develop` session
+    #      maybe it's worth using dumb hacks to wrap the ide with all the dependencies for all projects? (this is not the nix way but oh well)
+    #      see packagex.nix file here https://gist.github.com/Lgmrszd/98fb7054e63a7199f9510ba20a39bc67
+    #           alternative: for vscode at least (and maybe jetbrains), you can use a tool called direnv to dynmaically load `nix develop` environments
     unstable.jetbrains.pycharm-professional
     unstable.jetbrains.idea-ultimate
     unstable.jetbrains.clion
