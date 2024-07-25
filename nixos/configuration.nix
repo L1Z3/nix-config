@@ -208,6 +208,13 @@
       remotePlay.openFirewall = true;
       # dedicatedServer.openFirewall = true;
       localNetworkGameTransfers.openFirewall = true;
+      # extra packages to fix steam's embedded browser
+      # extraPackages = with pkgs; [
+      #   pango
+      #   harfbuzz
+      #   libthai
+      # ];
+
       # TODO gamescopesession is broken for me, try to figure out why
       # gamescopeSession.enable = true;
       # protontricks.enable = true; # only in unstable, TODO enable in future update
