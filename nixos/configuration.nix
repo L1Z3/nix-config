@@ -208,12 +208,8 @@
       remotePlay.openFirewall = true;
       # dedicatedServer.openFirewall = true;
       localNetworkGameTransfers.openFirewall = true;
-      # extra packages to fix steam's embedded browser
-      # extraPackages = with pkgs; [
-      #   pango
-      #   harfbuzz
-      #   libthai
-      # ];
+      # this is just a note for me: currently in the steam families beta, web view (store, community, etc) don't work
+      #    unless i disable GPU acceleration in web views in the interface settings.    
 
       # TODO gamescopesession is broken for me, try to figure out why
       # gamescopeSession.enable = true;
