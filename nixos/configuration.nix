@@ -209,7 +209,7 @@
       # dedicatedServer.openFirewall = true;
       localNetworkGameTransfers.openFirewall = true;
       # this is just a note for me: currently in the steam families beta, web view (store, community, etc) don't work
-      #    unless i disable GPU acceleration in web views in the interface settings.    
+      #    unless i disable GPU acceleration in web views in the interface settings.
 
       # TODO gamescopesession is broken for me, try to figure out why
       # gamescopeSession.enable = true;

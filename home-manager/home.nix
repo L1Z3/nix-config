@@ -111,6 +111,8 @@ in {
         apply = "$HOME/nix/home-manager/scripts/apply.sh";
         # update system
         update-all = "$HOME/nix/home-manager/scripts/update-all.sh";
+        # update secrets repo
+        update-secrets = "$HOME/nix/home-manager/scripts/update-secrets.sh";
         # list package changes in last home-manager generation
         diff-home = "nix store diff-closures $(ls -t1d $HOME/.local/state/nix/profiles/home-manager-*-link | head -2 | tac)";
         # list package changes in all home-manager generations
