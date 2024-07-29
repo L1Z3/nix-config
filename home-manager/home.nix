@@ -238,6 +238,7 @@ in {
     wireshark
     httrack
     # piavpn
+    binaryninja
 
     # messaging
     vesktop
