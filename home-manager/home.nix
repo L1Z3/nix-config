@@ -20,8 +20,8 @@
     "nixidea"
   ];
   # shorthand to add these plugins to all jetbrains packages
-  addDefaultPlugins = jetbrainsPkg: pkgs.unstable.jetbrains.plugins.addPlugins jetbrainsPkg defaultJetbrainsPlugins;
-  addMorePlugins = jetbrainsPkg: additionalPlugins: pkgs.unstable.jetbrains.plugins.addPlugins jetbrainsPkg (defaultJetbrainsPlugins ++ additionalPlugins);
+  addDefaultPlugins = jetbrainsPkg: pkgs.jetbrains.plugins.addPlugins jetbrainsPkg defaultJetbrainsPlugins;
+  addMorePlugins = jetbrainsPkg: additionalPlugins: pkgs.jetbrains.plugins.addPlugins jetbrainsPkg (defaultJetbrainsPlugins ++ additionalPlugins);
 in {
   # You can import other home-manager modules here
   imports = [
@@ -205,10 +205,10 @@ in {
     #      maybe it's worth using dumb hacks to wrap the ide with all the dependencies for all projects? (this is not the nix way but oh well)
     #      see packagex.nix file here https://gist.github.com/Lgmrszd/98fb7054e63a7199f9510ba20a39bc67
     #           alternative: for vscode at least (and maybe jetbrains), you can use a tool called direnv to dynmaically load `nix develop` environments
-    (addDefaultPlugins unstable.jetbrains.pycharm-professional)
-    (addDefaultPlugins unstable.jetbrains.idea-ultimate)
-    (addDefaultPlugins unstable.jetbrains.clion)
-    (addDefaultPlugins unstable.jetbrains.rust-rover)
+    (addDefaultPlugins jetbrains.pycharm-professional)
+    (addDefaultPlugins jetbrains.idea-ultimate)
+    (addDefaultPlugins jetbrains.clion)
+    (addDefaultPlugins jetbrains.rust-rover)
     git-filter-repo
     unstable.gitkraken
     # vscode, via programs/vscode
