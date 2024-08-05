@@ -247,6 +247,17 @@
         icu
         nss
         expat
+        xorg.libxcb
+        xorg.libX11
+        libGL
+        freetype
+        fontconfig
+        alsa-lib
+        e2fsprogs
+        libGL
+        libgcc.lib
+        libgpg-error
+        # zlib
       ];
     };
     fuse = {
