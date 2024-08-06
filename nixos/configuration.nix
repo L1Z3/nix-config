@@ -296,6 +296,7 @@
     podman
     # game-devices-udev-rules # attempt at fixing steam input in wayland native games (not working)
     # easytether # my own packaging of easytether TODO needs fixes
+    protontricks
   ];
   # services.udev.packages = [pkgs.easytether];
   # nixpkgs.config.permittedInsecurePackages = [
