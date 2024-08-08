@@ -260,6 +260,8 @@ in {
     citra-qt # custom package pulling archived last AppImage
     celeste64
     dolphin-emu
+
+    googleearth-pro
   ];
 
   # flatpaks
@@ -295,6 +297,7 @@ in {
   # required for some package
   nixpkgs.config.permittedInsecurePackages = [
     "openssl-1.1.1w" # for sublime
+    "googleearth-pro-7.3.4.8248"
   ];
 
   gtk = {
