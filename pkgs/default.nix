@@ -15,4 +15,5 @@ pkgs: {
   davinci-resolve-studio-patched = pkgs.callPackage ./davinci-resolve-patched.nix {};
   piavpn = pkgs.callPackage ./piavpn.nix {};
   binaryninja = pkgs.callPackage ./binaryninja.nix {};
+  fastx-client = pkgs.callPackage ./fastx-client.nix {};
 }

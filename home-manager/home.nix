@@ -239,6 +239,7 @@ in {
     httrack
     # piavpn
     binaryninja
+    fastx-client # silly little custom package # TODO upstream
 
     # messaging
     vesktop
