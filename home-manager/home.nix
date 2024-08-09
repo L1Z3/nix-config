@@ -229,7 +229,7 @@ in {
 
     # system tools
     qpwgraph
-    easyeffects
+    # easyeffects
     gparted
     etcher # custom package, since it's not in repos anymore
     # TODO needs non-declarative configs due to sensitive data, try to find workaround
@@ -348,10 +348,10 @@ in {
 
   # easyeffects systemd service
   # (as oppossed to .config/autostart like the built-in easyeffects option does)
-  services.easyeffects = {
-    enable = true;
-    preset = "\"Noise + Gain\"";
-  };
+  # services.easyeffects = {
+  #   enable = true;
+  #   preset = "\"Noise + Gain\"";
+  # };
 
   # duplicacy backup service
   systemd.user.services.duplicacy = {

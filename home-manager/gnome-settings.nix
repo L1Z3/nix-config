@@ -30,7 +30,7 @@
     focused-window-d-bus
     steal-my-focus-window
     tiling-assistant
-    easyeffects-preset-selector
+    # easyeffects-preset-selector
     {
       package = appindicator;
       dconfPath = "appindicator"; # pname is appindicator-support so this is needed
