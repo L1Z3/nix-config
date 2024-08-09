@@ -228,7 +228,7 @@ in {
     glaxnimate # optional dependency for kdenlive
 
     # system tools
-    qpwgraph
+    unstable.qpwgraph
     # easyeffects
     gparted
     etcher # custom package, since it's not in repos anymore
