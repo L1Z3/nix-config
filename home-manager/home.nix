@@ -81,6 +81,10 @@ in {
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
       allowUnfreePredicate = _: true;
+      # allow netflix in chromium
+      chromium = {
+        enableWideVine = true;
+      };
     };
   };
 
@@ -195,7 +199,8 @@ in {
 
     # browsers
     firefox
-    ungoogled-chromium
+    # ungoogled-chromium
+    chromium
 
     # editors and git stuff
     sublime4
