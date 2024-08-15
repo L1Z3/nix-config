@@ -1,5 +1,6 @@
 # https://www.starnet.com/files/private/FastX3/FastX3-3.3.60.rhel7.x86_64.tar.gz
 # TODO add desktop file
+# TODO seems broken, can't connect
 {
   stdenv,
   lib,

@@ -239,7 +239,7 @@ in {
     httrack
     # piavpn
     binaryninja
-    fastx-client # silly little custom package # TODO upstream
+    # fastx-client # silly little custom package # TODO upstream
 
     # messaging
     vesktop
@@ -271,6 +271,7 @@ in {
     packages = [
       "org.telegram.desktop"
       "com.github.tchx84.Flatseal"
+      "org.zulip.Zulip"
     ];
     update.auto = {
       enable = true;
