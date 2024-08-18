@@ -277,6 +277,11 @@
   # enable spice for virt-manager
   virtualisation.spiceUSBRedirection.enable = true;
 
+  # enable vmware virtualization
+  virtualisation.vmware.host.enable = true;
+  # Enable macos guest support
+  virtualisation.vmware.host.package = pkgs.vmware-workstation.override {enableMacOSGuests = true;};
+
   # enable containers (distrobox, docker, etc)
   virtualisation.containers.enable = true;
 

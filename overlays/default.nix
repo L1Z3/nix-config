@@ -47,6 +47,20 @@
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
+    # from https://github.com/nullbytepl/.nixconf/blob/f7f9fb6effc36bb2aac2f3e227ed4346037089ee/fragments/vmware.nix#L4
+    # The vmware kernel module is broken on 6.9.1, so use a patched fork until nixpkgs is updated
+    linuxPackages_latest = prev.linuxPackages_latest.extend (lpself: lpsuper: {
+      vmware = prev.linuxPackages_latest.vmware.overrideAttrs (oldAttrs: {
+        version = prev.linuxPackages_latest.vmware.version + "-FIXED";
+        src = prev.pkgs.fetchFromGitHub {
+          owner = "nan0desu";
+          repo = "vmware-host-modules";
+          rev = "d9f51eee7513715830ac214f1b25db79059f5270";
+          sha256 = "sha256-63ZYa3X3fVpJQuHoBuqP5fs64COAgjJ9iG9LNkXPXfw=";
+        };
+      });
+    });
+
     # don't spam logs with another window session manager logs
     gnomeExtensions =
       prev.gnomeExtensions
