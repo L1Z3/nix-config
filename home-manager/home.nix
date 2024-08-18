@@ -245,6 +245,7 @@ in {
     # piavpn
     binaryninja
     # fastx-client # silly little custom package # TODO upstream
+    anydesk
 
     # messaging
     vesktop
