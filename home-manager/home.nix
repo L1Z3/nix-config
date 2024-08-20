@@ -41,6 +41,7 @@ in {
     (import ./programs/vscode (args // {extensions = inputs.nix-vscode-extensions.extensions.${pkgs.system};}))
     ./programs/htop
     ./programs/syncplay
+    ./programs/winapps.nix
   ];
 
   # TODO list:
@@ -50,6 +51,7 @@ in {
   #   fix macos vm
   #   try finishing packaging easytether, piavpn
   #   figure out better development package workflow than just adding to home.packages and home-manager switching
+  #   refactor home-manager/programs to use options that are enabled in home.nix
 
   nixpkgs = {
     # You can add overlays here

@@ -277,7 +277,7 @@
   # enable spice for virt-manager
   virtualisation.spiceUSBRedirection.enable = true;
 
-  # enable vmware virtualization
+  # enable vmware virtualization (allows 3d acceleration in windows guests)
   virtualisation.vmware.host.enable = true;
   # Enable macos guest support
   virtualisation.vmware.host.package = pkgs.vmware-workstation.override {enableMacOSGuests = true;};
