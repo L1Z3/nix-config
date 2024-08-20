@@ -188,11 +188,11 @@
     },
     "secrets": {
       "locked": {
-        "lastModified": 1724171901,
-        "narHash": "sha256-TxUX6HYyb9MXUcENxMRv7K08grHIVsFslduJ7p6jgsM=",
+        "lastModified": 1724173551,
+        "narHash": "sha256-b2LH3RQJh09bRG+M4WKCNK7gyq+J/81mKWu86I0HPbU=",
         "ref": "refs/heads/master",
-        "rev": "375aa662ac10b6caae93d595b50c420977c6e298",
-        "revCount": 8,
+        "rev": "ca19cca7430010469159928684423270847fc5eb",
+        "revCount": 9,
         "type": "git",
         "url": "file:///home/liz/nix/secrets"
       },
