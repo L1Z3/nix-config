@@ -277,13 +277,16 @@
   # enable spice for virt-manager
   virtualisation.spiceUSBRedirection.enable = true;
 
-  # enable vmware virtualization (allows 3d acceleration in windows guests)
+  # enable vmware virtualization (allows 3d acceleration in windows guests, unlike qemu/kvm)
   virtualisation.vmware.host.enable = true;
   # Enable macos guest support
   virtualisation.vmware.host.package = pkgs.vmware-workstation.override {enableMacOSGuests = true;};
 
   # enable containers (distrobox, docker, etc)
   virtualisation.containers.enable = true;
+
+  # enable waydroid for android apps
+  virtualisation.waydroid.enable = true;
 
   # enable flatpak (managed with home-manager, just enabled here)
   services.flatpak.enable = true;
