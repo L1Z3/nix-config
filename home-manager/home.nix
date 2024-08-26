@@ -52,6 +52,7 @@ in {
   #   try finishing packaging easytether, piavpn
   #   figure out better development package workflow than just adding to home.packages and home-manager switching
   #   refactor home-manager/programs to use options that are enabled in home.nix
+  #   find a way to make winapps install declarative
 
   nixpkgs = {
     # You can add overlays here

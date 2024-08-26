@@ -31,8 +31,8 @@
   davinci = (
     stdenv.mkDerivation rec {
       pname = "davinci-resolve-studio";
-      version = "19.0b5";
-      cleanVersion = "19 Public Beta 5";
+      version = "19.0";
+      cleanVersion = "19";
 
       nativeBuildInputs = [
         (appimage-run.override {buildFHSEnv = buildFHSEnvChroot;})
@@ -53,7 +53,7 @@
         rec {
           outputHashMode = "recursive";
           outputHashAlgo = "sha256";
-          outputHash = "sha256-e8NRyige/d8Wsnlhnl+BgAsHPxNhiGXUNyEqE9VL0/c=";
+          outputHash = "sha256-KxoUXHMlgWoa00GSq/DLVgyOjuv7k8aUwl20XvDRZvc=";
 
           impureEnvVars = lib.fetchers.proxyImpureEnvVars;
 
