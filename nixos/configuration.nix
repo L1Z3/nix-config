@@ -286,6 +286,8 @@
   virtualisation.containers.enable = true;
 
   # enable waydroid for android apps
+  # `waydroid session stop` to stop the session after opening an app
+  # see nixos wiki for more info on setting this up (non-declaratively)
   virtualisation.waydroid.enable = true;
 
   # enable flatpak (managed with home-manager, just enabled here)
