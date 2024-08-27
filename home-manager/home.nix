@@ -234,6 +234,7 @@ in {
     davinci-resolve-studio-patched
     kdenlive
     glaxnimate # optional dependency for kdenlive
+    blender
 
     # system tools
     unstable.qpwgraph
