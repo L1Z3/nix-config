@@ -182,12 +182,14 @@
         move-to-workspace-2 = ["<Super>2"];
         move-to-workspace-3 = ["<Super>3"];
         move-to-workspace-4 = ["<Super>4"];
+        move-to-workspace-last = ["<Super>5"];
         switch-applications = ["<Super>Tab"];
         switch-applications-backward = ["<Shift><Super>Tab"];
         switch-to-workspace-1 = ["<Super>a"];
         switch-to-workspace-2 = ["<Super>s"];
         switch-to-workspace-3 = ["<Super>d"];
         switch-to-workspace-4 = ["<Super>f"];
+        switch-to-workspace-last = ["<Super>g"];
         switch-windows = ["<Alt>Tab"];
         switch-windows-backward = ["<Shift><Alt>Tab"];
         toggle-fullscreen = ["<Control><Alt>Home"];
@@ -199,6 +201,7 @@
         switch-to-application-2 = [];
         switch-to-application-3 = [];
         switch-to-application-4 = [];
+        switch-to-application-5 = [];
         toggle-application-view = [];
         toggle-overview = [];
         toggle-quick-settings = ["<Control><Super>s"];
