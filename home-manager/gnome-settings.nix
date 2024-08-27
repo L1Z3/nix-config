@@ -209,7 +209,7 @@
 
       "org/gnome/desktop/wm/preferences" = {
         button-layout = "appmenu:minimize,maximize,close";
-        num-workspaces = 4;
+        num-workspaces = 5;
       };
 
       "org/gnome/mutter/keybindings" = {
