@@ -89,11 +89,6 @@
     #     restore-previous-delay = 5;
     #   };
     # }
-    {
-      package = smart-auto-move;
-      settings = {
-      };
-    }
   ];
 
   nautilusBookmarks = secrets.nautilusBookmarks;
