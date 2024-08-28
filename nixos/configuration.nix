@@ -74,6 +74,12 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  # hack to transfer gnome monitor config to gdm
+
+  systemd.tmpfiles.rules = [
+    "C+ /run/gdm/.config/monitors.xml - - - - /home/liz/.config/monitors.xml"
+  ];
+
   # TODO try hyprland sometime
 
   # Configure keymap in X11
