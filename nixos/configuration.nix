@@ -255,6 +255,10 @@
         expat
         xorg.libxcb
         xorg.libX11
+        xorg.libXcursor
+        xorg.libXinerama
+        xorg.libXrandr
+        xorg.libXrender
         libGL
         freetype
         fontconfig
