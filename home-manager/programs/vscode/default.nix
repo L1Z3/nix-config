@@ -7,7 +7,7 @@
   inherit (config.lib.file) mkOutOfStoreSymlink;
   pathToHere = "${config.home.homeDirectory}/nix/home-manager/programs/vscode";
 
-  vsCodium = true;
+  vsCodium = false; # random thing for a cs course breaks with vscodium
   vsCodePackage =
     if vsCodium
     then pkgs.vscodium
@@ -15,7 +15,7 @@
   vsCodeDir =
     if vsCodium
     then "VSCodium"
-    else "VSCode";
+    else "Code";
 in {
   programs.vscode = {
     enable = true;
@@ -28,6 +28,7 @@ in {
         github.copilot-chat
         mkhl.direnv
         ms-vscode-remote.remote-containers
+        ms-vscode.cpptools-extension-pack
       ]
       ++ (with extensions.vscode-marketplace-release; [
         # add non-nixpkgs extensions here
