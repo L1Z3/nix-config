@@ -254,6 +254,7 @@ in {
     # messaging
     vesktop
     slack
+    # slack-cli # TODO currently manually installed into ~/.local/share/slack, i should move this
 
     # office, etc
     libreoffice
@@ -328,6 +329,7 @@ in {
   # Extra variables to add to PATH
   home.sessionPath = [
     # put PATH things here
+    "$HOME/.local/bin"
   ];
 
   home.sessionVariables = {

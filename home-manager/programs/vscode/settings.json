@@ -15,7 +15,10 @@
                 "expr": "import (builtins.getFlake \"/home/liz/nix\").inputs.nixpkgs { }   "
             },
             "formatting": {
-                "command": ["alejandra", "--"]
+                "command": [
+                    "alejandra",
+                    "--"
+                ]
             },
             "options": {
                 // By default, this entriy will be read from `import <nixpkgs> { }`
@@ -29,6 +32,11 @@
                 }
             }
         }
+    },
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
     }
 }
-  
