@@ -16,4 +16,5 @@ pkgs: {
   piavpn = pkgs.callPackage ./piavpn.nix {};
   binaryninja = pkgs.callPackage ./binaryninja.nix {};
   fastx-client = pkgs.callPackage ./fastx-client.nix {};
+  qtcreator-with-deps = pkgs.callPackage ./qtcreator-with-deps.nix {};
 }

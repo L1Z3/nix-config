@@ -198,7 +198,10 @@ in {
     unstable.yt-dlp
     frp
     # htop, via programs/htop
-    appimage-run
+    (appimage-run.override
+      {
+        extraPkgs = pkgs: [pkgs.qt6.full];
+      })
     ffmpeg-full
 
     # browsers
@@ -221,10 +224,25 @@ in {
     git-filter-repo
     unstable.gitkraken
     # vscode, via programs/vscode
-    unstable.qtcreator
+
+    # graphics stuff
+    # TODO needs QP_QPA_PLATFORM=xcb in order for scroll to work??? can i override it maybe also doing this with nix develop would work
+    # unstable.qtcreator
     # need specific version for graphics class; TODO find a more elegant way of doing this (e.g. nix develop)
     #     also, this takes a lot of storage space and duplicates a bunch of libraries. oh well.
-    qt652-commit.qt6.full
+    #     TODO is there a way i can wrap qtcreator in a nix-shell or nix develop environment?
+    #         then, I could bundle this funny qt version as well as g++, etc there
+    #     (see programs/qtcreator for progresss on this)
+    # qt652-commit.qt6.full
+    # clang
+    # cmake
+    # cmake-format
+    # coreutils-full
+    # gnumake
+    # gdb
+
+    # TODO try this custom wrapped qtcreator (requires compilation); or, consider alternatives
+    qtcreator-with-deps
 
     # media
     spotify
