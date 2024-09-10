@@ -32,6 +32,13 @@
     };
   };
 
+  qt652-commit-packages = final: _prev: {
+    qt652-commit = import inputs.nixpkgs-qt652 {
+      system = final.system;
+      config.allowUnfree = true;
+    };
+  };
+
   # modifications that only are applied to system config, not home config
   system-modifications = final: prev: {
     # patch to prevent xdg-utils from override symlink, allowing mkOutOfStoreSymLink on mimeapps.list to work

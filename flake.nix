@@ -11,6 +11,9 @@
     # local dev fork of nixpkgs
     nixpkgs-dev.url = "/home/liz/projects/nixpkgs-fork-dev";
 
+    # commit with qt 6.5.2 (for graphics class)
+    nixpkgs-qt652.url = "github:nixos/nixpkgs?rev=fc865094fb2d58a55be90eef486bee5096ebdf4b";
+
     # master... just in case i really really want a package that isn't in unstable yet
     # comment out if not needed, other things should adjust
     # nixpkgs-master.url = "github:nixos/nixpkgs/master";

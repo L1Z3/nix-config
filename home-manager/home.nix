@@ -62,6 +62,7 @@ in {
         outputs.overlays.modifications
         outputs.overlays.unstable-packages
         outputs.overlays.dev-packages
+        outputs.overlays.qt652-commit-packages
         # If you want to use overlays exported from other flakes:
         # neovim-nightly-overlay.overlays.default
 
@@ -220,6 +221,10 @@ in {
     git-filter-repo
     unstable.gitkraken
     # vscode, via programs/vscode
+    unstable.qtcreator
+    # need specific version for graphics class; TODO find a more elegant way of doing this (e.g. nix develop)
+    #     also, this takes a lot of storage space and duplicates a bunch of libraries. oh well.
+    qt652-commit.qt6.full
 
     # media
     spotify
