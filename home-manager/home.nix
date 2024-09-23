@@ -11,6 +11,69 @@
   # TODO currently "secrets" are just secrets from GitHub; they are not securely stored on this machine
   #      for actual secrets (e.g. passwords, etc), consider storing them some other way
   secrets = inputs.secrets.secrets;
+  # python = pkgs.python311;
+  # pythonldlibpath = lib.makeLibraryPath (with pkgs; [
+  #   zlib
+  #   zstd
+  #   stdenv.cc.cc
+  #   curl
+  #   openssl
+  #   attr
+  #   libssh
+  #   bzip2
+  #   libxml2
+  #   acl
+  #   libsodium
+  #   util-linux
+  #   xz
+  #   systemd
+  # ]);
+  # patchedpython = python.overrideAttrs (
+  #   previousAttrs: {
+  #     # Add the nix-ld libraries to the LD_LIBRARY_PATH.
+  #     # creating a new library path from all desired libraries
+  #     postInstall =
+  #       previousAttrs.postInstall
+  #       + ''
+  #         mv  "$out/bin/python3.11" "$out/bin/unpatched_python3.11"
+  #         cat << EOF >> "$out/bin/python3.11"
+  #         #!/run/current-system/sw/bin/bash
+  #         export LD_LIBRARY_PATH="${pythonldlibpath}"
+  #         exec "$out/bin/unpatched_python3.11" "\$@"
+  #         EOF
+  #         chmod +x "$out/bin/python3.11"
+  #       '';
+  #   }
+  # );
+  pythonldlibpath = lib.makeLibraryPath (with pkgs; [
+    zlib
+    zstd
+    stdenv.cc.cc
+    curl
+    openssl
+    attr
+    libssh
+    bzip2
+    libxml2
+    acl
+    libsodium
+    util-linux
+    xz
+    systemd
+  ]);
+  # Darwin requires a different library path prefix
+  wrapPrefix =
+    if (!pkgs.stdenv.isDarwin)
+    then "LD_LIBRARY_PATH"
+    else "DYLD_LIBRARY_PATH";
+  patchedpython = pkgs.symlinkJoin {
+    name = "python";
+    paths = [pkgs.python311];
+    buildInputs = [pkgs.makeWrapper];
+    postBuild = ''
+      wrapProgram "$out/bin/python3.11" --prefix ${wrapPrefix} : "${pythonldlibpath}"
+    '';
+  };
 in {
   # You can import other home-manager modules here
   imports = [
@@ -192,6 +255,8 @@ in {
         extraPkgs = pkgs: [pkgs.qt6.full];
       })
     ffmpeg-full
+    patchedpython
+    # python311Full
 
     # browsers
     firefox
