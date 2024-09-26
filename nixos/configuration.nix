@@ -267,6 +267,7 @@
         libGL
         libgcc.lib
         libgpg-error
+        libgcc
         # zlib
       ];
     };
