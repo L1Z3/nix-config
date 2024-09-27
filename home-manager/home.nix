@@ -11,40 +11,6 @@
   # TODO currently "secrets" are just secrets from GitHub; they are not securely stored on this machine
   #      for actual secrets (e.g. passwords, etc), consider storing them some other way
   secrets = inputs.secrets.secrets;
-  # python = pkgs.python311;
-  # pythonldlibpath = lib.makeLibraryPath (with pkgs; [
-  #   zlib
-  #   zstd
-  #   stdenv.cc.cc
-  #   curl
-  #   openssl
-  #   attr
-  #   libssh
-  #   bzip2
-  #   libxml2
-  #   acl
-  #   libsodium
-  #   util-linux
-  #   xz
-  #   systemd
-  # ]);
-  # patchedpython = python.overrideAttrs (
-  #   previousAttrs: {
-  #     # Add the nix-ld libraries to the LD_LIBRARY_PATH.
-  #     # creating a new library path from all desired libraries
-  #     postInstall =
-  #       previousAttrs.postInstall
-  #       + ''
-  #         mv  "$out/bin/python3.11" "$out/bin/unpatched_python3.11"
-  #         cat << EOF >> "$out/bin/python3.11"
-  #         #!/run/current-system/sw/bin/bash
-  #         export LD_LIBRARY_PATH="${pythonldlibpath}"
-  #         exec "$out/bin/unpatched_python3.11" "\$@"
-  #         EOF
-  #         chmod +x "$out/bin/python3.11"
-  #       '';
-  #   }
-  # );
   pythonldlibpath = lib.makeLibraryPath (with pkgs; [
     zlib
     zstd
@@ -114,7 +80,6 @@ in {
         outputs.overlays.modifications
         outputs.overlays.unstable-packages
         outputs.overlays.dev-packages
-        outputs.overlays.qt652-commit-packages
         # If you want to use overlays exported from other flakes:
         # neovim-nightly-overlay.overlays.default
 
@@ -266,11 +231,6 @@ in {
     # editors and git stuff
     sublime4
     vim
-    # TODO many projects need per-project dependencies. (e.g. GL for MC projects).
-    #      jetbrains ides don't like per-project environments and it's annoying to have to open them in a `nix develop` session
-    #      maybe it's worth using dumb hacks to wrap the ide with all the dependencies for all projects? (this is not the nix way but oh well)
-    #      see packagex.nix file here https://gist.github.com/Lgmrszd/98fb7054e63a7199f9510ba20a39bc67
-    #           alternative: for vscode at least (and maybe jetbrains), you can use a tool called direnv to dynmaically load `nix develop` environments
     # have decided that declarative plugins don't work great for jetbrains
     unstable.jetbrains.pycharm-professional
     unstable.jetbrains.idea-ultimate
@@ -280,24 +240,8 @@ in {
     unstable.gitkraken
     # vscode, via programs/vscode
 
-    # graphics stuff
-    # TODO needs QP_QPA_PLATFORM=xcb in order for scroll to work??? can i override it maybe also doing this with nix develop would work
-    # unstable.qtcreator
-    # need specific version for graphics class; TODO find a more elegant way of doing this (e.g. nix develop)
-    #     also, this takes a lot of storage space and duplicates a bunch of libraries. oh well.
-    #     TODO is there a way i can wrap qtcreator in a nix-shell or nix develop environment?
-    #         then, I could bundle this funny qt version as well as g++, etc there
-    #     (see programs/qtcreator for progresss on this)
-    # qt652-commit.qt6.full
-    # clang
-    # cmake
-    # cmake-format
-    # coreutils-full
-    # gnumake
-    # gdb
-
-    # TODO try this custom wrapped qtcreator (requires compilation); or, consider alternatives
-    qtcreator-with-deps
+    # TODO fix up this custom qtcreator environment (or just keep using jetbrains)
+    # qtcreator-with-deps
 
     # media
     spotify

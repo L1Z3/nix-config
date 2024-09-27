@@ -142,22 +142,6 @@
         "url": "file:///home/liz/projects/nixpkgs-fork-dev"
       }
     },
-    "nixpkgs-qt652": {
-      "locked": {
-        "lastModified": 1689861286,
-        "narHash": "sha256-/8Wzokrr8ZbOhPWpq8Uc9By/dIJgILMnCapjssrgWnw=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "fc865094fb2d58a55be90eef486bee5096ebdf4b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "fc865094fb2d58a55be90eef486bee5096ebdf4b",
-        "type": "github"
-      }
-    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1726937504,
@@ -198,7 +182,6 @@
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-dev": "nixpkgs-dev",
-        "nixpkgs-qt652": "nixpkgs-qt652",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "secrets": "secrets"
       }
