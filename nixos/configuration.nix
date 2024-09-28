@@ -74,8 +74,17 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
-  # hack to transfer gnome monitor config to gdm
+  # get rid of gnome software
+  environment.gnome.excludePackages =
+    (with pkgs; [
+      # for packages that are pkgs.*
+    ])
+    ++ (with pkgs.gnome; [
+      # for packages that are pkgs.gnome.*
+      gnome-software
+    ]);
 
+  # hack to transfer gnome monitor config to gdm
   systemd.tmpfiles.rules = [
     "C+ /run/gdm/.config/monitors.xml - - - - /home/liz/.config/monitors.xml"
   ];
