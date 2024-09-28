@@ -73,6 +73,8 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+  # automatic screen rotation in GNOME
+  hardware.sensor.iio.enable = true;
 
   # get rid of gnome software
   environment.gnome.excludePackages =
