@@ -449,7 +449,10 @@
   #   device = "/swapfile";
   #   size = 8*1024;
   # } ];
+  # download more wam
   zramSwap.enable = true;
+  # double zram size from default (what this means isn't 100% clear to me, but i need more ram...)
+  zramSwap.memoryPercent = 100;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
