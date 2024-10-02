@@ -450,10 +450,18 @@
   #   device = "/swapfile";
   #   size = 8*1024;
   # } ];
-  # download more wam
+  # download more wam (compress RAM with zram)
   zramSwap.enable = true;
-  # double zram size from default (what this means isn't 100% clear to me, but i need more ram...)
-  zramSwap.memoryPercent = 100;
+  # set zram to 150% of RAM (24GB on my system)
+  # this should be fine; in real world use, i'm seeing a 4:1 to 5:1 compression ratio
+  zramSwap.memoryPercent = 150;
+  # optimize kernel parameters for zram
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 180;
+    "vm.watermark_boost_factor" = 0;
+    "vm.watermark_scale_factor" = 125;
+    "vm.page-cluster" = 0;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
