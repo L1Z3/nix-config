@@ -290,7 +290,7 @@ in {
     notion-app-enhanced # custom package to fix issue (TODO upstream this)
     obsidian
     xournalpp
-    zoom-us
+    unstable.zoom-us
 
     # game stuff
     unstable.prismlauncher
