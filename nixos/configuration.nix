@@ -333,6 +333,9 @@
     # game-devices-udev-rules # attempt at fixing steam input in wayland native games (not working)
     # easytether # my own packaging of easytether TODO needs fixes
     protontricks
+
+    # performance profiling
+    config.boot.kernelPackages.perf
   ];
   # services.udev.packages = [pkgs.easytether];
   # nixpkgs.config.permittedInsecurePackages = [
