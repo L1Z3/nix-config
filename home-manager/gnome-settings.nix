@@ -184,6 +184,14 @@
         allow-volume-above-100-percent = true;
       };
 
+      "org/gnome/settings-daemon/plugins/media-keys" = {
+        volume-up = ["<Control><Super>Up"];
+        volume-down = ["<Control><Super>Down"];
+        play = ["<Control><Super>k"];
+        next = ["<Control><Super>l"];
+        previous = ["<Control><Super>j"];
+      };
+
       "org/gnome/desktop/wm/keybindings" = {
         maximize = [];
         move-to-workspace-1 = ["<Super>1"];
