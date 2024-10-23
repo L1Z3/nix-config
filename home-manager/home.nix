@@ -277,6 +277,7 @@ in {
     httrack
     # piavpn
     binaryninja
+    unstable.ghidra
     # fastx-client # silly little custom package # TODO upstream
     anydesk
 
