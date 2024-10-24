@@ -222,6 +222,7 @@ in {
     ffmpeg-full
     patchedpython
     # python311Full
+    unstable.rustup
 
     # browsers
     firefox
@@ -236,6 +237,7 @@ in {
     unstable.jetbrains.idea-ultimate
     unstable.jetbrains.clion
     unstable.jetbrains.rust-rover
+    unstable.jetbrains.rider
     git-filter-repo
     unstable.gitkraken
     # vscode, via programs/vscode
@@ -302,6 +304,22 @@ in {
     citra-qt # custom package pulling archived last AppImage
     celeste64
     dolphin-emu
+    # godot_4 wrapped with extra programs installed
+    # (let
+    #   godot_4-wrapped = pkgs.symlinkJoin {
+    #     name = "godot_4_wrapped";
+    #     paths = [pkgs.godot_4];
+    #     nativeBuildInputs = [pkgs.makeWrapper];
+    #     postBuild = ''
+    #       # Wrap the existing godot executable
+    #       wrapProgram $out/bin/godot4 \
+    #         --prefix PATH : ${pkgs.lib.makeBinPath [pkgs.unstable.emscripten]}
+    #     '';
+    #   };
+    # in
+    #   godot_4-wrapped)
+    unstable.godot_4
+    # godot-4-mono-bin # custom package pulling godot 4 mono binary
 
     googleearth-pro
   ];

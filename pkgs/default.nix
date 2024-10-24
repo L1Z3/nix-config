@@ -17,4 +17,5 @@ pkgs: {
   binaryninja = pkgs.callPackage ./binaryninja.nix {};
   fastx-client = pkgs.callPackage ./fastx-client.nix {};
   qtcreator-with-deps = pkgs.callPackage ./qtcreator-with-deps.nix {};
+  godot-4-mono-bin = pkgs.callPackage ./godot-4-mono-bin.nix {};
 }
