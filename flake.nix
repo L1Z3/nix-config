@@ -9,7 +9,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # local dev fork of nixpkgs
-    nixpkgs-dev.url = "/home/liz/projects/nixpkgs-fork-dev";
+    # nixpkgs-dev.url = "/home/liz/projects/nixpkgs-fork-dev";
 
     # master... just in case i really really want a package that isn't in unstable yet
     # comment out if not needed, other things should adjust
