@@ -223,6 +223,7 @@ in {
     patchedpython
     # python311Full
     unstable.rustup
+    samply
 
     # browsers
     firefox
