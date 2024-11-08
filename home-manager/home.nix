@@ -267,6 +267,7 @@ in {
     kdenlive
     glaxnimate # optional dependency for kdenlive
     blender
+    calibre
 
     # system tools
     unstable.qpwgraph
