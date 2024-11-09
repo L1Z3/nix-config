@@ -268,6 +268,7 @@ in {
     glaxnimate # optional dependency for kdenlive
     blender
     calibre
+    pavucontrol
 
     # system tools
     unstable.qpwgraph
