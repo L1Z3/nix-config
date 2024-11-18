@@ -6,7 +6,8 @@
   inherit (config.lib.file) mkOutOfStoreSymlink;
 in {
   home.packages = with pkgs; [
-    unstable.syncplay
+    # unstable.syncplay # due to some weird bug, switching to stable
+    syncplay
   ];
 
   xdg.configFile = {
