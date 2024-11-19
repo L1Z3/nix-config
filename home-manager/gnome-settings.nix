@@ -32,7 +32,7 @@
       dconfPath = "advanced-alt-tab-window-switcher";
       settings = {
         "win-switcher-popup-filter" = 1;
-        "win-switcher-popup-order" = 4;
+        "win-switcher-popup-sorting" = 1;
       };
     }
     blur-my-shell
@@ -69,22 +69,6 @@
         panel-position = "bottom";
       };
     }
-    {
-      package = user-themes;
-      dconfPath = "user-theme";
-      settings = {name = "Custom-Accent-Colors";};
-    }
-    {
-      package = pkgs.unstable.gnomeExtensions.custom-accent-colors; # yippee :)
-      settings = {
-        # options:
-        # default (blue, no option set), green, yellow, orange, red, pink, purple, brown
-        accent-color = "pink";
-        theme-shell = true;
-        theme-gtk3 = true;
-        theme-flatpak = true;
-      };
-    }
     # {
     #   package = unstable-another-window-session-manager-patched; # auto-save session
     #   dconfPath = "another-window-session-manager";
@@ -105,10 +89,10 @@
   # gnome-related packages
   packages = with pkgs; [
     adw-gtk3
-    gnome.dconf-editor
-    gnome.gnome-power-manager
-    gnome.gnome-themes-extra
-    gnome.gnome-tweaks
+    dconf-editor
+    gnome-power-manager
+    gnome-themes-extra
+    gnome-tweaks
   ];
 
   # caps lock to backspace remap
@@ -127,6 +111,9 @@
     backspaceRemapDconf
     // (with lib.hm.gvariant; {
       # below here is all other custom dconf entries
+      "org/gnome/desktop/interface" = {
+        "accent-color" = "pink";
+      };
 
       "org/gnome/mutter" = {
         # enable wayland fractional scaling
@@ -148,8 +135,8 @@
       "org/gnome/desktop/background" = {
         color-shading-type = "solid";
         picture-options = "zoom";
-        picture-uri = "file://${pkgs.gnome.gnome-backgrounds}/share/backgrounds/gnome/blobs-l.svg";
-        picture-uri-dark = "file://${pkgs.gnome.gnome-backgrounds}/share/backgrounds/gnome/blobs-d.svg";
+        picture-uri = "file://${pkgs.gnome-backgrounds}/share/backgrounds/gnome/blobs-l.svg";
+        picture-uri-dark = "file://${pkgs.gnome-backgrounds}/share/backgrounds/gnome/blobs-d.svg";
         primary-color = "#241f31";
         secondary-color = "#000000";
       };
@@ -176,7 +163,7 @@
       "org/gnome/desktop/screensaver" = {
         color-shading-type = "solid";
         picture-options = "zoom";
-        picture-uri = "file://${pkgs.gnome.gnome-backgrounds}/share/backgrounds/gnome/blobs-l.svg";
+        picture-uri = "file://${pkgs.gnome-backgrounds}/share/backgrounds/gnome/blobs-l.svg";
         primary-color = "#241f31";
         secondary-color = "#000000";
       };

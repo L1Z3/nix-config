@@ -267,7 +267,7 @@ in {
     kdenlive
     glaxnimate # optional dependency for kdenlive
     blender
-    calibre
+    # calibre # TODO wait for 7.21.0 to come to unstable or 24.11
     pavucontrol
 
     # system tools
@@ -282,7 +282,6 @@ in {
     httrack
     # piavpn
     binaryninja
-    unstable.ghidra
     # fastx-client # silly little custom package # TODO upstream
     anydesk
 
@@ -303,7 +302,7 @@ in {
     unstable.mcaselector # TODO maybe try adding custom .desktop file
     nbt-explorer # custom package
     olympus # TODO currently custom, switch to upstream nixpkgs when ready
-    yuzu # custom package pulling archived last AppImage
+    # yuzu # custom package pulling archived last AppImage
     citra-qt # custom package pulling archived last AppImage
     celeste64
     dolphin-emu
@@ -361,7 +360,7 @@ in {
   # required for some package
   nixpkgs.config.permittedInsecurePackages = [
     "openssl-1.1.1w" # for sublime
-    "googleearth-pro-7.3.4.8248"
+    "googleearth-pro-7.3.6.9796"
   ];
 
   gtk = {

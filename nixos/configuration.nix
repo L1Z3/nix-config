@@ -76,14 +76,31 @@
   # automatic screen rotation in GNOME
   hardware.sensor.iio.enable = true;
 
+  # enable gnome debug settings (specifically, i want to enable the session management protocol that is experimental in gnome 47)
+  # edit: this isn't useful yet because no applications use it. TODO i realllly want a fork/patch of firefox that uses it....
+  # systemd.user.services."org.gnome.Shell@wayland" = {
+  #   overrideStrategy = "asDropin";
+  #   path = lib.mkForce [];
+  #   serviceConfig = {
+  #     Environment = [
+  #       ""
+  #       "MUTTER_DEBUG_SESSION_MANAGEMENT_PROTOCOL=1"
+  #     ];
+  #     ExecStart = [
+  #       ""
+  #       "${pkgs.gnome-shell}/bin/gnome-shell --debug-control"
+  #     ];
+  #   };
+  # };
+
   # get rid of gnome software
   environment.gnome.excludePackages =
     (with pkgs; [
       # for packages that are pkgs.*
+      gnome-software
     ])
     ++ (with pkgs.gnome; [
       # for packages that are pkgs.gnome.*
-      gnome-software
     ]);
 
   # hack to transfer gnome monitor config to gdm
@@ -156,7 +173,7 @@
   };
 
   # enable hardware encoding for OBS/Davinci Resolve
-  hardware.opengl = {
+  hardware.graphics = {
     # hardware.graphics on unstable
     enable = true;
     extraPackages = with pkgs; [
@@ -181,14 +198,7 @@
       # auto-optimize to reduce disk usage
       auto-optimise-store = true;
       # allow cachix with nonroot
-      trusted-public-keys = [
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
-      ];
-      trusted-substituters = [
-        "https://nix-community.cachix.org"
-        "https://nixpkgs-unfree.cachix.org"
-      ];
+      trusted-users = ["root" "@wheel"];
     };
     # Opinionated: disable channels
     channel.enable = false;
@@ -198,12 +208,12 @@
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
 
     # automatic garbage collection for system generations
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-      persistent = true;
-    };
+    # gc = {
+    #   automatic = true;
+    #   dates = "weekly";
+    #   options = "--delete-older-than 7d";
+    #   persistent = true;
+    # };
   };
 
   networking.hostName = "envy";
@@ -221,7 +231,7 @@
         # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
       ];
       # Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
-      extraGroups = ["networkmanager" "wheel" "ydotool" "libvirtd" "qemu-libvirtd" "kvm" "docker"];
+      extraGroups = ["networkmanager" "wheel" "libvirtd" "qemu-libvirtd" "kvm" "docker"];
     };
   };
 
@@ -297,7 +307,14 @@
     };
     ydotool = {
       enable = true;
-      # group = "wheel"; # not available in stable yet, so i have to add myself to ydotool group
+      group = "wheel"; # not available in stable yet, so i have to add myself to ydotool group
+    };
+    # nix command line wrapper for ease of rebuilding
+    nh = {
+      enable = true;
+      clean.enable = true;
+      clean.extraArgs = "--keep-since 7d --keep 5";
+      flake = "/home/liz/nix";
     };
   };
   hardware.steam-hardware.enable = true;

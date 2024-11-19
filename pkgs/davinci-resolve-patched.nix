@@ -152,14 +152,14 @@
       postFixup = ''
         for program in $out/bin/*; do
           isELF "$program" || continue
-          addOpenGLRunpath "$program"
+          addDriverRunpath "$program"
         done
 
         for program in $out/libs/*; do
           isELF "$program" || continue
           if [[ "$program" != *"libcudnn_cnn_infer"* ]];then
             echo $program
-            addOpenGLRunpath "$program"
+            addDriverRunpath "$program"
           fi
         done
         ln -s $out/libs/libcrypto.so.1.1 $out/libs/libcrypt.so.1

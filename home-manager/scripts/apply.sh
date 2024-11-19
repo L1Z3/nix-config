@@ -19,28 +19,29 @@ get_sys_gen_id () {
 }
 
 apply-home () {
-    echo_pink "Running home-manager switch..."
-    if home-manager switch --flake .#$USER@$HOSTNAME ${@:2} ; then
+    echo_pink "Running nh home switch..."
+    # if home-manager switch --flake .#$USER@$HOSTNAME ${@:2} ; then
+    if nh home switch ; then
         git add ./home-manager ./flake.nix ./flake.lock ./pkgs ./overlays ./media
     else
         exit 1
     fi
     # TODO only show diff if this command created a new generation
-    echo_pink "Package changes in new home generation ($(get_home_gen_id)):"
-    nix store diff-closures $(ls -t1d $HOME/.local/state/nix/profiles/home-manager-*-link | head -2 | tac)
+    # echo_pink "Package changes in new home generation ($(get_home_gen_id)):"
+    # nix store diff-closures $(ls -t1d $HOME/.local/state/nix/profiles/home-manager-*-link | head -2 | tac)
     echo -e "\n"
 }
 
 apply-system () {
-    echo_pink "Running  nixos-rebuild switch..."
-    if sudo nixos-rebuild switch --flake .#$HOSTNAME ${@:2} ; then
+    echo_pink "Running nh os switch..."
+    if nh os switch ; then
         git add ./nixos ./flake.nix ./flake.lock ./pkgs ./overlays ./media
     else
         exit 1
     fi
     # TODO only show diff if this command created a new generation
-    echo_pink "Package changes in new system generation ($(get_sys_gen_id)):"
-    nix store diff-closures $(ls -t1d /nix/var/nix/profiles/system-*-link | head -2 | tac)
+    # echo_pink "Package changes in new system generation ($(get_sys_gen_id)):"
+    # nix store diff-closures $(ls -t1d /nix/var/nix/profiles/system-*-link | head -2 | tac)
     echo -e "\n"
 }
 
