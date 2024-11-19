@@ -31,8 +31,9 @@
       package = advanced-alttab-window-switcher;
       dconfPath = "advanced-alt-tab-window-switcher";
       settings = {
-        "win-switcher-popup-filter" = 1;
+        "win-switcher-popup-filter" = 2;
         "win-switcher-popup-sorting" = 1;
+        "win-switcher-popup-order" = 1;
       };
     }
     blur-my-shell
