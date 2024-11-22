@@ -21,7 +21,7 @@ get_sys_gen_id () {
 apply-home () {
     echo_pink "Running nh home switch..."
     # if home-manager switch --flake .#$USER@$HOSTNAME ${@:2} ; then
-    if nh home switch ; then
+    if nh home switch "$@" ; then
         git add ./home-manager ./flake.nix ./flake.lock ./pkgs ./overlays ./media
     else
         exit 1
@@ -34,7 +34,7 @@ apply-home () {
 
 apply-system () {
     echo_pink "Running nh os switch..."
-    if nh os switch ; then
+    if nh os switch "$@" ; then
         git add ./nixos ./flake.nix ./flake.lock ./pkgs ./overlays ./media
     else
         exit 1
@@ -54,12 +54,12 @@ git diff -U0 '*.(nix|sh)'
 
 case $1 in
   sys | system)
-     apply-system ;;
+     apply-system "${@:2}" ;;
   home)
-     apply-home ;;
+     apply-home "${@:2}" ;;
   *)
-     apply-system || (popd && exit)
-     apply-home ;;
+     apply-system "${@}" || (popd && exit)
+     apply-home "${@}" ;;
 esac
 
 

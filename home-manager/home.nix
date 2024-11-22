@@ -267,7 +267,7 @@ in {
     kdenlive
     glaxnimate # optional dependency for kdenlive
     blender
-    # calibre # TODO wait for 7.21.0 to come to unstable or 24.11
+    calibre
     pavucontrol
 
     # system tools
@@ -291,7 +291,7 @@ in {
     # slack-cli # TODO currently manually installed into ~/.local/share/slack, i should move this
 
     # office, etc
-    libreoffice
+    unstable.libreoffice
     notion-app-enhanced # custom package to fix issue (TODO upstream this)
     obsidian
     xournalpp
