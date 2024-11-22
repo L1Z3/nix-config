@@ -187,6 +187,10 @@ in
   buildFHSEnv {
     inherit (davinci) pname version;
 
+    nativeBuildInputs = [
+      copyDesktopItems
+    ];
+
     targetPkgs = pkgs:
       with pkgs; [
         alsa-lib
@@ -238,6 +242,8 @@ in
         xorg.xkeyboardconfig
         zlib
       ];
+
+    desktopItems = davinci.desktopItems;
 
     # extraPreBwrapCmds = lib.optionalString studioVariant ''
     #   mkdir -p ~/.local/share/DaVinciResolve/license || exit 1

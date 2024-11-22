@@ -243,9 +243,6 @@ in {
     unstable.gitkraken
     # vscode, via programs/vscode
 
-    # TODO fix up this custom qtcreator environment (or just keep using jetbrains)
-    # qtcreator-with-deps
-
     # media
     spotify
     mpv
