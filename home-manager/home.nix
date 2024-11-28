@@ -224,6 +224,7 @@ in {
     # python311Full
     unstable.rustup
     samply
+    # audiorelay # custom package
 
     # browsers
     firefox
