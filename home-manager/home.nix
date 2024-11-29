@@ -261,7 +261,8 @@ in {
     deluge
     # syncplay, via programs/syncplay
     stremio
-    davinci-resolve-studio-patched # TODO can we pin this to a nixpkgs commit so it doesn't take 10 years to build every time
+    # disable for now
+    # davinci-resolve-studio-patched # TODO can we pin this to a nixpkgs commit so it doesn't take 10 years to build every time
     kdenlive
     glaxnimate # optional dependency for kdenlive
     blender
