@@ -245,6 +245,7 @@
 in {
   imports = [
     ./modules/gnome-extension-settings.nix
+    ./modules/nautilus.nix
   ];
 
   # this is a hack to allow gui editing of default apps. TODO: reconsider how to do this more elegantly (maybe try continuing patching xdg-utils?)
