@@ -206,6 +206,7 @@ in {
   home.enableNixpkgsReleaseCheck = true;
   home.packages = with pkgs; [
     # misc command line tools
+    lsof
     nix-tree
     unstable.eza
     jq
@@ -433,6 +434,7 @@ in {
   };
 
   # rclone gdrive crypt mount service
+  # TODO can we store rclone config (maybe in secrets repo)?
   systemd.user.services.rclone-gdrive = let
     mount_directory = "${config.home.homeDirectory}/drive_storage";
   in {
