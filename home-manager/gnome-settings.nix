@@ -252,10 +252,10 @@ in {
   # $XDG_CONFIG_HOME/gnome-mimeapps.list will take precedence over $XDG_CONFIG_DIRS/mimeapps.list, (see https://specifications.freedesktop.org/mime-apps-spec/mime-apps-spec-1.0.html)
   # but changes can still be made to mimeapps.list in the GUI. the activation script will copy
   # these changes to home-manager's mimeapps.list, which will then symlink to the gnome-mimeapps.list file.
-  xdg.configFile = {
-    # TODO make the path relative to flake dir somehow (still needs to expand to absolute path for nix reasons)
-    "gnome-mimeapps.list".source = mkOutOfStoreSymlink "${pathToHere}/mimeapps.list";
-  };
+  # xdg.configFile = {
+  #   # TODO make the path relative to flake dir somehow (still needs to expand to absolute path for nix reasons)
+  #   "gnome-mimeapps.list".source = mkOutOfStoreSymlink "${pathToHere}/mimeapps.list";
+  # };
 
   # calls into custom module that enables and configures settings for gnome extensions
   gnomeExtensionSettings.enable = true;
