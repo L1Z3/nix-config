@@ -236,11 +236,11 @@ in {
     sublime4
     vim
     # have decided that declarative plugins don't work great for jetbrains
+    # TODO just switch to jetbrains toolbox sometime... these take forever to build and are a pain
     unstable.jetbrains.pycharm-professional
     unstable.jetbrains.idea-ultimate
     unstable.jetbrains.clion
     unstable.jetbrains.rust-rover
-    unstable.jetbrains.rider
     git-filter-repo
     unstable.gitkraken
     # vscode, via programs/vscode
