@@ -432,6 +432,30 @@ in {
     };
   };
 
+  # rclone gdrive crypt mount service
+  systemd.user.services.rclone-gdrive = let
+    mount_directory = "${config.home.homeDirectory}/drive_storage";
+  in {
+    Unit = {
+      Description = "Automount google drive folder using rclone";
+      AssertPathIsDirectory = mount_directory;
+      Wants = "network-online.target";
+      After = "network-online.target";
+    };
+
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.rclone}/bin/rclone mount --vfs-cache-mode full drive_crypt: ${mount_directory}";
+      ExecStop = "${pkgs.fuse}/bin/fusermount -zu ${mount_directory}";
+      Restart = "on-failure";
+      RestartSec = 30;
+    };
+
+    Install = {
+      WantedBy = ["default.target"];
+    };
+  };
+
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
