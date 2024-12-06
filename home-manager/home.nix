@@ -168,6 +168,12 @@ in {
         ''
         + secrets.bashInitExtra;
     };
+    firefox = {
+      enable = true;
+      package = pkgs.firefox;
+      # support for PWAs
+      nativeMessagingHosts = [pkgs.unstable.firefoxpwa];
+    };
     git = {
       enable = true;
       userName = "Elizabeth Jones";
@@ -227,8 +233,8 @@ in {
     samply
     # audiorelay # custom package
 
-    # browsers
-    firefox
+    # firefox, from programs.firefox
+    pkgs.unstable.firefoxpwa
     # ungoogled-chromium
     chromium
 
