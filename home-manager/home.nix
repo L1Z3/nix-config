@@ -40,6 +40,7 @@
       wrapProgram "$out/bin/python3.11" --prefix ${wrapPrefix} : "${pythonldlibpath}"
     '';
   };
+  desktopWrapper = import ./modules/add-desktop-file-with-icon.nix {inherit pkgs;};
 in {
   # You can import other home-manager modules here
   imports = [
@@ -52,8 +53,6 @@ in {
     # enable prebuilt indexes for nix-index
     inputs.nix-index-database.hmModules.nix-index
 
-    # You can also split up your configuration and import pieces of it here:
-    # ./nvim.nix
     # pass secrets to gnome-settings module
     (import ./gnome-settings.nix (args // {inherit secrets;}))
     (import ./programs/vscode (args // {extensions = inputs.nix-vscode-extensions.extensions.${pkgs.system};}))
@@ -211,13 +210,16 @@ in {
   # programs.neovim.enable = true;
   home.enableNixpkgsReleaseCheck = true;
   home.packages = with pkgs; [
-    # misc command line tools
+    # basic command line tools
+    psmisc
+    fastfetch
     lsof
+
+    # misc command line tools
     nix-tree
     unstable.eza
     jq
     alejandra
-    fastfetch
     dconf2nix
     unstable.yt-dlp
     frp
@@ -232,6 +234,10 @@ in {
     unstable.rustup
     samply
     # audiorelay # custom package
+
+    # android tools
+    android-tools
+    adbfs-rootless # better reliability than mtp for android file transfer/management
 
     # firefox, from programs.firefox
     pkgs.unstable.firefoxpwa
@@ -283,7 +289,7 @@ in {
     etcher # custom package, since it's not in repos anymore
     # TODO needs non-declarative configs due to sensitive data, try to find workaround
     duplicacy-web # custom package, since it was never merged into nixpkgs
-    duplicacy-mount # my own custom package, since it's a fork
+    duplicacy-mount # my own custom package, since it's a fork. allows mounting duplicacy backups as a filesystem
     wireshark
     httrack
     # piavpn
@@ -305,29 +311,28 @@ in {
 
     # game stuff
     unstable.prismlauncher
-    unstable.mcaselector # TODO maybe try adding custom .desktop file
+    (desktopWrapper.mkDesktopWrappedPackage {
+      name = "mcaselector";
+      iconUrl = "https://raw.githubusercontent.com/Querz/mcaselector/cbeff376929070f27514113943a34349fdc3cc43/installer/img/small.bmp";
+      iconSha256 = "sha256-YRvDfJZBWq0b/lfLXlachWHhlqrzFiwTr0e7/1fAjqQ=";
+      desktopFileText = ''
+        [Desktop Entry]
+        Type=Application
+        Name=MCA Selector
+        Exec=${unstable.mcaselector}/bin/mcaselector
+        Icon=mcaselector
+        Terminal=false
+        Categories=Game;
+      '';
+      targetPackage = unstable.mcaselector;
+    })
     nbt-explorer # custom package
     olympus # TODO currently custom, switch to upstream nixpkgs when ready
     # yuzu # custom package pulling archived last AppImage
     citra-qt # custom package pulling archived last AppImage
     celeste64
     dolphin-emu
-    # godot_4 wrapped with extra programs installed
-    # (let
-    #   godot_4-wrapped = pkgs.symlinkJoin {
-    #     name = "godot_4_wrapped";
-    #     paths = [pkgs.godot_4];
-    #     nativeBuildInputs = [pkgs.makeWrapper];
-    #     postBuild = ''
-    #       # Wrap the existing godot executable
-    #       wrapProgram $out/bin/godot4 \
-    #         --prefix PATH : ${pkgs.lib.makeBinPath [pkgs.unstable.emscripten]}
-    #     '';
-    #   };
-    # in
-    #   godot_4-wrapped)
     unstable.godot_4
-    # godot-4-mono-bin # custom package pulling godot 4 mono binary
 
     googleearth-pro
   ];
@@ -424,6 +429,7 @@ in {
   # };
 
   # duplicacy backup service
+  # (this relies on out-of-nix duplicacy configs)
   systemd.user.services.duplicacy = {
     Unit = {
       Description = "Duplicacy";
@@ -440,9 +446,10 @@ in {
   };
 
   # rclone gdrive crypt mount service
+  # note: this relies on out-of-nix rclone configs
   # TODO can we store rclone config (maybe in secrets repo)?
   systemd.user.services.rclone-gdrive = let
-    mount_directory = "${config.home.homeDirectory}/drive_storage";
+    mount_directory = "${config.home.homeDirectory}/mnt/drive_storage";
   in {
     Unit = {
       Description = "Automount google drive folder using rclone";
