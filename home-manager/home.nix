@@ -207,7 +207,7 @@ in {
   };
 
   # Add stuff for your user as you see fit:
-  # programs.neovim.enable = true;
+  programs.neovim.enable = true;
   home.enableNixpkgsReleaseCheck = true;
   home.packages = with pkgs; [
     # basic command line tools

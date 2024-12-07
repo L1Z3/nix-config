@@ -85,8 +85,6 @@
     # }
   ];
 
-  nautilusBookmarks = secrets.nautilusBookmarks;
-
   # gnome-related packages
   packages = with pkgs; [
     adw-gtk3
@@ -263,9 +261,6 @@ in {
   gnomeExtensionSettings.extensionsAndSettings = extensionsAndSettings;
 
   home.packages = packages;
-
-  # nautilus bookmarks
-  gtk.gtk3.bookmarks = nautilusBookmarks;
 
   # jank workaround so new home.packages appear in gnome search without logging out
   programs.bash.profileExtra =
