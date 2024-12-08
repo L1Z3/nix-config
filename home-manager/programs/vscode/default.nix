@@ -29,6 +29,7 @@ in {
         mkhl.direnv
         ms-vscode-remote.remote-containers
         ms-vscode.cpptools-extension-pack
+        asvetliakov.vscode-neovim
       ]
       ++ (with extensions.vscode-marketplace-release; [
         # add non-nixpkgs extensions here
