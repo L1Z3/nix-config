@@ -34,7 +34,7 @@
     else "DYLD_LIBRARY_PATH";
   patchedpython = pkgs.symlinkJoin {
     name = "python";
-    paths = [pkgs.python311];
+    paths = [pkgs.python311Full];
     buildInputs = [pkgs.makeWrapper];
     postBuild = ''
       wrapProgram "$out/bin/python3.11" --prefix ${wrapPrefix} : "${pythonldlibpath}"
