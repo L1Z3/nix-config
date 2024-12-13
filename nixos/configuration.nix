@@ -76,6 +76,12 @@
   # automatic screen rotation in GNOME
   hardware.sensor.iio.enable = true;
 
+  # enable xdg desktop portals, maybe needed for zoom screen share?
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [];
+  };
+
   # enable gnome debug settings (specifically, i want to enable the session management protocol that is experimental in gnome 47)
   # edit: this isn't useful yet because no applications use it. TODO i realllly want a fork/patch of firefox that uses it....
   # systemd.user.services."org.gnome.Shell@wayland" = {
