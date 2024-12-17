@@ -307,6 +307,7 @@ in {
     notion-app-enhanced # custom package to fix issue (TODO upstream this)
     obsidian
     xournalpp
+    # TODO fix screen sharing
     unstable.zoom-us
 
     # game stuff
