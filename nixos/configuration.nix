@@ -42,12 +42,27 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # make amazon fire stick think this laptop is a pair of headphones
   # hardware.bluetooth.settings = {
   #   General = {
   #     Class = "0x002c0414";
   #   };
   # };
   # services.blueman.enable = true;
+
+  # enable experimental bluetooth le/lc3 codec support
+  # FUTURE: maybe enable for Bluetooth LE/LC3 when more stable
+  # hardware.bluetooth = {
+  #   enable = true;
+  #   powerOnBoot = true;
+  #   settings = {
+  #     General = {
+  #       ControllerMode = "le";
+  #       Experimental = true;
+  #       KernelExperimental = true;
+  #     };
+  #   };
+  # };
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -143,6 +158,25 @@
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
+
+    # need to disabled bap_sink for WF-1000XM5 to connect with LC3 codec
+    # FUTURE: maybe enable for Bluetooth LE/LC3 when more stable
+    # wireplumber.extraConfig.fixWF1000XM5 = {
+    #   "monitor.bluez.properties" = {
+    #     "bluez5.roles" = [
+    #       "a2dp_sink"
+    #       "a2dp_source"
+    #       # "bap_sink" # https://github.com/bluez/bluez/issues/793#issuecomment-2050379540 WF-1000XM5 LC3 doesn't support mic
+    #       "bap_source"
+    #       "hsp_hs"
+    #       /*
+    #       "hsp_ag" # disabled by default
+    #       */
+    #       "hfp_hf"
+    #       "hfp_ag"
+    #     ];
+    #   };
+    # };
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -362,6 +396,10 @@
 
     # performance profiling
     config.boot.kernelPackages.perf
+
+    # also needed for bluetooth lc3 codec
+    # FUTURE: maybe enable for Bluetooth LE/LC3 when more stable
+    # liblc3
   ];
   # services.udev.packages = [pkgs.easytether];
   # nixpkgs.config.permittedInsecurePackages = [
