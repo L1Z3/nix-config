@@ -45,7 +45,8 @@
 
   # When installing Everest, Olympus uses MiniInstaller, which is dynamically linked.
   miniinstaller-fhs = buildFHSEnv {
-    name = "olympus-miniinstaller-fhs";
+    pname = "olympus-miniinstaller-fhs";
+    inherit version;
     targetPkgs = pkgs: (with pkgs; [
       icu
       openssl
@@ -62,7 +63,7 @@
 
   miniinstaller-wrapper =
     if miniinstallerWrapper == null
-    then (writeShellScript "miniinstaller-wrapper" "${miniinstaller-fhs}/bin/${miniinstaller-fhs.name} -c \"$@\"")
+    then (writeShellScript "miniinstaller-wrapper" "exec ${lib.getExe miniinstaller-fhs} -c \"$@\"")
     else (wrapper-to-env miniinstallerWrapper);
 
   pname = "olympus";
@@ -87,7 +88,7 @@ in
       libarchive # To create the .love file (zip format).
     ];
 
-    nugetDeps = ./deps.nix;
+    nugetDeps = ./deps.json;
     projectFile = "sharp/Olympus.Sharp.csproj";
     executables = [];
 
