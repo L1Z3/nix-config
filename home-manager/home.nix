@@ -164,6 +164,24 @@ in {
           find-so() {
             nix-locate "$1" | grep -v "^("
           }
+
+          # typing "nix shell nixpkgs#..." every time to use flake-based nix shell is annoying
+          # nix-qs (i.e. nix-quick-shell) will just expand to the version with nixpkgs# in front of each package
+          nix-qs() {
+            if [ "$#" -eq 0 ]; then
+              echo "Usage: nix-qs <packages>"
+              return 1
+            fi
+
+            local packages=()
+
+            for pkg in "$@"; do
+              packages+=("nixpkgs#$pkg")
+            done
+
+            # Run `nix shell` with the transformed arguments
+            nix shell "$''\{packages[@]}"
+          }
         ''
         + secrets.bashInitExtra;
     };
