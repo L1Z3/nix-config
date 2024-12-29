@@ -448,9 +448,9 @@
   # networking.interfaces.tap-easytether.useDHCP = true;
   # networking.networkmanager.dhcp = "dhcpcd";
 
-  # allow spotify local discovery
-  networking.firewall.allowedTCPPorts = [57621];
-  networking.firewall.allowedUDPPorts = [5353];
+  # allow spotify local discovery, misc port for things like local network udp obs stream
+  networking.firewall.allowedTCPPorts = [57621 1234];
+  networking.firewall.allowedUDPPorts = [5353 1234];
 
   # enable kernel stuff for obs virtual camera
   boot.extraModulePackages = with config.boot.kernelPackages; [
