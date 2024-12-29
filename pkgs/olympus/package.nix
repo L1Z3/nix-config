@@ -5,11 +5,11 @@
   fetchzip,
   buildFHSEnv,
   buildDotnetModule,
+  dotnetCorePackages,
   luajitPackages,
   sqlite,
   libarchive,
   curl,
-  mono,
   love,
   xdg-utils,
   writeShellScript,
@@ -69,9 +69,9 @@
   pname = "olympus";
   phome = "$out/lib/${pname}";
   # The following variables are to be updated by the update script.
-  version = "24.11.23.03";
-  buildId = "4420"; # IMPORTANT: This line is matched with regex in update.sh.
-  rev = "a3792e0c85f3ad7a3029a6a66ca8288aa6f58ae4";
+  version = "24.12.28.01";
+  buildId = "4546"; # IMPORTANT: This line is matched with regex in update.sh.
+  rev = "06efd3c0b31dbb0c7c2e45dd8fc8c95d33422f16";
 in
   buildDotnetModule {
     inherit pname version;
@@ -81,7 +81,7 @@ in
       owner = "EverestAPI";
       repo = "Olympus";
       fetchSubmodules = true; # Required. See upstream's README.
-      hash = "sha256-UPAn9Rbm2IlxMJ/O69WXHugIc+22w+B5i6iLkCcsfQ8=";
+      hash = "sha256-7DolR4JewCmpPTznK9B++zK6/mQhiNxthClGbOjXNyI=";
     };
 
     nativeBuildInputs = [
@@ -91,21 +91,11 @@ in
     nugetDeps = ./deps.json;
     projectFile = "sharp/Olympus.Sharp.csproj";
     executables = [];
+    installPath = "build";
 
     # See the 'Dist: Update src/version.txt' step in azure-pipelines.yml from upstream.
     preConfigure = ''
       echo ${version}-nixos-${buildId}-${builtins.substring 0 5 rev} > src/version.txt
-    '';
-
-    # Hack Olympus.Sharp.bin.{x86,x86_64} to use system mono.
-    # This was proposed by @0x0ade on discord.gg/celeste.
-    # https://discord.com/channels/403698615446536203/514006912115802113/827507533962149900
-    postBuild = ''
-      dotnet_out=sharp/bin/Release/net452
-      dotnet_out=$dotnet_out/$(ls $dotnet_out)
-      makeWrapper ${lib.getExe mono} $dotnet_out/Olympus.Sharp.bin.x86 \
-        --add-flags ${phome}/sharp/Olympus.Sharp.exe
-      cp $dotnet_out/Olympus.Sharp.bin.x86 $dotnet_out/Olympus.Sharp.bin.x86_64
     '';
 
     # The script find-love is hacked to use love from nixpkgs.
@@ -115,10 +105,6 @@ in
       mkdir -p ${phome}
       makeWrapper ${lib.getExe love} ${phome}/find-love \
         --add-flags "--fused"
-    '';
-
-    installPhase = ''
-      runHook preInstall
 
       mkdir -p $out/bin
       makeWrapper ${phome}/find-love $out/bin/olympus \
@@ -133,17 +119,14 @@ in
         then "1"
         else "0"
       } \
-        --add-flags ${phome}/olympus.love
+        --add-flags ${phome}/olympus.love \
+        --set DOTNET_ROOT ${dotnetCorePackages.runtime_8_0}/share/dotnet
+
       bsdtar --format zip --strip-components 1 -cf ${phome}/olympus.love src
-
-      dotnet_out=sharp/bin/Release/net452
-      dotnet_out=$dotnet_out/$(ls $dotnet_out)
-      install -Dm755 $dotnet_out/* -t ${phome}/sharp
-
-      runHook postInstall
     '';
 
     postInstall = ''
+      install -Dm755 build/* -t ${phome}/sharp # NixOS/nixpkgs#368936
       install -Dm644 lib-linux/olympus.desktop $out/share/applications/olympus.desktop
       install -Dm644 src/data/icon.png $out/share/icons/hicolor/128x128/apps/olympus.png
       install -Dm644 LICENSE $out/share/licenses/${pname}/LICENSE
@@ -161,7 +144,9 @@ in
         petingoso
       ];
       mainProgram = "olympus";
+      #TODO: Check if executables are mac compatible
       platforms = lib.platforms.unix;
-      badPlatforms = lib.platforms.aarch; # We explicitly copy and wrap x86. possibly able to be done platform agnostic
+      # TODO: It might work on aarch if it was compiled there? to be tested.
+      badPlatforms = lib.platforms.aarch;
     };
   }
