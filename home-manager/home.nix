@@ -363,6 +363,7 @@ in {
       "org.telegram.desktop"
       "com.github.tchx84.Flatseal"
       "org.zulip.Zulip"
+      "com.steamgriddb.SGDBoop"
     ];
     update.auto = {
       enable = true;
