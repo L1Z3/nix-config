@@ -519,10 +519,10 @@
   # } ];
   # download more wam (compress RAM with zram)
   zramSwap.enable = true;
-  # set zram to 125% of RAM (20GB on my system)
+  # set zram to 50% of RAM (8GB on my system)
   # this should be fine; in real world use, i'm seeing a 4:1 to 5:1 compression ratio
-  # additionally, when getting to above ~16GB of ZRAM usage, the system starts to slow down a lot, so i'll cap it a bit above that
-  zramSwap.memoryPercent = 125;
+  # higher values work fine but might be leading to sluggishness on my computer
+  zramSwap.memoryPercent = 50;
   # optimize kernel parameters for zram
   boot.kernel.sysctl = {
     "vm.swappiness" = 180;
