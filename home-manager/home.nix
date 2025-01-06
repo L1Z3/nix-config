@@ -265,12 +265,8 @@ in {
     # editors and git stuff
     sublime4
     vim
-    # have decided that declarative plugins don't work great for jetbrains
-    # TODO just switch to jetbrains toolbox sometime... these take forever to build and are a pain
-    unstable.jetbrains.pycharm-professional
-    unstable.jetbrains.idea-ultimate
-    unstable.jetbrains.clion
-    unstable.jetbrains.rust-rover
+    # jetbrains really does not play well with a declarative setup. let's just use toolbox and rely on nix-ld
+    unstable.jetbrains-toolbox
     git-filter-repo
     unstable.gitkraken
     # vscode, via programs/vscode
@@ -411,6 +407,8 @@ in {
   home.sessionPath = [
     # put PATH things here
     "$HOME/.local/bin"
+    # make jetbrains toolbox happy
+    "$HOME/.local/share/JetBrains/Toolbox/scripts"
   ];
 
   home.sessionVariables = {
