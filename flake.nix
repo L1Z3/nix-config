@@ -20,7 +20,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # declarative flatpak management
-    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 
     # local flake that contains info that I don't want publicized (not passwords, etc, just personal info)
     secrets.url = "/home/liz/nix/secrets";
