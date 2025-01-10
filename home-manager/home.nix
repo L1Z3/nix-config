@@ -44,8 +44,7 @@
 in {
   # You can import other home-manager modules here
   imports = [
-    # If you want to use home-manager modules from other flakes (such as nix-colors):
-    # inputs.nix-colors.homeManagerModule
+    # If you want to use home-manager modules from other flakes
 
     # enable declarative flatpak support
     inputs.nix-flatpak.homeManagerModules.nix-flatpak
@@ -73,28 +72,21 @@ in {
 
   nixpkgs = {
     # You can add overlays here
-    overlays =
-      [
-        outputs.overlays.additions
-        outputs.overlays.modifications
-        outputs.overlays.unstable-packages
-        outputs.overlays.dev-packages
-        # If you want to use overlays exported from other flakes:
-        # neovim-nightly-overlay.overlays.default
+    overlays = [
+      outputs.overlays.additions
+      outputs.overlays.modifications
+      outputs.overlays.unstable-packages
+      outputs.overlays.dev-packages
+      # If you want to use overlays exported from other flakes:
+      # neovim-nightly-overlay.overlays.default
 
-        # Or define it inline, for example:
-        # (final: prev: {
-        #   hi = final.hello.overrideAttrs (oldAttrs: {
-        #     patches = [ ./change-hello-to-hi.patch ];
-        #   });
-        # })
-      ]
-      # add on master packages if I have it enabled
-      ++ (
-        if outputs.overlays ? master-packages
-        then [outputs.overlays.master-packages]
-        else []
-      );
+      # Or define it inline, for example:
+      # (final: prev: {
+      #   hi = final.hello.overrideAttrs (oldAttrs: {
+      #     patches = [ ./change-hello-to-hi.patch ];
+      #   });
+      # })
+    ];
     # Configure your nixpkgs instance
     config = {
       # Disable if you don't want unfree packages
@@ -424,16 +416,15 @@ in {
     # put variables here
   };
 
-  # TODO re-enable in future; all wayland watchers seem pretty broken right now
-  # services.activitywatch = {
-  #   enable = true;
-  #   package = pkgs.dev.aw-server-rust; # TODO update to 0.13.1 and PR
-  #   watchers = {
-  #     awatcher = {
-  #       package = pkgs.master.awatcher; # TODO switch to unstable
-  #     };
-  #   };
-  # };
+  services.activitywatch = {
+    enable = true;
+    package = pkgs.unstable.aw-server-rust;
+    watchers = {
+      awatcher = {
+        package = pkgs.unstable.awatcher;
+      };
+    };
+  };
 
   xdg.desktopEntries = {
     fod-frp = {
@@ -446,13 +437,6 @@ in {
 
   # arRPC for vesktop
   services.arrpc.enable = true;
-
-  # easyeffects systemd service
-  # (as oppossed to .config/autostart like the built-in easyeffects option does)
-  # services.easyeffects = {
-  #   enable = true;
-  #   preset = "\"Noise + Gain\"";
-  # };
 
   # duplicacy backup service
   # (this relies on out-of-nix duplicacy configs)
