@@ -360,6 +360,7 @@ in {
       "com.github.tchx84.Flatseal"
       "org.zulip.Zulip"
       "com.steamgriddb.SGDBoop"
+      "com.rustdesk.RustDesk"
     ];
     update.auto = {
       enable = true;
