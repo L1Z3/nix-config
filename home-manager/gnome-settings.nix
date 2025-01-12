@@ -22,7 +22,6 @@
 
   # gnome extensions to install and enable
   # data structure to define settings and extensions together:
-  # TODO make sure everything is using the correct datatypes (via lib.hm.gvariant)
   extensionsAndSettings = with pkgs.gnomeExtensions;
   with lib.hm.gvariant; [
     # pkgs.window-mover # custom
