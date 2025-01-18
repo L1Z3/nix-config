@@ -313,16 +313,6 @@ in {
     notion-app-enhanced # custom package to fix issue (TODO upstream this)
     obsidian
     xournalpp
-    # TODO fix screen sharing
-    # unstable.zoom-us
-    # zoom won't launch... rolling back
-    (pkgs.unstable.zoom-us.overrideAttrs {
-      version = "6.2.11.5069";
-      src = pkgs.fetchurl {
-        url = "https://zoom.us/client/6.2.11.5069/zoom_x86_64.pkg.tar.xz";
-        hash = "sha256-k8T/lmfgAFxW1nwEyh61lagrlHP5geT2tA7e5j61+qw=";
-      };
-    })
 
     # game stuff
     unstable.prismlauncher
@@ -361,6 +351,8 @@ in {
       "org.zulip.Zulip"
       "com.steamgriddb.SGDBoop"
       "com.rustdesk.RustDesk"
+      # so many things are broken on nix zoom right now, so flatpak it is
+      "us.zoom.Zoom"
     ];
     update.auto = {
       enable = true;
