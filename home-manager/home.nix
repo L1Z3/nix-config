@@ -146,6 +146,9 @@ in {
         duplicacy-do-mount = "mkdir -p ${config.home.homeDirectory}/mnt/duplicacy-backup/ && ${pkgs.duplicacy-mount}/bin/duplicacy-mount mount-storage b2://duplicacy-jones1167 ${config.home.homeDirectory}/mnt/duplicacy-backup/ -e -flat";
         # xdg-open is a descriptive but also annoying name
         open = "xdg-open";
+        # cs300 stuff
+        cs300d = "pushd $HOME/Classes/Semester08/TACS300/DEV-ENV/ && ./cs300-run-docker && popd";
+        cs300o = "cd $HOME/Classes/Semester08/TACS300/DEV-ENV/home";
       };
       profileExtra = ''
         # add .profile things here
