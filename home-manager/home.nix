@@ -433,6 +433,9 @@ in {
     };
   };
 
+  # gromit for screen writing
+  services.gromit-mpx.enable = true;
+
   # arRPC for vesktop
   services.arrpc.enable = true;
 
