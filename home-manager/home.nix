@@ -307,6 +307,7 @@ in {
     binaryninja
     # fastx-client # silly little custom package # TODO upstream
     anydesk
+    warpinator-fixed # patched version to add pillow
 
     # messaging
     vesktop
@@ -358,7 +359,7 @@ in {
       "com.rustdesk.RustDesk"
       # so many things are broken on nix zoom right now, so flatpak it is
       "us.zoom.Zoom"
-      "org.x.Warpinator"
+      # "org.x.Warpinator"
     ];
     update.auto = {
       enable = true;
