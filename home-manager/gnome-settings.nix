@@ -293,6 +293,7 @@ in {
   };
 
   # autostart programs implementation
+  # TODO we should probably actually just make the user point to a specific desktop file......
   home.file = builtins.listToAttrs (map
     (pkg: {
       name = ".config/autostart/" + pkg.pname + ".desktop";

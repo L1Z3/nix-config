@@ -229,6 +229,7 @@ in {
     psmisc
     fastfetch
     lsof
+    tldr
 
     # misc command line tools
     nix-tree
@@ -360,6 +361,7 @@ in {
       # so many things are broken on nix zoom right now, so flatpak it is
       "us.zoom.Zoom"
       # "org.x.Warpinator"
+      # "org.gnome.Evolution"
     ];
     update.auto = {
       enable = true;
