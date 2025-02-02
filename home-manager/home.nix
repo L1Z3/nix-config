@@ -308,7 +308,7 @@ in {
     binaryninja
     # fastx-client # silly little custom package # TODO upstream
     anydesk
-    warpinator-fixed # patched version to add pillow
+    warpinator-fixed # patched version to add pillow TODO upstream
 
     # messaging
     vesktop
