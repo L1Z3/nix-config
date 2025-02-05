@@ -184,7 +184,7 @@ in {
     };
     firefox = {
       enable = true;
-      package = pkgs.firefox;
+      package = pkgs.unstable.firefox;
       # support for PWAs
       nativeMessagingHosts = [pkgs.unstable.firefoxpwa];
     };
