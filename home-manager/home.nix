@@ -314,6 +314,8 @@ in {
     vesktop
     slack
     # slack-cli # TODO currently manually installed into ~/.local/share/slack, i should move this
+    unstable.discordchatexporter-desktop
+    unstable.discordchatexporter-cli
 
     # office, etc
     unstable.libreoffice
