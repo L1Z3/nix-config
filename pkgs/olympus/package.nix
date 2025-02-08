@@ -69,9 +69,9 @@
   pname = "olympus";
   phome = "$out/lib/${pname}";
   # The following variables are to be updated by the update script.
-  version = "24.12.28.01";
-  buildId = "4546"; # IMPORTANT: This line is matched with regex in update.sh.
-  rev = "06efd3c0b31dbb0c7c2e45dd8fc8c95d33422f16";
+  version = "25.02.07.01";
+  buildId = "4624"; # IMPORTANT: This line is matched with regex in update.sh.
+  rev = "f4cd9dc973e68dc9b6c043941d5ab57f93b63ac4";
 in
   buildDotnetModule {
     inherit pname version;
@@ -81,7 +81,7 @@ in
       owner = "EverestAPI";
       repo = "Olympus";
       fetchSubmodules = true; # Required. See upstream's README.
-      hash = "sha256-7DolR4JewCmpPTznK9B++zK6/mQhiNxthClGbOjXNyI=";
+      hash = "sha256-I0tDqe7XvieL0kj8njzaNx3taY2VpFewi/SnYRCi4tk=";
     };
 
     nativeBuildInputs = [
@@ -91,7 +91,7 @@ in
     nugetDeps = ./deps.json;
     projectFile = "sharp/Olympus.Sharp.csproj";
     executables = [];
-    installPath = "build";
+    installPath = "${placeholder "out"}/lib/${pname}/sharp";
 
     # See the 'Dist: Update src/version.txt' step in azure-pipelines.yml from upstream.
     preConfigure = ''
@@ -126,7 +126,6 @@ in
     '';
 
     postInstall = ''
-      install -Dm755 build/* -t ${phome}/sharp # NixOS/nixpkgs#368936
       install -Dm644 lib-linux/olympus.desktop $out/share/applications/olympus.desktop
       install -Dm644 src/data/icon.png $out/share/icons/hicolor/128x128/apps/olympus.png
       install -Dm644 LICENSE $out/share/licenses/${pname}/LICENSE
@@ -144,9 +143,7 @@ in
         petingoso
       ];
       mainProgram = "olympus";
-      #TODO: Check if executables are mac compatible
       platforms = lib.platforms.unix;
-      # TODO: It might work on aarch if it was compiled there? to be tested.
-      badPlatforms = lib.platforms.aarch;
+      badPlatforms = lib.platforms.aarch; # Celeste doesn't support aarch in the first place
     };
   }
