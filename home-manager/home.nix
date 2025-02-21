@@ -250,6 +250,7 @@ in {
     unstable.rustup
     samply
     # audiorelay # custom package
+    rclone
 
     # android tools
     android-tools
