@@ -478,7 +478,7 @@ in {
 
     Service = {
       Type = "simple";
-      ExecStart = "${pkgs.rclone}/bin/rclone mount --vfs-cache-mode full drive_crypt: ${mount_directory}";
+      ExecStart = "${pkgs.rclone}/bin/rclone mount --vfs-cache-mode full --vfs-cache-max-size 20G --vfs-cache-min-free-space 2G drive_crypt: ${mount_directory}";
       ExecStop = "${pkgs.fuse}/bin/fusermount -zu ${mount_directory}";
       Restart = "on-failure";
       RestartSec = 30;
