@@ -242,7 +242,7 @@ in {
     # htop, via programs/htop
     (appimage-run.override
       {
-        extraPkgs = pkgs: [pkgs.qt6.full];
+        extraPkgs = pkgs: [pkgs.qt6.full fuse3];
       })
     ffmpeg-full
     patchedpython
