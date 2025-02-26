@@ -673,6 +673,19 @@ in {
     "vm.page-cluster" = 0;
   };
 
+  # mount main laptop sd card
+  fileSystems."/run/media/liz/storage" = {
+    device = "/dev/disk/by-id/mmc-SD512_0xeb9b9c84-part1";
+    fsType = "auto";
+    options = [
+      "users"
+      "nofail"
+      "nodev"
+      "nosuid"
+      "x-gvfs-show"
+    ];
+  };
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
