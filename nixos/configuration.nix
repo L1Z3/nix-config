@@ -673,7 +673,6 @@ in {
     "vm.page-cluster" = 0;
   };
 
-  # mount main laptop sd card
   fileSystems."/run/media/liz/storage" = {
     device = "/dev/disk/by-id/mmc-SD512_0xeb9b9c84-part1";
     fsType = "auto";
@@ -683,8 +682,30 @@ in {
       "nodev"
       "nosuid"
       "x-gvfs-show"
+      # "x-gvfs-hide"
     ];
   };
+
+  # systemd.services.rclone-create-sd-dir = let
+  #   mountDirectory = "/run/media/liz/storage";
+  # in {
+  #   description = "Automount cached rclone SD card mount";
+  #   wants = ["local-fs.target"];
+  #   after = ["local-fs.target"];
+  #   wantedBy = ["multi-user.target"];
+
+  #   serviceConfig = {
+  #     Type = "oneshot";
+
+  #     ExecStart = ''
+  #       ${pkgs.coreutils}/bin/mkdir -p ${mountDirectory}
+  #       ${pkgs.coreutils}/bin/chown liz:users ${mountDirectory}
+  #     '';
+
+  #     Restart = "on-failure";
+  #     RestartSec = 30;
+  #   };
+  # };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
