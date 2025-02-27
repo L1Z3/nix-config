@@ -53,7 +53,8 @@ in {
   # boot.loader.grub.useOSProber = true;
 
   # switching to latest kernel temporaily until LTS goes past 6.9 (to fix HP Envy speakers)
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # temporarily on 6.12 due to kernel 6.13 regression with FUSE/Flatpak
+  boot.kernelPackages = pkgs.linuxPackages_6_12;
 
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
