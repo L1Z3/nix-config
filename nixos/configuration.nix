@@ -678,10 +678,11 @@ in {
     device = "/dev/disk/by-id/mmc-SD512_0xeb9b9c84-part1";
     fsType = "auto";
     options = [
-      "users"
+      # "users"
+      "defaults"
       "nofail"
-      "nodev"
-      "nosuid"
+      # "nodev"
+      # "nosuid"
       "x-gvfs-show"
       # "x-gvfs-hide"
     ];
