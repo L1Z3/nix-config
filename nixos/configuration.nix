@@ -688,6 +688,11 @@ in {
     ];
   };
 
+  # limit journal size to 1GB
+  services.journald.extraConfig = ''
+    SystemMaxUse=1G
+  '';
+
   # systemd.services.rclone-create-sd-dir = let
   #   mountDirectory = "/run/media/liz/storage";
   # in {
