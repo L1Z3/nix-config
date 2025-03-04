@@ -536,6 +536,7 @@ in {
     # game-devices-udev-rules # attempt at fixing steam input in wayland native games (not working)
     # easytether # my own packaging of easytether TODO needs fixes
     protontricks
+    btrfs-progs
 
     # performance profiling
     config.boot.kernelPackages.perf
@@ -651,7 +652,7 @@ in {
     extraArgs = [
       "-r 0" # no periodic memory logging; change to 1 to print memory left once per sec
       "--prefer '^(spotify|Web Content|Isolated Web Co)$'"
-      "--avoid '^(java|rclone|nix-index|nix-env|home-manager|nixos-rebuild|duplicacy|duplicati|rsync|packagekitd|gnome-shell|gnome-session-c|gnome-session-b|lightdm|sddm|sddm-helper|gdm|gdm-wayland-ses|gdm-session-wor|gdm-x-session|Xorg|Xwayland|systemd|systemd-logind|dbus-daemon|dbus-broker|cinnamon|cinnamon-sessio|kwin_x11|kwin_wayland|plasmashell|ksmserver|plasma_session|startplasma-way|sway|i3|xfce4-session|mate-session|marco|lxqt-session|openbox|cryptsetup)$'"
+      "--avoid '^(btrfs|java|rclone|nix-index|nix-env|home-manager|nixos-rebuild|duplicacy|duplicati|rsync|packagekitd|gnome-shell|gnome-session-c|gnome-session-b|lightdm|sddm|sddm-helper|gdm|gdm-wayland-ses|gdm-session-wor|gdm-x-session|Xorg|Xwayland|systemd|systemd-logind|dbus-daemon|dbus-broker|cinnamon|cinnamon-sessio|kwin_x11|kwin_wayland|plasmashell|ksmserver|plasma_session|startplasma-way|sway|i3|xfce4-session|mate-session|marco|lxqt-session|openbox|cryptsetup)$'"
     ];
   };
 
@@ -676,11 +677,16 @@ in {
 
   fileSystems."/run/media/liz/storage" = {
     device = "/dev/disk/by-id/mmc-SD512_0xeb9b9c84-part1";
-    fsType = "auto";
+    fsType = "btrfs";
     options = [
       # "users"
       "defaults"
       "nofail"
+      "noatime"
+      "lazytime"
+      "space_cache=v2"
+      "autodefrag"
+      "ssd_spread"
       # "nodev"
       # "nosuid"
       "x-gvfs-show"
