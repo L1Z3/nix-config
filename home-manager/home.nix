@@ -440,10 +440,6 @@ in {
     };
   };
 
-  # gromit for screen writing
-  services.gromit-mpx.enable = true;
-  services.gromit-mpx.hotKey = "Home";
-
   # arRPC for vesktop
   services.arrpc.enable = true;
 
