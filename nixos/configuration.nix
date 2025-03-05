@@ -537,6 +537,9 @@ in {
     # easytether # my own packaging of easytether TODO needs fixes
     protontricks
     btrfs-progs
+    rmlint
+    duperemove
+    bees
 
     # performance profiling
     config.boot.kernelPackages.perf
