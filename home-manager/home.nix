@@ -547,32 +547,6 @@ in {
     };
   };
 
-  # mount sd card with rclone, to enable vfs cache and improve performance
-  # systemd.user.services.rclone-sdcard = let
-  #   mountDirectory = "/run/media/liz/storage";
-  #   sdDir = "/run/media/liz/storage_uncached";
-  # in {
-  #   Unit = {
-  #     Description = "Automount cached rclone sd card mount";
-  #     AssertPathIsDirectory = mountDirectory;
-  #     Wants = ["local-fs.target" "rclone-create-sd-dir.service"];
-  #     After = ["local-fs.target" "rclone-create-sd-dir.service"];
-  #   };
-
-  #   Service = {
-  #     Type = "simple";
-  #     ExecStart = "${pkgs.rclone}/bin/rclone mount --vfs-fast-fingerprint --vfs-read-chunk-size 1G --vfs-cache-mode full --dir-cache-time 1000h --vfs-cache-max-age 1000h --vfs-cache-max-size 30G --vfs-cache-min-free-space 2G ${sdDir} ${mountDirectory}";
-  #     ExecStop = "${pkgs.fuse}/bin/fusermount -zu ${mountDirectory}";
-  #     ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${mountDirectory}";
-  #     Restart = "on-failure";
-  #     RestartSec = 30;
-  #   };
-
-  #   Install = {
-  #     WantedBy = ["default.target"];
-  #   };
-  # };
-
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
