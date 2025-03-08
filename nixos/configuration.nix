@@ -56,6 +56,22 @@ in {
   # temporarily on 6.12 due to kernel 6.13 regression with FUSE/Flatpak
   boot.kernelPackages = pkgs.linuxPackages_6_12;
 
+  # temporarily enable kmemleak to debug kernel memory leaks
+  boot.kernelPatches = [
+    {
+      name = "kmemleak-config";
+      patch = null;
+      extraConfig = ''
+        DEBUG_KMEMLEAK y
+        DEBUG_FS y
+        SYSFS y
+      '';
+    }
+  ];
+  boot.kernelParams = [
+    "kmemleak=on"
+  ];
+
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
