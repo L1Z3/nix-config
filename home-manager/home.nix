@@ -524,6 +524,29 @@ in {
     };
   };
 
+  systemd.user.services.rclone-shared-gdrive = let
+    mount_directory = "${config.home.homeDirectory}/mnt/shared_drive_storage";
+  in {
+    Unit = {
+      Description = "Automount google drive folder using rclone";
+      AssertPathIsDirectory = mount_directory;
+      Wants = "network-online.target";
+      After = "network-online.target";
+    };
+
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.rclone}/bin/rclone mount --vfs-cache-mode full --vfs-cache-max-size 5G --vfs-cache-min-free-space 2G shared_crypt: ${mount_directory}";
+      ExecStop = "${pkgs.fuse}/bin/fusermount -zu ${mount_directory}";
+      Restart = "on-failure";
+      RestartSec = 30;
+    };
+
+    Install = {
+      WantedBy = ["default.target"];
+    };
+  };
+
   # mount sd card with rclone, to enable vfs cache and improve performance
   # systemd.user.services.rclone-sdcard = let
   #   mountDirectory = "/run/media/liz/storage";
