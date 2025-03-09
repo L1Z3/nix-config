@@ -59,20 +59,20 @@ in {
   boot.kernelPackages = pkgs.linuxPackages;
 
   # temporarily enable kmemleak to debug kernel memory leaks
-  boot.kernelPatches = [
-    {
-      name = "kmemleak-config";
-      patch = null;
-      extraConfig = ''
-        DEBUG_KMEMLEAK y
-        DEBUG_FS y
-        SYSFS y
-      '';
-    }
-  ];
-  boot.kernelParams = [
-    "kmemleak=on"
-  ];
+  # boot.kernelPatches = [
+  #   {
+  #     name = "kmemleak-config";
+  #     patch = null;
+  #     extraConfig = ''
+  #       DEBUG_KMEMLEAK y
+  #       DEBUG_FS y
+  #       SYSFS y
+  #     '';
+  #   }
+  # ];
+  # boot.kernelParams = [
+  #   "kmemleak=on"
+  # ];
 
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
