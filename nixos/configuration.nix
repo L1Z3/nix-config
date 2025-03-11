@@ -56,7 +56,8 @@ in {
   # temporarily on 6.12 due to kernel 6.13 regression with FUSE/Flatpak
   # boot.kernelPackages = pkgs.linuxPackages_6_12;
   # back to stable for now due to kernel memory leak
-  boot.kernelPackages = pkgs.linuxPackages;
+  # idk let's try latest zen now (bugs with suspend/resume, gdm logging in on LTS 6.6)
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   # temporarily enable kmemleak to debug kernel memory leaks
   # boot.kernelPatches = [
