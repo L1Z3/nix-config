@@ -54,9 +54,10 @@ in {
 
   # summary of kernel version constraints:
   # speakers only work on 6.9+
-  # LTS 6.6: suspend/resume works, gdm grey screen issues, no kernel memory leaks
+  # LTS 6.6: suspend/resume works, no kernel memory leaks
   # 6.12: kernel memory leaks
   # 6.13-6.13.5: FUSE/Flatpak issues
+  # 6.13.6 seems good? i think the memory leaks i was having are fixed
   # TODO swtich back to zen after nixpkgs bumps to 6.13.6
   boot.kernelPackages = pkgs.linuxPackages_6_13;
 
