@@ -52,12 +52,13 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
   # boot.loader.grub.useOSProber = true;
 
-  # switching to latest kernel temporaily until LTS goes past 6.9 (to fix HP Envy speakers)
-  # temporarily on 6.12 due to kernel 6.13 regression with FUSE/Flatpak
-  # boot.kernelPackages = pkgs.linuxPackages_6_12;
-  # back to stable for now due to kernel memory leak
-  # idk let's try latest zen now (bugs with suspend/resume, gdm logging in on LTS 6.6)
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  # summary of kernel version constraints:
+  # speakers only work on 6.9+
+  # LTS 6.6: suspend/resume works, gdm grey screen issues, no kernel memory leaks
+  # 6.12: kernel memory leaks
+  # 6.13-6.13.5: FUSE/Flatpak issues
+  # TODO swtich back to zen after nixpkgs bumps to 6.13.6
+  boot.kernelPackages = pkgs.linuxPackages_6_13;
 
   # temporarily enable kmemleak to debug kernel memory leaks
   # boot.kernelPatches = [
