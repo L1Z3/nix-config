@@ -12,17 +12,30 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
+  boot.initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/926a3e43-e0ac-4e63-a167-4f5802000f56";
-    fsType = "ext4";
+    device = "/dev/disk/by-uuid/04f12a08-ff46-42f3-be31-a0f68fa788f2";
+    fsType = "btrfs";
+    options = ["subvol=@" "compress-force=zstd" "noatime"];
   };
 
-  boot.initrd.luks.devices."luks-3335479a-143b-41c4-9305-35f0f2e199a0".device = "/dev/disk/by-uuid/3335479a-143b-41c4-9305-35f0f2e199a0";
+  boot.initrd.luks.devices."nvme0n1p2_crypt".device = "/dev/disk/by-uuid/3335479a-143b-41c4-9305-35f0f2e199a0";
+
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/04f12a08-ff46-42f3-be31-a0f68fa788f2";
+    fsType = "btrfs";
+    options = ["subvol=@home" "compress-force=zstd" "noatime"];
+  };
+
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-uuid/04f12a08-ff46-42f3-be31-a0f68fa788f2";
+    fsType = "btrfs";
+    options = ["subvol=@nix" "compress-force=zstd" "noatime"];
+  };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/8716-9D95";
@@ -37,6 +50,7 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp0s13f0u3u2u4.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
