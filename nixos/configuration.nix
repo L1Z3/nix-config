@@ -702,6 +702,13 @@ in {
     "vm.page-cluster" = 0;
   };
 
+  # auto-scrub btrfs filesystems to detect errors (particularly, hardware failures)
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "monthly";
+    fileSystems = ["/" "/run/media/liz/storage"];
+  };
+
   fileSystems."/run/media/liz/storage" = {
     device = "/dev/disk/by-id/mmc-SD512_0xeb9b9c84-part1";
     fsType = "btrfs";
