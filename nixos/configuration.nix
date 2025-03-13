@@ -561,6 +561,9 @@ in {
     rmlint
     duperemove
     bees
+    btdu
+    btrfs-heatmap
+    compsize
 
     # performance profiling
     config.boot.kernelPackages.perf
