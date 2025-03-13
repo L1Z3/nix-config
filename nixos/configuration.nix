@@ -557,6 +557,8 @@ in {
     # game-devices-udev-rules # attempt at fixing steam input in wayland native games (not working)
     # easytether # my own packaging of easytether TODO needs fixes
     protontricks
+
+    # btrfs/filesystem tools
     btrfs-progs
     rmlint
     duperemove
@@ -564,6 +566,7 @@ in {
     btdu
     btrfs-heatmap
     compsize
+    btrfs-assistant
 
     # performance profiling
     config.boot.kernelPackages.perf
