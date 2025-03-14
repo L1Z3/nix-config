@@ -157,6 +157,32 @@ in {
         ''
           # add .bashrc things here
 
+          watch-ep() {
+            export MAIN_DIR="/run/media/liz/storage/TV Shows/"
+            export BACKUP_DIR="/home/liz/mnt/drive_storage/TV Shows/"
+            export SHOW_DIR="El Internado"
+            export CURRENT_PATTERN="El Internado $1 \[\d+\]\.mp4"
+            export MPV_DEFAULT_ARGS="--osd-bar-align-y=0.97 --volume=68"
+
+            pushd "$MAIN_DIR/$SHOW_DIR"
+            export FILE=$(\ls -1 2>/dev/null | grep -P -m1 "$CURRENT_PATTERN")
+            if [ -n "$FILE" ]; then
+                mpv $MPV_DEFAULT_ARGS "$FILE"
+            else
+                popd
+                pushd "$BACKUP_DIR/$SHOW_DIR"
+                export FILE=$(\ls -1 2>/dev/null | grep -P -m1 "$CURRENT_PATTERN")
+                if [ -n "$FILE" ]; then
+                    mpv $MPV_DEFAULT_ARGS "$FILE"
+                else
+                    popd >/dev/null 2>&1
+                    echo "Error: Episode '$1' not found in either directory."
+                    return 1
+                fi
+            fi
+            popd
+          }
+
           # use nix-locate (from programs.nix-index.enable) to find .so files within nixpkgs
           find-so() {
             nix-locate "$1" | grep -v "^("
