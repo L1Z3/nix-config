@@ -705,7 +705,6 @@ in {
     "vm.page-cluster" = 0;
   };
 
-  # home snapshots
   services.snapper.configs."home" = {
     SUBVOLUME = "/home";
     FSTYPE = "btrfs";
@@ -719,6 +718,25 @@ in {
     # if not, will free until either lower limit is reached or space/free limits are met
     TIMELINE_LIMIT_HOURLY = "1-8";
     TIMELINE_LIMIT_DAILY = "3-7";
+    TIMELINE_LIMIT_WEEKLY = "0-2";
+    TIMELINE_LIMIT_MONTHLY = "0-1";
+    TIMELINE_LIMIT_QUARTERLY = "0";
+    TIMELINE_LIMIT_YEARLY = "0";
+  };
+
+  services.snapper.configs."sdcard" = {
+    SUBVOLUME = "/run/media/liz/storage";
+    FSTYPE = "btrfs";
+    SPACE_LIMIT = "0.2";
+    FREE_LIMIT = "0.3";
+    ALLOW_USERS = ["liz"];
+    SYNC_ACL = true;
+    TIMELINE_CREATE = true;
+    TIMELINE_CLEANUP = true;
+    # if space/free limits are met, upper value of range is used;
+    # if not, will free until either lower limit is reached or space/free limits are met
+    TIMELINE_LIMIT_HOURLY = "0-3";
+    TIMELINE_LIMIT_DAILY = "1-7";
     TIMELINE_LIMIT_WEEKLY = "0-2";
     TIMELINE_LIMIT_MONTHLY = "0-1";
     TIMELINE_LIMIT_QUARTERLY = "0";
