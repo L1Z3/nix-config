@@ -736,19 +736,30 @@ in {
     device = "/dev/disk/by-id/mmc-SD512_0xeb9b9c84-part1";
     fsType = "btrfs";
     options = [
-      # "users"
+      "subvol=@"
       "defaults"
       "nofail"
       "noatime"
       "lazytime"
       "space_cache=v2"
-      # "autodefrag"
       "ssd_spread"
       "compress-force=zstd:4"
-      # "nodev"
-      # "nosuid"
       "x-gvfs-show"
-      # "x-gvfs-hide"
+    ];
+  };
+
+  fileSystems."/run/media/liz/storage/.snapshots" = {
+    device = "/dev/disk/by-id/mmc-SD512_0xeb9b9c84-part1";
+    fsType = "btrfs";
+    options = [
+      "subvol=@snapshots"
+      "defaults"
+      "nofail"
+      "noatime"
+      "lazytime"
+      "space_cache=v2"
+      "ssd_spread"
+      "compress-force=zstd:4"
     ];
   };
 
