@@ -167,12 +167,14 @@ in {
             pushd "$MAIN_DIR/$SHOW_DIR"
             export FILE=$(\ls -1 2>/dev/null | grep -P -m1 "$CURRENT_PATTERN")
             if [ -n "$FILE" ]; then
+                qpwgraph &
                 mpv $MPV_DEFAULT_ARGS "$FILE"
             else
                 popd
                 pushd "$BACKUP_DIR/$SHOW_DIR"
                 export FILE=$(\ls -1 2>/dev/null | grep -P -m1 "$CURRENT_PATTERN")
                 if [ -n "$FILE" ]; then
+                    qpwgraph &
                     mpv $MPV_DEFAULT_ARGS "$FILE"
                 else
                     popd >/dev/null 2>&1
