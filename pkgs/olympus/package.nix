@@ -46,6 +46,7 @@
   # When installing Everest, Olympus uses MiniInstaller, which is dynamically linked.
   miniinstaller-fhs = buildFHSEnv {
     pname = "olympus-miniinstaller-fhs";
+    meta.mainProgram = "olympus";
     inherit version;
     targetPkgs = pkgs: (with pkgs; [
       icu
