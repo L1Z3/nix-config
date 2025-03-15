@@ -61,6 +61,9 @@ in {
   # TODO swtich back to zen after nixpkgs bumps to 6.13.6
   boot.kernelPackages = pkgs.linuxPackages_6_13;
 
+  # fix for unable to wake from suspend during some FUSE or BTRFS operations
+  systemd.services."systemd-suspend".serviceConfig.Environment = "SYSTEMD_SLEEP_FREEZE_USER_SESSIONS=false";
+
   # temporarily enable kmemleak to debug kernel memory leaks
   # boot.kernelPatches = [
   #   {
