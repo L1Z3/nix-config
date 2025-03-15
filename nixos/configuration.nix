@@ -569,8 +569,20 @@ in {
     btdu
     btrfs-heatmap
     compsize
-    btrfs-assistant
-
+    # overwritten desktop file to fix https://gitlab.com/btrfs-assistant/btrfs-assistant/-/issues/105
+    (pkgs.symlinkJoin {
+      name = "btrfs-assistant-fixed";
+      paths = [btrfs-assistant];
+      postBuild = ''
+        # remove linked desktop file
+        rm $out/share/applications/btrfs-assistant.desktop
+        # copy desktop file without link
+        cp ${btrfs-assistant}/share/applications/btrfs-assistant.desktop $out/share/applications/btrfs-assistant.desktop
+        # replace Exec line to fix issu
+        substituteInPlace $out/share/applications/btrfs-assistant.desktop \
+          --replace "Exec=btrfs-assistant-launcher" 'Exec=sh -c "pkexec env DISPLAY=\\$DISPLAY XAUTHORITY=\\$XAUTHORITY btrfs-assistant-launcher"'
+      '';
+    })
     # performance profiling
     config.boot.kernelPackages.perf
 
