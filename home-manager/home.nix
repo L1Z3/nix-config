@@ -162,7 +162,7 @@ in {
             export BACKUP_DIR="/home/liz/mnt/drive_storage/TV Shows/"
             export SHOW_DIR="El Internado"
             export CURRENT_PATTERN="El Internado $1 \[\d+\]\.mp4"
-            export MPV_DEFAULT_ARGS="--osd-bar-align-y=0.97 --volume=68"
+            export MPV_DEFAULT_ARGS="--osd-bar-align-y=0.97 --volume=68 --save-position-on-quit"
 
             pushd "$MAIN_DIR/$SHOW_DIR"
             export FILE=$(\ls -1 2>/dev/null | grep -P -m1 "$CURRENT_PATTERN")
