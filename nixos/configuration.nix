@@ -58,8 +58,7 @@ in {
   # 6.12: kernel memory leaks
   # 6.13-6.13.5: FUSE/Flatpak issues
   # 6.13.6 seems good? i think the memory leaks i was having are fixed
-  # TODO swtich back to zen after nixpkgs bumps to 6.13.6
-  boot.kernelPackages = pkgs.linuxPackages_6_13;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_stable;
 
   # fix for unable to wake from suspend during some FUSE or BTRFS operations
   systemd.services."systemd-suspend".serviceConfig.Environment = "SYSTEMD_SLEEP_FREEZE_USER_SESSIONS=false";
