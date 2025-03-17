@@ -787,6 +787,22 @@ in {
     ];
   };
 
+  boot.initrd.luks.devices."samsung_ssd".device = "/dev/disk/by-uuid/cf38a1c4-902b-48e7-a262-b7862f1e4be9";
+  fileSystems."/run/media/liz/samsung_ssd" = {
+    device = "/dev/disk/by-uuid/c9e61deb-3212-4b18-b21d-b0b388ac0f82";
+    fsType = "btrfs";
+    options = [
+      "subvol=@"
+      "defaults"
+      "nofail"
+      "noatime"
+      "lazytime"
+      "space_cache=v2"
+      "compress-force=zstd:2"
+      "x-gvfs-show"
+    ];
+  };
+
   # limit journal size to 1GB
   services.journald.extraConfig = ''
     SystemMaxUse=1G
