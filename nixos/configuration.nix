@@ -312,7 +312,13 @@ in {
         # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
       ];
       # Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
-      extraGroups = ["networkmanager" "wheel" "libvirtd" "qemu-libvirtd" "kvm" "docker"];
+      extraGroups = ["users" "liz" "networkmanager" "wheel" "libvirtd" "qemu-libvirtd" "kvm" "docker"];
+    };
+  };
+  # in addition to default group of users=100, add liz=1000 since i have lots of files with gid=1000
+  users.groups = {
+    liz = {
+      gid = 1000;
     };
   };
 
