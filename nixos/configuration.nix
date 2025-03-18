@@ -556,6 +556,7 @@ in {
     distrobox
     boxbuddy
     podman
+    smem
     # game-devices-udev-rules # attempt at fixing steam input in wayland native games (not working)
     # easytether # my own packaging of easytether TODO needs fixes
     protontricks
