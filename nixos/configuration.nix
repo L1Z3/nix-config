@@ -756,20 +756,7 @@ in {
     TIMELINE_LIMIT_YEARLY = "0";
   };
 
-  services.snapper.configs."samsung_ssd" = {
-    SUBVOLUME = "/run/media/liz/samsung_ssd";
-    FSTYPE = "btrfs";
-    ALLOW_USERS = ["liz"];
-    SYNC_ACL = true;
-    TIMELINE_CREATE = true;
-    TIMELINE_CLEANUP = true;
-    TIMELINE_LIMIT_HOURLY = "8";
-    TIMELINE_LIMIT_DAILY = "7";
-    TIMELINE_LIMIT_WEEKLY = "0";
-    TIMELINE_LIMIT_MONTHLY = "0";
-    TIMELINE_LIMIT_QUARTERLY = "0";
-    TIMELINE_LIMIT_YEARLY = "0";
-  };
+  # TODO find a way to conditionally enable snapper config for external storage only if the filesystem is mounted
 
   # auto-scrub btrfs filesystems to detect errors (particularly, hardware failures)
   services.btrfs.autoScrub = {
@@ -783,7 +770,7 @@ in {
     fsType = "btrfs";
     options = [
       "subvol=@"
-      "defaults"
+      "auto"
       "nofail"
       "noatime"
       "lazytime"
@@ -809,7 +796,7 @@ in {
     ];
   };
 
-  boot.initrd.luks.devices."samsung_ssd".device = "/dev/disk/by-uuid/cf38a1c4-902b-48e7-a262-b7862f1e4be9";
+  #boot.initrd.luks.devices."samsung_ssd".device = "/dev/disk/by-uuid/cf38a1c4-902b-48e7-a262-b7862f1e4be9";
   fileSystems."/run/media/liz/samsung_ssd" = {
     device = "/dev/disk/by-uuid/c9e61deb-3212-4b18-b21d-b0b388ac0f82";
     fsType = "btrfs";
