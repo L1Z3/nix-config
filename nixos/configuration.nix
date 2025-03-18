@@ -749,6 +749,21 @@ in {
     TIMELINE_LIMIT_YEARLY = "0";
   };
 
+  services.snapper.configs."samsung_ssd" = {
+    SUBVOLUME = "/run/media/liz/samsung_ssd";
+    FSTYPE = "btrfs";
+    ALLOW_USERS = ["liz"];
+    SYNC_ACL = true;
+    TIMELINE_CREATE = true;
+    TIMELINE_CLEANUP = true;
+    TIMELINE_LIMIT_HOURLY = "8";
+    TIMELINE_LIMIT_DAILY = "7";
+    TIMELINE_LIMIT_WEEKLY = "0";
+    TIMELINE_LIMIT_MONTHLY = "0";
+    TIMELINE_LIMIT_QUARTERLY = "0";
+    TIMELINE_LIMIT_YEARLY = "0";
+  };
+
   # auto-scrub btrfs filesystems to detect errors (particularly, hardware failures)
   services.btrfs.autoScrub = {
     enable = true;
@@ -800,6 +815,19 @@ in {
       "space_cache=v2"
       "compress-force=zstd:2"
       "x-gvfs-show"
+    ];
+  };
+  fileSystems."/run/media/liz/samsung_ssd/.snapshots" = {
+    device = "/dev/disk/by-uuid/c9e61deb-3212-4b18-b21d-b0b388ac0f82";
+    fsType = "btrfs";
+    options = [
+      "subvol=@snapshots"
+      "defaults"
+      "nofail"
+      "noatime"
+      "lazytime"
+      "space_cache=v2"
+      "compress-force=zstd:2"
     ];
   };
 
