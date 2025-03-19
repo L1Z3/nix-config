@@ -586,7 +586,7 @@ in {
         cp ${btrfs-assistant}/share/applications/btrfs-assistant.desktop $out/share/applications/btrfs-assistant.desktop
         # replace Exec line to fix issu
         substituteInPlace $out/share/applications/btrfs-assistant.desktop \
-          --replace "Exec=btrfs-assistant-launcher" 'Exec=sh -c "pkexec env DISPLAY=\\$DISPLAY XAUTHORITY=\\$XAUTHORITY btrfs-assistant-launcher"'
+          --replace "Exec=btrfs-assistant-launcher" 'Exec=sh -c "pkexec env DISPLAY=\\$DISPLAY XAUTHORITY=\\$XAUTHORITY QT_STYLE_OVERRIDE=adwaita-dark btrfs-assistant-launcher"'
       '';
     })
     # performance profiling
