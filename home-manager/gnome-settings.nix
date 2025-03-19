@@ -81,6 +81,7 @@
         panel-position = "bottom";
       };
     }
+    # pkgs.unstable.gnomeExtensions.quick-settings-tweaker
     # {
     #   package = unstable-another-window-session-manager-patched; # auto-save session
     #   dconfPath = "another-window-session-manager";
