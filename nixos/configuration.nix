@@ -574,6 +574,7 @@ in {
     bees
     btdu
     btrfs-heatmap
+    btrbk
     compsize
     # overwritten desktop file to fix https://gitlab.com/btrfs-assistant/btrfs-assistant/-/issues/105
     (pkgs.symlinkJoin {
@@ -603,45 +604,6 @@ in {
 
   # systemd.network.enable = true;
   # systemd.services.NetworkManager-wait-online.enable = false;
-  # systemd.network.networks."99-tun-easytether" = {
-  #   enable = true;
-  #   extraConfig = ''
-  #     [Match]
-  #     Name=tun-easytether
-
-  #     [Network]
-  #     Description=EasyTether IPv4-only network
-  #     DNS=192.168.117.1
-
-  #     [Address]
-  #     Address=192.168.117.0/31
-  #     Peer=192.168.117.1/31
-  #     Broadcast=255.255.255.255
-
-  #     [Route]
-  #     Gateway=192.168.117.1
-  #   '';
-  # };
-  # networking.networkmanager.ensureProfiles.profiles = {
-  #   tap-easytether = {
-  #     connection = {
-  #       autoconnect = "no";
-  #       id = "EasyTether";
-  #       interface-name = "tap-easytether";
-  #       read-only = "yes";
-  #       type = "tun";
-  #       uuid = "04366dd5-8fe6-483c-b675-cf05f1650cc2";
-  #     };
-  #     ipv4 = {method = "auto";};
-  #     ipv6 = {
-  #       addr-gen-mode = "stable-privacy";
-  #       method = "link-local";
-  #     };
-  #     tun = {mode = "2";};
-  #   };
-  # };
-  # networking.interfaces.tap-easytether.useDHCP = true;
-  # networking.networkmanager.dhcp = "dhcpcd";
 
   # allow spotify local discovery, warpinator port, misc port for things like local network udp obs stream
   networking.firewall.allowedTCPPorts = [42000 42001 57621 1234];
@@ -726,38 +688,40 @@ in {
     "vm.page-cluster" = 0;
   };
 
-  services.snapper.configs."home" = {
-    SUBVOLUME = "/home";
-    FSTYPE = "btrfs";
-    ALLOW_USERS = ["liz"];
-    SYNC_ACL = true;
-    TIMELINE_CREATE = true;
-    TIMELINE_CLEANUP = true;
-    TIMELINE_LIMIT_HOURLY = "8";
-    TIMELINE_LIMIT_DAILY = "7";
-    TIMELINE_LIMIT_WEEKLY = "4";
-    TIMELINE_LIMIT_MONTHLY = "6";
-    TIMELINE_LIMIT_QUARTERLY = "0";
-    TIMELINE_LIMIT_YEARLY = "1";
-  };
-
-  services.snapper.configs."sdcard" = {
-    SUBVOLUME = "/run/media/liz/storage";
-    FSTYPE = "btrfs";
-    ALLOW_USERS = ["liz"];
-    SYNC_ACL = true;
-    TIMELINE_CREATE = true;
-    TIMELINE_CLEANUP = true;
-    TIMELINE_LIMIT_HOURLY = "8";
-    TIMELINE_LIMIT_DAILY = "3";
-    TIMELINE_LIMIT_WEEKLY = "4";
-    TIMELINE_LIMIT_MONTHLY = "2";
-    TIMELINE_LIMIT_QUARTERLY = "0";
-    TIMELINE_LIMIT_YEARLY = "0";
-  };
-
   # TODO find a way to conditionally enable snapper config for external storage only if the filesystem is mounted
   # ^^^ maybe just switch to btrbk, it seems to be more flexible...
+  services.btrbk.instances = {
+    # default instance
+    btrbk = {
+      onCalendar = "hourly";
+      settings = {
+        timestamp_format = "long";
+        snapshot_create = "onchange";
+        snapshot_preserve_min = "1h";
+
+        volume = {
+          "/mnt/root" = {
+            subvolume."@home" = {
+              snapshot_preserve = "8h 7d 4w 6m 1y";
+              snapshot_dir = "@home-snapshots";
+            };
+          };
+          "/mnt/storage" = {
+            subvolume."@" = {
+              snapshot_preserve = "8h 3d 4w 2m 0y";
+              snapshot_dir = "@snapshots";
+            };
+          };
+          "/mnt/samsung_ssd" = {
+            subvolume."@" = {
+              snapshot_preserve = "8h 7d 0w 0m 0y";
+              snapshot_dir = "@snapshots";
+            };
+          };
+        };
+      };
+    };
+  };
 
   # auto-scrub btrfs filesystems to detect errors (particularly, hardware failures)
   services.btrfs.autoScrub = {

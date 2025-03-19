@@ -50,12 +50,6 @@
     options = ["subvol=@home" "compress-force=zstd" "noatime"];
   };
 
-  fileSystems."/home/.snapshots" = {
-    device = "/dev/disk/by-uuid/04f12a08-ff46-42f3-be31-a0f68fa788f2";
-    fsType = "btrfs";
-    options = ["subvol=@home-snapshots" "compress-force=zstd" "noatime"];
-  };
-
   fileSystems."/home/liz/.cache/rclone" = {
     device = "/dev/disk/by-uuid/04f12a08-ff46-42f3-be31-a0f68fa788f2";
     fsType = "btrfs";
@@ -95,21 +89,6 @@
     ];
   };
 
-  fileSystems."/run/media/liz/storage/.snapshots" = {
-    device = "/dev/disk/by-id/mmc-SD512_0xeb9b9c84-part1";
-    fsType = "btrfs";
-    options = [
-      "subvol=@snapshots"
-      "defaults"
-      "nofail"
-      "noatime"
-      "lazytime"
-      "space_cache=v2"
-      "ssd_spread"
-      "compress-force=zstd:4"
-    ];
-  };
-
   # ---------- EXTERNAL SAMSUNG SSD ----------
 
   boot.initrd.luks.devices."samsung_ssd".device = "/dev/disk/by-uuid/cf38a1c4-902b-48e7-a262-b7862f1e4be9";
@@ -138,19 +117,6 @@
       "space_cache=v2"
       "compress-force=zstd:2"
       "x-gvfs-show"
-    ];
-  };
-  fileSystems."/run/media/liz/samsung_ssd/.snapshots" = {
-    device = "/dev/disk/by-uuid/c9e61deb-3212-4b18-b21d-b0b388ac0f82";
-    fsType = "btrfs";
-    options = [
-      "subvol=@snapshots"
-      "auto"
-      "nofail"
-      "noatime"
-      "lazytime"
-      "space_cache=v2"
-      "compress-force=zstd:2"
     ];
   };
 
