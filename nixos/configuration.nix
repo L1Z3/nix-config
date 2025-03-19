@@ -688,21 +688,20 @@ in {
     "vm.page-cluster" = 0;
   };
 
-  # TODO find a way to conditionally enable snapper config for external storage only if the filesystem is mounted
-  # ^^^ maybe just switch to btrbk, it seems to be more flexible...
   services.btrbk.instances = {
     # default instance
     btrbk = {
-      onCalendar = "hourly";
+      # every 15 minutes
+      onCalendar = "*-*-* *:00,15,30,45:00";
       settings = {
         timestamp_format = "long";
         snapshot_create = "onchange";
-        snapshot_preserve_min = "1h";
+        snapshot_preserve_min = "3h";
 
         volume = {
           "/mnt/root" = {
             subvolume."@home" = {
-              snapshot_preserve = "8h 7d 4w 6m 1y";
+              snapshot_preserve = "24h 7d 4w 6m 1y";
               snapshot_dir = "@home-snapshots";
             };
           };
