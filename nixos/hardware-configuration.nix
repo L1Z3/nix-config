@@ -64,6 +64,21 @@
 
   # ---------- SD CARD ----------
 
+  fileSystems."/mnt/storage" = {
+    device = "/dev/disk/by-id/mmc-SD512_0xeb9b9c84-part1";
+    fsType = "btrfs";
+    options = [
+      "subvolid=5"
+      "auto"
+      "nofail"
+      "noatime"
+      "lazytime"
+      "space_cache=v2"
+      "ssd_spread"
+      "compress-force=zstd:4"
+    ];
+  };
+
   fileSystems."/run/media/liz/storage" = {
     device = "/dev/disk/by-id/mmc-SD512_0xeb9b9c84-part1";
     fsType = "btrfs";
@@ -98,12 +113,25 @@
   # ---------- EXTERNAL SAMSUNG SSD ----------
 
   boot.initrd.luks.devices."samsung_ssd".device = "/dev/disk/by-uuid/cf38a1c4-902b-48e7-a262-b7862f1e4be9";
+  fileSystems."/mnt/samsung_ssd" = {
+    device = "/dev/disk/by-uuid/c9e61deb-3212-4b18-b21d-b0b388ac0f82";
+    fsType = "btrfs";
+    options = [
+      "subvolid=5"
+      "auto"
+      "nofail"
+      "noatime"
+      "lazytime"
+      "space_cache=v2"
+      "compress-force=zstd:2"
+    ];
+  };
   fileSystems."/run/media/liz/samsung_ssd" = {
     device = "/dev/disk/by-uuid/c9e61deb-3212-4b18-b21d-b0b388ac0f82";
     fsType = "btrfs";
     options = [
       "subvol=@"
-      "defaults"
+      "auto"
       "nofail"
       "noatime"
       "lazytime"
@@ -117,7 +145,7 @@
     fsType = "btrfs";
     options = [
       "subvol=@snapshots"
-      "defaults"
+      "auto"
       "nofail"
       "noatime"
       "lazytime"
