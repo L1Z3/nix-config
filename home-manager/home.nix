@@ -426,6 +426,7 @@ in {
       "com.github.tchx84.Flatseal"
       "org.zulip.Zulip"
       "com.steamgriddb.SGDBoop"
+      "com.rustdesk.RustDesk"
       # so many things are broken on nix zoom right now, so flatpak it is
       "us.zoom.Zoom"
       # "org.x.Warpinator"
