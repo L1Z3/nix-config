@@ -757,72 +757,13 @@ in {
   };
 
   # TODO find a way to conditionally enable snapper config for external storage only if the filesystem is mounted
+  # ^^^ maybe just switch to btrbk, it seems to be more flexible...
 
   # auto-scrub btrfs filesystems to detect errors (particularly, hardware failures)
   services.btrfs.autoScrub = {
     enable = true;
     interval = "monthly";
     fileSystems = ["/" "/run/media/liz/storage"];
-  };
-
-  fileSystems."/run/media/liz/storage" = {
-    device = "/dev/disk/by-id/mmc-SD512_0xeb9b9c84-part1";
-    fsType = "btrfs";
-    options = [
-      "subvol=@"
-      "auto"
-      "nofail"
-      "noatime"
-      "lazytime"
-      "space_cache=v2"
-      "ssd_spread"
-      "compress-force=zstd:4"
-      "x-gvfs-show"
-    ];
-  };
-
-  fileSystems."/run/media/liz/storage/.snapshots" = {
-    device = "/dev/disk/by-id/mmc-SD512_0xeb9b9c84-part1";
-    fsType = "btrfs";
-    options = [
-      "subvol=@snapshots"
-      "defaults"
-      "nofail"
-      "noatime"
-      "lazytime"
-      "space_cache=v2"
-      "ssd_spread"
-      "compress-force=zstd:4"
-    ];
-  };
-
-  #boot.initrd.luks.devices."samsung_ssd".device = "/dev/disk/by-uuid/cf38a1c4-902b-48e7-a262-b7862f1e4be9";
-  fileSystems."/run/media/liz/samsung_ssd" = {
-    device = "/dev/disk/by-uuid/c9e61deb-3212-4b18-b21d-b0b388ac0f82";
-    fsType = "btrfs";
-    options = [
-      "subvol=@"
-      "defaults"
-      "nofail"
-      "noatime"
-      "lazytime"
-      "space_cache=v2"
-      "compress-force=zstd:2"
-      "x-gvfs-show"
-    ];
-  };
-  fileSystems."/run/media/liz/samsung_ssd/.snapshots" = {
-    device = "/dev/disk/by-uuid/c9e61deb-3212-4b18-b21d-b0b388ac0f82";
-    fsType = "btrfs";
-    options = [
-      "subvol=@snapshots"
-      "defaults"
-      "nofail"
-      "noatime"
-      "lazytime"
-      "space_cache=v2"
-      "compress-force=zstd:2"
-    ];
   };
 
   # limit journal size to 1GB

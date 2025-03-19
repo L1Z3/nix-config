@@ -17,24 +17,19 @@
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
 
+  boot.initrd.luks.devices."nvme0n1p2_crypt".device = "/dev/disk/by-uuid/3335479a-143b-41c4-9305-35f0f2e199a0";
+
+  # ---------- INTERNAL SSD ----------
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/04f12a08-ff46-42f3-be31-a0f68fa788f2";
     fsType = "btrfs";
     options = ["subvol=@" "compress-force=zstd" "noatime"];
   };
 
-  boot.initrd.luks.devices."nvme0n1p2_crypt".device = "/dev/disk/by-uuid/3335479a-143b-41c4-9305-35f0f2e199a0";
-
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/04f12a08-ff46-42f3-be31-a0f68fa788f2";
-    fsType = "btrfs";
-    options = ["subvol=@home" "compress-force=zstd" "noatime"];
-  };
-
-  fileSystems."/home/liz/.cache/rclone" = {
-    device = "/dev/disk/by-uuid/04f12a08-ff46-42f3-be31-a0f68fa788f2";
-    fsType = "btrfs";
-    options = ["subvol=@home-liz-cache-rclone" "compress-force=zstd:1" "noatime"];
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/8716-9D95";
+    fsType = "vfat";
+    options = ["fmask=0022" "dmask=0022"];
   };
 
   fileSystems."/nix" = {
@@ -43,16 +38,92 @@
     options = ["subvol=@nix" "compress-force=zstd" "noatime"];
   };
 
+  fileSystems."/mnt/root" = {
+    device = "/dev/disk/by-uuid/04f12a08-ff46-42f3-be31-a0f68fa788f2";
+    fsType = "btrfs";
+    options = ["subvolid=5" "compress-force=zstd" "noatime"];
+  };
+
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/04f12a08-ff46-42f3-be31-a0f68fa788f2";
+    fsType = "btrfs";
+    options = ["subvol=@home" "compress-force=zstd" "noatime"];
+  };
+
   fileSystems."/home/.snapshots" = {
     device = "/dev/disk/by-uuid/04f12a08-ff46-42f3-be31-a0f68fa788f2";
     fsType = "btrfs";
     options = ["subvol=@home-snapshots" "compress-force=zstd" "noatime"];
   };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/8716-9D95";
-    fsType = "vfat";
-    options = ["fmask=0022" "dmask=0022"];
+  fileSystems."/home/liz/.cache/rclone" = {
+    device = "/dev/disk/by-uuid/04f12a08-ff46-42f3-be31-a0f68fa788f2";
+    fsType = "btrfs";
+    options = ["subvol=@home-liz-cache-rclone" "compress-force=zstd:1" "noatime"];
+  };
+
+  # ---------- SD CARD ----------
+
+  fileSystems."/run/media/liz/storage" = {
+    device = "/dev/disk/by-id/mmc-SD512_0xeb9b9c84-part1";
+    fsType = "btrfs";
+    options = [
+      "subvol=@"
+      "auto"
+      "nofail"
+      "noatime"
+      "lazytime"
+      "space_cache=v2"
+      "ssd_spread"
+      "compress-force=zstd:4"
+      "x-gvfs-show"
+    ];
+  };
+
+  fileSystems."/run/media/liz/storage/.snapshots" = {
+    device = "/dev/disk/by-id/mmc-SD512_0xeb9b9c84-part1";
+    fsType = "btrfs";
+    options = [
+      "subvol=@snapshots"
+      "defaults"
+      "nofail"
+      "noatime"
+      "lazytime"
+      "space_cache=v2"
+      "ssd_spread"
+      "compress-force=zstd:4"
+    ];
+  };
+
+  # ---------- EXTERNAL SAMSUNG SSD ----------
+
+  boot.initrd.luks.devices."samsung_ssd".device = "/dev/disk/by-uuid/cf38a1c4-902b-48e7-a262-b7862f1e4be9";
+  fileSystems."/run/media/liz/samsung_ssd" = {
+    device = "/dev/disk/by-uuid/c9e61deb-3212-4b18-b21d-b0b388ac0f82";
+    fsType = "btrfs";
+    options = [
+      "subvol=@"
+      "defaults"
+      "nofail"
+      "noatime"
+      "lazytime"
+      "space_cache=v2"
+      "compress-force=zstd:2"
+      "x-gvfs-show"
+    ];
+  };
+  fileSystems."/run/media/liz/samsung_ssd/.snapshots" = {
+    device = "/dev/disk/by-uuid/c9e61deb-3212-4b18-b21d-b0b388ac0f82";
+    fsType = "btrfs";
+    options = [
+      "subvol=@snapshots"
+      "defaults"
+      "nofail"
+      "noatime"
+      "lazytime"
+      "space_cache=v2"
+      "compress-force=zstd:2"
+    ];
   };
 
   swapDevices = [];
