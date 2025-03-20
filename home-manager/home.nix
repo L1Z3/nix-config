@@ -156,6 +156,8 @@ in {
       initExtra =
         ''
           # add .bashrc things here
+          # for some reason home.sessionPath is not always applying... also add it here
+          export PATH="$HOME/.local/bin:$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH"
 
           watch-ep() {
             export MAIN_DIR="/run/media/liz/storage/TV Shows/"
