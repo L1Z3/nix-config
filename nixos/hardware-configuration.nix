@@ -59,50 +59,75 @@
   # ---------- SD CARD ----------
 
   fileSystems."/mnt/storage" = {
-    device = "/dev/disk/by-id/mmc-SD512_0xeb9b9c84-part1";
+    device = "/dev/disk/by-uuid/745c09af-b8e1-46d2-b360-5de82b82fdb2";
     fsType = "btrfs";
+    # encrypted = {
+    #   enable = true;
+    #   keyFile = "/mnt-root/root/storage_keyfile";
+    #   label = "storage";
+    #   blkDev = "/dev/disk/by-uuid/899fa394-16e9-4a75-9836-6f546fe70d5d";
+    # };
     options = [
       "subvolid=5"
-      "auto"
+      "noauto"
+      "users"
+      "exec"
+      "suid"
+      # "dev"
       "nofail"
       "noatime"
       "lazytime"
       "space_cache=v2"
-      "ssd_spread"
-      "compress-force=zstd:4"
+      "compress-force=zstd:3"
+      "x-gvfs-show"
+      "x-gvfs-name=storage-root"
     ];
   };
 
   fileSystems."/run/media/liz/storage" = {
-    device = "/dev/disk/by-id/mmc-SD512_0xeb9b9c84-part1";
+    device = "/dev/disk/by-uuid/745c09af-b8e1-46d2-b360-5de82b82fdb2";
     fsType = "btrfs";
     options = [
       "subvol=@"
-      "auto"
+      "noauto"
+      "users"
+      "exec"
+      "suid"
+      # "dev"
       "nofail"
       "noatime"
       "lazytime"
       "space_cache=v2"
-      "ssd_spread"
-      "compress-force=zstd:4"
+      "compress-force=zstd:3"
       "x-gvfs-show"
     ];
   };
 
   # ---------- EXTERNAL SAMSUNG SSD ----------
 
-  boot.initrd.luks.devices."samsung_ssd".device = "/dev/disk/by-uuid/cf38a1c4-902b-48e7-a262-b7862f1e4be9";
   fileSystems."/mnt/samsung_ssd" = {
     device = "/dev/disk/by-uuid/c9e61deb-3212-4b18-b21d-b0b388ac0f82";
     fsType = "btrfs";
+    # encrypted = {
+    #   enable = true;
+    #   label = "samsung_ssd";
+    #   keyFile = "/mnt-root/root/samsung_ssd_keyfile";
+    #   blkDev = "/dev/disk/by-uuid/cf38a1c4-902b-48e7-a262-b7862f1e4be9";
+    # };
     options = [
       "subvolid=5"
-      "auto"
+      "noauto"
+      "users"
+      "exec"
+      "suid"
+      # "dev"
       "nofail"
       "noatime"
       "lazytime"
       "space_cache=v2"
       "compress-force=zstd:2"
+      "x-gvfs-show"
+      "x-gvfs-name=samsung_ssd-root"
     ];
   };
   fileSystems."/run/media/liz/samsung_ssd" = {
@@ -110,7 +135,11 @@
     fsType = "btrfs";
     options = [
       "subvol=@"
-      "auto"
+      "noauto"
+      "users"
+      "exec"
+      "suid"
+      # "dev"
       "nofail"
       "noatime"
       "lazytime"

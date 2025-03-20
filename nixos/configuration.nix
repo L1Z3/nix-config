@@ -729,6 +729,28 @@ in {
     fileSystems = ["/" "/run/media/liz/storage"];
   };
 
+  environment.etc."crypttab".text = ''
+    # encrypted storage
+    storage UUID=899fa394-16e9-4a75-9836-6f546fe70d5d /root/storage_keyfile luks,noauto,nofail
+    # encrypted samsung ssd
+    samsung_ssd UUID=cf38a1c4-902b-48e7-a262-b7862f1e4be9 /root/samsung_ssd_keyfile luks,noauto,nofail
+  '';
+
+  # automount external devices with udev rules
+  services.udev.extraRules = ''
+    # unlock & mount sd card
+    ACTION=="add", ENV{ID_FS_UUID}=="899fa394-16e9-4a75-9836-6f546fe70d5d", ENV{SYSTEMD_WANTS}+="systemd-cryptsetup@storage.service", ENV{SYSTEMD_WANTS}+="mnt-storage.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-storage.mount"
+    ACTION=="add", ENV{ID_FS_UUID}=="cf38a1c4-902b-48e7-a262-b7862f1e4be9", ENV{SYSTEMD_WANTS}+="systemd-cryptsetup@samsung_ssd.service", ENV{SYSTEMD_WANTS}+="mnt-samsung_ssd.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-samsung_ssd.mount"
+  '';
+  # , ENV{SYSTEMD_WANTS}+="mnt-storage.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-storage.mount"
+  # , RUN+="${pkgs.cryptsetup}/bin/cryptsetup luksOpen /dev/%k storage --key-file /root/storage_keyfile"
+  # ACTION=="remove", ENV{ID_FS_UUID}=="899fa394-16e9-4a75-9836-6f546fe70d5d", RUN+="${pkgs.cryptsetup}/bin/cryptsetup luksClose storage"
+  # ACTION=="add", ENV{ID_FS_UUID}=="745c09af-b8e1-46d2-b360-5de82b82fdb2", RUN+="${pkgs.systemd}/bin/systemctl start --no-block run-media-liz-storage.mount", RUN+="${pkgs.systemd}/bin/systemctl start --no-block mnt-storage.mount"
+  # unlock & mount samsung ssd
+  # ACTION=="add", ENV{ID_FS_UUID}=="cf38a1c4-902b-48e7-a262-b7862f1e4be9", RUN+="${pkgs.cryptsetup}/bin/cryptsetup luksOpen /dev/%k samsung_ssd --key-file /root/samsung_ssd_keyfile"
+  # , RUN+="${pkgs.systemd}/bin/systemctl start --no-block mnt-samsung_ssd.mount", RUN+="${pkgs.systemd}/bin/systemctl start --no-block run-media-liz-samsung_ssd.mount"
+  # ACTION=="remove", ENV{ID_FS_UUID}=="cf38a1c4-902b-48e7-a262-b7862f1e4be9", RUN+="${pkgs.cryptsetup}/bin/cryptsetup luksClose samsung_ssd"
+
   # limit journal size to 1GB
   services.journald.extraConfig = ''
     SystemMaxUse=1G
