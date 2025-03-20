@@ -149,6 +149,8 @@ in {
         # cs300 stuff
         cs300d = "pushd $HOME/Classes/Semester08/TACS300/DEV-ENV/ && ./cs300-run-docker && popd";
         cs300o = "cd $HOME/Classes/Semester08/TACS300/DEV-ENV/home";
+        cs1515d = "pushd $HOME/Classes/Semester08/CS1515/DEV-ENV/ && ./cs1515-run-docker && popd";
+        cs1515o = "cd $HOME/Classes/Semester08/CS1515/DEV-ENV/home";
       };
       profileExtra = ''
         # add .profile things here
