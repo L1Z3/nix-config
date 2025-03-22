@@ -149,6 +149,46 @@
     ];
   };
 
+  # ---------- EXTERNAL 2TB HDD ----------
+
+  fileSystems."/mnt/2tb_hdd" = {
+    device = "/dev/disk/by-uuid/fbe2ac4b-00d2-439b-9bf7-54ca5ad01ce2";
+    fsType = "btrfs";
+    options = [
+      "subvolid=5"
+      "noauto"
+      "users"
+      "exec"
+      "suid"
+      "nofail"
+      "autodefrag"
+      "noatime"
+      "lazytime"
+      "space_cache=v2"
+      "compress-force=zstd:5"
+      "x-gvfs-show"
+      "x-gvfs-name=2tb_hdd-root"
+    ];
+  };
+  fileSystems."/run/media/liz/2tb_hdd" = {
+    device = "/dev/disk/by-uuid/fbe2ac4b-00d2-439b-9bf7-54ca5ad01ce2";
+    fsType = "btrfs";
+    options = [
+      "subvol=@"
+      "noauto"
+      "users"
+      "exec"
+      "suid"
+      "nofail"
+      "autodefrag"
+      "noatime"
+      "lazytime"
+      "space_cache=v2"
+      "compress-force=zstd:5"
+      "x-gvfs-show"
+    ];
+  };
+
   swapDevices = [];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

@@ -734,13 +734,17 @@ in {
     storage UUID=899fa394-16e9-4a75-9836-6f546fe70d5d /root/storage_keyfile luks,noauto,nofail
     # encrypted samsung ssd
     samsung_ssd UUID=cf38a1c4-902b-48e7-a262-b7862f1e4be9 /root/samsung_ssd_keyfile luks,noauto,nofail
+    2tb_hdd UUID=7eedc760-957d-4d74-a6f3-0381106cd623 /root/2tb_hdd_keyfile luks,noauto,nofail
   '';
 
   # automount external devices with udev rules
   services.udev.extraRules = ''
-    # unlock & mount sd card
+    # auto unlock & mount sd card
     ACTION=="add", ENV{ID_FS_UUID}=="899fa394-16e9-4a75-9836-6f546fe70d5d", ENV{SYSTEMD_WANTS}+="systemd-cryptsetup@storage.service", ENV{SYSTEMD_WANTS}+="mnt-storage.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-storage.mount"
+    # auto unlock & mount samsung ssd
     ACTION=="add", ENV{ID_FS_UUID}=="cf38a1c4-902b-48e7-a262-b7862f1e4be9", ENV{SYSTEMD_WANTS}+="systemd-cryptsetup@samsung_ssd.service", ENV{SYSTEMD_WANTS}+="mnt-samsung_ssd.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-samsung_ssd.mount"
+    # auto unlock & mount 2tb hdd
+    ACTION=="add", ENV{ID_FS_UUID}=="7eedc760-957d-4d74-a6f3-0381106cd623", ENV{SYSTEMD_WANTS}+="systemd-cryptsetup@2tb_hdd.service", ENV{SYSTEMD_WANTS}+="mnt-2tb_hdd.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-2tb_hdd.mount"
   '';
   # , ENV{SYSTEMD_WANTS}+="mnt-storage.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-storage.mount"
   # , RUN+="${pkgs.cryptsetup}/bin/cryptsetup luksOpen /dev/%k storage --key-file /root/storage_keyfile"
