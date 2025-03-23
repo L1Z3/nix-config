@@ -269,7 +269,7 @@
     # };
   };
 
-  networking.hostName = "envy";
+  networking.hostName = "surface";
 
   users.users = {
     liz = {

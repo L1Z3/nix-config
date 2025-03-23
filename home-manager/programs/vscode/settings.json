@@ -25,10 +25,10 @@
                 // You can write arbitary nix expression here, to produce valid "options" declaration result.
                 // Tip: for flake-based configuration, utilize `builtins.getFlake`
                 "nixos": {
-                    "expr": "(builtins.getFlake \"/home/liz/nix\").nixosConfigurations.\"envy\".options"
+                    "expr": "(builtins.getFlake \"/home/liz/nix\").nixosConfigurations.\"surface\".options"
                 },
                 "home-manager": {
-                    "expr": "(builtins.getFlake \"/home/liz/nix\").homeConfigurations.\"liz@envy\".options"
+                    "expr": "(builtins.getFlake \"/home/liz/nix\").homeConfigurations.\"liz@surface\".options"
                 }
             }
         }
