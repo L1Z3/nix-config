@@ -670,10 +670,12 @@ in {
   };
 
   # enable swap
-  # swapDevices = [ {
-  #   device = "/swapfile";
-  #   size = 8*1024;
-  # } ];
+  swapDevices = [
+    {
+      device = "/dev/disk/by-partuuid/d1de9241-a5f6-45c8-91b4-2b272d827d8e"; # /dev/nvme0n1p3
+      randomEncryption.enable = true;
+    }
+  ];
   # download more wam (compress RAM with zram)
   zramSwap.enable = true;
   # set zram to 75% of RAM (12GB on my system)
@@ -682,10 +684,10 @@ in {
   zramSwap.memoryPercent = 75;
   # optimize kernel parameters for zram
   boot.kernel.sysctl = {
-    "vm.swappiness" = 130;
-    "vm.watermark_boost_factor" = 0;
-    "vm.watermark_scale_factor" = 125;
-    "vm.page-cluster" = 0;
+    "vm.swappiness" = 100;
+    # "vm.watermark_boost_factor" = 0;
+    # "vm.watermark_scale_factor" = 125;
+    # "vm.page-cluster" = 0;
   };
 
   services.btrbk.instances = {
