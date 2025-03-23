@@ -7,27 +7,7 @@
   pkgs,
   outputs,
   ...
-}: let
-  xbox-controller-bluetooth-fix = {...}: {
-    hardware.xpadneo.enable = true;
-
-    # hardware.bluetooth.settings = {
-    #   General = {
-    #     Privacy = "device";
-    #     JustWorksRepairing = "always";
-    #     Class = "0x000100";
-    #     FastConnectable = true;
-    #   };
-    # };
-
-    boot = {
-      extraModulePackages = with config.boot.kernelPackages; [xpadneo];
-      extraModprobeConfig = ''
-        options bluetooth disable_ertm=Y
-      '';
-    };
-  };
-in {
+}: {
   # You can import other NixOS modules here
   imports = [
     # If you want to use modules from other flakes (such as nixos-hardware):
@@ -39,9 +19,6 @@ in {
 
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
-
-    # fixes
-    xbox-controller-bluetooth-fix
   ];
 
   # Bootloader.
@@ -52,12 +29,7 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
   # boot.loader.grub.useOSProber = true;
 
-  # summary of kernel version constraints:
-  # speakers only work on 6.9+
-  # LTS 6.6: suspend/resume works, no kernel memory leaks
-  # 6.12: kernel memory leaks
-  # 6.13-6.13.5: FUSE/Flatpak issues
-  # 6.13.6 seems good? i think the memory leaks i was having are fixed
+  # TODO linux-surface
   boot.kernelPackages = pkgs.linuxPackages_xanmod_stable;
 
   # fix for unable to wake from suspend during some FUSE or BTRFS operations
@@ -330,31 +302,31 @@ in {
 
   programs = {
     # can't enable steam in home-manager, so system-wide instead
-    steam = {
-      enable = true;
-      remotePlay.openFirewall = true;
-      # dedicatedServer.openFirewall = true;
-      localNetworkGameTransfers.openFirewall = true;
-      # this is just a note for me: currently in the steam families beta, web view (store, community, etc) don't work
-      #    unless i disable GPU acceleration in web views in the interface settings.
+    # steam = {
+    #   enable = true;
+    #   remotePlay.openFirewall = true;
+    #   # dedicatedServer.openFirewall = true;
+    #   localNetworkGameTransfers.openFirewall = true;
+    #   # this is just a note for me: currently in the steam families beta, web view (store, community, etc) don't work
+    #   #    unless i disable GPU acceleration in web views in the interface settings.
 
-      # TODO gamescopesession is broken for me, try to figure out why
-      # gamescopeSession.enable = true;
-      # protontricks.enable = true; # only in unstable, TODO enable in future update
-      # extra packages that seem to make gamescope work in steam
-      # extraPackages = with pkgs; [
-      #   xorg.libXcursor
-      #   xorg.libXi
-      #   xorg.libXinerama
-      #   xorg.libXScrnSaver
-      #   libpng
-      #   libpulseaudio
-      #   libvorbis
-      #   stdenv.cc.cc.lib
-      #   libkrb5
-      #   keyutils
-      # ];
-    };
+    #   # TODO gamescopesession is broken for me, try to figure out why
+    #   # gamescopeSession.enable = true;
+    #   # protontricks.enable = true; # only in unstable, TODO enable in future update
+    #   # extra packages that seem to make gamescope work in steam
+    #   # extraPackages = with pkgs; [
+    #   #   xorg.libXcursor
+    #   #   xorg.libXi
+    #   #   xorg.libXinerama
+    #   #   xorg.libXScrnSaver
+    #   #   libpng
+    #   #   libpulseaudio
+    #   #   libvorbis
+    #   #   stdenv.cc.cc.lib
+    #   #   libkrb5
+    #   #   keyutils
+    #   # ];
+    # };
     # gamescope.enable = true;
     gamemode = {
       enable = true;
@@ -565,7 +537,7 @@ in {
     smem
     # game-devices-udev-rules # attempt at fixing steam input in wayland native games (not working)
     # easytether # my own packaging of easytether TODO needs fixes
-    protontricks
+    # protontricks
 
     # btrfs/filesystem tools
     btrfs-progs
@@ -606,8 +578,8 @@ in {
   # systemd.services.NetworkManager-wait-online.enable = false;
 
   # allow spotify local discovery, warpinator port, misc port for things like local network udp obs stream
-  networking.firewall.allowedTCPPorts = [42000 42001 57621 1234];
-  networking.firewall.allowedUDPPorts = [42000 42001 5353 1234];
+  # networking.firewall.allowedTCPPorts = [42000 42001 57621 1234];
+  # networking.firewall.allowedUDPPorts = [42000 42001 5353 1234];
 
   # enable kernel stuff for obs virtual camera
   boot.extraModulePackages = with config.boot.kernelPackages; [
@@ -647,10 +619,10 @@ in {
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
   # fix HP Envy autorotate causing airplane mode
-  services.udev.extraHwdb = ''
-    evdev:input:b0019v0000p0000e0000-*
-      KEYBOARD_KEY_08=unknown
-  '';
+  # services.udev.extraHwdb = ''
+  #   evdev:input:b0019v0000p0000e0000-*
+  #     KEYBOARD_KEY_08=unknown
+  # '';
 
   # earlyoom to prevent freezes (better than oomd in my experience)
   # temp disabling this to see if increasing zram size fixes this issue
@@ -670,91 +642,83 @@ in {
   };
 
   # enable swap
+  # TODO swap partition
   # swapDevices = [ {
   #   device = "/swapfile";
   #   size = 8*1024;
   # } ];
   # download more wam (compress RAM with zram)
-  zramSwap.enable = true;
+  # zramSwap.enable = true;
   # set zram to 75% of RAM (12GB on my system)
   # this should be fine; in real world use, i'm seeing a 4:1 to 5:1 compression ratio
   # higher values work fine but might be leading to sluggishness on my computer
-  zramSwap.memoryPercent = 75;
+  # zramSwap.memoryPercent = 75;
   # optimize kernel parameters for zram
-  boot.kernel.sysctl = {
-    "vm.swappiness" = 130;
-    "vm.watermark_boost_factor" = 0;
-    "vm.watermark_scale_factor" = 125;
-    "vm.page-cluster" = 0;
-  };
+  # boot.kernel.sysctl = {
+  #   "vm.swappiness" = 130;
+  #   "vm.watermark_boost_factor" = 0;
+  #   "vm.watermark_scale_factor" = 125;
+  #   "vm.page-cluster" = 0;
+  # };
 
-  services.btrbk.instances = {
-    # default instance
-    btrbk = {
-      # every 15 minutes
-      onCalendar = "*-*-* *:00,15,30,45:00";
-      settings = {
-        timestamp_format = "long";
-        snapshot_create = "onchange";
-        snapshot_preserve_min = "3h";
+  # services.btrbk.instances = {
+  #   # default instance
+  #   btrbk = {
+  #     # every 15 minutes
+  #     onCalendar = "*-*-* *:00,15,30,45:00";
+  #     settings = {
+  #       timestamp_format = "long";
+  #       snapshot_create = "onchange";
+  #       snapshot_preserve_min = "3h";
 
-        volume = {
-          "/mnt/root" = {
-            subvolume."@home" = {
-              snapshot_preserve = "24h 7d 4w 6m 1y";
-              snapshot_dir = "@home-snapshots";
-            };
-          };
-          "/mnt/storage" = {
-            subvolume."@" = {
-              snapshot_preserve = "8h 3d 4w 2m 0y";
-              snapshot_dir = "@snapshots";
-            };
-          };
-          "/mnt/samsung_ssd" = {
-            subvolume."@" = {
-              snapshot_preserve = "8h 7d 0w 0m 0y";
-              snapshot_dir = "@snapshots";
-            };
-          };
-        };
-      };
-    };
-  };
+  #       volume = {
+  #         "/mnt/root" = {
+  #           subvolume."@home" = {
+  #             snapshot_preserve = "24h 7d 4w 6m 1y";
+  #             snapshot_dir = "@home-snapshots";
+  #           };
+  #         };
+  #         "/mnt/storage" = {
+  #           subvolume."@" = {
+  #             snapshot_preserve = "8h 3d 4w 2m 0y";
+  #             snapshot_dir = "@snapshots";
+  #           };
+  #         };
+  #         "/mnt/samsung_ssd" = {
+  #           subvolume."@" = {
+  #             snapshot_preserve = "8h 7d 0w 0m 0y";
+  #             snapshot_dir = "@snapshots";
+  #           };
+  #         };
+  #       };
+  #     };
+  #   };
+  # };
 
   # auto-scrub btrfs filesystems to detect errors (particularly, hardware failures)
-  services.btrfs.autoScrub = {
-    enable = true;
-    interval = "monthly";
-    fileSystems = ["/" "/run/media/liz/storage"];
-  };
+  # services.btrfs.autoScrub = {
+  #   enable = true;
+  #   interval = "monthly";
+  #   fileSystems = ["/" "/run/media/liz/storage"];
+  # };
 
-  environment.etc."crypttab".text = ''
-    # encrypted storage
-    storage UUID=899fa394-16e9-4a75-9836-6f546fe70d5d /root/storage_keyfile luks,noauto,nofail
-    # encrypted samsung ssd
-    samsung_ssd UUID=cf38a1c4-902b-48e7-a262-b7862f1e4be9 /root/samsung_ssd_keyfile luks,noauto,nofail
-    2tb_hdd UUID=7eedc760-957d-4d74-a6f3-0381106cd623 /root/2tb_hdd_keyfile luks,noauto,nofail
-  '';
+  # environment.etc."crypttab".text = ''
+  #   # encrypted storage
+  #   storage UUID=899fa394-16e9-4a75-9836-6f546fe70d5d /root/storage_keyfile luks,noauto,nofail
+  #   # encrypted samsung ssd
+  #   samsung_ssd UUID=cf38a1c4-902b-48e7-a262-b7862f1e4be9 /root/samsung_ssd_keyfile luks,noauto,nofail
+  #   2tb_hdd UUID=7eedc760-957d-4d74-a6f3-0381106cd623 /root/2tb_hdd_keyfile luks,noauto,nofail
+  # '';
 
   # automount external devices with udev rules
-  services.udev.extraRules = ''
-    # auto unlock & mount sd card
-    ACTION=="add", ENV{ID_FS_UUID}=="899fa394-16e9-4a75-9836-6f546fe70d5d", ENV{SYSTEMD_WANTS}+="systemd-cryptsetup@storage.service", ENV{SYSTEMD_WANTS}+="mnt-storage.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-storage.mount"
-    # auto unlock & mount samsung ssd
-    ACTION=="add", ENV{ID_FS_UUID}=="cf38a1c4-902b-48e7-a262-b7862f1e4be9", ENV{SYSTEMD_WANTS}+="systemd-cryptsetup@samsung_ssd.service", ENV{SYSTEMD_WANTS}+="mnt-samsung_ssd.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-samsung_ssd.mount"
-    # auto unlock & mount 2tb hdd
-    ACTION=="add", ENV{ID_FS_UUID}=="7eedc760-957d-4d74-a6f3-0381106cd623", ENV{SYSTEMD_WANTS}+="systemd-cryptsetup@2tb_hdd.service", ENV{SYSTEMD_WANTS}+="mnt-2tb_hdd.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-2tb_hdd.mount"
-  '';
-  # , ENV{SYSTEMD_WANTS}+="mnt-storage.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-storage.mount"
-  # , RUN+="${pkgs.cryptsetup}/bin/cryptsetup luksOpen /dev/%k storage --key-file /root/storage_keyfile"
-  # ACTION=="remove", ENV{ID_FS_UUID}=="899fa394-16e9-4a75-9836-6f546fe70d5d", RUN+="${pkgs.cryptsetup}/bin/cryptsetup luksClose storage"
-  # ACTION=="add", ENV{ID_FS_UUID}=="745c09af-b8e1-46d2-b360-5de82b82fdb2", RUN+="${pkgs.systemd}/bin/systemctl start --no-block run-media-liz-storage.mount", RUN+="${pkgs.systemd}/bin/systemctl start --no-block mnt-storage.mount"
-  # unlock & mount samsung ssd
-  # ACTION=="add", ENV{ID_FS_UUID}=="cf38a1c4-902b-48e7-a262-b7862f1e4be9", RUN+="${pkgs.cryptsetup}/bin/cryptsetup luksOpen /dev/%k samsung_ssd --key-file /root/samsung_ssd_keyfile"
-  # , RUN+="${pkgs.systemd}/bin/systemctl start --no-block mnt-samsung_ssd.mount", RUN+="${pkgs.systemd}/bin/systemctl start --no-block run-media-liz-samsung_ssd.mount"
-  # ACTION=="remove", ENV{ID_FS_UUID}=="cf38a1c4-902b-48e7-a262-b7862f1e4be9", RUN+="${pkgs.cryptsetup}/bin/cryptsetup luksClose samsung_ssd"
-
+  # services.udev.extraRules = ''
+  #   # auto unlock & mount sd card
+  #   ACTION=="add", ENV{ID_FS_UUID}=="899fa394-16e9-4a75-9836-6f546fe70d5d", ENV{SYSTEMD_WANTS}+="systemd-cryptsetup@storage.service", ENV{SYSTEMD_WANTS}+="mnt-storage.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-storage.mount"
+  #   # auto unlock & mount samsung ssd
+  #   ACTION=="add", ENV{ID_FS_UUID}=="cf38a1c4-902b-48e7-a262-b7862f1e4be9", ENV{SYSTEMD_WANTS}+="systemd-cryptsetup@samsung_ssd.service", ENV{SYSTEMD_WANTS}+="mnt-samsung_ssd.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-samsung_ssd.mount"
+  #   # auto unlock & mount 2tb hdd
+  #   ACTION=="add", ENV{ID_FS_UUID}=="7eedc760-957d-4d74-a6f3-0381106cd623", ENV{SYSTEMD_WANTS}+="systemd-cryptsetup@2tb_hdd.service", ENV{SYSTEMD_WANTS}+="mnt-2tb_hdd.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-2tb_hdd.mount"
+  # '';
   # limit journal size to 1GB
   services.journald.extraConfig = ''
     SystemMaxUse=1G

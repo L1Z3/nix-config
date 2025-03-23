@@ -57,8 +57,8 @@ in {
     (import ./gnome-settings.nix (args // {inherit secrets;}))
     (import ./programs/vscode (args // {extensions = inputs.nix-vscode-extensions.extensions.${pkgs.system};}))
     ./programs/htop
-    ./programs/syncplay
-    ./programs/winapps.nix
+    # ./programs/syncplay
+    # ./programs/winapps.nix
   ];
 
   # TODO list:
@@ -308,12 +308,12 @@ in {
     alejandra
     dconf2nix
     unstable.yt-dlp
-    frp
+    # frp
     # htop, via programs/htop
-    (appimage-run.override
-      {
-        extraPkgs = pkgs: [pkgs.qt6.full fuse3];
-      })
+    # (appimage-run.override
+    #   {
+    #     extraPkgs = pkgs: [pkgs.qt6.full fuse3];
+    #   })
     ffmpeg-full
     patchedpython
     # python311Full
@@ -329,13 +329,13 @@ in {
     # firefox, from programs.firefox
     pkgs.unstable.firefoxpwa
     # ungoogled-chromium
-    chromium
+    # chromium
 
     # editors and git stuff
     sublime4
     vim
     # jetbrains really does not play well with a declarative setup. let's just use toolbox and rely on nix-ld
-    unstable.jetbrains-toolbox
+    # unstable.jetbrains-toolbox
     git-filter-repo
     unstable.gitkraken
     # vscode, via programs/vscode
@@ -344,82 +344,82 @@ in {
     spotify
     mpv
     # override for vlc 3.0.20 to fix av1/opus issue temporarily
-    (let
-      pkgs-old-vlc = import (builtins.fetchTarball {
-        url = "https://github.com/NixOS/nixpkgs/archive/0c19708cf035f50d28eb4b2b8e7a79d4dc52f6bb.tar.gz";
-        sha256 = "sha256:0ngw2shvl24swam5pzhcs9hvbwrgzsbcdlhpvzqc7nfk8lc28sp3";
-      }) {system = pkgs.system;};
-    in
-      pkgs-old-vlc.vlc)
+    # (let
+    #   pkgs-old-vlc = import (builtins.fetchTarball {
+    #     url = "https://github.com/NixOS/nixpkgs/archive/0c19708cf035f50d28eb4b2b8e7a79d4dc52f6bb.tar.gz";
+    #     sha256 = "sha256:0ngw2shvl24swam5pzhcs9hvbwrgzsbcdlhpvzqc7nfk8lc28sp3";
+    #   }) {system = pkgs.system;};
+    # in
+    #   pkgs-old-vlc.vlc)
     handbrake
-    audacity
+    # audacity
     gimp
     deluge
     # syncplay, via programs/syncplay
     stremio
     # disable for now
     # davinci-resolve-studio-patched # TODO can we pin this to a nixpkgs commit so it doesn't take 10 years to build every time
-    kdenlive
-    glaxnimate # optional dependency for kdenlive
-    blender
-    calibre
+    # kdenlive
+    # glaxnimate # optional dependency for kdenlive
+    # blender
+    # calibre
     pavucontrol
 
     # system tools
     unstable.qpwgraph
     # easyeffects
     gparted
-    etcher # custom package, since it's not in repos anymore
+    # etcher # custom package, since it's not in repos anymore
     # TODO needs non-declarative configs due to sensitive data, try to find workaround
-    duplicacy-web # custom package, since it was never merged into nixpkgs
-    duplicacy-mount # my own custom package, since it's a fork. allows mounting duplicacy backups as a filesystem
-    wireshark
+    # duplicacy-web # custom package, since it was never merged into nixpkgs
+    # duplicacy-mount # my own custom package, since it's a fork. allows mounting duplicacy backups as a filesystem
+    # wireshark
     httrack
     # piavpn
-    binaryninja
+    # binaryninja
     # fastx-client # silly little custom package # TODO upstream
-    anydesk
+    # anydesk
     warpinator-fixed # patched version to add pillow TODO upstream
 
     # messaging
     vesktop
-    slack
+    # slack
     # slack-cli # TODO currently manually installed into ~/.local/share/slack, i should move this
     unstable.discordchatexporter-desktop
     unstable.discordchatexporter-cli
 
     # office, etc
-    unstable.libreoffice
-    notion-app-enhanced # custom package to fix issue (TODO upstream this)
-    obsidian
+    # unstable.libreoffice
+    # notion-app-enhanced # custom package to fix issue (TODO upstream this)
+    # obsidian
     xournalpp
 
     # game stuff
     unstable.prismlauncher
-    (desktopWrapper.mkDesktopWrappedPackage {
-      name = "mcaselector";
-      iconUrl = "https://raw.githubusercontent.com/Querz/mcaselector/cbeff376929070f27514113943a34349fdc3cc43/installer/img/small.bmp";
-      iconSha256 = "sha256-YRvDfJZBWq0b/lfLXlachWHhlqrzFiwTr0e7/1fAjqQ=";
-      desktopFileText = ''
-        [Desktop Entry]
-        Type=Application
-        Name=MCA Selector
-        Exec=${unstable.mcaselector}/bin/mcaselector
-        Icon=mcaselector
-        Terminal=false
-        Categories=Game;
-      '';
-      targetPackage = unstable.mcaselector;
-    })
-    nbt-explorer # custom package
-    olympus # TODO currently custom, switch to upstream nixpkgs when ready
+    # (desktopWrapper.mkDesktopWrappedPackage {
+    #   name = "mcaselector";
+    #   iconUrl = "https://raw.githubusercontent.com/Querz/mcaselector/cbeff376929070f27514113943a34349fdc3cc43/installer/img/small.bmp";
+    #   iconSha256 = "sha256-YRvDfJZBWq0b/lfLXlachWHhlqrzFiwTr0e7/1fAjqQ=";
+    #   desktopFileText = ''
+    #     [Desktop Entry]
+    #     Type=Application
+    #     Name=MCA Selector
+    #     Exec=${unstable.mcaselector}/bin/mcaselector
+    #     Icon=mcaselector
+    #     Terminal=false
+    #     Categories=Game;
+    #   '';
+    #   targetPackage = unstable.mcaselector;
+    # })
+    # nbt-explorer # custom package
+    # olympus # TODO currently custom, switch to upstream nixpkgs when ready
     # yuzu # custom package pulling archived last AppImage
-    citra-qt # custom package pulling archived last AppImage
-    celeste64
-    dolphin-emu
-    unstable.godot_4
+    # citra-qt # custom package pulling archived last AppImage
+    # celeste64
+    # dolphin-emu
+    # unstable.godot_4
 
-    googleearth-pro
+    # googleearth-pro
   ];
 
   # flatpaks
@@ -428,11 +428,11 @@ in {
     packages = [
       "org.telegram.desktop"
       "com.github.tchx84.Flatseal"
-      "org.zulip.Zulip"
-      "com.steamgriddb.SGDBoop"
+      # "org.zulip.Zulip"
+      # "com.steamgriddb.SGDBoop"
       "com.rustdesk.RustDesk"
       # so many things are broken on nix zoom right now, so flatpak it is
-      "us.zoom.Zoom"
+      # "us.zoom.Zoom"
       # "org.x.Warpinator"
       # "org.gnome.Evolution"
     ];
@@ -462,7 +462,7 @@ in {
   # required for some package
   nixpkgs.config.permittedInsecurePackages = [
     "openssl-1.1.1w" # for sublime
-    "googleearth-pro-7.3.6.9796"
+    # "googleearth-pro-7.3.6.9796"
   ];
 
   gtk = {
@@ -491,44 +491,44 @@ in {
     # put variables here
   };
 
-  services.activitywatch = {
-    enable = true;
-    package = pkgs.unstable.aw-server-rust;
-    watchers = {
-      awatcher = {
-        package = pkgs.unstable.awatcher;
-      };
-    };
-  };
+  # services.activitywatch = {
+  #   enable = true;
+  #   package = pkgs.unstable.aw-server-rust;
+  #   watchers = {
+  #     awatcher = {
+  #       package = pkgs.unstable.awatcher;
+  #     };
+  #   };
+  # };
 
-  xdg.desktopEntries = {
-    fod-frp = {
-      name = "fod frp";
-      # TODO move this toml file to store if possible (though it contains sensitive data so idk how)
-      exec = "frpc -c /home/liz/.config/frp-configs/fod-frpc-p2p.toml";
-      terminal = true;
-    };
-  };
+  # xdg.desktopEntries = {
+  #   fod-frp = {
+  #     name = "fod frp";
+  #     # TODO move this toml file to store if possible (though it contains sensitive data so idk how)
+  #     exec = "frpc -c /home/liz/.config/frp-configs/fod-frpc-p2p.toml";
+  #     terminal = true;
+  #   };
+  # };
 
   # arRPC for vesktop
-  services.arrpc.enable = true;
+  # services.arrpc.enable = true;
 
   # duplicacy backup service
   # (this relies on out-of-nix duplicacy configs)
-  systemd.user.services.duplicacy = {
-    Unit = {
-      Description = "Duplicacy";
-    };
-    Service = {
-      Type = "simple";
-      WorkingDirectory = "${pkgs.duplicacy-web}/bin";
-      ExecStart = "${pkgs.duplicacy-web}/bin/duplicacy-web -background";
-      Restart = "on-failure";
-    };
-    Install = {
-      WantedBy = ["default.target"];
-    };
-  };
+  # systemd.user.services.duplicacy = {
+  #   Unit = {
+  #     Description = "Duplicacy";
+  #   };
+  #   Service = {
+  #     Type = "simple";
+  #     WorkingDirectory = "${pkgs.duplicacy-web}/bin";
+  #     ExecStart = "${pkgs.duplicacy-web}/bin/duplicacy-web -background";
+  #     Restart = "on-failure";
+  #   };
+  #   Install = {
+  #     WantedBy = ["default.target"];
+  #   };
+  # };
 
   # rclone gdrive crypt mount service
   # note: this relies on out-of-nix rclone configs

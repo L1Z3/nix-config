@@ -7,12 +7,12 @@
 }: let
   autostartPrograms = {...}: {
     home.file = {
-      ".config/autostart/vesktop.desktop" = {
-        source = "${pkgs.vesktop}/share/applications/vesktop.desktop";
-      };
-      ".config/autostart/org.telegram.desktop.desktop" = {
-        source = mkOutOfStoreSymlink "${config.home.homeDirectory}/.local/share/flatpak/exports/share/applications/org.telegram.desktop.desktop";
-      };
+      # ".config/autostart/vesktop.desktop" = {
+      #   source = "${pkgs.vesktop}/share/applications/vesktop.desktop";
+      # };
+      # ".config/autostart/org.telegram.desktop.desktop" = {
+      #   source = mkOutOfStoreSymlink "${config.home.homeDirectory}/.local/share/flatpak/exports/share/applications/org.telegram.desktop.desktop";
+      # };
       ".config/autostart/firefox.desktop" = {
         source = "${pkgs.unstable.firefox}/share/applications/firefox.desktop";
       };
