@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  secrets,
   ...
 }: let
   autostartPrograms = {...}: {

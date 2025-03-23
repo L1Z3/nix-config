@@ -23,7 +23,7 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 
     # local flake that contains info that I don't want publicized (not passwords, etc, just personal info)
-    secrets.url = "/home/liz/nix/secrets";
+    # secrets.url = "/home/liz/nix/secrets";
 
     # more vscode extensions
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";

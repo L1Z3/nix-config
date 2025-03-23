@@ -10,8 +10,8 @@
 } @ args: let
   # TODO currently "secrets" are just secrets from GitHub; they are not securely stored on this machine
   #      for actual secrets (e.g. passwords, etc), consider storing them some other way
-  secrets = inputs.secrets.secrets;
-  pathToSecrets = "${config.home.homeDirectory}/nix/secrets";
+  # secrets = inputs.secrets.secrets;
+  # pathToSecrets = "${config.home.homeDirectory}/nix/secrets";
   pythonldlibpath = lib.makeLibraryPath (with pkgs; [
     zlib
     zstd
@@ -54,7 +54,7 @@ in {
     inputs.nix-index-database.hmModules.nix-index
 
     # pass secrets to gnome-settings module
-    (import ./gnome-settings.nix (args // {inherit secrets;}))
+    (import ./gnome-settings.nix (args))
     (import ./programs/vscode (args // {extensions = inputs.nix-vscode-extensions.extensions.${pkgs.system};}))
     ./programs/htop
     # ./programs/syncplay
@@ -211,46 +211,7 @@ in {
             # Run `nix shell` with the transformed arguments
             nix shell "$''\{packages[@]}"
           }
-
-
-          duplicacy-do-mount() {
-            local secrets_file="${pathToSecrets}/duplicacy-b2-mount-secrets.txt.enc"
-            local mount_path="${config.home.homeDirectory}/mnt/duplicacy-backup/"
-            local storage_url="b2://duplicacy-jones1167"
-
-            # Ensure mount directory exists
-            mkdir -p "$mount_path"
-
-            # Create a subshell to contain environment variables
-            (
-              # Decrypt the file and read the three lines into variables
-              # This will prompt for the decryption password
-              {
-                read -r DUPLICACY__MOUNTSTORAGE_PASSWORD
-                read -r DUPLICACY__MOUNTSTORAGE_B2_ID
-                read -r DUPLICACY__MOUNTSTORAGE_B2_KEY
-              } < <(${pkgs.openssl}/bin/openssl enc -in "$secrets_file" -d -aes-256-cbc -pbkdf2)
-
-              # Check if decryption was successful
-              if [ $? -ne 0 ]; then
-                echo "Error: Failed to decrypt secrets file."
-                return 1
-              fi
-
-              # Set up trap BEFORE exporting variables
-              trap 'unset DUPLICACY__MOUNTSTORAGE_PASSWORD DUPLICACY__MOUNTSTORAGE_B2_ID DUPLICACY__MOUNTSTORAGE_B2_KEY' EXIT INT TERM
-
-              # Export the variables so duplicacy-mount can access them
-              export DUPLICACY__MOUNTSTORAGE_PASSWORD
-              export DUPLICACY__MOUNTSTORAGE_B2_ID
-              export DUPLICACY__MOUNTSTORAGE_B2_KEY
-
-              # Run duplicacy-mount with the environment variables
-              ${pkgs.duplicacy-mount}/bin/duplicacy-mount mount-storage "$storage_url" "$mount_path" -e -flat
-            )
-          }
-        ''
-        + secrets.bashInitExtra;
+        '';
     };
     firefox = {
       enable = true;
