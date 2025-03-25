@@ -380,6 +380,7 @@ in {
     # fastx-client # silly little custom package # TODO upstream
     anydesk
     warpinator-fixed # patched version to add pillow TODO upstream
+    rustdesk
 
     # messaging
     vesktop
@@ -430,7 +431,7 @@ in {
       "com.github.tchx84.Flatseal"
       "org.zulip.Zulip"
       "com.steamgriddb.SGDBoop"
-      "com.rustdesk.RustDesk"
+      # "com.rustdesk.RustDesk"
       # so many things are broken on nix zoom right now, so flatpak it is
       "us.zoom.Zoom"
       # "org.x.Warpinator"
