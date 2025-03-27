@@ -58,7 +58,8 @@ in {
   # 6.12: kernel memory leaks
   # 6.13-6.13.5: FUSE/Flatpak issues
   # 6.13.6 seems good? i think the memory leaks i was having are fixed
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_stable;
+  boot.kernelPackages = pkgs.unstable.linuxPackages_xanmod_stable;
+  # boot.kernelPackages = pkgs.unstable.linuxPackages_latest;
 
   # fix for unable to wake from suspend during some FUSE or BTRFS operations
   systemd.services."systemd-suspend".serviceConfig.Environment = "SYSTEMD_SLEEP_FREEZE_USER_SESSIONS=false";
@@ -253,18 +254,73 @@ in {
     };
   };
 
-  # enable hardware encoding for OBS/Davinci Resolve
+  # NVIDIA eGPU
   hardware.graphics = {
-    # hardware.graphics on unstable
     enable = true;
+    enable32Bit = true;
     extraPackages = with pkgs; [
+      # enable hardware encoding for OBS/Davinci Resolve
       intel-compute-runtime # for davinci resolve
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
       intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       libvdpau-va-gl
+      nvidia-vaapi-driver
     ];
   };
-  environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";}; # Force intel-media-driver
+
+  boot.kernelParams = ["nvidia-drm.modeset=1"];
+
+  # environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";}; # Force intel-media-driver
+
+  # Load nvidia driver for Xorg and Wayland
+  services.xserver.videoDrivers = ["nvidia"];
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+
+    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
+    powerManagement.enable = false;
+    # Fine-grained power management. Turns off GPU when not in use.
+    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
+    powerManagement.finegrained = false;
+
+    # Use the NVidia open source kernel module (not to be confused with the
+    # independent third-party "nouveau" open source driver).
+    # Support is limited to the Turing and later architectures. Full list of
+    # supported GPUs is at:
+    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
+    # Only available from driver 515.43.04+
+    # Currently alpha-quality/buggy, so false is currently the recommended setting.
+    open = true;
+
+    # Enable the Nvidia settings menu,
+    # accessible via `nvidia-settings`.
+    nvidiaSettings = true;
+
+    # Optionally, you may need to select the appropriate driver version for your specific GPU.
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+    # Use Nvidia Prime to choose which GPU (iGPU or eGPU) to use.
+    prime = {
+      # sync.enable = true;
+      offload.enable = true;
+      offload.enableOffloadCmd = true;
+      allowExternalGpu = true;
+
+      # Make sure to use the correct Bus ID values for your system!
+      nvidiaBusId = "PCI:46:0:0";
+      intelBusId = "PCI:0:2:0";
+    };
+  };
+
+  services.switcherooControl.enable = true;
+  services.switcherooControl.package = let
+    pkgs-fixed-switcheroo = import (builtins.fetchTarball {
+      url = "https://github.com/vasi/nixpkgs/archive/2a16a8a27f7aa1b89511de338a64ecbf3658aa85.tar.gz";
+      sha256 = "sha256:068yc2ijyq139fpa7j1drhdbc3162nasahfy45nb82fdi9rfcbyn";
+    }) {system = pkgs.system;};
+  in
+    pkgs-fixed-switcheroo.switcheroo-control;
 
   nix = let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
@@ -566,6 +622,7 @@ in {
     # game-devices-udev-rules # attempt at fixing steam input in wayland native games (not working)
     # easytether # my own packaging of easytether TODO needs fixes
     protontricks
+    nvtopPackages.full
 
     # btrfs/filesystem tools
     btrfs-progs
@@ -747,6 +804,10 @@ in {
     ACTION=="add", ENV{ID_FS_UUID}=="cf38a1c4-902b-48e7-a262-b7862f1e4be9", ENV{SYSTEMD_WANTS}+="systemd-cryptsetup@samsung_ssd.service", ENV{SYSTEMD_WANTS}+="mnt-samsung_ssd.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-samsung_ssd.mount"
     # auto unlock & mount 2tb hdd
     ACTION=="add", ENV{ID_FS_UUID}=="7eedc760-957d-4d74-a6f3-0381106cd623", ENV{SYSTEMD_WANTS}+="systemd-cryptsetup@2tb_hdd.service", ENV{SYSTEMD_WANTS}+="mnt-2tb_hdd.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-2tb_hdd.mount"
+
+    # have gnome prefer eGPU
+    # Tag NVIDIA (vendor 0x10de, device 0x<your device id>) as primary for Mutter
+    # SUBSYSTEM=="drm", ENV{DEVTYPE}=="drm_minor", ENV{DEVNAME}=="/dev/dri/card[0-9]", SUBSYSTEMS=="pci", ATTRS{vendor}=="0x10de", ATTRS{device}=="0x2882", TAG+="mutter-device-preferred-primary"
   '';
   # , ENV{SYSTEMD_WANTS}+="mnt-storage.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-storage.mount"
   # , RUN+="${pkgs.cryptsetup}/bin/cryptsetup luksOpen /dev/%k storage --key-file /root/storage_keyfile"
