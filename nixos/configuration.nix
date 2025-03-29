@@ -268,7 +268,7 @@ in {
     ];
   };
 
-  boot.kernelParams = ["nvidia-drm.modeset=1"];
+  boot.kernelParams = ["nvidia.NVReg_EnableResizableBar=1" "nvidia.NVreg_UsePageAttributeTable=1"];
 
   # environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";}; # Force intel-media-driver
 
@@ -304,7 +304,7 @@ in {
     prime = {
       # sync.enable = true;
       offload.enable = true;
-      offload.enableOffloadCmd = true;
+      # offload.enableOffloadCmd = true; # custom version instead, see environment.systemPackages
       allowExternalGpu = true;
 
       # Make sure to use the correct Bus ID values for your system!
@@ -313,14 +313,11 @@ in {
     };
   };
 
-  services.switcherooControl.enable = true;
-  services.switcherooControl.package = let
-    pkgs-fixed-switcheroo = import (builtins.fetchTarball {
-      url = "https://github.com/vasi/nixpkgs/archive/2a16a8a27f7aa1b89511de338a64ecbf3658aa85.tar.gz";
-      sha256 = "sha256:068yc2ijyq139fpa7j1drhdbc3162nasahfy45nb82fdi9rfcbyn";
-    }) {system = pkgs.system;};
-  in
-    pkgs-fixed-switcheroo.switcheroo-control;
+  # allow hotplugging? idk see arch wiki https://wiki.archlinux.org/title/External_GPU#Hotplugging_NVIDIA_eGPU
+  # also needs custom nvidia-offload script, see environment.systemPackages
+  environment.sessionVariables = {
+    __EGL_VENDOR_LIBRARY_FILENAMES = "${pkgs.mesa.drivers}/share/glvnd/egl_vendor.d/50_mesa.json";
+  };
 
   nix = let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
@@ -649,6 +646,16 @@ in {
     })
     # performance profiling
     config.boot.kernelPackages.perf
+
+    # custom version of nvidia-offload command to do the thing that arch wiki says https://wiki.archlinux.org/title/External_GPU#Hotplugging_NVIDIA_eGPU
+    (pkgs.writeShellScriptBin "nvidia-offload" ''
+      export __NV_PRIME_RENDER_OFFLOAD=1
+      export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+      export __GLX_VENDOR_LIBRARY_NAME=nvidia
+      export __VK_LAYER_NV_optimus=NVIDIA_only
+      export __EGL_VENDOR_LIBRARY_FILENAMES=${config.boot.kernelPackages.nvidiaPackages.stable}/share/glvnd/egl_vendor.d/10_nvidia.json
+      exec "$@"
+    '')
 
     # also needed for bluetooth lc3 codec
     # FUTURE: maybe enable for Bluetooth LE/LC3 when more stable
