@@ -7,27 +7,7 @@
   pkgs,
   outputs,
   ...
-}: let
-  xbox-controller-bluetooth-fix = {...}: {
-    hardware.xpadneo.enable = true;
-
-    # hardware.bluetooth.settings = {
-    #   General = {
-    #     Privacy = "device";
-    #     JustWorksRepairing = "always";
-    #     Class = "0x000100";
-    #     FastConnectable = true;
-    #   };
-    # };
-
-    boot = {
-      extraModulePackages = with config.boot.kernelPackages; [xpadneo];
-      extraModprobeConfig = ''
-        options bluetooth disable_ertm=Y
-      '';
-    };
-  };
-in {
+}: {
   # You can import other NixOS modules here
   imports = [
     # If you want to use modules from other flakes (such as nixos-hardware):
@@ -35,13 +15,11 @@ in {
     # inputs.hardware.nixosModules.common-ssd
 
     # You can also split up your configuration and import pieces of it here:
-    # ./users.nix
+    ./modules/nvidia-egpu.nix
+    ./modules/xbox.controller-bluetooth-fix.nix
 
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
-
-    # fixes
-    xbox-controller-bluetooth-fix
   ];
 
   # Bootloader.
@@ -254,70 +232,18 @@ in {
     };
   };
 
-  # NVIDIA eGPU
+  # enable hardware encoding for OBS/Davinci Resolve
   hardware.graphics = {
     enable = true;
-    enable32Bit = true;
     extraPackages = with pkgs; [
-      # enable hardware encoding for OBS/Davinci Resolve
       intel-compute-runtime # for davinci resolve
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
       intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       libvdpau-va-gl
-      nvidia-vaapi-driver
     ];
   };
 
-  boot.kernelParams = ["nvidia.NVReg_EnableResizableBar=1" "nvidia.NVreg_UsePageAttributeTable=1"];
-
   # environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";}; # Force intel-media-driver
-
-  # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
-
-  hardware.nvidia = {
-    modesetting.enable = true;
-
-    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    powerManagement.enable = false;
-    # Fine-grained power management. Turns off GPU when not in use.
-    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    powerManagement.finegrained = false;
-
-    # Use the NVidia open source kernel module (not to be confused with the
-    # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of
-    # supported GPUs is at:
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-    # Only available from driver 515.43.04+
-    # Currently alpha-quality/buggy, so false is currently the recommended setting.
-    open = true;
-
-    # Enable the Nvidia settings menu,
-    # accessible via `nvidia-settings`.
-    nvidiaSettings = true;
-
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-
-    # Use Nvidia Prime to choose which GPU (iGPU or eGPU) to use.
-    prime = {
-      # sync.enable = true;
-      offload.enable = true;
-      # offload.enableOffloadCmd = true; # custom version instead, see environment.systemPackages
-      allowExternalGpu = true;
-
-      # Make sure to use the correct Bus ID values for your system!
-      nvidiaBusId = "PCI:46:0:0";
-      intelBusId = "PCI:0:2:0";
-    };
-  };
-
-  # allow hotplugging? idk see arch wiki https://wiki.archlinux.org/title/External_GPU#Hotplugging_NVIDIA_eGPU
-  # also needs custom nvidia-offload script, see environment.systemPackages
-  environment.sessionVariables = {
-    __EGL_VENDOR_LIBRARY_FILENAMES = "${pkgs.mesa.drivers}/share/glvnd/egl_vendor.d/50_mesa.json";
-  };
 
   nix = let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
@@ -647,16 +573,6 @@ in {
     # performance profiling
     config.boot.kernelPackages.perf
 
-    # custom version of nvidia-offload command to do the thing that arch wiki says https://wiki.archlinux.org/title/External_GPU#Hotplugging_NVIDIA_eGPU
-    (pkgs.writeShellScriptBin "nvidia-offload" ''
-      export __NV_PRIME_RENDER_OFFLOAD=1
-      export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-      export __GLX_VENDOR_LIBRARY_NAME=nvidia
-      export __VK_LAYER_NV_optimus=NVIDIA_only
-      export __EGL_VENDOR_LIBRARY_FILENAMES=${config.boot.kernelPackages.nvidiaPackages.stable}/share/glvnd/egl_vendor.d/10_nvidia.json
-      exec "$@"
-    '')
-
     # also needed for bluetooth lc3 codec
     # FUTURE: maybe enable for Bluetooth LE/LC3 when more stable
     # liblc3
@@ -811,45 +727,12 @@ in {
     ACTION=="add", ENV{ID_FS_UUID}=="cf38a1c4-902b-48e7-a262-b7862f1e4be9", ENV{SYSTEMD_WANTS}+="systemd-cryptsetup@samsung_ssd.service", ENV{SYSTEMD_WANTS}+="mnt-samsung_ssd.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-samsung_ssd.mount"
     # auto unlock & mount 2tb hdd
     ACTION=="add", ENV{ID_FS_UUID}=="7eedc760-957d-4d74-a6f3-0381106cd623", ENV{SYSTEMD_WANTS}+="systemd-cryptsetup@2tb_hdd.service", ENV{SYSTEMD_WANTS}+="mnt-2tb_hdd.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-2tb_hdd.mount"
-
-    # have gnome prefer eGPU
-    # Tag NVIDIA (vendor 0x10de, device 0x<your device id>) as primary for Mutter
-    # SUBSYSTEM=="drm", ENV{DEVTYPE}=="drm_minor", ENV{DEVNAME}=="/dev/dri/card[0-9]", SUBSYSTEMS=="pci", ATTRS{vendor}=="0x10de", ATTRS{device}=="0x2882", TAG+="mutter-device-preferred-primary"
   '';
-  # , ENV{SYSTEMD_WANTS}+="mnt-storage.mount", ENV{SYSTEMD_WANTS}+="run-media-liz-storage.mount"
-  # , RUN+="${pkgs.cryptsetup}/bin/cryptsetup luksOpen /dev/%k storage --key-file /root/storage_keyfile"
-  # ACTION=="remove", ENV{ID_FS_UUID}=="899fa394-16e9-4a75-9836-6f546fe70d5d", RUN+="${pkgs.cryptsetup}/bin/cryptsetup luksClose storage"
-  # ACTION=="add", ENV{ID_FS_UUID}=="745c09af-b8e1-46d2-b360-5de82b82fdb2", RUN+="${pkgs.systemd}/bin/systemctl start --no-block run-media-liz-storage.mount", RUN+="${pkgs.systemd}/bin/systemctl start --no-block mnt-storage.mount"
-  # unlock & mount samsung ssd
-  # ACTION=="add", ENV{ID_FS_UUID}=="cf38a1c4-902b-48e7-a262-b7862f1e4be9", RUN+="${pkgs.cryptsetup}/bin/cryptsetup luksOpen /dev/%k samsung_ssd --key-file /root/samsung_ssd_keyfile"
-  # , RUN+="${pkgs.systemd}/bin/systemctl start --no-block mnt-samsung_ssd.mount", RUN+="${pkgs.systemd}/bin/systemctl start --no-block run-media-liz-samsung_ssd.mount"
-  # ACTION=="remove", ENV{ID_FS_UUID}=="cf38a1c4-902b-48e7-a262-b7862f1e4be9", RUN+="${pkgs.cryptsetup}/bin/cryptsetup luksClose samsung_ssd"
 
   # limit journal size to 1GB
   services.journald.extraConfig = ''
     SystemMaxUse=1G
   '';
-
-  # systemd.services.rclone-create-sd-dir = let
-  #   mountDirectory = "/run/media/liz/storage";
-  # in {
-  #   description = "Automount cached rclone SD card mount";
-  #   wants = ["local-fs.target"];
-  #   after = ["local-fs.target"];
-  #   wantedBy = ["multi-user.target"];
-
-  #   serviceConfig = {
-  #     Type = "oneshot";
-
-  #     ExecStart = ''
-  #       ${pkgs.coreutils}/bin/mkdir -p ${mountDirectory}
-  #       ${pkgs.coreutils}/bin/chown liz:users ${mountDirectory}
-  #     '';
-
-  #     Restart = "on-failure";
-  #     RestartSec = 30;
-  #   };
-  # };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
