@@ -295,8 +295,6 @@ in {
   programs.neovim.enable = true;
   home.enableNixpkgsReleaseCheck = true;
   home.packages = with pkgs; [
-    # discord
-
     # basic command line tools
     psmisc
     fastfetch

@@ -12,6 +12,16 @@
     ];
   };
 
+  services.switcherooControl.enable = true;
+  # fix switcherooctl python error by pulling in PR https://github.com/NixOS/nixpkgs/pull/375411
+  services.switcherooControl.package = let
+    pkgs-fixed-switcheroo = import (builtins.fetchTarball {
+      url = "https://github.com/vasi/nixpkgs/archive/2a16a8a27f7aa1b89511de338a64ecbf3658aa85.tar.gz";
+      sha256 = "sha256:068yc2ijyq139fpa7j1drhdbc3162nasahfy45nb82fdi9rfcbyn";
+    }) {system = pkgs.system;};
+  in
+    pkgs-fixed-switcheroo.switcheroo-control;
+
   # idk if these help, scrounged together from various wikis/forums
   boot.kernelParams = ["nvidia.NVReg_EnableResizableBar=1" "nvidia.NVreg_UsePageAttributeTable=1"];
 
@@ -19,6 +29,7 @@
   services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
+    # i never quite figured out what this does/if it helps
     modesetting.enable = true;
 
     # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
@@ -27,13 +38,7 @@
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
     powerManagement.finegrained = false;
 
-    # Use the NVidia open source kernel module (not to be confused with the
-    # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of
-    # supported GPUs is at:
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-    # Only available from driver 515.43.04+
-    # Currently alpha-quality/buggy, so false is currently the recommended setting.
+    # open source driver is recommended for RTX 40 series afaik
     open = true;
 
     # Enable the Nvidia settings menu,
@@ -45,9 +50,9 @@
 
     # Use Nvidia Prime to choose which GPU (iGPU or eGPU) to use.
     prime = {
-      # sync.enable = true;
+      # sync.enable = true; # TODO maybe try sync again?
       offload.enable = true;
-      # offload.enableOffloadCmd = true; # custom version instead, see environment.systemPackages
+      # offload.enableOffloadCmd = true; # custom version instead, see environment.systemPackages below
       allowExternalGpu = true;
 
       # Make sure to use the correct Bus ID values for your system!
@@ -58,6 +63,7 @@
 
   # allow hotplugging? idk see arch wiki https://wiki.archlinux.org/title/External_GPU#Hotplugging_NVIDIA_eGPU
   # also needs custom nvidia-offload script (see below)
+  # edit: hotplugging (for first time on boot) works, but not after unplugging and replugging
   environment.sessionVariables = {
     __EGL_VENDOR_LIBRARY_FILENAMES = "${pkgs.mesa.drivers}/share/glvnd/egl_vendor.d/50_mesa.json";
   };
