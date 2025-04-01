@@ -54,7 +54,7 @@ in {
     inputs.nix-index-database.hmModules.nix-index
 
     # pass secrets to gnome-settings module
-    (import ./gnome-settings.nix (args // {inherit secrets;}))
+    # (import ./gnome-settings.nix (args // {inherit secrets;}))
     (import ./programs/vscode (args // {extensions = inputs.nix-vscode-extensions.extensions.${pkgs.system};}))
     ./programs/htop
     ./programs/syncplay
