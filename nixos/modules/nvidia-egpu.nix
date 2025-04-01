@@ -90,6 +90,6 @@
     '')
 
     # on plasma, this is also useful to have:
-    # pkgs.kdePackages.plasma-thunderbolt
+    pkgs.kdePackages.plasma-thunderbolt
   ];
 }

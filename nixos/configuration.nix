@@ -113,12 +113,12 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  # services.xserver.displayManager.gdm.enable = true;
+  # services.xserver.desktopManager.gnome.enable = true;
   # Plasma 6
-  # services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.displayManager.sddm.wayland.enable = true;
-  # services.xserver.desktopManager.plasma6.enable = true;
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.sddm.wayland.enable = true;
+  services.xserver.desktopManager.plasma6.enable = true;
   # automatic screen rotation in GNOME
   hardware.sensor.iio.enable = true;
 
@@ -140,19 +140,19 @@
   # };
 
   # get rid of gnome software
-  environment.gnome.excludePackages =
-    (with pkgs; [
-      # for packages that are pkgs.*
-      gnome-software
-    ])
-    ++ (with pkgs.gnome; [
-      # for packages that are pkgs.gnome.*
-    ]);
+  # environment.gnome.excludePackages =
+  #   (with pkgs; [
+  #     # for packages that are pkgs.*
+  #     gnome-software
+  #   ])
+  #   ++ (with pkgs.gnome; [
+  #     # for packages that are pkgs.gnome.*
+  #   ]);
 
   # hack to transfer gnome monitor config to gdm
-  systemd.tmpfiles.rules = [
-    "C+ /run/gdm/.config/monitors.xml - - - - /home/liz/.config/monitors.xml"
-  ];
+  # systemd.tmpfiles.rules = [
+  #   "C+ /run/gdm/.config/monitors.xml - - - - /home/liz/.config/monitors.xml"
+  # ];
 
   # TODO try hyprland sometime
 
@@ -306,11 +306,11 @@
     };
   };
 
-  qt = {
-    enable = true;
-    platformTheme = "gnome";
-    style = "adwaita-dark";
-  };
+  # qt = {
+  #   enable = true;
+  #   platformTheme = "gnome";
+  #   style = "adwaita-dark";
+  # };
 
   programs = {
     # can't enable steam in home-manager, so system-wide instead
@@ -538,9 +538,13 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
 
+  hardware.bluetooth.enable = true;
+
   environment.systemPackages = with pkgs; [
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
+    kdePackages.bluedevil
+    kdePackages.bluez-qt
     desktop-file-utils
     wget
     curl

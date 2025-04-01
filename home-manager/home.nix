@@ -54,7 +54,7 @@ in {
     inputs.nix-index-database.hmModules.nix-index
 
     # pass secrets to gnome-settings module
-    (import ./gnome-settings.nix (args // {inherit secrets;}))
+    # (import ./gnome-settings.nix (args // {inherit secrets;}))
     (import ./programs/vscode (args // {extensions = inputs.nix-vscode-extensions.extensions.${pkgs.system};}))
     ./programs/htop
     ./programs/syncplay
@@ -466,18 +466,18 @@ in {
     "googleearth-pro-7.3.6.9796"
   ];
 
-  gtk = {
-    enable = true;
-    # gnome dark theme for gtk apps
-    # disabled in favor of dconf since this setting causes color accents extension to fail
-    # theme = {
-    #   name = "Adwaita-dark";
-    #   package = pkgs.gnome.gnome-themes-extra;
-    # };
-    # idk if this is necessary, but a line like this was in settings.ini before i did gtk.enable
-    gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
-    gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
-  };
+  # gtk = {
+  #   enable = true;
+  #   # gnome dark theme for gtk apps
+  #   # disabled in favor of dconf since this setting causes color accents extension to fail
+  #   # theme = {
+  #   #   name = "Adwaita-dark";
+  #   #   package = pkgs.gnome.gnome-themes-extra;
+  #   # };
+  #   # idk if this is necessary, but a line like this was in settings.ini before i did gtk.enable
+  #   gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+  #   gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+  # };
 
   # Extra variables to add to PATH
   home.sessionPath = [
