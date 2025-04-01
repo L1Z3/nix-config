@@ -18,6 +18,9 @@
     ./modules/nvidia-egpu.nix
     ./modules/xbox.controller-bluetooth-fix.nix
 
+    # enable kde plasma 6
+    ./modules/plasma.nix
+
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
   ];
@@ -109,50 +112,8 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  # services.xserver.displayManager.gdm.enable = true;
-  # services.xserver.desktopManager.gnome.enable = true;
-  # Plasma 6
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.sddm.wayland.enable = true;
-  services.xserver.desktopManager.plasma6.enable = true;
-  # automatic screen rotation in GNOME
+  # automatic screen rotation
   hardware.sensor.iio.enable = true;
-
-  # enable gnome debug settings (specifically, i want to enable the session management protocol that is experimental in gnome 47)
-  # edit: this isn't useful yet because no applications use it. TODO i realllly want a fork/patch of firefox that uses it....
-  # systemd.user.services."org.gnome.Shell@wayland" = {
-  #   overrideStrategy = "asDropin";
-  #   path = lib.mkForce [];
-  #   serviceConfig = {
-  #     Environment = [
-  #       ""
-  #       "MUTTER_DEBUG_SESSION_MANAGEMENT_PROTOCOL=1"
-  #     ];
-  #     ExecStart = [
-  #       ""
-  #       "${pkgs.gnome-shell}/bin/gnome-shell --debug-control"
-  #     ];
-  #   };
-  # };
-
-  # get rid of gnome software
-  # environment.gnome.excludePackages =
-  #   (with pkgs; [
-  #     # for packages that are pkgs.*
-  #     gnome-software
-  #   ])
-  #   ++ (with pkgs.gnome; [
-  #     # for packages that are pkgs.gnome.*
-  #   ]);
-
-  # hack to transfer gnome monitor config to gdm
-  # systemd.tmpfiles.rules = [
-  #   "C+ /run/gdm/.config/monitors.xml - - - - /home/liz/.config/monitors.xml"
-  # ];
 
   # TODO try hyprland sometime
 
@@ -305,12 +266,6 @@
       gid = 1000;
     };
   };
-
-  # qt = {
-  #   enable = true;
-  #   platformTheme = "gnome";
-  #   style = "adwaita-dark";
-  # };
 
   programs = {
     # can't enable steam in home-manager, so system-wide instead
@@ -543,8 +498,6 @@
   environment.systemPackages = with pkgs; [
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
-    kdePackages.bluedevil
-    kdePackages.bluez-qt
     desktop-file-utils
     wget
     curl
@@ -615,10 +568,6 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  # qemu guest additions
-  # services.qemuGuest.enable = true;
-  # services.spice-vdagentd.enable = true;
 
   # This setups a SSH server. Very important if you're setting up a headless system.
   # Feel free to remove if you don't need it.

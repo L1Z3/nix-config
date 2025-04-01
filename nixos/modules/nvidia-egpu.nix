@@ -88,8 +88,5 @@
       export __EGL_VENDOR_LIBRARY_FILENAMES=${config.boot.kernelPackages.nvidiaPackages.stable}/share/glvnd/egl_vendor.d/10_nvidia.json
       exec "$@"
     '')
-
-    # on plasma, this is also useful to have:
-    pkgs.kdePackages.plasma-thunderbolt
   ];
 }

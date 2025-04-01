@@ -53,8 +53,12 @@ in {
     # enable prebuilt indexes for nix-index
     inputs.nix-index-database.hmModules.nix-index
 
-    # pass secrets to gnome-settings module
-    # (import ./gnome-settings.nix (args // {inherit secrets;}))
+    # home-manager settings for GNOME
+    # (import ./modules/gnome-settings.nix (args // {inherit secrets;}))
+
+    # home-manager settings for Plasma 6
+    (import ./modules/plasma-settings (args // {inherit secrets;}))
+
     (import ./programs/vscode (args // {extensions = inputs.nix-vscode-extensions.extensions.${pkgs.system};}))
     ./programs/htop
     ./programs/syncplay
@@ -105,12 +109,6 @@ in {
     username = "liz";
     homeDirectory = "/home/liz";
   };
-  # set user icon
-  # requires that /var/lib/AccountsService/users/$USER has Icon field pointing to $HOME/.face (which is default)
-  # (if user icon was previously set by gnome gui, the Icon field will be set to /var/lib/AccountsService/icons/$USER; in this case
-  # delete the file or change the Icon field in /var/lib/AccountsService/users/$USER to point to $HOME/.face)
-  # also, this requires users.${user}.homeMode to be at least 711 so gdm can access this file
-  home.file.".face".source = ../media/madeline.jpg;
 
   # The general thing seems to be that if you want home-manager to manage
   # a program's config, use it as`programs.whatever` or `services.whatever`.
@@ -139,7 +137,6 @@ in {
         # list package changes in all system generations
         diff-sys-all = "nix profile diff-closures --profile /nix/var/nix/profiles/system";
         # TODO figure out a better way to document frequently used commands; currently just throwing them in an alias so i remember they exist
-        dconf-watch = "dconf watch /";
         # TODO add commands to remove old system/home-manager generations
         nix-cleanup-all = "sudo nix-collect-garbage --delete-old";
         nix-cleanup-aggressive = "sudo nix-collect-garbage --delete-older-than 1d";
@@ -465,19 +462,6 @@ in {
     "openssl-1.1.1w" # for sublime
     "googleearth-pro-7.3.6.9796"
   ];
-
-  # gtk = {
-  #   enable = true;
-  #   # gnome dark theme for gtk apps
-  #   # disabled in favor of dconf since this setting causes color accents extension to fail
-  #   # theme = {
-  #   #   name = "Adwaita-dark";
-  #   #   package = pkgs.gnome.gnome-themes-extra;
-  #   # };
-  #   # idk if this is necessary, but a line like this was in settings.ini before i did gtk.enable
-  #   gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
-  #   gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
-  # };
 
   # Extra variables to add to PATH
   home.sessionPath = [

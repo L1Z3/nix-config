@@ -254,10 +254,30 @@
   pathToHere = "${config.home.homeDirectory}/nix/home-manager";
 in {
   imports = [
-    ./modules/gnome-extension-settings.nix
-    ./modules/nautilus.nix
+    ./gnome-extension-settings.nix
+    ./nautilus.nix
     autostartPrograms
   ];
+
+  # set user icon
+  # requires that /var/lib/AccountsService/users/$USER has Icon field pointing to $HOME/.face (which is default)
+  # (if user icon was previously set by gnome gui, the Icon field will be set to /var/lib/AccountsService/icons/$USER; in this case
+  # delete the file or change the Icon field in /var/lib/AccountsService/users/$USER to point to $HOME/.face)
+  # also, this requires users.${user}.homeMode to be at least 711 so gdm can access this file
+  home.file.".face".source = ../media/madeline.jpg;
+
+  gtk = {
+    enable = true;
+    # gnome dark theme for gtk apps
+    # disabled in favor of dconf since this setting causes color accents extension to fail
+    # theme = {
+    #   name = "Adwaita-dark";
+    #   package = pkgs.gnome.gnome-themes-extra;
+    # };
+    # idk if this is necessary, but a line like this was in settings.ini before i did gtk.enable
+    gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+    gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+  };
 
   # there used to be some code here managing mimeapps.list but tbh that is suited much better to manage imperatively
 
