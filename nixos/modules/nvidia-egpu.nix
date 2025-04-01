@@ -4,6 +4,8 @@
   config,
   ...
 }: {
+  services.hardware.bolt.enable = true;
+
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
@@ -63,7 +65,15 @@
 
   # allow hotplugging? idk see arch wiki https://wiki.archlinux.org/title/External_GPU#Hotplugging_NVIDIA_eGPU
   # also needs custom nvidia-offload script (see below)
-  # edit: hotplugging (for first time on boot) works, but not after unplugging and replugging
+  # final determination of hotplugging viability:
+  #   - on GNOME Wayland, it just doesn't seem possible. related to https://gitlab.gnome.org/GNOME/mutter/-/issues/710
+  #     - (more accurately, it is possible to hotplug once after boot, but not after unplugging and replugging.)
+  #   - on Plasma 6 Wayland, it just works! (sorta); i'm not sure if these settings below are necessary, but with them,
+  #     hotplugging works fine, as long as you:
+  #       a) make sure nothing is using the eGPU (except maybe nvidia-modeset stuff) in both `nvidia-smi` and `sudo lsof | grep -i nvidia`
+  #       b) do `sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia` either before or after unplugging
+  #       c) do `sudo modprobe nvidia_uvm nvidia_drm nvidia_modeset nvidia` after re-plugging
+  #     b) and c) above could easily be done with a udev rule, making seamless hotplugs/hotunplugs viable on Plasma.
   environment.sessionVariables = {
     __EGL_VENDOR_LIBRARY_FILENAMES = "${pkgs.mesa.drivers}/share/glvnd/egl_vendor.d/50_mesa.json";
   };
@@ -78,5 +88,8 @@
       export __EGL_VENDOR_LIBRARY_FILENAMES=${config.boot.kernelPackages.nvidiaPackages.stable}/share/glvnd/egl_vendor.d/10_nvidia.json
       exec "$@"
     '')
+
+    # on plasma, this is also useful to have:
+    # pkgs.kdePackages.plasma-thunderbolt
   ];
 }
