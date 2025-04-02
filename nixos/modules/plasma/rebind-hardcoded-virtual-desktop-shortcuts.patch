@@ -1,0 +1,77 @@
+diff --git a/src/plugins/overview/overvieweffect.cpp b/src/plugins/overview/overvieweffect.cpp
+index 283b202038..1060b8f4f1 100644
+--- a/src/plugins/overview/overvieweffect.cpp
++++ b/src/plugins/overview/overvieweffect.cpp
+@@ -33,16 +33,16 @@ OverviewEffect::OverviewEffect()
+     , m_shutdownTimer(new QTimer(this))
+ {
+     auto gesture = new EffectTogglableGesture(m_overviewState);
+-    gesture->addTouchpadSwipeGesture(SwipeDirection::Up, 4);
++    gesture->addTouchpadSwipeGesture(SwipeDirection::Up, 3);
+     gesture->addTouchscreenSwipeGesture(SwipeDirection::Up, 3);
+ 
+     auto transitionGesture = new EffectTogglableGesture(m_transitionState);
+-    transitionGesture->addTouchpadSwipeGesture(SwipeDirection::Up, 4);
++    transitionGesture->addTouchpadSwipeGesture(SwipeDirection::Up, 3);
+     transitionGesture->addTouchscreenSwipeGesture(SwipeDirection::Up, 3);
+     m_transitionState->stop();
+ 
+     auto gridGesture = new EffectTogglableGesture(m_gridState);
+-    gridGesture->addTouchpadSwipeGesture(SwipeDirection::Down, 4);
++    gridGesture->addTouchpadSwipeGesture(SwipeDirection::Down, 3);
+     gridGesture->addTouchscreenSwipeGesture(SwipeDirection::Down, 3);
+ 
+     connect(m_overviewState, &EffectTogglableState::inProgressChanged, this, &OverviewEffect::overviewGestureInProgressChanged);
+diff --git a/src/virtualdesktops.cpp b/src/virtualdesktops.cpp
+index a0a09040d4..e63c97ea60 100644
+--- a/src/virtualdesktops.cpp
++++ b/src/virtualdesktops.cpp
+@@ -769,29 +769,30 @@ void VirtualDesktopManager::initShortcuts()
+             Q_EMIT currentChanging(currentDesktop(), m_currentDesktopOffset);
+         }
+     };
+-    input()->registerTouchpadSwipeShortcut(SwipeDirection::Left, 3, m_swipeGestureReleasedX.get(), left);
+-    input()->registerTouchpadSwipeShortcut(SwipeDirection::Right, 3, m_swipeGestureReleasedX.get(), right);
+-    input()->registerTouchpadSwipeShortcut(SwipeDirection::Left, 4, m_swipeGestureReleasedX.get(), left);
+-    input()->registerTouchpadSwipeShortcut(SwipeDirection::Right, 4, m_swipeGestureReleasedX.get(), right);
+-    input()->registerTouchpadSwipeShortcut(SwipeDirection::Down, 3, m_swipeGestureReleasedY.get(), [this](qreal cb) {
+-        if (grid().height() > 1) {
+-            m_currentDesktopOffset.setY(-cb);
+-            Q_EMIT currentChanging(currentDesktop(), m_currentDesktopOffset);
+-        }
+-    });
+-    input()->registerTouchpadSwipeShortcut(SwipeDirection::Up, 3, m_swipeGestureReleasedY.get(), [this](qreal cb) {
+-        if (grid().height() > 1) {
+-            m_currentDesktopOffset.setY(cb);
+-            Q_EMIT currentChanging(currentDesktop(), m_currentDesktopOffset);
+-        }
+-    });
++    // for me, the gestures are more intuitive the other way
++    input()->registerTouchpadSwipeShortcut(SwipeDirection::Left, 3, m_swipeGestureReleasedX.get(), right);
++    input()->registerTouchpadSwipeShortcut(SwipeDirection::Right, 3, m_swipeGestureReleasedX.get(), left);
++    input()->registerTouchpadSwipeShortcut(SwipeDirection::Left, 4, m_swipeGestureReleasedX.get(), right);
++    input()->registerTouchpadSwipeShortcut(SwipeDirection::Right, 4, m_swipeGestureReleasedX.get(), left);
++    // input()->registerTouchpadSwipeShortcut(SwipeDirection::Down, 3, m_swipeGestureReleasedY.get(), [this](qreal cb) {
++    //     if (grid().height() > 1) {
++    //         m_currentDesktopOffset.setY(cb);
++    //         Q_EMIT currentChanging(currentDesktop(), m_currentDesktopOffset);
++    //     }
++    // });
++    // input()->registerTouchpadSwipeShortcut(SwipeDirection::Up, 3, m_swipeGestureReleasedY.get(), [this](qreal cb) {
++    //     if (grid().height() > 1) {
++    //         m_currentDesktopOffset.setY(-cb);
++    //         Q_EMIT currentChanging(currentDesktop(), m_currentDesktopOffset);
++    //     }
++    // });
+     input()->registerTouchscreenSwipeShortcut(SwipeDirection::Left, 3, m_swipeGestureReleasedX.get(), left);
+     input()->registerTouchscreenSwipeShortcut(SwipeDirection::Right, 3, m_swipeGestureReleasedX.get(), right);
+ 
+     // axis events
+-    input()->registerAxisShortcut(Qt::MetaModifier | Qt::AltModifier, PointerAxisDown,
++    input()->registerAxisShortcut(Qt::MetaModifier, PointerAxisUp,
+                                   findChild<QAction *>(QStringLiteral("Switch to Next Desktop")));
+-    input()->registerAxisShortcut(Qt::MetaModifier | Qt::AltModifier, PointerAxisUp,
++    input()->registerAxisShortcut(Qt::MetaModifier, PointerAxisDown,
+                                   findChild<QAction *>(QStringLiteral("Switch to Previous Desktop")));
+ }
+ 

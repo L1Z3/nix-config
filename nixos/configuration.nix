@@ -18,8 +18,11 @@
     ./modules/nvidia-egpu.nix
     ./modules/xbox.controller-bluetooth-fix.nix
 
+    # enable gnome
+    # ./modules/gnome.nix
+
     # enable kde plasma 6
-    ./modules/plasma.nix
+    ./modules/plasma
 
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
