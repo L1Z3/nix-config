@@ -512,6 +512,7 @@
     # easytether # my own packaging of easytether TODO needs fixes
     protontricks
     nvtopPackages.full
+    pciutils
 
     # btrfs/filesystem tools
     btrfs-progs

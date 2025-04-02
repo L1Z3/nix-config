@@ -5,11 +5,9 @@
   ...
 }: {
   # TODO list of items to get Plasma to a place where I like it:
-  #  - udev rule for eGPU hotplug
-  #  - change animation speed to be faster
   #  - tweak workflow to be slightly more like GNOME (or just cope): e.g., Meta somehow opens overview + type to search
   #  - change default touchpad gestures (they exist, just hard-coded): either with kwin patch, or with [insert link]
-  #  - different screen orentation when docked vs not
+  #  - different screen orientation when docked vs not
   #  - show taskbar in overview menu
   #  - finish adding old gnome bookmarks (~/.config/gtk-3.0/bookmarks) to dolphin
 

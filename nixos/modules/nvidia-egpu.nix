@@ -73,7 +73,7 @@
   #       a) make sure nothing is using the eGPU (except maybe nvidia-modeset stuff) in both `nvidia-smi` and `sudo lsof | grep -i nvidia`
   #       b) do `sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia` either before or after unplugging
   #       c) do `sudo modprobe nvidia_uvm nvidia_drm nvidia_modeset nvidia` after re-plugging
-  #     b) and c) above could easily be done with a udev rule, making seamless hotplugs/hotunplugs viable on Plasma.
+  #     b) and c) above could easily be done with a udev rule, making seamless hotplugs/hotunplugs viable on Plasma (see udev rule below.)
   environment.sessionVariables = {
     __EGL_VENDOR_LIBRARY_FILENAMES = "${pkgs.mesa.drivers}/share/glvnd/egl_vendor.d/50_mesa.json";
   };
@@ -89,4 +89,11 @@
       exec "$@"
     '')
   ];
+
+  # udev rule for seamless hotplugs on plasma!
+  services.udev.extraRules = lib.mkBefore ''
+    # find bus id with `udevadm monitor --property --udev` (can also be found with many other tools)
+    ACTION=="add", SUBSYSTEM=="pci", ENV{PCI_SLOT_NAME}=="0000:04:00.0", RUN+="${pkgs.kmod}/bin/modprobe nvidia_uvm nvidia_drm nvidia"
+    ACTION=="remove", SUBSYSTEM=="pci", ENV{PCI_SLOT_NAME}=="0000:04:00.0", RUN+="${pkgs.kmod}/bin/modprobe -r nvidia_uvm nvidia_drm nvidia"
+  '';
 }
