@@ -5,11 +5,12 @@
   ...
 }: {
   # TODO list of items to get Plasma to a place where I like it:
-  #  - tweak workflow to be slightly more like GNOME (or just cope): e.g., Meta somehow opens overview + type to search
-  #  - change default touchpad gestures (they exist, just hard-coded): either with kwin patch, or with [insert link]
+  #  - make plasma look nicer
+  #  - once my configs are stable, migrate to plasma-manager
   #  - different screen orientation when docked vs not
-  #  - show taskbar in overview menu
   #  - finish adding old gnome bookmarks (~/.config/gtk-3.0/bookmarks) to dolphin
+  #  - change default touchpad gestures (they exist, just hard-coded): either with kwin patch, or with [insert link]
+  #  - show taskbar in overview menu (doesn't seem possible)
 
   services.xserver.enable = true;
 
@@ -18,12 +19,16 @@
   services.desktopManager.plasma6.enable = true;
 
   # my custom kde overrides
-  # TODO fix
   nixpkgs.overlays = [
     (final: prev: {
       kdePackages = prev.kdePackages.overrideScope (kdeFinal: kdePrev: {
-        # rebind switch desktop from Meta + Alt + Scroll (reversed) to Meta + Scroll (not reversed)
-        # (because for ~some reason~ the KDE devs decided to ~hard code~ this...)
+        # for ~some reason~ the KDE devs decided to ~hard code~ these controls
+        # this patch modifies virtual desktop controls in Plasma to act more like GNOME:
+        #   - rebind switch desktop from `Meta + Alt + Scroll` to `Meta + Scroll` and reverses the direction
+        #   - reverse direction of touchpad left/right switch virtual desktop gestures
+        #   - removes touchpad up/down switch virtual desktop gestures
+        #   - makes the touchpad up/down overview gestures 3 finger instead of 4 finger
+        #   - reverses the direction of the touchpad up/down overview gestures
         kwin = kdePrev.kwin.overrideAttrs (prevPkgAttrs: {
           patches = (prevPkgAttrs.patches or []) ++ [./rebind-hardcoded-virtual-desktop-shortcuts.patch];
         });
