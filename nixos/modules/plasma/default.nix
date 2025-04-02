@@ -59,4 +59,9 @@
     "r /var/lib/sddm/.config/kcminputrc"
     "C+ /var/lib/sddm/.config/kcminputrc 0644 sddm sddm - /home/liz/.config/kcminputrc"
   ];
+
+  # fix lag on intel iris xe graphics https://bugs.kde.org/show_bug.cgi?id=488860
+  environment.sessionVariables = {
+    KWIN_DRM_DISABLE_TRIPLE_BUFFERING = "1";
+  };
 }
