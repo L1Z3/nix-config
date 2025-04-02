@@ -513,6 +513,8 @@
     protontricks
     nvtopPackages.full
     pciutils
+    intel-gpu-tools
+    atop
 
     # btrfs/filesystem tools
     btrfs-progs

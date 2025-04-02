@@ -38,6 +38,12 @@
         kscreen = kdePrev.kscreen.overrideAttrs (prevPkgAttrs: {
           patches = (prevPkgAttrs.patches or []) ++ [./force-enable-autorotate-ui.patch];
         });
+
+        # patch to fix https://bugs.kde.org/show_bug.cgi?id=485927 (from https://bugs.kde.org/show_bug.cgi?id=485927#c10)
+        # TODO won't work right now, getting weird mismatched dependencies error
+        # qtbase = kdePrev.qtbase.overrideAttrs (prevPkgAttrs: {
+        #   patches = (prevPkgAttrs.patches or []) ++ [./fix-60hz-cap-overview-anim.patch];
+        # });
       });
     })
   ];

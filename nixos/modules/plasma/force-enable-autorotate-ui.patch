@@ -2,12 +2,11 @@ diff --git a/kcm/ui/Orientation.qml b/kcm/ui/Orientation.qml
 index 8cb3c7a3..781c45af 100644
 --- a/kcm/ui/Orientation.qml
 +++ b/kcm/ui/Orientation.qml
-@@ -20,7 +20,7 @@ ColumnLayout {
+@@ -20,7 +20,6 @@ ColumnLayout {
          id: autoRotateColumn
  
          enabled: element.internal
 -        visible: kcm.autoRotationSupported && kcm.orientationSensorAvailable
-+        visible: kcm.orientationSensorAvailable
  
          ColumnLayout {
              QQC2.RadioButton {
