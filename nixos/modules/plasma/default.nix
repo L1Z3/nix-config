@@ -6,10 +6,11 @@
 }: {
   # TODO list of items to get Plasma to a place where I like it:
   #  - make plasma look nicer
+  #  - make plasma less sluggish? like the overview effect is really slow...
   #  - once my configs are stable, migrate to plasma-manager
   #  - different screen orientation when docked vs not
+  #     - seems hard; should make issue and/or just work around it with udev/kscript nonsense/just copew with autorotate
   #  - finish adding old gnome bookmarks (~/.config/gtk-3.0/bookmarks) to dolphin
-  #  - change default touchpad gestures (they exist, just hard-coded): either with kwin patch, or with [insert link]
   #  - show taskbar in overview menu (doesn't seem possible)
 
   services.xserver.enable = true;
@@ -31,6 +32,11 @@
         #   - reverses the direction of the touchpad up/down overview gestures
         kwin = kdePrev.kwin.overrideAttrs (prevPkgAttrs: {
           patches = (prevPkgAttrs.patches or []) ++ [./rebind-hardcoded-virtual-desktop-shortcuts.patch];
+        });
+
+        # hack to workaround https://bugs.kde.org/show_bug.cgi?id=488139
+        kscreen = kdePrev.kscreen.overrideAttrs (prevPkgAttrs: {
+          patches = (prevPkgAttrs.patches or []) ++ [./force-enable-autorotate-ui.patch];
         });
       });
     })
