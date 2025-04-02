@@ -7,6 +7,7 @@
   # TODO list of items to get Plasma to a place where I like it:
   #  - make plasma look nicer
   #  - make plasma less sluggish? like the overview effect is really slow...
+  #     - related: https://bugs.kde.org/show_bug.cgi?id=479250
   #  - once my configs are stable, migrate to plasma-manager
   #  - different screen orientation when docked vs not
   #     - seems hard; should make issue and/or just work around it with udev/kscript nonsense/just copew with autorotate
