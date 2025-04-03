@@ -318,6 +318,7 @@ in {
     samply
     # audiorelay # custom package
     rclone
+    sshfs
 
     # android tools
     android-tools
