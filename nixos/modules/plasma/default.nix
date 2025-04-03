@@ -15,7 +15,7 @@
   #     - seems hard; should make issue and/or just work around it with udev/kscript nonsense/just copew with autorotate
   #  - finish adding old gnome bookmarks (~/.config/gtk-3.0/bookmarks) to dolphin
   #  - show taskbar in overview menu (doesn't seem possible)
-  #  - somehow sigterm firefox on logout instead of closing window-by-window for consistent session restore
+  #  - fix pen?
 
   services.xserver.enable = true;
 
@@ -70,8 +70,19 @@
     "C+ /var/lib/sddm/.config/kcminputrc 0644 sddm sddm - /home/liz/.config/kcminputrc"
   ];
 
-  # fix lag on intel iris xe graphics https://bugs.kde.org/show_bug.cgi?id=488860
   environment.sessionVariables = {
+    # fix lag on intel iris xe graphics?? https://bugs.kde.org/show_bug.cgi?id=488860
     KWIN_DRM_DISABLE_TRIPLE_BUFFERING = "1";
+  };
+
+  # https://wiki.nixos.org/wiki/SSH_public_key_authentication#KDE
+  programs.ssh = {
+    startAgent = true;
+    enableAskPassword = true;
+    askPassword = lib.mkForce "${pkgs.kdePackages.ksshaskpass.out}/bin/ksshaskpass";
+  };
+
+  environment.variables = {
+    SSH_ASKPASS_REQUIRE = "prefer"; # potentially need SSH_ASKPASS_REQUIRE="force" for first-time remember password?
   };
 }
