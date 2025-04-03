@@ -8,11 +8,14 @@
   #  - make plasma look nicer
   #  - make plasma less sluggish? like the overview effect is really slow...
   #     - related: https://bugs.kde.org/show_bug.cgi?id=479250
+  #     - debug with method discussed here? https://bugs.kde.org/show_bug.cgi?id=490358#c8
   #  - once my configs are stable, migrate to plasma-manager
+  #  - save ssh key passphrase
   #  - different screen orientation when docked vs not
   #     - seems hard; should make issue and/or just work around it with udev/kscript nonsense/just copew with autorotate
   #  - finish adding old gnome bookmarks (~/.config/gtk-3.0/bookmarks) to dolphin
   #  - show taskbar in overview menu (doesn't seem possible)
+  #  - somehow sigterm firefox on logout instead of closing window-by-window for consistent session restore
 
   services.xserver.enable = true;
 
