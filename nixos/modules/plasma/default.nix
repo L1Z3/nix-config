@@ -33,15 +33,21 @@
   nixpkgs.overlays = [
     (final: prev: {
       kdePackages = prev.kdePackages.overrideScope (kdeFinal: kdePrev: {
-        # for ~some reason~ the KDE devs decided to ~hard code~ these controls
-        # this patch modifies virtual desktop controls in Plasma to act more like GNOME:
-        #   - rebind switch desktop from `Meta + Alt + Scroll` to `Meta + Scroll` and reverses the direction
-        #   - reverse direction of touchpad left/right switch virtual desktop gestures
-        #   - removes touchpad up/down switch virtual desktop gestures
-        #   - makes the touchpad up/down overview gestures 3 finger instead of 4 finger
-        #   - reverses the direction of the touchpad up/down overview gestures
         kwin = kdePrev.kwin.overrideAttrs (prevPkgAttrs: {
-          patches = (prevPkgAttrs.patches or []) ++ [./rebind-hardcoded-virtual-desktop-shortcuts.patch];
+          patches =
+            (prevPkgAttrs.patches or [])
+            ++ [
+              # for ~some reason~ the KDE devs decided to ~hard code~ these controls
+              # this patch modifies virtual desktop controls in Plasma to act more like GNOME:
+              #   - rebind switch desktop from `Meta + Alt + Scroll` to `Meta + Scroll` and reverses the direction
+              #   - reverse direction of touchpad left/right switch virtual desktop gestures
+              #   - removes touchpad up/down switch virtual desktop gestures
+              #   - makes the touchpad up/down overview gestures 3 finger instead of 4 finger
+              #   - reverses the direction of the touchpad up/down overview gestures
+              ./rebind-hardcoded-virtual-desktop-shortcuts.patch
+              # https://invent.kde.org/plasma/kwin/-/merge_requests/5553
+              ./scroll-in-overview.patch
+            ];
         });
 
         # hack to workaround https://bugs.kde.org/show_bug.cgi?id=488139

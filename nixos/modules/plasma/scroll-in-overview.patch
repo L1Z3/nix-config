@@ -1,0 +1,69 @@
+diff --git a/src/plugins/overview/qml/main.qml b/src/plugins/overview/qml/main.qml
+index a798827fa11175a6498457a83859fc84d8c56e64..7ad111c3b86bce34a7adeb1d0e640098a28639ad 100644
+--- a/src/plugins/overview/qml/main.qml
++++ b/src/plugins/overview/qml/main.qml
+@@ -124,13 +124,7 @@ FocusScope {
+         }
+     }
+ 
+-    function switchTo(desktop) {
+-        KWinComponents.Workspace.currentDesktop = desktop;
+-        effect.deactivate();
+-    }
+-
+-    function selectNext(direction) {
+-        if (effect.searchText !== "") return false;
++    function currentDesktopIndex() {
+         let currentIndex = 0
+         for (let i = 0; i < allDesktopHeaps.count; i++) {
+             if (allDesktopHeaps.itemAt(i).current) {
+@@ -138,6 +132,17 @@ FocusScope {
+                 break;
+             }
+         }
++        return currentIndex;
++    }
++
++    function switchTo(desktop) {
++        KWinComponents.Workspace.currentDesktop = desktop;
++        effect.deactivate();
++    }
++
++    function selectNext(direction) {
++        if (effect.searchText !== "") return false;
++        let currentIndex = currentDesktopIndex();
+         let x = currentIndex % container.columns;
+         let y = Math.floor(currentIndex / container.columns);
+ 
+@@ -242,6 +247,31 @@ FocusScope {
+     }
+     Keys.priority: Keys.AfterItem
+ 
++    WheelHandler {
++        id: scrollHandler
++        acceptedPointerTypes: PointerDevice.Mouse
++        property var prevTime: 0;
++
++        onWheel: (event) => {
++            let d = new Date();
++            var time = d.getTime();
++            if (time - prevTime > 100) {
++                let currentIndex = currentDesktopIndex();
++                if (event.angleDelta.y > 0) {
++                    if (currentIndex < allDesktopHeaps.count - 1) {
++                        KWinComponents.Workspace.currentDesktop = allDesktopHeaps.itemAt(currentIndex + 1).desktop;
++                        prevTime = d.getTime();
++                    }
++                } else if (event.angleDelta.y < 0) {
++                    if (currentIndex > 0) {
++                        KWinComponents.Workspace.currentDesktop = allDesktopHeaps.itemAt(currentIndex - 1).desktop;
++                        prevTime = d.getTime();
++                    }
++                }
++            }
++        }
++    }
++
+     Item {
+         width: backgroundItem.width
+         height: backgroundItem.height
