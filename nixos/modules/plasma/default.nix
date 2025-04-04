@@ -78,7 +78,8 @@
 
   environment.sessionVariables = {
     # fix lag on intel iris xe graphics?? https://bugs.kde.org/show_bug.cgi?id=488860
-    KWIN_DRM_DISABLE_TRIPLE_BUFFERING = "1";
+    # edit, maybe the opposite will be good???
+    KWIN_DRM_DISABLE_TRIPLE_BUFFERING = "0";
   };
 
   # https://wiki.nixos.org/wiki/SSH_public_key_authentication#KDE
