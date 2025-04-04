@@ -615,12 +615,12 @@
   };
 
   # enable swap
-  swapDevices = [
-    {
-      device = "/dev/disk/by-partuuid/d1de9241-a5f6-45c8-91b4-2b272d827d8e"; # /dev/nvme0n1p3
-      randomEncryption.enable = true;
-    }
-  ];
+  # swapDevices = [
+  #   {
+  #     device = "/dev/disk/by-partuuid/d1de9241-a5f6-45c8-91b4-2b272d827d8e"; # /dev/nvme0n1p3
+  #     randomEncryption.enable = true;
+  #   }
+  # ];
   # download more wam (compress RAM with zram)
   zramSwap.enable = true;
   # set zram to 75% of RAM (12GB on my system)

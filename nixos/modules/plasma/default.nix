@@ -24,6 +24,7 @@
   services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
 
+  # apparently these lines were needed for spectacle to allow copying to clipboard when the window isn't open??? cool i guess (https://discourse.nixos.org/t/spectacle-errors-plasma6-wayland/50753/4, https://github.com/drupol/nixos-x260/blob/d18965e30e3baed5ff141b206dc995add2ce6cfe/modules/system/desktop/default.nix#L19)
   xdg.portal.enable = true;
   xdg.portal.config.common.default = "kde";
   xdg.portal.extraPortals = [pkgs.kdePackages.xdg-desktop-portal-kde];
