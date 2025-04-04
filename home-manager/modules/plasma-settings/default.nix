@@ -16,14 +16,16 @@
     export KWIN_DRM_DISABLE_TRIPLE_BUFFERING=1
   '';
 
-  # script to close firefox (so it properly restores)
-  home.file.".local/share/scripts/close-firefox.sh" = {
-    text = ''
-      #!/usr/bin/env bash
-
-      # sigterm firefox
-      ${pkgs.procps}/bin/pkill -f firefox
-    '';
-    executable = true;
+  systemd.user.services.kill-firefox = {
+    Unit = {
+      Description = "Kill Firefox on session stop";
+      Before = ["exit.target"];
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.procps}/bin/pkill -f firefox";
+      RemainAfterExit = "yes";
+    };
+    Install = {WantedBy = ["exit.target"];};
   };
 }
