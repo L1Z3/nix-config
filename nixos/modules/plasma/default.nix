@@ -32,6 +32,7 @@
   # my custom kde overrides
   nixpkgs.overlays = [
     (final: prev: {
+      # try unstable again
       kdePackages = prev.kdePackages.overrideScope (kdeFinal: kdePrev: {
         kwin = kdePrev.kwin.overrideAttrs (prevPkgAttrs: {
           patches =
@@ -64,6 +65,14 @@
     })
   ];
 
+  # attempted fix that seems to mitigate overview effect stutters a bit
+  systemd.services.fix-plasma-stutters = {
+    description = "Sets intel gpu min frequency";
+    path = [pkgs.intel-gpu-tools];
+    script = "intel_gpu_frequency -c min=600";
+    wantedBy = ["graphical.target"];
+  };
+
   environment.systemPackages =
     (with pkgs.kdePackages; [
       plasma-thunderbolt
@@ -84,8 +93,7 @@
 
   environment.sessionVariables = {
     # fix lag on intel iris xe graphics?? https://bugs.kde.org/show_bug.cgi?id=488860
-    # edit, maybe the opposite will be good???
-    KWIN_DRM_DISABLE_TRIPLE_BUFFERING = "0";
+    KWIN_DRM_DISABLE_TRIPLE_BUFFERING = "1";
   };
 
   # https://wiki.nixos.org/wiki/SSH_public_key_authentication#KDE

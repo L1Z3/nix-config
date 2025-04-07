@@ -15,7 +15,7 @@
     # inputs.hardware.nixosModules.common-ssd
 
     # You can also split up your configuration and import pieces of it here:
-    # ./modules/nvidia-egpu.nix
+    ./modules/nvidia-egpu.nix
     ./modules/xbox.controller-bluetooth-fix.nix
 
     # enable gnome
@@ -44,7 +44,7 @@
   # 6.13.6 seems good? i think the memory leaks i was having are fixed
   # unstable pkgs to fix a nvidia driver issue
   # boot.kernelPackages = pkgs.unstable.linuxPackages_xanmod_stable;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.unstable.linuxPackages_latest;
 
   # fix for unable to wake from suspend during some FUSE or BTRFS operations
   systemd.services."systemd-suspend".serviceConfig.Environment = "SYSTEMD_SLEEP_FREEZE_USER_SESSIONS=false";

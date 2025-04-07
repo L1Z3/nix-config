@@ -12,9 +12,8 @@
 
   # try to fix https://bugs.kde.org/show_bug.cgi?id=488860 also (in case putting it in environment.sessionVariables didn't work)
   # (https://reddit.com/r/kde/comments/1dkhfvl/is_it_only_me_or_has_anyone_elses_desktop/l9sihtq/)
-  # edit maybe the opposite will be good???
   programs.bash.bashrcExtra = ''
-    export KWIN_DRM_DISABLE_TRIPLE_BUFFERING=0
+    export KWIN_DRM_DISABLE_TRIPLE_BUFFERING=1
   '';
 
   # sigterm firefox before logging out so it properly restores
