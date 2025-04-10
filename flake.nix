@@ -3,9 +3,9 @@
 
   inputs = {
     # Nixpkgs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-
-    # unstable Nixpkgs, to grab some unstable packages
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    # to maintain compatibility with old unstable overlay
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # local dev fork of nixpkgs
@@ -16,7 +16,7 @@
     # nixpkgs-master.url = "github:nixos/nixpkgs/master";
 
     # Home manager
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # declarative flatpak management

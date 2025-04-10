@@ -12,6 +12,13 @@
     };
   };
 
+  stable-packages = final: _prev: {
+    unstable = import inputs.nixpkgs-stable {
+      system = final.system;
+      config.allowUnfree = true;
+    };
+  };
+
   # same, but for master branch (if we enabled master in flake.nix)
   ${
     if inputs ? nixpkgs-master

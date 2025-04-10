@@ -357,7 +357,7 @@ in {
     stremio
     # disable for now
     # davinci-resolve-studio-patched # TODO can we pin this to a nixpkgs commit so it doesn't take 10 years to build every time
-    kdenlive
+    kdePackages.kdenlive
     glaxnimate # optional dependency for kdenlive
     blender
     calibre
@@ -461,7 +461,7 @@ in {
   # required for some package
   nixpkgs.config.permittedInsecurePackages = [
     "openssl-1.1.1w" # for sublime
-    "googleearth-pro-7.3.6.9796"
+    "googleearth-pro-7.3.6.10201"
   ];
 
   # Extra variables to add to PATH

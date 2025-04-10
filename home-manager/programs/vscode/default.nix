@@ -20,7 +20,7 @@ in {
   programs.vscode = {
     enable = true;
     package = vsCodePackage;
-    extensions = with pkgs.vscode-extensions;
+    profiles.default.extensions = with pkgs.vscode-extensions;
       [
         jnoortheen.nix-ide
         k--kato.intellij-idea-keybindings
