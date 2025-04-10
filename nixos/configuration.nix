@@ -126,12 +126,11 @@
     variant = "";
   };
 
-  # temporarily disable printing (CUPS CVE)
   # Enable CUPS to print documents.
-  # services.printing = {
-  #   enable = true;
-  #   drivers = with pkgs; [gutenprint canon-cups-ufr2 cups-filters];
-  # };
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [gutenprint canon-cups-ufr2 cups-filters];
+  };
   # enable network printer discovery
   # services.avahi = {
   #   enable = true;

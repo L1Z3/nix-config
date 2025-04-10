@@ -14,15 +14,15 @@
     ];
   };
 
-  services.switcherooControl.enable = true;
-  # fix switcherooctl python error by pulling in PR https://github.com/NixOS/nixpkgs/pull/375411
-  services.switcherooControl.package = let
-    pkgs-fixed-switcheroo = import (builtins.fetchTarball {
-      url = "https://github.com/vasi/nixpkgs/archive/2a16a8a27f7aa1b89511de338a64ecbf3658aa85.tar.gz";
-      sha256 = "sha256:068yc2ijyq139fpa7j1drhdbc3162nasahfy45nb82fdi9rfcbyn";
-    }) {system = pkgs.system;};
-  in
-    pkgs-fixed-switcheroo.switcheroo-control;
+  # services.switcherooControl.enable = true;
+  # # fix switcherooctl python error by pulling in PR https://github.com/NixOS/nixpkgs/pull/375411
+  # services.switcherooControl.package = let
+  #   pkgs-fixed-switcheroo = import (builtins.fetchTarball {
+  #     url = "https://github.com/vasi/nixpkgs/archive/2a16a8a27f7aa1b89511de338a64ecbf3658aa85.tar.gz";
+  #     sha256 = "sha256:068yc2ijyq139fpa7j1drhdbc3162nasahfy45nb82fdi9rfcbyn";
+  #   }) {system = pkgs.system;};
+  # in
+  #   pkgs-fixed-switcheroo.switcheroo-control;
 
   # idk if these help, scrounged together from various wikis/forums
   boot.kernelParams = ["nvidia.NVReg_EnableResizableBar=1" "nvidia.NVreg_UsePageAttributeTable=1"];
