@@ -628,10 +628,10 @@
   zramSwap.memoryPercent = 75;
   # optimize kernel parameters for zram
   boot.kernel.sysctl = {
-    "vm.swappiness" = 100;
-    # "vm.watermark_boost_factor" = 0;
-    # "vm.watermark_scale_factor" = 125;
-    # "vm.page-cluster" = 0;
+    "vm.swappiness" = 180;
+    "vm.watermark_boost_factor" = 0;
+    "vm.watermark_scale_factor" = 125;
+    "vm.page-cluster" = 0;
   };
 
   services.btrbk.instances = {
