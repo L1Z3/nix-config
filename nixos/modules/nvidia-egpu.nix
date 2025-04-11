@@ -74,9 +74,9 @@
   #       b) do `sudo modprobe -r nvidia_uvm nvidia_drm nvidia_modeset nvidia` either before or after unplugging
   #       c) do `sudo modprobe nvidia_uvm nvidia_drm nvidia_modeset nvidia` after re-plugging
   #     b) and c) above could easily be done with a udev rule, making seamless hotplugs/hotunplugs viable on Plasma (see udev rule below.)
-  environment.sessionVariables = {
-    __EGL_VENDOR_LIBRARY_FILENAMES = "${pkgs.mesa.drivers}/share/glvnd/egl_vendor.d/50_mesa.json";
-  };
+  # environment.sessionVariables = {
+  #   __EGL_VENDOR_LIBRARY_FILENAMES = "${pkgs.mesa.drivers}/share/glvnd/egl_vendor.d/50_mesa.json";
+  # };
 
   environment.systemPackages = [
     # custom version of nvidia-offload command to do the thing that arch wiki says https://wiki.archlinux.org/title/External_GPU#Hotplugging_NVIDIA_eGPU
