@@ -66,12 +66,12 @@
   ];
 
   # attempted fix that seems to mitigate overview effect stutters a bit
-  systemd.services.fix-plasma-stutters = {
-    description = "Sets intel gpu min frequency";
-    path = [pkgs.intel-gpu-tools];
-    script = "intel_gpu_frequency -c min=600";
-    wantedBy = ["graphical.target"];
-  };
+  # systemd.services.fix-plasma-stutters = {
+  #   description = "Sets intel gpu min frequency";
+  #   path = [pkgs.intel-gpu-tools];
+  #   script = "intel_gpu_frequency -c min=600";
+  #   wantedBy = ["graphical.target"];
+  # };
 
   environment.systemPackages =
     (with pkgs.kdePackages; [
@@ -96,6 +96,7 @@
     # KWIN_DRM_DISABLE_TRIPLE_BUFFERING = "1";
     # proposed fix for overview lag i saw somewhere
     # KWIN_DRM_OVERRIDE_SAFETY_MARGIN = "6000";
+    # KWIN_LOG_PERFORMANCE_DATA = 1;
   };
 
   # https://wiki.nixos.org/wiki/SSH_public_key_authentication#KDE
