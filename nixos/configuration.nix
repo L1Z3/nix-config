@@ -473,10 +473,11 @@
   # enable spice for virt-manager
   virtualisation.spiceUSBRedirection.enable = true;
 
+  # vmware is giving me... wayyyy more trouble than it is worth
   # enable vmware virtualization (allows 3d acceleration in windows guests, unlike qemu/kvm)
-  virtualisation.vmware.host.enable = true;
+  # virtualisation.vmware.host.enable = true;
   # Enable macos guest support
-  virtualisation.vmware.host.package = pkgs.vmware-workstation.override {enableMacOSGuests = true;};
+  # virtualisation.vmware.host.package = pkgs.vmware-workstation.override {enableMacOSGuests = true;};
 
   # enable containers (distrobox, docker, etc)
   virtualisation.containers.enable = true;
