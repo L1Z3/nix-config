@@ -1,0 +1,63 @@
+diff --git a/src/declarativeimports/framesvgitem.cpp b/src/declarativeimports/framesvgitem.cpp
+index 56c2b3a8..b3d13225 100644
+--- a/src/declarativeimports/framesvgitem.cpp
++++ b/src/declarativeimports/framesvgitem.cpp
+@@ -689,18 +689,18 @@ void FrameSvgItem::componentComplete()
+     }
+ 
+     auto checkApplyTheme = [this]() {
+-        if (!m_frameSvg->imageSet()->filePath(QStringLiteral("colors")).isEmpty()) {
+-            m_frameSvg->clearCache();
+-            m_frameSvg->clearColorOverrides();
+-        }
++        // if (!m_frameSvg->imageSet()->filePath(QStringLiteral("colors")).isEmpty()) {
++        //     m_frameSvg->clearCache();
++        //     m_frameSvg->clearColorOverrides();
++        // }
+     };
+     auto applyTheme = [this]() {
+-        if (!m_frameSvg->imageSet()->filePath(QStringLiteral("colors")).isEmpty()) {
+-            m_frameSvg->clearCache();
+-            m_frameSvg->clearColorOverrides();
+-
+-            return;
+-        }
++        // if (!m_frameSvg->imageSet()->filePath(QStringLiteral("colors")).isEmpty()) {
++        //     m_frameSvg->clearCache();
++        //     m_frameSvg->clearColorOverrides();
++        //
++        //     return;
++        // }
+         m_frameSvg->setColor(Svg::Text, m_kirigamiTheme->textColor());
+         m_frameSvg->setColor(Svg::Background, m_kirigamiTheme->backgroundColor());
+         m_frameSvg->setColor(Svg::Highlight, m_kirigamiTheme->highlightColor());
+diff --git a/src/declarativeimports/svgitem.cpp b/src/declarativeimports/svgitem.cpp
+index c1e6e9e5..c2a2ce2a 100644
+--- a/src/declarativeimports/svgitem.cpp
++++ b/src/declarativeimports/svgitem.cpp
+@@ -52,18 +52,18 @@ void SvgItem::componentComplete()
+     }
+ 
+     auto checkApplyTheme = [this]() {
+-        if (!m_svg->imageSet()->filePath(QStringLiteral("colors")).isEmpty()) {
+-            m_svg->clearColorOverrides();
+-        }
++        // if (!m_svg->imageSet()->filePath(QStringLiteral("colors")).isEmpty()) {
++        //     m_svg->clearColorOverrides();
++        // }
+     };
+     auto applyTheme = [this]() {
+         if (!m_svg) {
+             return;
+         }
+-        if (!m_svg->imageSet()->filePath(QStringLiteral("colors")).isEmpty()) {
+-            m_svg->clearColorOverrides();
+-            return;
+-        }
++        // if (!m_svg->imageSet()->filePath(QStringLiteral("colors")).isEmpty()) {
++        //     m_svg->clearColorOverrides();
++        //     return;
++        // }
+         m_svg->setColor(Svg::Text, m_kirigamiTheme->textColor());
+         m_svg->setColor(Svg::Background, m_kirigamiTheme->backgroundColor());
+         m_svg->setColor(Svg::Highlight, m_kirigamiTheme->highlightColor());

@@ -56,6 +56,15 @@
           patches = (prevPkgAttrs.patches or []) ++ [./force-enable-autorotate-ui.patch];
         });
 
+        # i'm gonna go insane, i think my entire goddamn desktop environment is slow af just because XDG_DATA_DIRS is massive and because
+        # KDE spends countless CPU cycles searching for a `colors` directory for the theme in every single XDG_DATA_DIRS entry,
+        # so here is a jank patch that removes the code that does that :)
+        # (i WISH i could just make XDG_DATA_DIRS not massive but i think that's due to nix wrapping KDE programs in a way i don't understand
+        # so maybe this fix will work instead :))
+        ksvg = kdePrev.ksvg.overrideAttrs (prevPkgAttrs: {
+          patches = (prevPkgAttrs.patches or []) ++ [./jank-ksvg-xdg-data-dirs-lag-fix.patch];
+        });
+
         # patch to fix https://bugs.kde.org/show_bug.cgi?id=485927 (from https://bugs.kde.org/show_bug.cgi?id=485927#c10)
         # TODO won't work right now, getting weird mismatched dependencies error
         # qtbase = kdePrev.qtbase.overrideAttrs (prevPkgAttrs: {
