@@ -616,6 +616,9 @@
     ];
   };
 
+  # preload commonly-used files into RAM to speed up startups
+  services.preload.enable = true;
+
   # enable swap
   # swapDevices = [
   #   {
