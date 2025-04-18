@@ -515,6 +515,8 @@
     pciutils
     intel-gpu-tools
     atop
+    cmake
+    gdb
 
     # btrfs/filesystem tools
     btrfs-progs
