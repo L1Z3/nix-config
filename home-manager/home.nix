@@ -416,7 +416,7 @@ in {
     citra-qt # custom package pulling archived last AppImage
     celeste64
     dolphin-emu
-    unstable.godot_4
+    # unstable.godot_4
 
     googleearth-pro
   ];
