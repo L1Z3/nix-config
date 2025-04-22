@@ -75,12 +75,17 @@
   #       c) do `sudo modprobe nvidia_uvm nvidia_drm nvidia_modeset nvidia` after re-plugging
   #     b) and c) above could easily be done with a udev rule, making seamless hotplugs/hotunplugs viable on Plasma (see udev rule below.)
   environment.sessionVariables = {
+    # idk if this is needed, i think it might fix celeste in some cases?
+    VK_DRIVER_FILES = "/run/opengl-driver/share/vulkan/icd.d/intel_icd.x86_64.json:/run/opengl-driver/share/vulkan/icd.d/intel_hasvk_icd.x86_64.json";
     __EGL_VENDOR_LIBRARY_FILENAMES = "${pkgs.mesa.drivers}/share/glvnd/egl_vendor.d/50_mesa.json";
   };
 
   environment.systemPackages = [
     # custom version of nvidia-offload command to do the thing that arch wiki says https://wiki.archlinux.org/title/External_GPU#Hotplugging_NVIDIA_eGPU
     (pkgs.writeShellScriptBin "nvidia-offload" ''
+      # idk if this is needed, i think it might fix celeste in some cases?
+      export VK_DRIVER_FILES="/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json"
+
       export __NV_PRIME_RENDER_OFFLOAD=1
       export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
       export __GLX_VENDOR_LIBRARY_NAME=nvidia
