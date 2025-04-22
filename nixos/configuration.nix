@@ -517,6 +517,8 @@
     atop
     cmake
     gdb
+    mono
+    dotnet-sdk_7
 
     # btrfs/filesystem tools
     btrfs-progs
@@ -552,6 +554,10 @@
   # nixpkgs.config.permittedInsecurePackages = [
   #   "openssl-1.1.1w" # for easytether
   # ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "dotnet-sdk-7.0.410"
+  ];
 
   # systemd.network.enable = true;
   # systemd.services.NetworkManager-wait-online.enable = false;
