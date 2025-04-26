@@ -82,6 +82,7 @@ in {
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
       outputs.overlays.dev-packages
+      outputs.overlays.master-packages
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
 
@@ -253,7 +254,7 @@ in {
       enable = true;
       package = pkgs.unstable.firefox;
       # support for PWAs
-      nativeMessagingHosts = [pkgs.unstable.firefoxpwa];
+      nativeMessagingHosts = [pkgs.master.firefoxpwa];
     };
     git = {
       enable = true;
@@ -325,7 +326,7 @@ in {
     adbfs-rootless # better reliability than mtp for android file transfer/management
 
     # firefox, from programs.firefox
-    pkgs.unstable.firefoxpwa
+    pkgs.master.firefoxpwa
     # ungoogled-chromium
     chromium
 
