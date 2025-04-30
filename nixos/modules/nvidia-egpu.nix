@@ -96,9 +96,10 @@
   ];
 
   # udev rule for seamless hotplugs on plasma!
-  services.udev.extraRules = lib.mkBefore ''
-    # find bus id with `udevadm monitor --property --udev` (can also be found with many other tools)
-    ACTION=="add", SUBSYSTEM=="pci", ENV{PCI_SLOT_NAME}=="0000:04:00.0", RUN+="${pkgs.kmod}/bin/modprobe nvidia_uvm nvidia_drm nvidia"
-    ACTION=="remove", SUBSYSTEM=="pci", ENV{PCI_SLOT_NAME}=="0000:04:00.0", RUN+="${pkgs.kmod}/bin/modprobe -r nvidia_uvm nvidia_drm nvidia"
-  '';
+  # edit: nvm i think this makes xwayland crash sometimes? i have not found the root of the issue yet
+  # services.udev.extraRules = lib.mkBefore ''
+  #   # find bus id with `udevadm monitor --property --udev` (can also be found with many other tools)
+  #   ACTION=="add", SUBSYSTEM=="pci", ENV{PCI_SLOT_NAME}=="0000:04:00.0", RUN+="${pkgs.kmod}/bin/modprobe nvidia_uvm nvidia_drm nvidia"
+  #   ACTION=="remove", SUBSYSTEM=="pci", ENV{PCI_SLOT_NAME}=="0000:04:00.0", RUN+="${pkgs.kmod}/bin/modprobe -r nvidia_uvm nvidia_drm nvidia"
+  # '';
 }
