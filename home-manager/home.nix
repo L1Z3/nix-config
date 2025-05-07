@@ -390,7 +390,7 @@ in {
 
     # office, etc
     unstable.libreoffice
-    notion-app-enhanced # custom package to fix issue (TODO upstream this)
+    # notion-app-enhanced # custom package to fix issue (TODO upstream this)
     obsidian
     xournalpp
 
