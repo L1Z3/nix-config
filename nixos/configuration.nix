@@ -568,6 +568,18 @@
     "dotnet-sdk-7.0.410"
   ];
 
+  # fix firefox emojis?
+  fonts = {
+    packages = with pkgs; [
+      noto-fonts
+      noto-fonts-emoji
+      twemoji-color-font
+    ];
+    fontconfig = {
+      useEmbeddedBitmaps = true;
+    };
+  };
+
   # systemd.network.enable = true;
   # systemd.services.NetworkManager-wait-online.enable = false;
 
