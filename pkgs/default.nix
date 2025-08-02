@@ -6,7 +6,6 @@ pkgs: {
   etcher = pkgs.callPackage ./etcher.nix {};
   notion-app-enhanced = pkgs.callPackage ./notion-app-enhanced {};
   awatcher = pkgs.callPackage ./awatcher {};
-  olympus = pkgs.callPackage ./olympus/package.nix {};
   duplicacy-web = pkgs.callPackage ./duplicacy-web.nix {};
   duplicacy-mount = pkgs.callPackage ./duplicacy-mount.nix {};
   yuzu = pkgs.callPackage ./yuzu.nix {};

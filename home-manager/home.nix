@@ -419,7 +419,7 @@ in {
       targetPackage = unstable.mcaselector;
     })
     nbt-explorer # custom package
-    olympus # TODO currently custom, switch to upstream nixpkgs when ready
+    olympus
     # yuzu # custom package pulling archived last AppImage
     citra-qt # custom package pulling archived last AppImage
     celeste64
