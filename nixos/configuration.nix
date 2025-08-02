@@ -22,10 +22,10 @@
     # ./modules/gnome.nix
 
     # enable kde plasma 6
-    ./modules/plasma
+    # ./modules/plasma
 
     # enable hyprland
-    # ./modules/hyprland
+    ./modules/hyprland
 
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix

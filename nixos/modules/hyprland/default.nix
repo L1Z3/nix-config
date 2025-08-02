@@ -14,17 +14,7 @@
   services.displayManager = {
     defaultSession = "hyprland-uwsm";
 
-    sddm = {
-      enable = true;
-      package = pkgs.kdePackages.sddm;
-      extraPackages = with pkgs; [sddm-astronaut];
-      wayland = {
-        enable = true;
-        compositor = "kwin";
-      };
-      theme = "sddm-astronaut-theme";
-      settings.Theme.CursorTheme = "Bibata-Modern-Ice";
-    };
+    ly.enable = true;
   };
   # Optional, hint electron apps to use wayland:
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
@@ -33,7 +23,6 @@
     xorg.libXcursor
     hyprland-qtutils
     hyprland-qt-support
-    sddm-astronaut
     bibata-cursors
   ];
 
@@ -45,6 +34,12 @@
     };
     packages = with pkgs;
       [
+        # see https://github.com/subframe7536/Maple-font for more details
+        maple-mono.truetype
+        maple-mono.NF-unhinted
+        maple-mono.NF-CN-unhinted
+
+        twemoji-color-font
         noto-fonts
         noto-fonts-cjk-sans
         noto-fonts-emoji
