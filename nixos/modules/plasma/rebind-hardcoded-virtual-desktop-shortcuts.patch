@@ -72,10 +72,10 @@ index a0a09040d4..e63c97ea60 100644
  
      // axis events
 -    input()->registerAxisShortcut(Qt::MetaModifier | Qt::AltModifier, PointerAxisDown,
-+    input()->registerAxisShortcut(Qt::MetaModifier, PointerAxisUp,
++    input()->registerAxisShortcut(Qt::MetaModifier, PointerAxisDown,
                                    findChild<QAction *>(QStringLiteral("Switch to Next Desktop")));
 -    input()->registerAxisShortcut(Qt::MetaModifier | Qt::AltModifier, PointerAxisUp,
-+    input()->registerAxisShortcut(Qt::MetaModifier, PointerAxisDown,
++    input()->registerAxisShortcut(Qt::MetaModifier, PointerAxisUp,
                                    findChild<QAction *>(QStringLiteral("Switch to Previous Desktop")));
  }
  
