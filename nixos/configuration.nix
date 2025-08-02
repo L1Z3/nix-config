@@ -608,10 +608,19 @@
   # enable magic sysrq
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
-  # fix HP Envy autorotate causing airplane mode
   services.udev.extraHwdb = ''
+    ## fix HP Envy autorotate causing airplane mode
     evdev:input:b0019v0000p0000e0000-*
       KEYBOARD_KEY_08=unknown
+
+    ## Caps Lock to Backspace remap, at udev level so it works in games that take raw keyboard input
+    # USB/HID keyboards ─ scancode 70039
+    evdev:input:*
+      KEYBOARD_KEY_70039=backspace
+
+    # Internal PS/2 keyboards ─ scancode 3a
+    evdev:atkbd:dmi:*
+      KEYBOARD_KEY_3a=backspace
   '';
 
   # earlyoom to prevent freezes (better than oomd in my experience)
