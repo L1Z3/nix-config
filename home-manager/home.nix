@@ -376,7 +376,7 @@ in {
     wireshark
     httrack
     # piavpn
-    binaryninja
+    # binaryninja
     # fastx-client # silly little custom package # TODO upstream
     anydesk
     warpinator-fixed # patched version to add pillow TODO upstream
