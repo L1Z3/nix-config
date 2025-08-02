@@ -48,7 +48,8 @@
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    # temporarily beta driver (current stable v570 has issues with minecraft; current beta v575 does not.)
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
 
     # Use Nvidia Prime to choose which GPU (iGPU or eGPU) to use.
     prime = {
@@ -76,7 +77,8 @@
   #     b) and c) above could easily be done with a udev rule, making seamless hotplugs/hotunplugs viable on Plasma (see udev rule below.)
   environment.sessionVariables = {
     # idk if this is needed, i think it might fix celeste in some cases?
-    VK_DRIVER_FILES = "/run/opengl-driver/share/vulkan/icd.d/intel_icd.x86_64.json:/run/opengl-driver/share/vulkan/icd.d/intel_hasvk_icd.x86_64.json";
+    # TODO re-add if needed? this actually broke portal 2
+    # VK_DRIVER_FILES = "/run/opengl-driver/share/vulkan/icd.d/intel_icd.x86_64.json:/run/opengl-driver/share/vulkan/icd.d/intel_hasvk_icd.x86_64.json";
     __EGL_VENDOR_LIBRARY_FILENAMES = "${pkgs.mesa.drivers}/share/glvnd/egl_vendor.d/50_mesa.json";
   };
 
@@ -84,13 +86,14 @@
     # custom version of nvidia-offload command to do the thing that arch wiki says https://wiki.archlinux.org/title/External_GPU#Hotplugging_NVIDIA_eGPU
     (pkgs.writeShellScriptBin "nvidia-offload" ''
       # idk if this is needed, i think it might fix celeste in some cases?
+      # it might also break portal 2?
       export VK_DRIVER_FILES="/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json"
 
       export __NV_PRIME_RENDER_OFFLOAD=1
       export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
       export __GLX_VENDOR_LIBRARY_NAME=nvidia
       export __VK_LAYER_NV_optimus=NVIDIA_only
-      export __EGL_VENDOR_LIBRARY_FILENAMES=${config.boot.kernelPackages.nvidiaPackages.stable}/share/glvnd/egl_vendor.d/10_nvidia.json
+      export __EGL_VENDOR_LIBRARY_FILENAMES=${config.boot.kernelPackages.nvidiaPackages.beta}/share/glvnd/egl_vendor.d/10_nvidia.json
       exec "$@"
     '')
   ];
