@@ -29,7 +29,7 @@ in {
         mkhl.direnv
         ms-vscode-remote.remote-containers
         ms-vscode.cpptools-extension-pack
-        asvetliakov.vscode-neovim
+        # asvetliakov.vscode-neovim
         ms-vscode-remote.remote-ssh
       ]
       ++ (with extensions.vscode-marketplace-release; [
