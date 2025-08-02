@@ -232,7 +232,7 @@ in {
   };
   home.file.".themes/diinki-retro-dark" = {
     source = ./configs/gtk_theme/diinki-retro-dark;
-    recursive = true;
+    recursive = false;
   };
 
   # let home-manager manage top-level hyprland.conf
