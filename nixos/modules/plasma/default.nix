@@ -48,6 +48,8 @@
               ./rebind-hardcoded-virtual-desktop-shortcuts.patch
               # https://invent.kde.org/plasma/kwin/-/merge_requests/5553
               ./scroll-in-overview.patch
+              # https://invent.kde.org/plasma/kwin/-/merge_requests/6178
+              # ./remember-steam-input.patch
             ];
         });
 
