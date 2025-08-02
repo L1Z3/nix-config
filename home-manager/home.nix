@@ -59,6 +59,9 @@ in {
     # home-manager settings for Plasma 6
     (import ./modules/plasma-settings (args // {inherit secrets;}))
 
+    # home-manager settings for hyprland
+    # (import ./modules/hyprland-settings (args // {inherit secrets;}))
+
     (import ./programs/vscode (args // {extensions = inputs.nix-vscode-extensions.extensions.${pkgs.system};}))
     ./programs/htop
     ./programs/syncplay

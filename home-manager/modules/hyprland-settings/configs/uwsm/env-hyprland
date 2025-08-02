@@ -1,0 +1,3 @@
+# TODO move these to the nix side?
+export XCURSOR_SIZE=24
+export HYPRCURSOR_SIZE=24

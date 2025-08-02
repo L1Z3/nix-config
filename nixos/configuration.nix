@@ -24,6 +24,9 @@
     # enable kde plasma 6
     ./modules/plasma
 
+    # enable hyprland
+    # ./modules/hyprland
+
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
   ];
