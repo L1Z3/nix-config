@@ -45,6 +45,7 @@
     unstable.firefox
     obsidian
     kitty
+    cowsay
 
     # TODO nwg-displays for GUI display management
 
