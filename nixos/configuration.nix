@@ -462,6 +462,14 @@
   };
   hardware.steam-hardware.enable = true;
 
+  # parsec alternative
+  services.sunshine = {
+    enable = true;
+    capSysAdmin = true;
+    openFirewall = true;
+    autoStart = false;
+  };
+
   # allow executing hard-coded shebangs like /bin/bash
   # needed for, e.g. jetbrains toolbox generated scripts
   services.envfs.enable = true;

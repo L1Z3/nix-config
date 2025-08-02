@@ -379,6 +379,9 @@ in {
     # binaryninja
     # fastx-client # silly little custom package # TODO upstream
     anydesk
+    parsec-bin
+
+    moonlight-qt
     warpinator-fixed # patched version to add pillow TODO upstream
     # rustdesk
 
