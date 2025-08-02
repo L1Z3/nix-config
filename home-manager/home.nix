@@ -445,6 +445,7 @@ in {
       "us.zoom.Zoom"
       # "org.x.Warpinator"
       # "org.gnome.Evolution"
+      "dev.bambosh.UnofficialHomestuckCollection"
     ];
     update.auto = {
       enable = true;
