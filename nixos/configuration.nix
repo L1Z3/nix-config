@@ -540,7 +540,9 @@
     btrfs-heatmap
     btrbk
     compsize
+    # btrfs-assistant
     # overwritten desktop file to fix https://gitlab.com/btrfs-assistant/btrfs-assistant/-/issues/105
+    # FIXED in 2.2, keeping this comment around for now as a reminder of how to do this sort of thing with symlinkJoin...
     (pkgs.symlinkJoin {
       name = "btrfs-assistant-fixed";
       paths = [btrfs-assistant];
@@ -552,7 +554,7 @@
         # replace Exec line to fix issue
         # XDG_CURRENT_DESKTOP makes the theme work on KDE seemingly (i think i also had to set the theme properly in `systemsettings` as root)
         substituteInPlace $out/share/applications/btrfs-assistant.desktop \
-          --replace "Exec=btrfs-assistant-launcher" 'Exec=sh -c "pkexec env DISPLAY=\\$DISPLAY XAUTHORITY=\\$XAUTHORITY XDG_CURRENT_DESKTOP=\\$XDG_CURRENT_DESKTOP QT_QPA_PLATFORM=waylend-egl btrfs-assistant-launcher"'
+          --replace "Exec=btrfs-assistant-launcher" 'Exec=sh -c "pkexec env DISPLAY=\\$DISPLAY XAUTHORITY=\\$XAUTHORITY XDG_CURRENT_DESKTOP=\\$XDG_CURRENT_DESKTOP WAYLAND_DISPLAY=\\$WAYLAND_DISPLAY XDG_RUNTIME_DIR=\\$XDG_RUNTIME_DIR btrfs-assistant-launcher"'
       '';
     })
     # performance profiling

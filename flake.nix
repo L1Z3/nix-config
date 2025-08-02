@@ -32,6 +32,20 @@
     # pre-generated database for nix-index
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
+    # hyprland = {
+    #   type = "git";
+    #   url = "https://github.com/hyprwm/Hyprland";
+    #   submodules = true;
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    # hyprspace = {
+    #   url = "github:KZDKM/Hyprspace";
+
+    #   # Hyprspace uses latest Hyprland. We declare this to keep them in sync.
+    #   inputs.hyprland.follows = "hyprland";
+    # };
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   # enable the nix community cache, unfree cache
@@ -39,10 +53,17 @@
     extra-substituters = [
       "https://nix-community.cachix.org"
       "https://nixpkgs-unfree.cachix.org"
+      "https://hyprland.cachix.org"
+    ];
+    extra-trusted-substituters = [
+      "https://nix-community.cachix.org"
+      "https://nixpkgs-unfree.cachix.org"
+      "https://hyprland.cachix.org"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
     ];
   };
 

@@ -35,7 +35,7 @@
     else "DYLD_LIBRARY_PATH";
   patchedpython = pkgs.symlinkJoin {
     name = "python";
-    paths = [pkgs.python311Full];
+    paths = [(pkgs.python311Full.withPackages (ppkgs: []))];
     buildInputs = [pkgs.makeWrapper];
     postBuild = ''
       wrapProgram "$out/bin/python3.11" --prefix ${wrapPrefix} : "${pythonldlibpath}"
@@ -60,7 +60,8 @@ in {
     # (import ./modules/plasma-settings (args // {inherit secrets;}))
 
     # home-manager settings for hyprland
-    (import ./modules/hyprland-settings (args // {inherit secrets;}))
+    #(import ./modules/hyprland-settings (args // {inherit secrets;}))
+    ./modules/hyprland-settings
 
     (import ./programs/vscode (args // {extensions = inputs.nix-vscode-extensions.extensions.${pkgs.system};}))
     ./programs/htop
@@ -124,6 +125,7 @@ in {
       enable = true;
       shellAliases = {
         ls = "eza -ga --git"; # modern ls alternative (default -g parameter to make `ls -lah` show groups)
+        l = "eza -gal --git";
         neofetch = "fastfetch -c neofetch";
         subl = "sublime4";
         # TODO potentially make thing to automatically add aliases for scripts in scripts dir?

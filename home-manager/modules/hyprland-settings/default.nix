@@ -3,6 +3,7 @@
   pkgs,
   config,
   secrets,
+  inputs,
   ...
 }: let
   inherit (config.lib.file) mkOutOfStoreSymlink;
@@ -12,29 +13,35 @@
   # additionalConfigsSrcDir = "configs/"
   # additionalConfigs = ["main.conf"];
 
-  gtk-theme-name = "diinki-retro-dark";
+  # a fun little secret: i don't how how determine what the theme name of a package is in a normal way...
+  #   so, instead, i just run `nix-tree ~/.nix-profile` after installing the theme with hm, then search with /,
+  #   then find the path at the bottom, then navigate to that path in the nix store and look at what the folder name is.
+  gtk-theme-name = "catppuccin-mocha-mauve-standard";
+  cursor-theme-name = "catppuccin-mocha-mauve-cursors";
+  cursor-theme-package = pkgs.catppuccin-cursors.mochaMauve;
 
-  wallpaper-path = ../../../media/wallpapers/diinki-tmp-wallpaper.png;
+  wallpaper-path = ../../../media/wallpapers/laundry.png;
 
   theme-colors = {
-    accent = "#AC82E9";
-    accept-deep = "#8F56E1";
-    dark = "#141216";
-    lighter-dark = "#27232b";
-    foreground = "#d8cab8";
-    complementary-accent = "#c4e881";
-    warning = "#fcb167";
-    danger = "#fc4649";
-    yellow = "#f3fc7b";
-    green = "#c4e881";
-    blue = "#7b91fc";
-    cyan = "#92fcfa";
-    magenta = "#fc92fc";
+    accent = "#cba6f7";
+    accent-deep = "#cba6f7";
+    dark = "#11111b";
+    lighter-dark = "#181825";
+    foreground = "#cdd6f4";
+    complementary-accent = "#74c7ec";
+    warning = "#fab387";
+    danger = "#f38ba8";
+    yellow = "#f9e2af";
+    green = "#a6e3a1";
+    blue = "#89b4fa";
+    cyan = "#89dceb";
+    magenta = "#cba6f7";
   };
 
+  theme-colors-gtk-css-vars = lib.strings.concatMapStrings (colorPair: "@define-color color-${colorPair.name} ${colorPair.value};\n") (lib.attrsToList theme-colors);
   theme-colors-css-vars = ''
     :root {
-      ${(lib.strings.concatMapStrings (colorPair: "--color-${colorPair.name}: ${colorPair.value};\n") (builtins.attrsToList theme-colors))}
+      ${(lib.strings.concatMapStrings (colorPair: "--color-${colorPair.name}: ${colorPair.value};\n") (lib.attrsToList theme-colors))}
     }
   '';
 
@@ -45,28 +52,38 @@
     unstable.firefox
     obsidian
     kitty
+    cowsay
 
-    # TODO nwg-displays for GUI display management
+    # TODO: --------------------------------------------
+    #   clipboard history gui
+    #   nwg-displays for GUI display management (also shortcut for it in hyprpanel dashboardmenu)
+    #   fix btrfs-assistant's theme
+    #   theme tuigreet better
+    #   theme firefox/tree style tab
+    #   FIGURE OUT PROPER SESSION MANAGEMENT!!! (maybe just better autostart)
+    #   make colors better for hyprland
+    #   master layout binds?
+    #   spicetify for catppuccin spotify theme
+    #   make linked monitor switch bind better
+    #      specifically, have different a different submap that imports all normal binds (source) and then unbinds workspace switch ones, replacing them with the linked ones
+    #   make spotify autostart in special
+    #   fix hyprsunset schedule
 
     ## main desktop stuff
     # app runner
-    wofi
+    rofi-wayland
     # status bar
-    waybar
-    # gui wallpaper manager TODO maybe re-add
-    # waypaper
+    # waybar
     # wallpaper backend
-    hyprpaper
+    pkgs-hypr.hyprpaper
     # idle timeout stuff
-    hypridle
+    pkgs-hypr.hypridle
     # lock screen
-    hyprlock
+    pkgs-hypr.hyprlock
     # bluelight filter
-    hyprsunset
+    pkgs-hypr.hyprsunset
     # brightness control
     brightnessctl
-    # gui logout thing
-    wlogout
     # media controller
     playerctl
     # allow apps to get elevated permissions
@@ -74,11 +91,11 @@
     # widgets TODO mess with eww
     # eww
     # system info gui
-    hyprsysteminfo
+    pkgs-hypr.hyprsysteminfo
     # gui display config manager
     nwg-displays
     # screenshots
-    hyprshot
+    pkgs-hypr.hyprshot
 
     ## other desktop apps
     # terminal
@@ -109,48 +126,52 @@
     pywal16
     # used to create non-GTK4 themes
     themix-gui
+
+    # cursor theme
+    cursor-theme-package
   ];
   pkgsToVars = pkgsToConv: (with builtins; (listToAttrs (map (aPkg: {
       name = builtins.replaceStrings ["-"] ["_"] "$pkg_${lib.getName aPkg}";
       value = lib.getExe aPkg;
     })
     pkgsToConv)));
-  colorsToVars = colorsAttrSet: (lib.attrsets.mapAttrs' (name: value: builtins.nameValuePair ("$color_" + (builtins.replaceStrings ["-"] ["_"] name)) (lib.strings.removePrefix "#" value)) colorsAttrSet);
+  colorsToVars = colorsAttrSet: (lib.attrsets.mapAttrs' (name: value: lib.nameValuePair ("$color_" + (builtins.replaceStrings ["-"] ["_"] name)) (lib.strings.removePrefix "#" value)) colorsAttrSet);
+  # pkgs-hypr = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  pkgs-hypr = pkgs;
 in {
+  imports = [
+    inputs.catppuccin.homeModules.catppuccin
+  ];
+
   home.packages = hyprland-config-pkgs ++ [];
+
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+    accent = "mauve";
+    # TODO re-enable this. it's disabled to prevent conflicts right now
+    vscode.profiles.default.enable = false;
+    # waybar.mode = "createLink";
+    # for some reason, this is causing the hm switch to get stuck forever...
+    # NOTE: currently if flavor != mocha or accent != blue, the build will freeze.
+    #       see https://github.com/NixOS/nixpkgs/issues/426952
+    gtk.icon.enable = true;
+    gtk.icon.accent = "blue";
+    hyprlock.useDefaultConfig = false;
+  };
 
   services = {
     hyprpaper = {
       enable = true;
+      package = pkgs-hypr.hyprpaper;
       settings = {
-        preload = [wallpaper-path];
-        wallpaper = [wallpaper-path];
+        preload = ["${wallpaper-path}"];
+        wallpaper = [",${wallpaper-path}"];
       };
     };
-    # notification daemon
-    swaync.enable = true;
     # lockscreen service
     hypridle.enable = true;
-    # bluelight filter
-    hyprsunset = {
-      enable = true;
-      transitions = {
-        sunrise = {
-          calendar = "*-*-* 07:00:00";
-          requests = [
-            ["temperature" "6500"]
-            ["gamma +10"]
-          ];
-        };
-        sunset = {
-          calendar = "*-*-* 21:00:00";
-          requests = [
-            ["temperature" "3200"]
-            ["gamma -10"]
-          ];
-        };
-      };
-    };
+    hypridle.package = pkgs-hypr.hypridle;
     udiskie.enable = true;
   };
   # autostart polkit gnome
@@ -176,78 +197,81 @@ in {
     kitty = {
       enable = true;
       enableGitIntegration = true;
-      enableBashIntegration = true;
+      shellIntegration.mode = "no-cursor";
       settings = {
         include = "${thisDir}/configs/kitty/kitty-extra.conf";
+      };
+    };
+    # only down here as well as in home.packages so that catppuccin nix can see it
+    # waybar.enable = true;
+    hyprpanel.enable = true;
+    # i want to be able to use the GUI for managing settings, and so we don't want any settings being generated
+    hyprpanel.settings = lib.mkForce {};
+    hyprlock = {
+      enable = true;
+      package = pkgs-hypr.hyprlock;
+      settings = {
+        "$wallpaper" = "${wallpaper-path}";
+        source = lib.mkAfter ["${config.home.homeDirectory}/.config/hypr/hyprlock-extra.conf"];
       };
     };
   };
 
   # TODO make this automatic for more files with nix nonsense instead of copy-paste for more files
   xdg.configFile = {
-    "kitty/kitty-colors.conf".text = with theme-colors; ''
-      cursor               ${accent}
-
-      selection_background ${foreground}
-      selection_foreground ${dark}
-
-      background           ${dark}
-      foreground           ${foreground}
-
-      # TODO move this top color to the theme-colors attrset
-      color0               #2b2135
-      color8               ${cyan}
-      color1               ${danger}
-      color9               ${danger}
-      color2               ${green}
-      color10              ${green}
-      color3               ${accent}
-      color11              ${accent}
-      color4               ${blue}
-      color12              ${blue}
-      color5               ${yellow}
-      color13              ${yellow}
-      color6               ${accent-deep}
-      color14              ${accent-deep}
-      color7               ${magenta}
-      color15              ${foreground}
-    '';
-    "waybar/theme-colors.css".text = theme-colors-css-vars;
-    "wofi/theme-colors.css".text = theme-colors-css-vars;
-    "wlogout/theme-colors.css".text = theme-colors-css-vars;
-
     "hypr/configs/main.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/main.conf";
-    "hypr/hyprlock.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hyprlock.conf";
+    "hypr/configs/special-workspaces.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/special-workspaces.conf";
+    "hypr/hyprlock-extra.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hyprlock-extra.conf";
     "hypr/hypridle.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hypridle.conf";
-    "wofi/config".source = mkOutOfStoreSymlink "${thisDir}/configs/wofi/config";
-    "wofi/style.css".source = mkOutOfStoreSymlink "${thisDir}/configs/wofi/style.css";
-    "uwsm/env-hyprland".source = mkOutOfStoreSymlink "${thisDir}/configs/uwsm/env-hyprland";
-    # TODO maybe use waypaper if i feel like it
-    # "waypaper/config.ini".source = mkOutOfStoreSymlink "${thisDir}/configs/waypaper/config.ini";
-    "wlogout/layout".source = mkOutOfStoreSymlink "${thisDir}/configs/wlogout/layout";
-    "wlogout/style.css".source = mkOutOfStoreSymlink "${thisDir}/configs/wlogout/style.css";
-    "waybar/config.jsonc".source = mkOutOfStoreSymlink "${thisDir}/configs/waybar/config.jsonc";
-    "waybar/style.css".source = mkOutOfStoreSymlink "${thisDir}/configs/waybar/style.css";
+    "hypr/hyprsunset.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hyprsunset.conf";
+    "hyprpanel/config.json".source = mkOutOfStoreSymlink "${thisDir}/configs/hyprpanel/config.json";
+    "hyprpanel/modules.json".source = mkOutOfStoreSymlink "${thisDir}/configs/hyprpanel/modules.json";
+    "rofi/config.rasi".source = mkOutOfStoreSymlink "${thisDir}/configs/rofi/config.rasi";
+    "rofi/catppuccin-lavrent-mocha.rasi".source = mkOutOfStoreSymlink "${thisDir}/configs/rofi/catppuccin-lavrent-mocha.rasi";
     "kitty/kitty-extra.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/kitty/kitty-extra.conf"; # main kity conf is managed by home-manager
+
+    # passes through hm env vars to uwsm
+    "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
   };
-  home.file.".themes/diinki-retro-dark" = {
-    source = ./configs/gtk_theme/diinki-retro-dark;
-    recursive = true;
-  };
+  # home.file.".themes/${gtk-theme-name}" = {
+  #   source = ./configs/gtk_theme/${gtk-theme-name};
+  #   recursive = false;
+  # };
 
   # let home-manager manage top-level hyprland.conf
   #   (but for now i put most of my actual configs in out-of-store symlink'd modules for easy reloading/iterating)
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
+    # packages are null since we install hyprland on the NixOS side
+    package = null;
+    portalPackage = null;
+    # also needed since we install hyprland on the nixos side
+    systemd.variables = ["--all"];
+    # package = hyprpkg.hyprland;
+    # portalPackage = hyprpkg.xdg-desktop-portal-hyprland;
+    plugins = with pkgs.hyprlandPlugins; [
+      # hyprspace
+      # hyprexpo
+      hyprsplit
+      hyprgrass
+      hypr-dynamic-cursors
+      # hyprwinwrap # reenable if i want wallpaper engine
+    ];
+    # needed for uwsm
+    systemd.enable = false;
     settings = lib.attrsets.mergeAttrsList [
       (pkgsToVars hyprland-config-pkgs) # add in variables for installed pkgs for easy referencing in out-of-nix hyprland configs
       (colorsToVars theme-colors) # add in variables for colors for current theme
       {
         "$wallpaper_path" = "${wallpaper-path}";
-        "$reload_waybar" = "${./scripts/reload_waybar.sh}";
-        "$reload_hyprpaper" = "${./scripts/reload_hyprpaper.sh}";
+        "$reload_hyprpanel" = "${mkOutOfStoreSymlink "${thisDir}/scripts/reload_hyprpanel.sh"}";
+        "$reload_hyprpaper" = "${mkOutOfStoreSymlink "${thisDir}/scripts/reload_hyprpaper.sh"}";
+        "$linked_monitor_switch" = "${mkOutOfStoreSymlink "${thisDir}/scripts/linked_monitor_switch.sh"}";
+        "$open_last_screenshot" = "${mkOutOfStoreSymlink "${thisDir}/scripts/open-last-screenshot.sh"}";
+        "$pkg_window_search" = "${mkOutOfStoreSymlink "${thisDir}/scripts/window-search.py"}";
         "$gtk_theme_name" = "${gtk-theme-name}";
+        "$cursor_theme_name" = "${cursor-theme-name}";
         source = [
           "${thisDir}/configs/hypr/main.conf"
         ];
@@ -262,28 +286,40 @@ in {
   # see https://wiki.hyprland.org/Nix/Hyprland-on-Home-Manager/#fixing-problems-with-themes
   home.pointerCursor = {
     gtk.enable = true;
-    # x11.enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Classic";
-    size = 16;
+    x11.enable = true;
+    hyprcursor.enable = true;
+    package = cursor-theme-package;
+    name = cursor-theme-name;
+    size = 24;
   };
 
   gtk = {
     enable = true;
-
+    # if the normal gtk theme stops working (it's no longer supported), i can try magnetic-catppuccin-gtk
     theme = {
-      name = "diinki-retro-dark";
-    };
-
-    # TODO different icon theme
-    iconTheme = {
-      package = pkgs.adwaita-icon-theme;
-      name = "Adwaita";
+      name = "${gtk-theme-name}";
+      package = pkgs.catppuccin-gtk.override {
+        accents = ["mauve"];
+        variant = "mocha";
+      };
     };
 
     # font = {
     #   name = "Sans";
     #   size = 11;
     # };
+  };
+
+  qt = {
+    enable = true;
+    platformTheme.name = "kvantum";
+    style = {
+      name = "kvantum";
+      catppuccin = {
+        enable = true;
+        flavor = "mocha";
+        accent = "mauve";
+      };
+    };
   };
 }
