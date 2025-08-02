@@ -18,7 +18,7 @@
 
   theme-colors = {
     accent = "#AC82E9";
-    accept-deep = "#8F56E1";
+    accent-deep = "#8F56E1";
     dark = "#141216";
     lighter-dark = "#27232b";
     foreground = "#d8cab8";
@@ -34,7 +34,7 @@
 
   theme-colors-css-vars = ''
     :root {
-      ${(lib.strings.concatMapStrings (colorPair: "--color-${colorPair.name}: ${colorPair.value};\n") (builtins.attrsToList theme-colors))}
+      ${(lib.strings.concatMapStrings (colorPair: "--color-${colorPair.name}: ${colorPair.value};\n") (lib.attrsToList theme-colors))}
     }
   '';
 
@@ -115,7 +115,7 @@
       value = lib.getExe aPkg;
     })
     pkgsToConv)));
-  colorsToVars = colorsAttrSet: (lib.attrsets.mapAttrs' (name: value: builtins.nameValuePair ("$color_" + (builtins.replaceStrings ["-"] ["_"] name)) (lib.strings.removePrefix "#" value)) colorsAttrSet);
+  colorsToVars = colorsAttrSet: (lib.attrsets.mapAttrs' (name: value: lib.nameValuePair ("$color_" + (builtins.replaceStrings ["-"] ["_"] name)) (lib.strings.removePrefix "#" value)) colorsAttrSet);
 in {
   home.packages = hyprland-config-pkgs ++ [];
 
@@ -123,8 +123,8 @@ in {
     hyprpaper = {
       enable = true;
       settings = {
-        preload = [wallpaper-path];
-        wallpaper = [wallpaper-path];
+        preload = ["${wallpaper-path}"];
+        wallpaper = ["${wallpaper-path}"];
       };
     };
     # notification daemon
@@ -176,7 +176,7 @@ in {
     kitty = {
       enable = true;
       enableGitIntegration = true;
-      enableBashIntegration = true;
+      # enableBashIntegration = true;
       settings = {
         include = "${thisDir}/configs/kitty/kitty-extra.conf";
       };
