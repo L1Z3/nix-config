@@ -7,6 +7,7 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     # to maintain compatibility with old unstable overlay
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-krisp-discord-fix.url = "github:samschlegel/nixpkgs/samschlegel/use-fhsenv-for-discord-linux";
 
     # local dev fork of nixpkgs
     # nixpkgs-dev.url = "/home/liz/projects/nixpkgs-fork-dev";

@@ -19,6 +19,13 @@
     };
   };
 
+  krisp-discord-fix-packages = final: _prev: {
+    krisp-fix = import inputs.nixpkgs-krisp-discord-fix {
+      system = final.system;
+      config.allowUnfree = true;
+    };
+  };
+
   # same, but for master branch (if we enabled master in flake.nix)
   ${
     if inputs ? nixpkgs-master

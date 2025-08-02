@@ -83,6 +83,7 @@ in {
       outputs.overlays.unstable-packages
       outputs.overlays.dev-packages
       outputs.overlays.master-packages
+      outputs.overlays.krisp-discord-fix-packages
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
 
@@ -382,7 +383,13 @@ in {
     # rustdesk
 
     # messaging
-    vesktop
+    # vesktop
+    # (pkgs.discord.override {
+    #   # withVencord = true;
+    # })
+    # discord
+    # discord PR to fix krisp on linux https://github.com/NixOS/nixpkgs/pull/424232
+    krisp-fix.discord
     slack
     # slack-cli # TODO currently manually installed into ~/.local/share/slack, i should move this
     unstable.discordchatexporter-desktop
@@ -498,7 +505,7 @@ in {
   };
 
   # arRPC for vesktop
-  services.arrpc.enable = true;
+  # services.arrpc.enable = true;
 
   # duplicacy backup service
   # (this relies on out-of-nix duplicacy configs)
