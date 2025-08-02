@@ -419,7 +419,7 @@ in {
     dolphin-emu
     # unstable.godot_4
 
-    googleearth-pro
+    # googleearth-pro
   ];
 
   # flatpaks
