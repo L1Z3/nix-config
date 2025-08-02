@@ -51,7 +51,7 @@ in {
     inputs.nix-flatpak.homeManagerModules.nix-flatpak
 
     # enable prebuilt indexes for nix-index
-    inputs.nix-index-database.hmModules.nix-index
+    inputs.nix-index-database.homeModules.nix-index
 
     # home-manager settings for GNOME
     # (import ./modules/gnome-settings.nix (args // {inherit secrets;}))
