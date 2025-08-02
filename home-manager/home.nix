@@ -60,7 +60,8 @@ in {
     # (import ./modules/plasma-settings (args // {inherit secrets;}))
 
     # home-manager settings for hyprland
-    (import ./modules/hyprland-settings (args // {inherit secrets;}))
+    #(import ./modules/hyprland-settings (args // {inherit secrets;}))
+    ./modules/hyprland-settings
 
     (import ./programs/vscode (args // {extensions = inputs.nix-vscode-extensions.extensions.${pkgs.system};}))
     ./programs/htop
