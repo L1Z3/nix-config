@@ -549,7 +549,7 @@
         # replace Exec line to fix issue
         # XDG_CURRENT_DESKTOP makes the theme work on KDE seemingly (i think i also had to set the theme properly in `systemsettings` as root)
         substituteInPlace $out/share/applications/btrfs-assistant.desktop \
-          --replace "Exec=btrfs-assistant-launcher" 'Exec=sh -c "pkexec env DISPLAY=\\$DISPLAY XAUTHORITY=\\$XAUTHORITY XDG_CURRENT_DESKTOP=\\$XDG_CURRENT_DESKTOP btrfs-assistant-launcher"'
+          --replace "Exec=btrfs-assistant-launcher" 'Exec=sh -c "pkexec env DISPLAY=\\$DISPLAY XAUTHORITY=\\$XAUTHORITY XDG_CURRENT_DESKTOP=\\$XDG_CURRENT_DESKTOP QT_QPA_PLATFORM=waylend-egl btrfs-assistant-launcher"'
       '';
     })
     # performance profiling
