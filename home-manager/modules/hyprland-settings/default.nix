@@ -332,7 +332,7 @@ in {
     hyprcursor.enable = true;
     package = cursor-theme-package;
     name = cursor-theme-name;
-    size = 22;
+    size = 30;
   };
 
   gtk = {
