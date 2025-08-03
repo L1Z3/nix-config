@@ -2,13 +2,21 @@
   lib,
   pkgs,
   config,
+  inputs,
   ...
-}: {
+}: let
+  hyprpkg = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
+in {
   programs.hyprland = {
     enable = true;
     withUWSM = true; # better systemd integration
     xwayland.enable = true;
+    # set the flake package
+    package = hyprpkg.hyprland;
+    # make sure to also set the portal package, so that they are in sync
+    portalPackage = hyprpkg.xdg-desktop-portal-hyprland;
   };
+
   programs.xwayland.enable = true;
   # TODO monitor config?
   services.displayManager = {

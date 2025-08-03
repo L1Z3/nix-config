@@ -3,6 +3,7 @@
   pkgs,
   config,
   secrets,
+  inputs,
   ...
 }: let
   inherit (config.lib.file) mkOutOfStoreSymlink;
@@ -11,7 +12,6 @@
   # additionalConfigsTargetDir = "hypr/configs/";
   # additionalConfigsSrcDir = "configs/"
   # additionalConfigs = ["main.conf"];
-
   gtk-theme-name = "diinki-retro-dark";
 
   wallpaper-path = ../../../media/wallpapers/diinki-tmp-wallpaper.png;
@@ -56,6 +56,7 @@
     #   add more waybar widgets, e.g. for bluetooth, better wifi one, better sound one, toggling bluelight filter
     #   fix all icons, e.g. in vscode and the sound icon
     #   *****get better kindbinds for window management and stuff***** e.g. more group binds, moving windows, etc (use caps as extra modifer!!!)
+    #          ideally, better keybinds for basically everything imagine to do with window movement, and have it feel natural
     #   fix btrfs-assistant
     #   style hyprlock
     #   custom/different wallpaper
@@ -63,6 +64,12 @@
     #   clipboard history gui
     #   style hyprland grouped tabs (integrate into waybar??)
     #   tweak hyprshot stuff
+    #   source hyprlock wallpaper from nix
+    #   set up hyprspace
+    #   set up nwg-displays/other useful nwg shell stuff
+    #   media widget in waybar
+    #   fix text in groups overlapping with bar
+    #   get hyprland cache working for git version?
 
     ## main desktop stuff
     # app runner
@@ -132,6 +139,7 @@
     })
     pkgsToConv)));
   colorsToVars = colorsAttrSet: (lib.attrsets.mapAttrs' (name: value: lib.nameValuePair ("$color_" + (builtins.replaceStrings ["-"] ["_"] name)) (lib.strings.removePrefix "#" value)) colorsAttrSet);
+  hyprpkg = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
 in {
   home.packages = hyprland-config-pkgs ++ [];
 
@@ -256,6 +264,14 @@ in {
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
+    # packages are null since we install hyprland on the NixOS side
+    # package = null;
+    # portalPackage = null;
+    package = hyprpkg.hyprland;
+    portalPackage = hyprpkg.xdg-desktop-portal-hyprland;
+    plugins = [
+      inputs.hyprspace.packages.${pkgs.system}.Hyprspace
+    ];
     # needed for uwsm
     systemd.enable = false;
     settings = lib.attrsets.mergeAttrsList [
