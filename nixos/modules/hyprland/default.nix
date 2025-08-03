@@ -16,9 +16,28 @@ in {
     # make sure to also set the portal package, so that they are in sync
     portalPackage = hyprpkg.xdg-desktop-portal-hyprland;
   };
-  # ly + uwsm failed to start hyprland, so we use regreet for now (config taken from https://github.com/dearfl/nyx/blob/aa8a023e4638ca76fceaaf1e94b006ac8c60dcd1/hosts/optional/hyprland.nix#L4)
-  services.greetd.enable = true;
-  programs.regreet.enable = true;
+  # ly + uwsm failed to start hyprland, so we use tuigreet for now
+  services.greetd = {
+    enable = true;
+    package = pkgs.greetd.tuigreet;
+    restart = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r --remember-session";
+        user = "greeter";
+      };
+    };
+  };
+  # optional below
+  systemd.services.greetd.serviceConfig = {
+    Type = "idle";
+    StandardInput = "tty";
+    StandardOutput = "null"; # no tty spam
+    StandardError = "journal";
+    TTYReset = true;
+    TTYVHangup = true;
+    TTYVTDisallocate = true;
+  };
   programs.uwsm = {
     enable = true;
     waylandCompositors = {
