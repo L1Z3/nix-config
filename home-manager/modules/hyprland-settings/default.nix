@@ -241,6 +241,8 @@ in {
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
+    # needed for uwsm
+    systemd.enable = false;
     settings = lib.attrsets.mergeAttrsList [
       (pkgsToVars hyprland-config-pkgs) # add in variables for installed pkgs for easy referencing in out-of-nix hyprland configs
       (colorsToVars theme-colors) # add in variables for colors for current theme
