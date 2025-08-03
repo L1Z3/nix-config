@@ -178,7 +178,6 @@ in {
     kitty = {
       enable = true;
       enableGitIntegration = true;
-      # enableBashIntegration = true;
       settings = {
         include = "${thisDir}/configs/kitty/kitty-extra.conf";
       };
