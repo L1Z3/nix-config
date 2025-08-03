@@ -14,7 +14,7 @@
   # additionalConfigs = ["main.conf"];
   gtk-theme-name = "catppuccin-mocha-mauve-standard";
 
-  wallpaper-path = ../../../media/wallpapers/comfy-home.png;
+  wallpaper-path = ../../../media/wallpapers/laundry.png;
 
   theme-colors = {
     accent = "#cba6f7";
