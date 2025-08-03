@@ -6,6 +6,7 @@
   ...
 }: let
   hyprpkg = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
+  pkgs-hypr = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in {
   programs.hyprland = {
     enable = true;
@@ -19,7 +20,6 @@ in {
   # ly + uwsm failed to start hyprland, so we use tuigreet for now
   services.greetd = {
     enable = true;
-    package = pkgs.greetd.tuigreet;
     # restart = true;
     # vt = 1; # tty
     settings = {
@@ -43,16 +43,16 @@ in {
   #   TTYVHangup = true;
   #   TTYVTDisallocate = true;
   # };
-  programs.uwsm = {
-    enable = true;
-    waylandCompositors = {
-      hyprland = {
-        prettyName = "Hyprland";
-        comment = "Hyprland compositor managed by UWSM";
-        binPath = "/run/current-system/sw/bin/Hyprland";
-      };
-    };
-  };
+  # programs.uwsm = {
+  #   enable = true;
+  #   waylandCompositors = {
+  #     hyprland = {
+  #       prettyName = "Hyprland";
+  #       comment = "Hyprland compositor managed by UWSM";
+  #       binPath = "/run/current-system/sw/bin/Hyprland";
+  #     };
+  #   };
+  # };
 
   programs.xwayland.enable = true;
   # TODO monitor config?
@@ -61,8 +61,8 @@ in {
 
   environment.systemPackages = with pkgs; [
     xorg.libXcursor
-    hyprland-qtutils
-    hyprland-qt-support
+    pkgs-hypr.hyprland-qtutils
+    pkgs-hypr.hyprland-qt-support
     bibata-cursors
   ];
 
