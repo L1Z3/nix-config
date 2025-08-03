@@ -1,4 +1,5 @@
 @import "/home/liz/.config/waybar/theme-colors.css"; /* theme colors from nix */
+@import "/home/liz/.config/waybar/catppuccin.css";
 
 * {
   /* General taskbar font, I like maple mono ^-^*/
@@ -11,7 +12,7 @@
 
 window#waybar {
   /* Linear gradients are used because it makes less harsh rounded border radius, gtk bug :p */
-  background-color: rgba(20, 18, 22, 0.7);
+  background-color: @base;
 
   border-radius: 14px;
   padding: 0px;
@@ -32,10 +33,10 @@ window#waybar {
   margin-right: 0px;
   padding: 2px 8px;
   border-radius: 8px;
-  color: @color-foreground;
+  color: @text;
 
   border-style: solid;
-  border-color: @color-foreground;
+  border-color: @lavender;
   border-width: 1px;
 
   transition-duration: 120ms;
@@ -46,14 +47,21 @@ window#waybar {
   margin-right: 6px;
 }
 
+#custom-notification:hover {
+  background-color: @surface0;
+  color: @subtext0;
+  transition-duration: 120ms;
+}
+
 #clock:hover {
-  background-color: rgba(20, 18, 22, 0.7);
-  color: @color-foreground;
+  background-color: @surface0;
+  color: @subtext0;
+  transition-duration: 120ms;
 }
 
 #pulseaudio:hover {
-  background-color: rgba(20, 18, 22, 0.7);
-  color: @color-foreground;
+  background-color: @surface0;
+  color: @subtext0;
   transition-duration: 120ms;
 }
 
@@ -63,28 +71,28 @@ window#waybar {
   padding: 0px 25px 0px 25px;
 }
 #custom-applauncher:hover {
-  background-color: rgba(20, 18, 22, 0.7);
-  color: @color-foreground;
+  background-color: @surface0;
+  color: @subtext0;
   transition-duration: 120ms;
 }
 
 #tray menu {
-  background-color: @color-dark;
-  color: @color-foreground;
+  background-color: @mantle;
+  color: @text;
   padding: 4px;
 }
 #tray menu menuitem {
-  background-image: linear-gradient(to bottom, @color-lighter-dark 100%);
+  background-image: linear-gradient(to bottom, @surface0 100%);
 
   margin: 3px;
-  color: @color-foreground;
+  color: @text;
   border-radius: 4px;
   border-style: solid;
-  border-color: @color-lighter-dark;
+  border-color: @surface0;
 }
 #tray menu menuitem:hover {
-  background-image: linear-gradient(to bottom, @color-lighter-dark 100%);
-  color: @color-accent;
+  background-image: linear-gradient(to bottom, @surface0 100%);
+  color: @lavender;
   font-weight: bold;
 }
 
@@ -93,30 +101,30 @@ window#waybar {
   all: initial;
   min-width: 0;
   font-weight: bold;
-  color: @color-foreground;
+  color: @text;
   margin-right: 0.2cm;
   margin-left: 0.2cm;
 }
 
 #workspaces button:hover {
   transition-duration: 120ms;
-  color: @color-accent-deep;
+  color: @pink;
 }
 #workspaces button.focused {
-  color: @color-accent;
+  color: @mauve;
   font-weight: bold;
 }
 #workspaces button.active {
-  color: @color-accent;
+  color: @mauve;
   font-weight: bold;
 }
 #workspaces button.urgent {
-  color: @color-warning;
+  color: @peach;
 }
 
 #battery.warning,
 #battery.critical,
 #battery.urgent {
   color: #1d2021;
-  background-color: @color-danger;
+  background-color: @red;
 }

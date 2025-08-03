@@ -165,7 +165,6 @@ in {
     accent = "mauve";
     # TODO re-enable this. it's disabled to prevent conflicts right now
     vscode.profiles.default.enable = false;
-    waybar.enable = true;
     waybar.mode = "createLink";
     # for some reason, this is causing the hm switch to get stuck forever...
     # NOTE: currently if flavor != mocha or accent != blue, the build will freeze.
