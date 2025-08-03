@@ -33,7 +33,7 @@
   },
   "custom/applauncher": {
     "format": "///",
-    "on-click": "pgrep wofi >/dev/null 2>&1 && killall wofi || wofi --show drun --location=top -y 10",
+    "on-click": "pkill wofi || wofi --show drun --location=top -y 10",
     "tooltip": false
   },
   "tray": {

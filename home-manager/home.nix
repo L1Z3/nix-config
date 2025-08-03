@@ -157,6 +157,8 @@ in {
       };
       profileExtra = ''
         # add .profile things here
+        # bash prompt
+        PS1='\[\e[32m\]\u@\h:\W \$\[\e[m\] '
       '';
       initExtra =
         ''
