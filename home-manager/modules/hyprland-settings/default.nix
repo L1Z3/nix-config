@@ -73,6 +73,7 @@
     #   theme tui greet better
     #   theme firefox/tree style tab
     #   FIGURE OUT PROPER SESSION MANAGEMENT!!!
+    #   KEEP ENABLING/FIXING CATPPUCCIN FOR EVERYTHING
 
     ## main desktop stuff
     # app runner
@@ -135,6 +136,8 @@
     pywal16
     # used to create non-GTK4 themes
     themix-gui
+    # dependencies for catpuccin theme
+    sassc
   ];
   pkgsToVars = pkgsToConv: (with builtins; (listToAttrs (map (aPkg: {
       name = builtins.replaceStrings ["-"] ["_"] "$pkg_${lib.getName aPkg}";
@@ -145,7 +148,22 @@
   hyprpkg = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
   pkgs-hypr = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in {
+  imports = [
+    inputs.catppuccin.homeModules.catppuccin
+  ];
+
   home.packages = hyprland-config-pkgs ++ [];
+
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+    accent = "mauve";
+    # TODO re-enable this. it's disabled to prevent conflicts right now
+    vscode.profiles.default.enable = false;
+    waybar.mode = "createLink";
+    # for some reason, this is causing the hm switch to get stuck forever...
+    gtk.icon.enable = false;
+  };
 
   services = {
     hyprpaper = {
@@ -216,33 +234,33 @@ in {
 
   # TODO make this automatic for more files with nix nonsense instead of copy-paste for more files
   xdg.configFile = {
-    "kitty/kitty-colors.conf".text = with theme-colors; ''
-      cursor               ${accent}
+    # "kitty/kitty-colors.conf".text = with theme-colors; ''
+    #   cursor               ${accent}
 
-      selection_background ${foreground}
-      selection_foreground ${dark}
+    #   selection_background ${foreground}
+    #   selection_foreground ${dark}
 
-      background           ${dark}
-      foreground           ${foreground}
+    #   background           ${dark}
+    #   foreground           ${foreground}
 
-      # TODO move this top color to the theme-colors attrset
-      color0               #2b2135
-      color8               ${cyan}
-      color1               ${danger}
-      color9               ${danger}
-      color2               ${green}
-      color10              ${green}
-      color3               ${accent}
-      color11              ${accent}
-      color4               ${blue}
-      color12              ${blue}
-      color5               ${yellow}
-      color13              ${yellow}
-      color6               ${accent-deep}
-      color14              ${accent-deep}
-      color7               ${magenta}
-      color15              ${foreground}
-    '';
+    #   # TODO move this top color to the theme-colors attrset
+    #   color0               #2b2135
+    #   color8               ${cyan}
+    #   color1               ${danger}
+    #   color9               ${danger}
+    #   color2               ${green}
+    #   color10              ${green}
+    #   color3               ${accent}
+    #   color11              ${accent}
+    #   color4               ${blue}
+    #   color12              ${blue}
+    #   color5               ${yellow}
+    #   color13              ${yellow}
+    #   color6               ${accent-deep}
+    #   color14              ${accent-deep}
+    #   color7               ${magenta}
+    #   color15              ${foreground}
+    # '';
     "waybar/theme-colors.css".text = theme-colors-gtk-css-vars;
     "wofi/theme-colors.css".text = theme-colors-gtk-css-vars;
     "wlogout/theme-colors.css".text = theme-colors-gtk-css-vars;
@@ -316,16 +334,23 @@ in {
 
   gtk = {
     enable = true;
-
     theme = {
-      name = gtk-theme-name;
+      name = "Catppuccin-Mocha-Mauve";
+      package = pkgs.catppuccin-gtk.override {
+        accents = ["mauve"];
+        variant = "mocha";
+      };
     };
+
+    # theme = {
+    #   name = gtk-theme-name;
+    # };
 
     # TODO different icon theme
-    iconTheme = {
-      package = pkgs.adwaita-icon-theme;
-      name = "Adwaita";
-    };
+    # iconTheme = {
+    #   package = pkgs.adwaita-icon-theme;
+    #   name = "Adwaita";
+    # };
 
     # font = {
     #   name = "Sans";

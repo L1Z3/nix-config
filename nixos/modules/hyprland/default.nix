@@ -8,6 +8,9 @@
   hyprpkg = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
   pkgs-hypr = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in {
+  imports = [
+    inputs.catppuccin.nixosModules.catppuccin
+  ];
   programs.hyprland = {
     enable = true;
     withUWSM = true; # better systemd integration
@@ -31,6 +34,7 @@ in {
         user = "greeter";
       };
     };
+  };
   systemd.services.greetd.serviceConfig = {
     Type = "idle";
     StandardInput = "tty";

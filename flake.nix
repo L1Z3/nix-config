@@ -45,6 +45,7 @@
       # Hyprspace uses latest Hyprland. We declare this to keep them in sync.
       inputs.hyprland.follows = "hyprland";
     };
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   # enable the nix community cache, unfree cache

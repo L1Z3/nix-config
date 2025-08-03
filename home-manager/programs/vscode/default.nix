@@ -2,6 +2,7 @@
   pkgs,
   config,
   extensions,
+  lib,
   ...
 }: let
   inherit (config.lib.file) mkOutOfStoreSymlink;
@@ -45,6 +46,6 @@ in {
   xdg.configFile = {
     # "VSCode/User/keybindings.json".source =mkIf isLinux { keybindingsFile;
     # TODO make the path relative to flake dir somehow (still needs to expand to absolute path for nix reasons)
-    "${vsCodeDir}/User/settings.json".source = mkOutOfStoreSymlink "${pathToHere}/settings.json";
+    "${vsCodeDir}/User/settings.json".source = lib.mkForce (mkOutOfStoreSymlink "${pathToHere}/settings.json");
   };
 }
