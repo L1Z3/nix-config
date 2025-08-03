@@ -12,6 +12,10 @@
   # additionalConfigsTargetDir = "hypr/configs/";
   # additionalConfigsSrcDir = "configs/"
   # additionalConfigs = ["main.conf"];
+
+  # a fun little secret: i don't how how determine what the theme name of a package is in a normal way...
+  #   so, instead, i just run `nix-tree ~/.nix-profile` after installing the theme with hm, then search with /,
+  #   then find the path at the bottom, then navigate to that path in the nix store and look at what the folder name is.
   gtk-theme-name = "catppuccin-mocha-mauve-standard";
   cursor-theme-name = "catppuccin-mocha-mauve-cursors";
   cursor-theme-package = pkgs.catppuccin-cursors.mochaMauve;
@@ -161,6 +165,7 @@ in {
     accent = "mauve";
     # TODO re-enable this. it's disabled to prevent conflicts right now
     vscode.profiles.default.enable = false;
+    waybar.enable = true;
     waybar.mode = "createLink";
     # for some reason, this is causing the hm switch to get stuck forever...
     # NOTE: currently if flavor != mocha or accent != blue, the build will freeze.
