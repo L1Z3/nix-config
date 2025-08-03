@@ -67,7 +67,7 @@
     #   set up hyprspace
     #   set up nwg-displays/other useful nwg shell stuff
     #   media widget in waybar
-    #   fix text in groups overlapping with bar
+    #   style group stuff in hyprland
     #   get hyprland cache working for git version?
     #   determine if package version mismatch between, e.g. hyprshot depending on hyprland 0.5.1 and hyprspace forcing it at 0.5.0 is a problem
     #   theme tui greet better
@@ -345,15 +345,10 @@ in {
       };
     };
 
-    # theme = {
-    #   name = gtk-theme-name;
-    # };
-
-    # TODO different icon theme
-    # iconTheme = {
-    #   package = pkgs.adwaita-icon-theme;
-    #   name = "Adwaita";
-    # };
+    cursorTheme = {
+      name = "Catppuccin-Mocha-Mauve";
+      package = pkgs.catppuccin-cursors.mochaMauve;
+    };
 
     # font = {
     #   name = "Sans";
