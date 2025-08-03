@@ -134,25 +134,25 @@ in {
     # lockscreen service
     hypridle.enable = true;
     # bluelight filter
-    #hyprsunset = {
-    #  enable = true;
-    #  settings = {
-    #    sunrise = {
-    #      calendar = "*-*-* 07:00:00";
-    #      requests = [
-    #        ["temperature" "6500"]
-    #        ["gamma +10"]
-    #      ];
-    #    };
-    #    sunset = {
-    #      calendar = "*-*-* 21:00:00";
-    #      requests = [
-    #        ["temperature" "3200"]
-    #        ["gamma -10"]
-    #      ];
-    #    };
-    #  };
-    #};
+    hyprsunset = {
+      enable = true;
+      transitions = {
+        sunrise = {
+          calendar = "*-*-* 07:00:00";
+          requests = [
+            ["temperature" "6500"]
+            ["gamma +10"]
+          ];
+        };
+        sunset = {
+          calendar = "*-*-* 21:00:00";
+          requests = [
+            ["temperature" "3200"]
+            ["gamma -10"]
+          ];
+        };
+      };
+    };
     udiskie.enable = true;
   };
   # autostart polkit gnome
@@ -178,6 +178,7 @@ in {
     kitty = {
       enable = true;
       enableGitIntegration = true;
+      shellIntegration.mode = "no-cursor";
       settings = {
         include = "${thisDir}/configs/kitty/kitty-extra.conf";
       };
