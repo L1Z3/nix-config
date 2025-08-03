@@ -492,6 +492,8 @@ in {
   home.sessionVariables = {
     MOZ_ENABLE_WAYLAND = 1;
     # put variables here
+    XCURSOR_SIZE = 22;
+    HYPRCURSOR_SIZE = 22;
   };
 
   services.activitywatch = {

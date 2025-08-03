@@ -13,6 +13,8 @@
   # additionalConfigsSrcDir = "configs/"
   # additionalConfigs = ["main.conf"];
   gtk-theme-name = "catppuccin-mocha-mauve-standard";
+  cursor-theme-name = "Catppuccin-Mocha-Mauve";
+  cursor-theme-package = pkgs.catppuccin-cursors.mochaMauve;
 
   wallpaper-path = ../../../media/wallpapers/laundry.png;
 
@@ -80,8 +82,6 @@
     wofi
     # status bar
     waybar
-    # gui wallpaper manager TODO maybe re-add
-    # waypaper
     # wallpaper backend
     pkgs-hypr.hyprpaper
     # idle timeout stuff
@@ -136,8 +136,9 @@
     pywal16
     # used to create non-GTK4 themes
     themix-gui
-    # dependencies for catpuccin theme
-    sassc
+
+    # cursor theme
+    cursor-theme-package
   ];
   pkgsToVars = pkgsToConv: (with builtins; (listToAttrs (map (aPkg: {
       name = builtins.replaceStrings ["-"] ["_"] "$pkg_${lib.getName aPkg}";
@@ -273,9 +274,6 @@ in {
     "hypr/hypridle.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hypridle.conf";
     "wofi/config".source = mkOutOfStoreSymlink "${thisDir}/configs/wofi/config";
     "wofi/style.css".source = mkOutOfStoreSymlink "${thisDir}/configs/wofi/style.css";
-    "uwsm/env-hyprland".source = mkOutOfStoreSymlink "${thisDir}/configs/uwsm/env-hyprland";
-    # TODO maybe use waypaper if i feel like it
-    # "waypaper/config.ini".source = mkOutOfStoreSymlink "${thisDir}/configs/waypaper/config.ini";
     "wlogout/layout".source = mkOutOfStoreSymlink "${thisDir}/configs/wlogout/layout";
     "wlogout/style.css".source = mkOutOfStoreSymlink "${thisDir}/configs/wlogout/style.css";
     "waybar/config.jsonc".source = mkOutOfStoreSymlink "${thisDir}/configs/waybar/config.jsonc";
@@ -315,6 +313,7 @@ in {
         "$reload_waybar" = "${./scripts/reload_waybar.sh}";
         "$reload_hyprpaper" = "${./scripts/reload_hyprpaper.sh}";
         "$gtk_theme_name" = "${gtk-theme-name}";
+        "$cursor_theme_name" = "${cursor-theme-name}";
         source = [
           "${thisDir}/configs/hypr/main.conf"
         ];
@@ -329,10 +328,11 @@ in {
   # see https://wiki.hyprland.org/Nix/Hyprland-on-Home-Manager/#fixing-problems-with-themes
   home.pointerCursor = {
     gtk.enable = true;
-    # x11.enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Classic";
-    size = 16;
+    x11.enable = true;
+    hyprcursor.enable = true;
+    package = cursor-theme-package;
+    name = cursor-theme-name;
+    size = 22;
   };
 
   gtk = {
@@ -343,11 +343,6 @@ in {
         accents = ["mauve"];
         variant = "mocha";
       };
-    };
-
-    cursorTheme = {
-      name = "Catppuccin-Mocha-Mauve";
-      package = pkgs.catppuccin-cursors.mochaMauve;
     };
 
     # font = {
