@@ -32,6 +32,7 @@
     magenta = "#fc92fc";
   };
 
+  theme-colors-gtk-css-vars = lib.strings.concatMapStrings (colorPair: "@define-color color-${colorPair.name} ${colorPair.value};\n") (lib.attrsToList theme-colors);
   theme-colors-css-vars = ''
     :root {
       ${(lib.strings.concatMapStrings (colorPair: "--color-${colorPair.name}: ${colorPair.value};\n") (lib.attrsToList theme-colors))}
@@ -213,9 +214,9 @@ in {
       color7               ${magenta}
       color15              ${foreground}
     '';
-    "waybar/theme-colors.css".text = theme-colors-css-vars;
-    "wofi/theme-colors.css".text = theme-colors-css-vars;
-    "wlogout/theme-colors.css".text = theme-colors-css-vars;
+    "waybar/theme-colors.css".text = theme-colors-gtk-css-vars;
+    "wofi/theme-colors.css".text = theme-colors-gtk-css-vars;
+    "wlogout/theme-colors.css".text = theme-colors-gtk-css-vars;
 
     "hypr/configs/main.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/main.conf";
     "hypr/hyprlock.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hyprlock.conf";
