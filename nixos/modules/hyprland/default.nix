@@ -8,9 +8,6 @@
   hyprpkg = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
   pkgs-hypr = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in {
-  imports = [
-    inputs.catppuccin.nixosModules.catppuccin
-  ];
   programs.hyprland = {
     enable = true;
     withUWSM = true; # better systemd integration
@@ -30,7 +27,7 @@ in {
       #   user = "greeter";
       # };
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd 'uwsm start hyprland-uwsm.desktop' -w 69 -t --time-format '%B, %A %d @ %H:%M:%S' -r --remember-session --asterisks --user-menu --container-padding 1 --prompt-padding 0 --theme 'border=lightmagenta;text=white;prompt=magenta;time=lightblue;action=yellow;button=magenta;container=black;input=white'";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd 'uwsm stop; uwsm start hyprland-uwsm.desktop' -w 69 -t --time-format '%B, %A %d @ %H:%M:%S' -r --remember-session --asterisks --user-menu --container-padding 1 --prompt-padding 0 --theme 'border=lightmagenta;text=white;prompt=magenta;time=lightblue;action=yellow;button=magenta;container=black;input=white'";
         user = "greeter";
       };
     };
