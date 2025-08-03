@@ -32,6 +32,9 @@ in {
         ms-vscode.cpptools-extension-pack
         # asvetliakov.vscode-neovim
         ms-vscode-remote.remote-ssh
+        # catppuccin theme
+        catppuccin.catppuccin-vsc
+        catppuccin.catppuccin-vsc-icons
       ]
       ++ (with extensions.vscode-marketplace-release; [
         # add non-nixpkgs extensions here
