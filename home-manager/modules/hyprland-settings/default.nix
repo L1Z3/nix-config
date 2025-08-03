@@ -239,6 +239,8 @@ in {
         include = "${thisDir}/configs/kitty/kitty-extra.conf";
       };
     };
+    # only down here as well as in home.packages so that catppuccin nix can see it
+    waybar.enable = true;
   };
 
   # TODO make this automatic for more files with nix nonsense instead of copy-paste for more files
