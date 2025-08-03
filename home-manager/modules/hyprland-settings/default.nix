@@ -13,7 +13,7 @@
   # additionalConfigsSrcDir = "configs/"
   # additionalConfigs = ["main.conf"];
   gtk-theme-name = "catppuccin-mocha-mauve-standard";
-  cursor-theme-name = "Catppuccin-Mocha-Mauve";
+  cursor-theme-name = "catppuccin-mocha-mauve-cursors";
   cursor-theme-package = pkgs.catppuccin-cursors.mochaMauve;
 
   wallpaper-path = ../../../media/wallpapers/laundry.png;
