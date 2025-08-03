@@ -156,25 +156,26 @@ in {
     # lockscreen service
     hypridle.enable = true;
     # bluelight filter
-    hyprsunset = {
-      enable = true;
-      transitions = {
-        sunrise = {
-          calendar = "*-*-* 07:00:00";
-          requests = [
-            ["temperature" "6500"]
-            ["gamma +10"]
-          ];
-        };
-        sunset = {
-          calendar = "*-*-* 21:00:00";
-          requests = [
-            ["temperature" "3200"]
-            ["gamma -10"]
-          ];
-        };
-      };
-    };
+    # TODO reenable
+    # hyprsunset = {
+    #   enable = true;
+    #   transitions = {
+    #     sunrise = {
+    #       calendar = "*-*-* 07:00:00";
+    #       requests = [
+    #         ["temperature" "6500"]
+    #         ["gamma +10"]
+    #       ];
+    #     };
+    #     sunset = {
+    #       calendar = "*-*-* 21:00:00";
+    #       requests = [
+    #         ["temperature" "3200"]
+    #         ["gamma -10"]
+    #       ];
+    #     };
+    #   };
+    # };
     udiskie.enable = true;
   };
   # autostart polkit gnome
@@ -253,6 +254,9 @@ in {
     "waybar/config.jsonc".source = mkOutOfStoreSymlink "${thisDir}/configs/waybar/config.jsonc";
     "waybar/style.css".source = mkOutOfStoreSymlink "${thisDir}/configs/waybar/style.css";
     "kitty/kitty-extra.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/kitty/kitty-extra.conf"; # main kity conf is managed by home-manager
+
+    # passes through hm env vars to uwsm
+    "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
   };
   home.file.".themes/${gtk-theme-name}" = {
     source = ./configs/gtk_theme/${gtk-theme-name};
@@ -265,10 +269,12 @@ in {
     enable = true;
     xwayland.enable = true;
     # packages are null since we install hyprland on the NixOS side
-    # package = null;
-    # portalPackage = null;
-    package = hyprpkg.hyprland;
-    portalPackage = hyprpkg.xdg-desktop-portal-hyprland;
+    package = null;
+    portalPackage = null;
+    # also needed since we install hyprland on the nixos side
+    systemd.variables = ["--all"];
+    # package = hyprpkg.hyprland;
+    # portalPackage = hyprpkg.xdg-desktop-portal-hyprland;
     plugins = [
       inputs.hyprspace.packages.${pkgs.system}.Hyprspace
     ];
