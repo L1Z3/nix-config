@@ -125,6 +125,7 @@ in {
       enable = true;
       shellAliases = {
         ls = "eza -ga --git"; # modern ls alternative (default -g parameter to make `ls -lah` show groups)
+        l = "eza -gal --git";
         neofetch = "fastfetch -c neofetch";
         subl = "sublime4";
         # TODO potentially make thing to automatically add aliases for scripts in scripts dir?
@@ -157,8 +158,6 @@ in {
       };
       profileExtra = ''
         # add .profile things here
-        # bash prompt
-        PS1='\[\e[32m\]\u@\h:\W \$\[\e[m\] '
       '';
       initExtra =
         ''
