@@ -126,7 +126,7 @@ in {
       enable = true;
       settings = {
         preload = ["${wallpaper-path}"];
-        wallpaper = ["${wallpaper-path}"];
+        wallpaper = [",${wallpaper-path}"];
       };
     };
     # notification daemon
@@ -232,8 +232,8 @@ in {
     "waybar/style.css".source = mkOutOfStoreSymlink "${thisDir}/configs/waybar/style.css";
     "kitty/kitty-extra.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/kitty/kitty-extra.conf"; # main kity conf is managed by home-manager
   };
-  home.file.".themes/diinki-retro-dark" = {
-    source = ./configs/gtk_theme/diinki-retro-dark;
+  home.file.".themes/${gtk-theme-name}" = {
+    source = ./configs/gtk_theme/${gtk-theme-name};
     recursive = false;
   };
 
@@ -274,7 +274,7 @@ in {
     enable = true;
 
     theme = {
-      name = "diinki-retro-dark";
+      name = gtk-theme-name;
     };
 
     # TODO different icon theme
