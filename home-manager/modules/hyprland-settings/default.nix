@@ -12,7 +12,7 @@
   # additionalConfigsTargetDir = "hypr/configs/";
   # additionalConfigsSrcDir = "configs/"
   # additionalConfigs = ["main.conf"];
-  gtk-theme-name = "diinki-retro-dark";
+  gtk-theme-name = "catppuccin-mocha-mauve-standard";
 
   wallpaper-path = ../../../media/wallpapers/diinki-tmp-wallpaper.png;
 
@@ -335,7 +335,7 @@ in {
   gtk = {
     enable = true;
     theme = {
-      name = "Catppuccin-Mocha-Mauve";
+      name = "${gtk-theme-name}";
       package = pkgs.catppuccin-gtk.override {
         accents = ["mauve"];
         variant = "mocha";
