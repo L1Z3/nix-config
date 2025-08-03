@@ -48,7 +48,21 @@
     kitty
     cowsay
 
-    # TODO nwg-displays for GUI display management
+    # TODO: --------------------------------------------
+    #   nwg-displays for GUI display management
+    #   fix ly?
+    #   figure out proper workflow
+    #   style notification panel
+    #   add more waybar widgets, e.g. for bluetooth, better wifi one, better sound one, toggling bluelight filter
+    #   fix all icons, e.g. in vscode and the sound icon
+    #   *****get better kindbinds for window management and stuff***** e.g. more group binds, moving windows, etc (use caps as extra modifer!!!)
+    #   fix btrfs-assistant
+    #   style hyprlock
+    #   custom/different wallpaper
+    #   debug/fix wofi startup delay
+    #   clipboard history gui
+    #   style hyprland grouped tabs (integrate into waybar??)
+    #   tweak hyprshot stuff
 
     ## main desktop stuff
     # app runner

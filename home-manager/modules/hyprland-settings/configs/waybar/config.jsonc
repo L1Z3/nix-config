@@ -5,8 +5,8 @@
   "margin-bottom": 0,
   "margin-top": 8,
   "position": "top",
-  "margin-right": 370,
-  "margin-left": 370,
+  "margin-right": 180,
+  "margin-left": 180,
   "modules-left": [
     "hyprland/workspaces",
     "sway/workspaces"
@@ -19,7 +19,8 @@
     "battery",
     "pulseaudio",
     "tray",
-    "clock"
+    "clock",
+    "custom/notification"
   ],
   "hyprland/workspaces": {
     "disable-scroll": true,
@@ -35,6 +36,26 @@
     "format": "///",
     "on-click": "pkill wofi || wofi --show drun --location=top -y 10",
     "tooltip": false
+  },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "<span foreground='red'><sup></sup></span>",
+      "none": "",
+      "dnd-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
   },
   "tray": {
     "spacing": 10,
