@@ -46,5 +46,6 @@
         "GitHub.vscode-pull-request-github"
     ],
     "window.zoomLevel": 0.8,
-    "workbench.iconTheme": "catppuccin-mocha"
+    "workbench.iconTheme": "catppuccin-mocha",
+    "workbench.colorTheme": "Catppuccin Mocha"
 }

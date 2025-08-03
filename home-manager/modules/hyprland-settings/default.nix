@@ -14,7 +14,7 @@
   # additionalConfigs = ["main.conf"];
   gtk-theme-name = "catppuccin-mocha-mauve-standard";
 
-  wallpaper-path = ../../../media/wallpapers/diinki-tmp-wallpaper.png;
+  wallpaper-path = ../../../media/wallpapers/comfy-home.png;
 
   theme-colors = {
     accent = "#cba6f7";
