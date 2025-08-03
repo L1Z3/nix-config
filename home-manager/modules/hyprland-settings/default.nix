@@ -162,7 +162,10 @@ in {
     vscode.profiles.default.enable = false;
     waybar.mode = "createLink";
     # for some reason, this is causing the hm switch to get stuck forever...
-    gtk.icon.enable = false;
+    # NOTE: currently if flavor != mocha or accent != blue, the build will freeze.
+    #       see https://github.com/NixOS/nixpkgs/issues/426952
+    gtk.icon.enable = true;
+    gtk.icon.accent = "blue";
   };
 
   services = {
