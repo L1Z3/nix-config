@@ -282,10 +282,10 @@ in {
     # passes through hm env vars to uwsm
     "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
   };
-  home.file.".themes/${gtk-theme-name}" = {
-    source = ./configs/gtk_theme/${gtk-theme-name};
-    recursive = false;
-  };
+  # home.file.".themes/${gtk-theme-name}" = {
+  #   source = ./configs/gtk_theme/${gtk-theme-name};
+  #   recursive = false;
+  # };
 
   # let home-manager manage top-level hyprland.conf
   #   (but for now i put most of my actual configs in out-of-store symlink'd modules for easy reloading/iterating)
