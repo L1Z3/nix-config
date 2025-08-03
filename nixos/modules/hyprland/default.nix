@@ -23,7 +23,7 @@ in {
     # restart = true;
     # vt = 1; # tty
     settings = {
-      settings.default_session = {
+      default_session = {
         command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd 'uwsm start hyprland-uwsm.desktop'";
         user = "greeter";
       };
