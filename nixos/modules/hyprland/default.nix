@@ -11,12 +11,11 @@
   };
   programs.xwayland.enable = true;
   # TODO monitor config?
-  # services.displayManager = {
-  #   defaultSession = "hyprland-uwsm";
+  services.displayManager = {
+    defaultSession = "hyprland-uwsm";
 
-  #   greetd.enable = true;
-  # };
-  services.greetd.enable = true;
+    ly.enable = true;
+  };
   # Optional, hint electron apps to use wayland:
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
