@@ -17,19 +17,19 @@
   wallpaper-path = ../../../media/wallpapers/diinki-tmp-wallpaper.png;
 
   theme-colors = {
-    accent = "#AC82E9";
-    accent-deep = "#8F56E1";
-    dark = "#141216";
-    lighter-dark = "#27232b";
-    foreground = "#d8cab8";
-    complementary-accent = "#c4e881";
-    warning = "#fcb167";
-    danger = "#fc4649";
-    yellow = "#f3fc7b";
-    green = "#c4e881";
-    blue = "#7b91fc";
-    cyan = "#92fcfa";
-    magenta = "#fc92fc";
+    accent = "#cba6f7";
+    accent-deep = "#cba6f7";
+    dark = "#11111b";
+    lighter-dark = "#181825";
+    foreground = "#cdd6f4";
+    complementary-accent = "#74c7ec";
+    warning = "#fab387";
+    danger = "#f38ba8";
+    yellow = "#f9e2af";
+    green = "#a6e3a1";
+    blue = "#89b4fa";
+    cyan = "#89dceb";
+    magenta = "#cba6f7";
   };
 
   theme-colors-gtk-css-vars = lib.strings.concatMapStrings (colorPair: "@define-color color-${colorPair.name} ${colorPair.value};\n") (lib.attrsToList theme-colors);
@@ -50,7 +50,6 @@
 
     # TODO: --------------------------------------------
     #   nwg-displays for GUI display management
-    #   fix ly?
     #   figure out proper workflow
     #   style notification panel
     #   add more waybar widgets, e.g. for bluetooth, better wifi one, better sound one, toggling bluelight filter
@@ -70,6 +69,10 @@
     #   media widget in waybar
     #   fix text in groups overlapping with bar
     #   get hyprland cache working for git version?
+    #   determine if package version mismatch between, e.g. hyprshot depending on hyprland 0.5.1 and hyprspace forcing it at 0.5.0 is a problem
+    #   theme tui greet better
+    #   theme firefox/tree style tab
+    #   FIGURE OUT PROPER SESSION MANAGEMENT!!!
 
     ## main desktop stuff
     # app runner
