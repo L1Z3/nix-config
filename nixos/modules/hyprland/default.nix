@@ -16,14 +16,22 @@ in {
     # make sure to also set the portal package, so that they are in sync
     portalPackage = hyprpkg.xdg-desktop-portal-hyprland;
   };
+  # ly + uwsm failed to start hyprland, so we use regreet for now (config taken from https://github.com/dearfl/nyx/blob/aa8a023e4638ca76fceaaf1e94b006ac8c60dcd1/hosts/optional/hyprland.nix#L4)
+  services.greetd.enable = true;
+  programs.regreet.enable = true;
+  programs.uwsm = {
+    enable = true;
+    waylandCompositors = {
+      hyprland = {
+        prettyName = "Hyprland";
+        comment = "Hyprland compositor managed by UWSM";
+        binPath = "/run/current-system/sw/bin/Hyprland";
+      };
+    };
+  };
 
   programs.xwayland.enable = true;
   # TODO monitor config?
-  services.displayManager = {
-    defaultSession = "hyprland-uwsm";
-
-    ly.enable = true;
-  };
   # Optional, hint electron apps to use wayland:
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
