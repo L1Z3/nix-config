@@ -79,13 +79,13 @@
     # gui wallpaper manager TODO maybe re-add
     # waypaper
     # wallpaper backend
-    hyprpaper
+    pkgs-hypr.hyprpaper
     # idle timeout stuff
-    hypridle
+    pkgs-hypr.hypridle
     # lock screen
-    hyprlock
+    pkgs-hypr.hyprlock
     # bluelight filter
-    hyprsunset
+    pkgs-hypr.hyprsunset
     # brightness control
     brightnessctl
     # gui logout thing
@@ -97,11 +97,11 @@
     # widgets TODO mess with eww
     # eww
     # system info gui
-    hyprsysteminfo
+    pkgs-hypr.hyprsysteminfo
     # gui display config manager
     nwg-displays
     # screenshots
-    hyprshot
+    pkgs-hypr.hyprshot
 
     ## other desktop apps
     # terminal
@@ -140,12 +140,14 @@
     pkgsToConv)));
   colorsToVars = colorsAttrSet: (lib.attrsets.mapAttrs' (name: value: lib.nameValuePair ("$color_" + (builtins.replaceStrings ["-"] ["_"] name)) (lib.strings.removePrefix "#" value)) colorsAttrSet);
   hyprpkg = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
+  pkgs-hypr = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in {
   home.packages = hyprland-config-pkgs ++ [];
 
   services = {
     hyprpaper = {
       enable = true;
+      package = pkgs-hypr.hyprpaper;
       settings = {
         preload = ["${wallpaper-path}"];
         wallpaper = [",${wallpaper-path}"];
@@ -155,6 +157,7 @@ in {
     swaync.enable = true;
     # lockscreen service
     hypridle.enable = true;
+    hypridle.package = pkgs-hypr.hypridle;
     # bluelight filter
     # TODO reenable
     # hyprsunset = {
