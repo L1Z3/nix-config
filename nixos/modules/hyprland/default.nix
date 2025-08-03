@@ -27,12 +27,10 @@ in {
       #   user = "greeter";
       # };
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd 'uwsm start hyprland-uwsm.desktop' -w 69 -t --time-format '%B, %A %d @ %H:%M:%S' -r --remember-session --asterisks --user-menu -g 'Password: ********' --container-padding 1 --prompt-padding 0 --theme 'border=magenta;text=white;prompt=cyan;time=green;action=yellow;button=red;container=black;input=white'";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd 'uwsm start hyprland-uwsm.desktop' -w 69 -t --time-format '%B, %A %d @ %H:%M:%S' -r --remember-session --asterisks --user-menu --container-padding 1 --prompt-padding 0 --theme 'border=lightmagenta;text=white;prompt=magenta;time=lightblue;action=yellow;button=magenta;container=black;input=white'";
         user = "greeter";
       };
     };
-  };
-  # optional below
   systemd.services.greetd.serviceConfig = {
     Type = "idle";
     StandardInput = "tty";
@@ -42,16 +40,6 @@ in {
     TTYVHangup = true;
     TTYVTDisallocate = true;
   };
-  # programs.uwsm = {
-  #   enable = true;
-  #   waylandCompositors = {
-  #     hyprland = {
-  #       prettyName = "Hyprland";
-  #       comment = "Hyprland compositor managed by UWSM";
-  #       binPath = "/run/current-system/sw/bin/Hyprland";
-  #     };
-  #   };
-  # };
 
   programs.xwayland.enable = true;
   # TODO monitor config?
