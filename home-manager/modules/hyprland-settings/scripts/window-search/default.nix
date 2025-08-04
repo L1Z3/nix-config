@@ -6,6 +6,7 @@
   wofi,
   gtk3,
   gobject-introspection,
+  wrapGAppsHook3,
 }:
 python3Packages.buildPythonApplication {
   pname = "window-search";
@@ -24,6 +25,11 @@ python3Packages.buildPythonApplication {
     gobject-introspection
   ];
 
+  nativeBuildInputs = [
+    wrapGAppsHook3
+    gobject-introspection
+  ];
+
   # Your custom installPhase is used instead of a standard one.
   installPhase = ''
     runHook preInstall
@@ -31,14 +37,14 @@ python3Packages.buildPythonApplication {
     runHook postInstall
   '';
 
-  postFixup = ''
-    wrapProgram $out/bin/window-search \
-      --prefix GI_TYPELIB_PATH : "${gobject-introspection}/lib/girepository-1.0:${gtk3}/lib/girepository-1.0" \
+  preFixup = ''
+    gappsWrapperArgs+=(
       --prefix PATH : ${lib.makeBinPath [
       hyprland # for hyprctl
       wofi # for the menu
       gtk3 # for Gtk.IconTheme
     ]}
+      )
   '';
 
   meta = with lib; {
