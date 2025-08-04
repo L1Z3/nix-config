@@ -1,4 +1,3 @@
-# default.nix
 {
   lib,
   python3Packages,
@@ -14,11 +13,8 @@ python3Packages.buildPythonApplication {
 
   src = ./.;
 
-  # FIX: Tell the builder to skip the standard build/check phases,
-  # as we don't have a setup.py or pyproject.toml file.
   format = "script";
 
-  # Python dependencies for the script
   propagatedBuildInputs = [
     python3Packages.pygobject3
     gtk3
@@ -30,7 +26,6 @@ python3Packages.buildPythonApplication {
     gobject-introspection
   ];
 
-  # Your custom installPhase is used instead of a standard one.
   installPhase = ''
     runHook preInstall
     install -Dm755 ./window-search.py $out/bin/window-search
@@ -40,9 +35,9 @@ python3Packages.buildPythonApplication {
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix PATH : ${lib.makeBinPath [
-      hyprland # for hyprctl
-      wofi # for the menu
-      gtk3 # for Gtk.IconTheme
+      hyprland
+      wofi
+      gtk3
     ]}
       )
   '';
