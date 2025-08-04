@@ -7,6 +7,21 @@
 }: let
   hyprpkg = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
   pkgs-hypr = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  theme-colors = {
+    accent = "#cba6f7";
+    accent-deep = "#cba6f7";
+    dark = "#11111b";
+    lighter-dark = "#181825";
+    foreground = "#cdd6f4";
+    complementary-accent = "#74c7ec";
+    warning = "#fab387";
+    danger = "#f38ba8";
+    yellow = "#f9e2af";
+    green = "#a6e3a1";
+    blue = "#89b4fa";
+    cyan = "#89dceb";
+    magenta = "#cba6f7";
+  };
 in {
   programs.hyprland = {
     enable = true;
@@ -23,7 +38,7 @@ in {
     restart = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd 'loginctl terminate-user \"\"; exec uwsm start hyprland-uwsm.desktop' -w 69 -t --time-format '%B, %A %d @ %H:%M:%S' -r --remember-session --asterisks --user-menu --container-padding 1 --prompt-padding 0 --theme 'border=lightmagenta;text=white;prompt=magenta;time=lightblue;action=yellow;button=magenta;container=black;input=white'";
+        command = with theme-colors; "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd 'exec uwsm start hyprland-uwsm.desktop' -w 69 -t --time-format '%B, %A %d @ %H:%M:%S' -r --remember-session --asterisks --user-menu --container-padding 1 --prompt-padding 0 --theme 'border=${magenta};text=${foreground};prompt=${accent};time=${blue};action=${yellow};button=${accent};container=${lighter-dark};input=${foreground}'";
         user = "greeter";
       };
     };
