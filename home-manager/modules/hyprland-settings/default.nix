@@ -138,10 +138,6 @@
 
     # cursor theme
     cursor-theme-package
-
-    # for python script
-    gtk3
-    gobject-introspection
   ];
   pkgsToVars = pkgsToConv: (with builtins; (listToAttrs (map (aPkg: {
       name = builtins.replaceStrings ["-"] ["_"] "$pkg_${lib.getName aPkg}";
@@ -307,7 +303,7 @@ in {
         "$wallpaper_path" = "${wallpaper-path}";
         "$reload_waybar" = "${./scripts/reload_waybar.sh}";
         "$reload_hyprpaper" = "${./scripts/reload_hyprpaper.sh}";
-        "$window_search" = "${./scripts/window-search.py}";
+        "$window_search" = "${(pkgs.callPackage ./scripts/window-search/default.nix {})}";
         "$gtk_theme_name" = "${gtk-theme-name}";
         "$cursor_theme_name" = "${cursor-theme-name}";
         source = [
