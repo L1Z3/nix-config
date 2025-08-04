@@ -244,9 +244,8 @@ in {
     hyprlock = {
       enable = true;
       package = pkgs-hypr.hyprlock;
-      sourceFirst = false;
       settings = {
-        source = lib.mkAfter [(mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/hypr/hyprlock-extra.conf")];
+        source = lib.mkAfter ["${config.home.homeDirectory}/.config/hypr/hyprlock-extra.conf"];
       };
     };
   };
