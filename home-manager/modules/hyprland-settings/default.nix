@@ -141,6 +141,7 @@
 
     # for python script
     gtk3
+    gobject-introspection
   ];
   pkgsToVars = pkgsToConv: (with builtins; (listToAttrs (map (aPkg: {
       name = builtins.replaceStrings ["-"] ["_"] "$pkg_${lib.getName aPkg}";
