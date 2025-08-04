@@ -82,7 +82,8 @@
     #   make colors better for hyprland
     #   master layout binds?
     #   spicetify for catppuccin spotify theme
-    #   bind that toggles between linked workspaces across monitors vs unlinked
+    #   make linked monitor switch bind better
+    #      specifically, have different a different submap that imports all normal binds (source) and then unbinds workspace switch ones, replacing them with the linked ones
 
     ## main desktop stuff
     # app runner
@@ -357,5 +358,18 @@ in {
     #   name = "Sans";
     #   size = 11;
     # };
+  };
+
+  qt = {
+    enable = true;
+    platformTheme.name = "kvantum";
+    style = {
+      name = "kvantum";
+      catppuccin = {
+        enable = true;
+        flavor = "mocha";
+        accent = "mauve";
+      };
+    };
   };
 }
