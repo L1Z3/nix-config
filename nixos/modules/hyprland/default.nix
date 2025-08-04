@@ -5,8 +5,10 @@
   inputs,
   ...
 }: let
-  hyprpkg = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
-  pkgs-hypr = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  # hyprpkg = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
+  # pkgs-hypr = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  hyprpkg = pkgs;
+  pkgs-hypr = pkgs;
   theme-colors = {
     accent = "#cba6f7";
     accent-deep = "#cba6f7";

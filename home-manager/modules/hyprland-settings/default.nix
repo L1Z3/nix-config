@@ -146,8 +146,8 @@
     })
     pkgsToConv)));
   colorsToVars = colorsAttrSet: (lib.attrsets.mapAttrs' (name: value: lib.nameValuePair ("$color_" + (builtins.replaceStrings ["-"] ["_"] name)) (lib.strings.removePrefix "#" value)) colorsAttrSet);
-  hyprpkg = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
-  pkgs-hypr = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  # pkgs-hypr = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  pkgs-hypr = pkgs;
 in {
   imports = [
     inputs.catppuccin.homeModules.catppuccin
