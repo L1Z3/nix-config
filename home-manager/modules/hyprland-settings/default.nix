@@ -57,7 +57,7 @@
     # TODO: --------------------------------------------
     #   nwg-displays for GUI display management
     #   figure out proper workflow
-    #   add more waybar widgets, e.g. for bluetooth, better wifi one, better sound one, toggling bluelight filter
+    #   add more waybar widgets, e.g. for bluetooth, better wifi one, better sound one, toggling bluelight filter, hyprpicker
     #   fix all icons, e.g. in vscode and the sound icon
     #   *****get better kindbinds for window management and stuff***** e.g. more group binds, moving windows, etc (use caps as extra modifer!!!)
     #          ideally, better keybinds for basically everything imagine to do with window movement, and have it feel natural
@@ -76,6 +76,7 @@
     #   theme firefox/tree style tab
     #   FIGURE OUT PROPER SESSION MANAGEMENT!!!
     #   KEEP ENABLING/FIXING CATPPUCCIN FOR EVERYTHING
+    #   style app not responding popup
 
     ## main desktop stuff
     # app runner
@@ -260,6 +261,7 @@ in {
     "wlogout/theme-colors.css".text = theme-colors-gtk-css-vars;
 
     "hypr/configs/main.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/main.conf";
+    "hypr/configs/special-workspaces.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/special-workspaces.conf";
     "hypr/hyprlock-extra.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hyprlock-extra.conf";
     "hypr/hypridle.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hypridle.conf";
     "hypr/hyprsunset.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hyprsunset.conf";
