@@ -31,6 +31,7 @@ python3Packages.buildPythonApplication {
 
   postFixup = ''
     wrapProgram $out/bin/window-search \
+      --prefix GI_TYPELIB_PATH : "${gtk3}/lib/girepository-1.0" \
       --prefix PATH : ${lib.makeBinPath [
       hyprland # for hyprctl
       wofi # for the menu
