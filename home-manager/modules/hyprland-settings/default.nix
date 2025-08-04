@@ -82,6 +82,7 @@
     #   make colors better for hyprland
     #   master layout binds?
     #   spicetify for catppuccin spotify theme
+    #   bind that toggles between linked workspaces across monitors vs unlinked
 
     ## main desktop stuff
     # app runner
@@ -317,6 +318,7 @@ in {
         "$wallpaper_path" = "${wallpaper-path}";
         "$reload_waybar" = "${./scripts/reload_waybar.sh}";
         "$reload_hyprpaper" = "${./scripts/reload_hyprpaper.sh}";
+        "$linked_monitor_switch" = "${./scripts/linked_monitor_switch.sh}";
         "$gtk_theme_name" = "${gtk-theme-name}";
         "$cursor_theme_name" = "${cursor-theme-name}";
         source = [
