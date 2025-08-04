@@ -34,7 +34,7 @@ selected_window = os.popen("echo \"%s\" | wofi -i -S dmenu"%("\n".join(mapped_wi
 print("selected_window: %s"%(selected_window))
 
 if (selected_window):
-    match = re.search(r"\((\w+)\)$", selected_window)
+    match = re.search(r"\((((\w)|(\-))+)\)$", selected_window)
     addr = match.group(1).split("_")[0]
     os.system("hyprctl dispatch focuswindow address:%s"%(addr))
 else:
