@@ -184,27 +184,6 @@ in {
     # lockscreen service
     hypridle.enable = true;
     hypridle.package = pkgs-hypr.hypridle;
-    # bluelight filter
-    # TODO reenable
-    # hyprsunset = {
-    #   enable = true;
-    #   transitions = {
-    #     sunrise = {
-    #       calendar = "*-*-* 07:00:00";
-    #       requests = [
-    #         ["temperature" "6500"]
-    #         ["gamma +10"]
-    #       ];
-    #     };
-    #     sunset = {
-    #       calendar = "*-*-* 21:00:00";
-    #       requests = [
-    #         ["temperature" "3200"]
-    #         ["gamma -10"]
-    #       ];
-    #     };
-    #   };
-    # };
     udiskie.enable = true;
   };
   # autostart polkit gnome
@@ -283,6 +262,7 @@ in {
     "hypr/configs/main.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/main.conf";
     "hypr/hyprlock-extra.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hyprlock-extra.conf";
     "hypr/hypridle.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hypridle.conf";
+    "hypr/hyprsunset.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hyprsunset.conf";
     "wofi/config".source = mkOutOfStoreSymlink "${thisDir}/configs/wofi/config";
     "wofi/style.css".source = mkOutOfStoreSymlink "${thisDir}/configs/wofi/style.css";
     "wlogout/layout".source = mkOutOfStoreSymlink "${thisDir}/configs/wlogout/layout";
