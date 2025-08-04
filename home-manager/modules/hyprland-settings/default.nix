@@ -143,8 +143,6 @@
     # used to create non-GTK4 themes
     themix-gui
 
-    hyprshell
-
     # cursor theme
     cursor-theme-package
 
@@ -303,8 +301,8 @@ in {
     # package = hyprpkg.hyprland;
     # portalPackage = hyprpkg.xdg-desktop-portal-hyprland;
     plugins = with pkgs.hyprlandPlugins; [
-      hyprspace
-      # hyprexpo
+      # hyprspace
+      hyprexpo
       hyprsplit
       hyprgrass
       hypr-dynamic-cursors

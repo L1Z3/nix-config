@@ -55,6 +55,9 @@ in {
     TTYVTDisallocate = true;
   };
 
+  # enable auto-rotate in hyprland
+  programs.iio-hyprland.enable = true;
+
   programs.xwayland.enable = true;
   # TODO monitor config?
   # Optional, hint electron apps to use wayland:
