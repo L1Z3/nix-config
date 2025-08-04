@@ -57,18 +57,15 @@
     # TODO: --------------------------------------------
     #   nwg-displays for GUI display management
     #   figure out proper workflow
-    #   style notification panel
     #   add more waybar widgets, e.g. for bluetooth, better wifi one, better sound one, toggling bluelight filter
     #   fix all icons, e.g. in vscode and the sound icon
     #   *****get better kindbinds for window management and stuff***** e.g. more group binds, moving windows, etc (use caps as extra modifer!!!)
     #          ideally, better keybinds for basically everything imagine to do with window movement, and have it feel natural
     #   fix btrfs-assistant
-    #   style hyprlock
-    #   custom/different wallpaper
     #   debug/fix wofi startup delay
     #   clipboard history gui
     #   style hyprland grouped tabs (integrate into waybar??)
-    #   tweak hyprshot stuff
+    #   tweak hyprshot stuff (confirm button after selection, other binds for fullscreen/etc)
     #   source hyprlock wallpaper from nix
     #   set up hyprspace
     #   set up nwg-displays/other useful nwg shell stuff
@@ -245,6 +242,7 @@ in {
       enable = true;
       package = pkgs-hypr.hyprlock;
       settings = {
+        "$wallpaper" = "${wallpaper-path}";
         source = lib.mkAfter ["${config.home.homeDirectory}/.config/hypr/hyprlock-extra.conf"];
       };
     };
