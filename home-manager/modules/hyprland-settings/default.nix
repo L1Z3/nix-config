@@ -55,28 +55,26 @@
     cowsay
 
     # TODO: --------------------------------------------
-    #   nwg-displays for GUI display management
-    #   figure out proper workflow
+    #   search windows in hyprland
     #   add more waybar widgets, e.g. for bluetooth, better wifi one, better sound one, toggling bluelight filter, hyprpicker
-    #   fix all icons, e.g. in vscode and the sound icon
-    #   *****get better kindbinds for window management and stuff***** e.g. more group binds, moving windows, etc (use caps as extra modifer!!!)
-    #          ideally, better keybinds for basically everything imagine to do with window movement, and have it feel natural
-    #   fix btrfs-assistant
-    #   debug/fix wofi startup delay
-    #   clipboard history gui
-    #   style hyprland grouped tabs (integrate into waybar??)
-    #   tweak hyprshot stuff (confirm button after selection, other binds for fullscreen/etc)
-    #   set up hyprspace
-    #   set up nwg-displays/other useful nwg shell stuff
     #   media widget in waybar
-    #   style group stuff in hyprland
-    #   get hyprland cache working for git version?
-    #   determine if package version mismatch between, e.g. hyprshot depending on hyprland 0.5.1 and hyprspace forcing it at 0.5.0 is a problem
+    #   clipboard history gui
+    #   debug/fix wofi startup delay
+    #   nwg-displays for GUI display management
+    #   fix all icons, e.g. in vscode and the sound icon
+    #   fix btrfs-assistant
+    #   tweak hyprshot stuff (confirm button after selection, other binds for fullscreen/etc)
+    #   set up hyprspace (or HyprExpo???)
+    #      get hyprland cache working for git version?
+    #      determine if package version mismatch between, e.g. hyprshot depending on hyprland 0.5.1 and hyprspace forcing it at 0.5.0 is a problem
+    #   set up nwg-displays/other useful nwg shell stuff
     #   theme tuigreet better
     #   theme firefox/tree style tab
     #   FIGURE OUT PROPER SESSION MANAGEMENT!!!
-    #   KEEP ENABLING/FIXING CATPPUCCIN FOR EVERYTHING
+    #   keep enabling/fixing catppucci for everything
+    #      WOFIII!!!
     #   style app not responding popup
+    #   master layout binds?
 
     ## main desktop stuff
     # app runner
@@ -305,6 +303,7 @@ in {
         "$wallpaper_path" = "${wallpaper-path}";
         "$reload_waybar" = "${./scripts/reload_waybar.sh}";
         "$reload_hyprpaper" = "${./scripts/reload_hyprpaper.sh}";
+        "$window_search" = "${./scripts/window-search.py}";
         "$gtk_theme_name" = "${gtk-theme-name}";
         "$cursor_theme_name" = "${cursor-theme-name}";
         source = [
