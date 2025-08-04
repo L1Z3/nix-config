@@ -293,6 +293,8 @@ in {
       enableBashIntegration = true; # see note on other shells below
       nix-direnv.enable = true;
     };
+    # spotify here so catppuccin can detect it
+    spotify-player.enable = true;
   };
 
   # Add stuff for your user as you see fit:
@@ -346,7 +348,6 @@ in {
     # vscode, via programs/vscode
 
     # media
-    spotify
     mpv
     # override for vlc 3.0.20 to fix av1/opus issue temporarily
     (let
