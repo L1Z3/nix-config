@@ -5,6 +5,7 @@
   hyprland,
   wofi,
   gtk3,
+  gobject-introspection,
 }:
 python3Packages.buildPythonApplication {
   pname = "window-search";
@@ -20,6 +21,7 @@ python3Packages.buildPythonApplication {
   propagatedBuildInputs = [
     python3Packages.pygobject3
     gtk3
+    gobject-introspection
   ];
 
   # Your custom installPhase is used instead of a standard one.
@@ -31,7 +33,7 @@ python3Packages.buildPythonApplication {
 
   postFixup = ''
     wrapProgram $out/bin/window-search \
-      --prefix GI_TYPELIB_PATH : "${gtk3}/lib/girepository-1.0" \
+      --prefix GI_TYPELIB_PATH : "${gobject-introspection}/lib/girepository-1.0:${gtk3}/lib/girepository-1.0" \
       --prefix PATH : ${lib.makeBinPath [
       hyprland # for hyprctl
       wofi # for the menu
