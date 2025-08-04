@@ -171,6 +171,7 @@ in {
     #       see https://github.com/NixOS/nixpkgs/issues/426952
     gtk.icon.enable = true;
     gtk.icon.accent = "blue";
+    hyprlock.useDefaultConfig = false;
   };
 
   services = {
@@ -240,6 +241,14 @@ in {
     };
     # only down here as well as in home.packages so that catppuccin nix can see it
     waybar.enable = true;
+    hyprlock = {
+      enable = true;
+      package = pkgs-hypr.hyprlock;
+      sourceFirst = false;
+      settings = {
+        source = lib.mkAfter [(mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/hypr/hyprlock-extra.conf")];
+      };
+    };
   };
 
   # TODO make this automatic for more files with nix nonsense instead of copy-paste for more files
@@ -276,7 +285,7 @@ in {
     "wlogout/theme-colors.css".text = theme-colors-gtk-css-vars;
 
     "hypr/configs/main.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/main.conf";
-    "hypr/hyprlock.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hyprlock.conf";
+    "hypr/hyprlock-extra.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hyprlock-extra.conf";
     "hypr/hypridle.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hypridle.conf";
     "wofi/config".source = mkOutOfStoreSymlink "${thisDir}/configs/wofi/config";
     "wofi/style.css".source = mkOutOfStoreSymlink "${thisDir}/configs/wofi/style.css";
