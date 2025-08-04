@@ -138,6 +138,9 @@
 
     # cursor theme
     cursor-theme-package
+
+    # for python script
+    gtk3
   ];
   pkgsToVars = pkgsToConv: (with builtins; (listToAttrs (map (aPkg: {
       name = builtins.replaceStrings ["-"] ["_"] "$pkg_${lib.getName aPkg}";
