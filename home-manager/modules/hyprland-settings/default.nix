@@ -55,8 +55,14 @@
     cowsay
 
     # TODO: --------------------------------------------
-    #   add more waybar widgets, e.g. for bluetooth, better wifi one, better sound one, toggling bluelight filter, hyprpicker
-    #   media widget in waybar
+    #   add more waybar widgets:
+    #     - bluetooth (kde-esque)
+    #     - better wifi one (maybe not necessary)
+    #     - better sound one (kde-esque)
+    #     - toggling bluelight filter (button that shows status, and can be paused)
+    #     - hyprpicker
+    #     - clock one that shows date on hover, can be expanded into calendar like kde/gnome
+    #     - media widget like kde/gnome
     #   clipboard history gui
     #   debug/fix wofi startup delay
     #   nwg-displays for GUI display management
@@ -72,8 +78,10 @@
     #   FIGURE OUT PROPER SESSION MANAGEMENT!!!
     #   keep enabling/fixing catppucci for everything
     #      WOFIII!!!
-    #   style app not responding popup
+    #   style app not responding popup/monitor selection popup/hyprland portal stuff: CATPPUCCIN FOR QT5/QT6
+    #   make colors better for hyprland
     #   master layout binds?
+    #   spicetify for catppuccin spotify theme
 
     ## main desktop stuff
     # app runner
@@ -134,6 +142,8 @@
     pywal16
     # used to create non-GTK4 themes
     themix-gui
+
+    hyprshell
 
     # cursor theme
     cursor-theme-package
@@ -292,8 +302,13 @@ in {
     systemd.variables = ["--all"];
     # package = hyprpkg.hyprland;
     # portalPackage = hyprpkg.xdg-desktop-portal-hyprland;
-    plugins = [
-      # inputs.hyprspace.packages.${pkgs.system}.Hyprspace
+    plugins = with pkgs.hyprlandPlugins; [
+      hyprspace
+      # hyprexpo
+      hyprsplit
+      hyprgrass
+      hypr-dynamic-cursors
+      # hyprwinwrap # reenable if i want wallpaper engine
     ];
     # needed for uwsm
     systemd.enable = false;
@@ -329,6 +344,7 @@ in {
 
   gtk = {
     enable = true;
+    # if the normal gtk theme stops working (it's no longer supported), i can try magnetic-catppuccin-gtk
     theme = {
       name = "${gtk-theme-name}";
       package = pkgs.catppuccin-gtk.override {
