@@ -66,14 +66,13 @@
     #   clipboard history gui
     #   style hyprland grouped tabs (integrate into waybar??)
     #   tweak hyprshot stuff (confirm button after selection, other binds for fullscreen/etc)
-    #   source hyprlock wallpaper from nix
     #   set up hyprspace
     #   set up nwg-displays/other useful nwg shell stuff
     #   media widget in waybar
     #   style group stuff in hyprland
     #   get hyprland cache working for git version?
     #   determine if package version mismatch between, e.g. hyprshot depending on hyprland 0.5.1 and hyprspace forcing it at 0.5.0 is a problem
-    #   theme tui greet better
+    #   theme tuigreet better
     #   theme firefox/tree style tab
     #   FIGURE OUT PROPER SESSION MANAGEMENT!!!
     #   KEEP ENABLING/FIXING CATPPUCCIN FOR EVERYTHING
@@ -313,7 +312,7 @@ in {
     # package = hyprpkg.hyprland;
     # portalPackage = hyprpkg.xdg-desktop-portal-hyprland;
     plugins = [
-      inputs.hyprspace.packages.${pkgs.system}.Hyprspace
+      # inputs.hyprspace.packages.${pkgs.system}.Hyprspace
     ];
     # needed for uwsm
     systemd.enable = false;
