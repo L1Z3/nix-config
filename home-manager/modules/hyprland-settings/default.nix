@@ -55,7 +55,6 @@
     cowsay
 
     # TODO: --------------------------------------------
-    #   search windows in hyprland
     #   add more waybar widgets, e.g. for bluetooth, better wifi one, better sound one, toggling bluelight filter, hyprpicker
     #   media widget in waybar
     #   clipboard history gui
