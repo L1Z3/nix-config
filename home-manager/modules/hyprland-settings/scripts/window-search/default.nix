@@ -19,6 +19,7 @@ python3Packages.buildPythonApplication {
   # Python dependencies for the script
   propagatedBuildInputs = [
     python3Packages.pygobject3
+    gtk3
   ];
 
   # Your custom installPhase is used instead of a standard one.
