@@ -40,7 +40,7 @@ in {
     restart = true;
     settings = {
       default_session = {
-        command = with theme-colors; "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd 'exec uwsm start hyprland-uwsm.desktop' -w 69 -t --time-format '%B, %A %d @ %H:%M:%S' -r --remember-session --asterisks --user-menu --container-padding 1 --prompt-padding 0 --theme 'border=${magenta};text=${foreground};prompt=${accent};time=${blue};action=${yellow};button=${accent};container=${lighter-dark};input=${foreground}'";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd 'loginctl terminate-user \"\"; exec uwsm start hyprland-uwsm.desktop' -w 69 -t --time-format '%B, %A %d @ %H:%M:%S' -r --remember-session --asterisks --user-menu --container-padding 1 --prompt-padding 0 --theme 'border=lightmagenta;text=white;prompt=magenta;time=lightblue;action=yellow;button=magenta;container=black;input=white'";
         user = "greeter";
       };
     };
