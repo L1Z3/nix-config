@@ -84,8 +84,6 @@
     pkgs-hypr.hyprsunset
     # brightness control
     brightnessctl
-    # gui logout thing
-    wlogout
     # media controller
     playerctl
     # allow apps to get elevated permissions
@@ -171,8 +169,6 @@ in {
         wallpaper = [",${wallpaper-path}"];
       };
     };
-    # notification daemon
-    # swaync.enable = true;
     # lockscreen service
     hypridle.enable = true;
     hypridle.package = pkgs-hypr.hypridle;
@@ -223,35 +219,6 @@ in {
 
   # TODO make this automatic for more files with nix nonsense instead of copy-paste for more files
   xdg.configFile = {
-    # "kitty/kitty-colors.conf".text = with theme-colors; ''
-    #   cursor               ${accent}
-
-    #   selection_background ${foreground}
-    #   selection_foreground ${dark}
-
-    #   background           ${dark}
-    #   foreground           ${foreground}
-
-    #   # TODO move this top color to the theme-colors attrset
-    #   color0               #2b2135
-    #   color8               ${cyan}
-    #   color1               ${danger}
-    #   color9               ${danger}
-    #   color2               ${green}
-    #   color10              ${green}
-    #   color3               ${accent}
-    #   color11              ${accent}
-    #   color4               ${blue}
-    #   color12              ${blue}
-    #   color5               ${yellow}
-    #   color13              ${yellow}
-    #   color6               ${accent-deep}
-    #   color14              ${accent-deep}
-    #   color7               ${magenta}
-    #   color15              ${foreground}
-    # '';
-    "wlogout/theme-colors.css".text = theme-colors-gtk-css-vars;
-
     "hypr/configs/main.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/main.conf";
     "hypr/configs/special-workspaces.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/special-workspaces.conf";
     "hypr/hyprlock-extra.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hyprlock-extra.conf";
@@ -261,8 +228,6 @@ in {
     "hyprpanel/modules.json".source = mkOutOfStoreSymlink "${thisDir}/configs/hyprpanel/modules.json";
     "rofi/config.rasi".source = mkOutOfStoreSymlink "${thisDir}/configs/rofi/config.rasi";
     "rofi/catppuccin-lavrent-mocha.rasi".source = mkOutOfStoreSymlink "${thisDir}/configs/rofi/catppuccin-lavrent-mocha.rasi";
-    "wlogout/layout".source = mkOutOfStoreSymlink "${thisDir}/configs/wlogout/layout";
-    "wlogout/style.css".source = mkOutOfStoreSymlink "${thisDir}/configs/wlogout/style.css";
     "kitty/kitty-extra.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/kitty/kitty-extra.conf"; # main kity conf is managed by home-manager
 
     # passes through hm env vars to uwsm
