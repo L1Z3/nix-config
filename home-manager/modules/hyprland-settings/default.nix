@@ -55,7 +55,6 @@
     cowsay
 
     # TODO: --------------------------------------------
-    #   clipboard history gui
     #   nwg-displays for GUI display management (also shortcut for it in hyprpanel dashboardmenu)
     #   fix btrfs-assistant's theme
     #   theme tuigreet better
@@ -128,6 +127,10 @@
 
     # cursor theme
     cursor-theme-package
+
+    # clipboard
+    wl-clip-persist
+    wl-clipboard
   ];
   pkgsToVars = pkgsToConv: (with builtins; (listToAttrs (map (aPkg: {
       name = builtins.replaceStrings ["-"] ["_"] "$pkg_${lib.getName aPkg}";
@@ -150,15 +153,14 @@ in {
     accent = "mauve";
     # TODO re-enable this. it's disabled to prevent conflicts right now
     vscode.profiles.default.enable = false;
-    # NOTE: currently if flavor != mocha or accent != blue, the build will freeze.
-    #       see https://github.com/NixOS/nixpkgs/issues/426952
     gtk.icon.enable = true;
-    gtk.icon.accent = "blue";
     hyprlock.useDefaultConfig = false;
     kvantum.enable = true;
   };
 
   services = {
+    # clipboard history
+    cliphist.enable = true;
     hyprpaper = {
       enable = true;
       package = pkgs-hypr.hyprpaper;
