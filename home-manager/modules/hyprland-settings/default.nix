@@ -227,6 +227,8 @@ in {
     # only down here as well as in home.packages so that catppuccin nix can see it
     # waybar.enable = true;
     hyprpanel.enable = true;
+    # i want to be able to use the GUI for managing settings, and so we don't want any settings being generated
+    hyprpanel.settings = lib.mkForce {};
     hyprlock = {
       enable = true;
       package = pkgs-hypr.hyprlock;
