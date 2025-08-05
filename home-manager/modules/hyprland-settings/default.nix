@@ -268,7 +268,6 @@ in {
     #   color7               ${magenta}
     #   color15              ${foreground}
     # '';
-    "waybar/theme-colors.css".text = theme-colors-gtk-css-vars;
     "wlogout/theme-colors.css".text = theme-colors-gtk-css-vars;
 
     "hypr/configs/main.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/main.conf";
@@ -281,8 +280,6 @@ in {
     "rofi/catppuccin-lavrent-mocha.rasi".source = mkOutOfStoreSymlink "${thisDir}/configs/rofi/catppuccin-lavrent-mocha.rasi";
     "wlogout/layout".source = mkOutOfStoreSymlink "${thisDir}/configs/wlogout/layout";
     "wlogout/style.css".source = mkOutOfStoreSymlink "${thisDir}/configs/wlogout/style.css";
-    "waybar/config.jsonc".source = mkOutOfStoreSymlink "${thisDir}/configs/waybar/config.jsonc";
-    "waybar/style.css".source = mkOutOfStoreSymlink "${thisDir}/configs/waybar/style.css";
     "kitty/kitty-extra.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/kitty/kitty-extra.conf"; # main kity conf is managed by home-manager
 
     # passes through hm env vars to uwsm
@@ -320,7 +317,7 @@ in {
       (colorsToVars theme-colors) # add in variables for colors for current theme
       {
         "$wallpaper_path" = "${wallpaper-path}";
-        "$reload_waybar" = "${./scripts/reload_waybar.sh}";
+        "$reload_hyprpanel" = "${./scripts/reload_hyprpanel.sh}";
         "$reload_hyprpaper" = "${./scripts/reload_hyprpaper.sh}";
         "$linked_monitor_switch" = "${./scripts/linked_monitor_switch.sh}";
         "$open_last_screenshot" = "${./scripts/open-last-screenshot.sh}";
