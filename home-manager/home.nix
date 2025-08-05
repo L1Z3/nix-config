@@ -435,6 +435,7 @@ in {
     # unstable.godot_4
 
     # googleearth-pro
+    nix-tree
   ];
 
   # flatpaks

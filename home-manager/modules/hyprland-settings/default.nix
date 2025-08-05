@@ -68,12 +68,11 @@
     #      specifically, have different a different submap that imports all normal binds (source) and then unbinds workspace switch ones, replacing them with the linked ones
     #   make spotify autostart in special
     #   fix hyprsunset schedule
+    #   get keyring figured out... don't want to type in ssh passphrase all the time
 
     ## main desktop stuff
     # app runner
     rofi-wayland
-    # status bar
-    # waybar
     # wallpaper backend
     pkgs-hypr.hyprpaper
     # idle timeout stuff
@@ -151,13 +150,12 @@ in {
     accent = "mauve";
     # TODO re-enable this. it's disabled to prevent conflicts right now
     vscode.profiles.default.enable = false;
-    # waybar.mode = "createLink";
-    # for some reason, this is causing the hm switch to get stuck forever...
     # NOTE: currently if flavor != mocha or accent != blue, the build will freeze.
     #       see https://github.com/NixOS/nixpkgs/issues/426952
     gtk.icon.enable = true;
     gtk.icon.accent = "blue";
     hyprlock.useDefaultConfig = false;
+    kvantum.enable = true;
   };
 
   services = {
@@ -313,13 +311,6 @@ in {
   qt = {
     enable = true;
     platformTheme.name = "kvantum";
-    style = {
-      name = "kvantum";
-      catppuccin = {
-        enable = true;
-        flavor = "mocha";
-        accent = "mauve";
-      };
-    };
+    style.name = "kvantum";
   };
 }

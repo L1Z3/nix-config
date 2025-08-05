@@ -524,5 +524,23 @@
   "bar.customModules.hypridle.label": false,
   "menus.dashboard.powermenu.logout": "loginctl terminate-user \"\"",
   "bar.customModules.hyprsunset.temperature": "4000k",
-  "menus.clock.weather.enabled": false
+  "menus.clock.weather.enabled": false,
+  "bar.windowtitle.title_map": [
+    [
+      "gjs",
+      "󰒓",
+      "Hyprpanel Settings"
+    ],
+    [
+      "com.stremio.stremio",
+      "",
+      "Stremio"
+    ],
+    [
+      "ffpwa-01[0-9|A-z]+",
+      "󰍩",
+      "Google Messages"
+    ]
+  ],
+  "bar.windowtitle.class_name": false
 }
