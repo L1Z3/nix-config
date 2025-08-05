@@ -5,21 +5,40 @@ import json
 import re
 import sys
 import subprocess
+import html
+
+# --- CONFIGURATION ---
+# Adjust this value to fit the width of your Rofi window.
+# It's the total maximum number of characters for the entire line.
+MAX_WIDTH = 50
+ELLIPSIS = "..."
+
+def create_display_text(title, suffix):
+    """
+    Intelligently truncates the title to ensure the entire string
+    with its suffix fits within MAX_WIDTH.
+    """
+    safe_title = html.escape(title)
+    
+    if len(safe_title) + len(suffix) <= MAX_WIDTH:
+        return safe_title + suffix
+
+    available_space = MAX_WIDTH - len(suffix) - len(ELLIPSIS)
+
+    if available_space < 0:
+        return suffix[:MAX_WIDTH]
+
+    return safe_title[:available_space] + ELLIPSIS + suffix
 
 def map_window_to_rofi_entry(w):
     """
-    Formats window data for rofi.
-    The format is "DISPLAY_TEXT\0icon\x1fICON_NAME".
-    - DISPLAY_TEXT includes the title, address, and workspace ID.
-    - ICON_NAME is the window's class, which rofi uses to find the icon.
+    Formats window data for Rofi, including manual truncation of the title.
     """
-    title = w["title"]
-    address = w["address"]
-    workspace_id = w["workspace"]["id"]
+    suffix = f" ({w['address']}_{w['workspace']['id']})"
+    
+    display_text = create_display_text(w["title"], suffix)
+    
     icon_name = w["class"]
-    
-    display_text = f"{title} ({address}_{workspace_id})"
-    
     return f"{display_text}\0icon\x1f{icon_name}"
 
 def main():
@@ -31,7 +50,7 @@ def main():
         windows = json.loads(windows_json)
 
         filtered_windows = [w for w in windows if w["workspace"]["id"] != -1]
-
+        
         rofi_entries = [map_window_to_rofi_entry(w) for w in filtered_windows]
         rofi_input = "\n".join(rofi_entries)
 
@@ -53,7 +72,6 @@ def main():
 
         if selected_entry:
             match = re.search(r"\(([^()]+)\)$", selected_entry)
-            
             if match:
                 addr_and_workspace = match.group(1)
                 addr = addr_and_workspace.split("_")[0]
@@ -61,8 +79,6 @@ def main():
             else:
                 sys.stderr.write(f"Error: Could not parse address from selection: '{selected_entry}'\n")
 
-    except json.JSONDecodeError:
-        sys.stderr.write("Error: Could not parse JSON from hyprctl. Is Hyprland running?\n")
     except Exception as e:
         sys.stderr.write(f"An unexpected error occurred: {e}\n")
 

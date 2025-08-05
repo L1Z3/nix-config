@@ -55,20 +55,10 @@
     cowsay
 
     # TODO: --------------------------------------------
-    #   add more waybar widgets:
-    #     - bluetooth (kde-esque)
-    #     - better wifi one (maybe not necessary)
-    #     - better sound one (kde-esque)
-    #     - toggling bluelight filter (button that shows status, and can be paused)
-    #     - hyprpicker
-    #     - clock one that shows date on hover, can be expanded into calendar like kde/gnome
-    #     - media widget like kde/gnome
     #   clipboard history gui
-    #   debug/fix rofi startup delay
     #   nwg-displays for GUI display management
     #   fix all icons, e.g. in vscode and the sound icon
     #   fix btrfs-assistant's theme
-    #   tweak hyprshot stuff (confirm button after selection, other binds for fullscreen/etc)
     #   set up hyprspace (or HyprExpo???)
     #      get hyprland cache working for git version?
     #      determine if package version mismatch between, e.g. hyprshot depending on hyprland 0.5.1 and hyprspace forcing it at 0.5.0 is a problem
@@ -82,7 +72,6 @@
     #   make linked monitor switch bind better
     #      specifically, have different a different submap that imports all normal binds (source) and then unbinds workspace switch ones, replacing them with the linked ones
     #   make spotify autostart in special
-    #   change resize shortcut to have to hold down super+R the whole time
     #   continue trying to make rofi transparent, and also have super+D have cut off text well
     #   fix hyprsunset schedule
     #   switch to hyprpanel
@@ -318,11 +307,11 @@ in {
       (colorsToVars theme-colors) # add in variables for colors for current theme
       {
         "$wallpaper_path" = "${wallpaper-path}";
-        "$reload_hyprpanel" = "${./scripts/reload_hyprpanel.sh}";
-        "$reload_hyprpaper" = "${./scripts/reload_hyprpaper.sh}";
-        "$linked_monitor_switch" = "${./scripts/linked_monitor_switch.sh}";
-        "$open_last_screenshot" = "${./scripts/open-last-screenshot.sh}";
-        "$pkg_window_search" = "${./scripts/window-search.py}";
+        "$reload_hyprpanel" = "${mkOutOfStoreSymlink "${thisDir}/scripts/reload_hyprpanel.sh"}";
+        "$reload_hyprpaper" = "${mkOutOfStoreSymlink "${thisDir}/scripts/reload_hyprpaper.sh"}";
+        "$linked_monitor_switch" = "${mkOutOfStoreSymlink "${thisDir}/scripts/linked_monitor_switch.sh"}";
+        "$open_last_screenshot" = "${mkOutOfStoreSymlink "${thisDir}/scripts/open-last-screenshot.sh"}";
+        "$pkg_window_search" = "${mkOutOfStoreSymlink "${thisDir}/scripts/window-search.py"}";
         "$gtk_theme_name" = "${gtk-theme-name}";
         "$cursor_theme_name" = "${cursor-theme-name}";
         source = [

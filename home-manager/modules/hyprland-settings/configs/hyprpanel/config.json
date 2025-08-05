@@ -325,8 +325,8 @@
   "theme.bar.buttons.workspaces.border": "#f5c2e7",
   "theme.bar.buttons.workspaces.background": "#242438",
   "theme.bar.buttons.dashboard.icon": "#1e1e2e",
-  "theme.bar.buttons.dashboard.border": "#f9e2af",
-  "theme.bar.buttons.dashboard.background": "#f9e2af",
+  "theme.bar.buttons.dashboard.border": "#b4befe",
+  "theme.bar.buttons.dashboard.background": "#b4befe",
   "theme.bar.buttons.icon": "#242438",
   "theme.bar.buttons.text": "#b4befe",
   "theme.bar.buttons.hover": "#45475a",
@@ -442,6 +442,8 @@
         "volume",
         "network",
         "bluetooth",
+        "hyprsunset",
+        "hypridle",
         "battery",
         "systray",
         "notifications"
@@ -459,6 +461,12 @@
       "right": [
         "media",
         "volume",
+        "network",
+        "bluetooth",
+        "hyprsunset",
+        "hypridle",
+        "battery",
+        "systray",
         "notifications"
       ]
     },
@@ -474,6 +482,12 @@
       "right": [
         "media",
         "volume",
+        "network",
+        "bluetooth",
+        "hyprsunset",
+        "hypridle",
+        "battery",
+        "systray",
         "notifications"
       ]
     }
@@ -494,5 +508,20 @@
     "nm-applet",
     "Xwayland Video Bridge_pipewireToXProxy"
   ],
-  "bar.network.rightClick": "nm-connection-editor"
+  "bar.network.rightClick": "nm-connection-editor",
+  "bar.bluetooth.label": false,
+  "bar.network.label": false,
+  "theme.bar.buttons.modules.hyprsunset.enableBorder": false,
+  "bar.customModules.hyprsunset.offLabel": "Off",
+  "bar.customModules.hyprsunset.onLabel": "On",
+  "bar.customModules.hyprsunset.label": false,
+  "menus.dashboard.powermenu.avatar.image": "/home/liz/nix/media/madeline.jpg",
+  "menus.dashboard.shortcuts.left.shortcut1.tooltip": "Firefox",
+  "menus.dashboard.shortcuts.left.shortcut1.command": "firefox",
+  "menus.dashboard.shortcuts.left.shortcut1.icon": "󰈹",
+  "menus.dashboard.shortcuts.right.shortcut1.command": "sleep 0.3 && hyprpicker -a",
+  "menus.dashboard.directories.enabled": false,
+  "bar.customModules.hypridle.label": false,
+  "menus.dashboard.powermenu.logout": "loginctl terminate-user \"\"",
+  "bar.customModules.hyprsunset.temperature": "4000k"
 }
