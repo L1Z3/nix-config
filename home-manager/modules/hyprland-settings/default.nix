@@ -276,6 +276,7 @@ in {
     "hypr/hypridle.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hypridle.conf";
     "hypr/hyprsunset.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hyprsunset.conf";
     "hyprpanel/config.json".source = mkOutOfStoreSymlink "${thisDir}/configs/hyprpanel/config.json";
+    "hyprpanel/modules.json".source = mkOutOfStoreSymlink "${thisDir}/configs/hyprpanel/modules.json";
     "rofi/config.rasi".source = mkOutOfStoreSymlink "${thisDir}/configs/rofi/config.rasi";
     "rofi/catppuccin-lavrent-mocha.rasi".source = mkOutOfStoreSymlink "${thisDir}/configs/rofi/catppuccin-lavrent-mocha.rasi";
     "wlogout/layout".source = mkOutOfStoreSymlink "${thisDir}/configs/wlogout/layout";
