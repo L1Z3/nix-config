@@ -7,7 +7,7 @@ configuration {
     display-window: "󱂬 window:";
     display-combi:  "󰕘 combi:";
     display-filebrowser: "󰉋 filebrowser:";
-    font: "Maple Mono 12";
+    font: "Maple Mono 10";
 }
 
 @theme "~/.config/rofi/catppuccin-lavrent-mocha.rasi"

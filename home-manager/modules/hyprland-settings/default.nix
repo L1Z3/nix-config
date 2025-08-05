@@ -148,8 +148,6 @@
 
     # cursor theme
     cursor-theme-package
-
-    (pkgs.callPackage ./scripts/window-search/default.nix {})
   ];
   pkgsToVars = pkgsToConv: (with builtins; (listToAttrs (map (aPkg: {
       name = builtins.replaceStrings ["-"] ["_"] "$pkg_${lib.getName aPkg}";
@@ -324,6 +322,7 @@ in {
         "$reload_hyprpaper" = "${./scripts/reload_hyprpaper.sh}";
         "$linked_monitor_switch" = "${./scripts/linked_monitor_switch.sh}";
         "$open_last_screenshot" = "${./scripts/open-last-screenshot.sh}";
+        "$pkg_window_search" = "${./scripts/window-search.py}";
         "$gtk_theme_name" = "${gtk-theme-name}";
         "$cursor_theme_name" = "${cursor-theme-name}";
         source = [
