@@ -67,7 +67,7 @@
     #   debug/fix wofi startup delay
     #   nwg-displays for GUI display management
     #   fix all icons, e.g. in vscode and the sound icon
-    #   fix btrfs-assistant
+    #   fix btrfs-assistant's theme
     #   tweak hyprshot stuff (confirm button after selection, other binds for fullscreen/etc)
     #   set up hyprspace (or HyprExpo???)
     #      get hyprland cache working for git version?
@@ -78,18 +78,17 @@
     #   FIGURE OUT PROPER SESSION MANAGEMENT!!! (maybe just better autostart)
     #   keep enabling/fixing catppucci for everything
     #      WOFIII!!!
-    #   style app not responding popup/monitor selection popup/hyprland portal stuff: CATPPUCCIN FOR QT5/QT6
     #   make colors better for hyprland
     #   master layout binds?
     #   spicetify for catppuccin spotify theme
     #   make linked monitor switch bind better
     #      specifically, have different a different submap that imports all normal binds (source) and then unbinds workspace switch ones, replacing them with the linked ones
     #   make spotify autostart in special
-    #   hyprshot: freeze screen
 
     ## main desktop stuff
     # app runner
     wofi
+    rofi-wayland
     # status bar
     waybar
     # wallpaper backend
@@ -278,6 +277,8 @@ in {
     "hypr/hyprsunset.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hyprsunset.conf";
     "wofi/config".source = mkOutOfStoreSymlink "${thisDir}/configs/wofi/config";
     "wofi/style.css".source = mkOutOfStoreSymlink "${thisDir}/configs/wofi/style.css";
+    "rofi/config.rasi".source = mkOutOfStoreSymlink "${thisDir}/configs/rofi/config.rasi";
+    "rofi/catppuccin-lavrent-mocha.rasi".source = mkOutOfStoreSymlink "${thisDir}/configs/rofi/catppuccin-lavrent-mocha.rasi";
     "wlogout/layout".source = mkOutOfStoreSymlink "${thisDir}/configs/wlogout/layout";
     "wlogout/style.css".source = mkOutOfStoreSymlink "${thisDir}/configs/wlogout/style.css";
     "waybar/config.jsonc".source = mkOutOfStoreSymlink "${thisDir}/configs/waybar/config.jsonc";
