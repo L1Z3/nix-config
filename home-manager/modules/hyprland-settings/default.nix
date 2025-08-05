@@ -56,13 +56,8 @@
 
     # TODO: --------------------------------------------
     #   clipboard history gui
-    #   nwg-displays for GUI display management
-    #   fix all icons, e.g. in vscode and the sound icon
+    #   nwg-displays for GUI display management (also shortcut for it in hyprpanel dashboardmenu)
     #   fix btrfs-assistant's theme
-    #   set up hyprspace (or HyprExpo???)
-    #      get hyprland cache working for git version?
-    #      determine if package version mismatch between, e.g. hyprshot depending on hyprland 0.5.1 and hyprspace forcing it at 0.5.0 is a problem
-    #   set up nwg-displays/other useful nwg shell stuff
     #   theme tuigreet better
     #   theme firefox/tree style tab
     #   FIGURE OUT PROPER SESSION MANAGEMENT!!! (maybe just better autostart)
@@ -72,9 +67,7 @@
     #   make linked monitor switch bind better
     #      specifically, have different a different submap that imports all normal binds (source) and then unbinds workspace switch ones, replacing them with the linked ones
     #   make spotify autostart in special
-    #   continue trying to make rofi transparent, and also have super+D have cut off text well
     #   fix hyprsunset schedule
-    #   switch to hyprpanel
 
     ## main desktop stuff
     # app runner

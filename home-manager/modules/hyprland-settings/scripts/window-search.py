@@ -8,14 +8,13 @@ import subprocess
 import html
 
 # --- CONFIGURATION ---
-# Adjust this value to fit the width of your Rofi window.
-# It's the total maximum number of characters for the entire line.
-MAX_WIDTH = 50
+# adjust this value to fit the width of the rofi window
+MAX_WIDTH = 62
 ELLIPSIS = "..."
 
 def create_display_text(title, suffix):
     """
-    Intelligently truncates the title to ensure the entire string
+    Truncates the title to ensure the entire string
     with its suffix fits within MAX_WIDTH.
     """
     safe_title = html.escape(title)
@@ -32,30 +31,42 @@ def create_display_text(title, suffix):
 
 def map_window_to_rofi_entry(w):
     """
-    Formats window data for Rofi, including manual truncation of the title.
+    Formats window data for Rofi, hiding the address/other metadata with Pango markup
     """
-    suffix = f" ({w['address']}_{w['workspace']['id']})"
+    # capture the name from my special workspace naming scheme
+    if re.search(r"special\:scratch[0-9|A-z]", w["workspace"]["name"]):
+        effective_workspace = "s" + w["workspace"]["name"][-1]
+    elif re.search(r"special\:.*", w["workspace"]["name"]):
+        effective_workspace = "s_" + w["workspace"]["name"].split(":")[1]
+    else:
+        effective_workspace = w["workspace"]["id"]
+    visible_suffix = f" ({effective_workspace})"
+    display_text = create_display_text(w['title'], visible_suffix)
+
+    sanitized_title = re.sub(r'[^a-zA-Z0-9\s]', '', w['title'])
+
+    # append class and full title to invisible part so that we can search by them
+    invisible_part = f"<span fgalpha='1'>{w['address']}_{w['class']}_{sanitized_title}</span>"
     
-    display_text = create_display_text(w["title"], suffix)
+    full_text = display_text + invisible_part
     
     icon_name = w["class"]
-    return f"{display_text}\0icon\x1f{icon_name}"
+    return f"{full_text}\0icon\x1f{icon_name}"
 
 def main():
-    """
-    Main function to get windows, present them in rofi, and focus the selection.
-    """
     try:
         windows_json = os.popen("hyprctl -j clients").read()
         windows = json.loads(windows_json)
 
-        filtered_windows = [w for w in windows if w["workspace"]["id"] != -1]
+        filtered_windows = [w for w in windows if w["class"] != "xwaylandvideobridge"]
+
+        # sorted_windows = sorted(filtered_windows, key=lambda w: w['focusHistoryID'])
         
         rofi_entries = [map_window_to_rofi_entry(w) for w in filtered_windows]
         rofi_input = "\n".join(rofi_entries)
 
         rofi_process = subprocess.run(
-            ["rofi", "-dmenu", "-i", "-p", "Switch Window"],
+            ["rofi", "-dmenu", "-i", "-p", "Switch Window:", "-markup-rows"],
             input=rofi_input,
             capture_output=True,
             text=True
@@ -71,13 +82,12 @@ def main():
         selected_entry = rofi_process.stdout.strip()
 
         if selected_entry:
-            match = re.search(r"\(([^()]+)\)$", selected_entry)
+            match = re.search(r"<span.*?>([^_]+)_", selected_entry)
             if match:
-                addr_and_workspace = match.group(1)
-                addr = addr_and_workspace.split("_")[0]
+                addr = match.group(1)
                 os.system(f"hyprctl dispatch focuswindow address:{addr}")
             else:
-                sys.stderr.write(f"Error: Could not parse address from selection: '{selected_entry}'\n")
+                sys.stderr.write(f"Error: Could not parse address from Pango markup in selection: '{selected_entry}'\n")
 
     except Exception as e:
         sys.stderr.write(f"An unexpected error occurred: {e}\n")

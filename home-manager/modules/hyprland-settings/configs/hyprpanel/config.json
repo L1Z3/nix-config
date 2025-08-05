@@ -523,5 +523,6 @@
   "menus.dashboard.directories.enabled": false,
   "bar.customModules.hypridle.label": false,
   "menus.dashboard.powermenu.logout": "loginctl terminate-user \"\"",
-  "bar.customModules.hyprsunset.temperature": "4000k"
+  "bar.customModules.hyprsunset.temperature": "4000k",
+  "menus.clock.weather.enabled": false
 }

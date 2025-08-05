@@ -5,8 +5,8 @@
  */
 
 * {
-    base: #1e1e2e;
-    surface0: #313244;
+    base: #1e1e2e55;
+    surface0: #31324455;
     overlay0: #6c7086;
     text: #cdd6f4;
 
@@ -23,7 +23,7 @@ window {
     height: 600;
     width: 600;
 
-    border: 3;
+    border: 1;
     border-radius: 10;
     border-color: @lavender;
 }
@@ -64,6 +64,7 @@ error-message {
 
 entry, prompt, case-indicator {
     text-color: inherit;
+    background-color: #00000000;
 }
 
 prompt {
@@ -105,7 +106,7 @@ element-text, element-icon {
     size: 40;
     margin: 0 10 0 0;
     vertical-align: 0.5;
-    background-color: inherit;
+    background-color: #00000000;
     text-color: @text;
 }
 
