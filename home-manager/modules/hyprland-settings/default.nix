@@ -64,7 +64,7 @@
     #     - clock one that shows date on hover, can be expanded into calendar like kde/gnome
     #     - media widget like kde/gnome
     #   clipboard history gui
-    #   debug/fix wofi startup delay
+    #   debug/fix rofi startup delay
     #   nwg-displays for GUI display management
     #   fix all icons, e.g. in vscode and the sound icon
     #   fix btrfs-assistant's theme
@@ -76,8 +76,6 @@
     #   theme tuigreet better
     #   theme firefox/tree style tab
     #   FIGURE OUT PROPER SESSION MANAGEMENT!!! (maybe just better autostart)
-    #   keep enabling/fixing catppucci for everything
-    #      WOFIII!!!
     #   make colors better for hyprland
     #   master layout binds?
     #   spicetify for catppuccin spotify theme
@@ -87,7 +85,6 @@
 
     ## main desktop stuff
     # app runner
-    wofi
     rofi-wayland
     # status bar
     waybar
@@ -265,7 +262,6 @@ in {
     #   color15              ${foreground}
     # '';
     "waybar/theme-colors.css".text = theme-colors-gtk-css-vars;
-    "wofi/theme-colors.css".text = theme-colors-gtk-css-vars;
     "wlogout/theme-colors.css".text = theme-colors-gtk-css-vars;
 
     "hypr/configs/main.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/main.conf";
@@ -273,8 +269,6 @@ in {
     "hypr/hyprlock-extra.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hyprlock-extra.conf";
     "hypr/hypridle.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hypridle.conf";
     "hypr/hyprsunset.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hyprsunset.conf";
-    "wofi/config".source = mkOutOfStoreSymlink "${thisDir}/configs/wofi/config";
-    "wofi/style.css".source = mkOutOfStoreSymlink "${thisDir}/configs/wofi/style.css";
     "rofi/config.rasi".source = mkOutOfStoreSymlink "${thisDir}/configs/rofi/config.rasi";
     "rofi/catppuccin-lavrent-mocha.rasi".source = mkOutOfStoreSymlink "${thisDir}/configs/rofi/catppuccin-lavrent-mocha.rasi";
     "wlogout/layout".source = mkOutOfStoreSymlink "${thisDir}/configs/wlogout/layout";

@@ -107,7 +107,6 @@ element-text, element-icon {
     vertical-align: 0.5;
     background-color: inherit;
     text-color: @text;
-    single-line: false;
 }
 
 element-text .active, element-text .urgent {

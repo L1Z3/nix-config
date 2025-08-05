@@ -18,7 +18,7 @@ def map_window_to_rofi_entry(w):
     workspace_id = w["workspace"]["id"]
     icon_name = w["class"]
     
-    display_text = f"{title} ({address}_{workspace_id})"
+    display_text = f"{title} \n({address}_{workspace_id})"
     
     return f"{display_text}\0icon\x1f{icon_name}"
 
