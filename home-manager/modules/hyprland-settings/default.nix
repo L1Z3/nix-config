@@ -75,7 +75,7 @@
     #   set up nwg-displays/other useful nwg shell stuff
     #   theme tuigreet better
     #   theme firefox/tree style tab
-    #   FIGURE OUT PROPER SESSION MANAGEMENT!!!
+    #   FIGURE OUT PROPER SESSION MANAGEMENT!!! (maybe just better autostart)
     #   keep enabling/fixing catppucci for everything
     #      WOFIII!!!
     #   style app not responding popup/monitor selection popup/hyprland portal stuff: CATPPUCCIN FOR QT5/QT6
@@ -84,6 +84,8 @@
     #   spicetify for catppuccin spotify theme
     #   make linked monitor switch bind better
     #      specifically, have different a different submap that imports all normal binds (source) and then unbinds workspace switch ones, replacing them with the linked ones
+    #   make spotify autostart in special
+    #   hyprshot: freeze screen
 
     ## main desktop stuff
     # app runner
@@ -320,6 +322,7 @@ in {
         "$reload_waybar" = "${./scripts/reload_waybar.sh}";
         "$reload_hyprpaper" = "${./scripts/reload_hyprpaper.sh}";
         "$linked_monitor_switch" = "${./scripts/linked_monitor_switch.sh}";
+        "$open_last_screenshot" = "${./scripts/open-last-screenshot.sh}";
         "$gtk_theme_name" = "${gtk-theme-name}";
         "$cursor_theme_name" = "${cursor-theme-name}";
         source = [
