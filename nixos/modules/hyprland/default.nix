@@ -58,6 +58,11 @@ in {
   # enable auto-rotate in hyprland
   programs.iio-hyprland.enable = true;
 
+  # enable hyprpanel's power profile switching
+  services.power-profiles-daemon.enable = true;
+  # make hyprpanel battery indicator work
+  services.upower.enable = true;
+
   programs.xwayland.enable = true;
   # TODO monitor config?
   # Optional, hint electron apps to use wayland:
