@@ -82,6 +82,8 @@
     #   make linked monitor switch bind better
     #      specifically, have different a different submap that imports all normal binds (source) and then unbinds workspace switch ones, replacing them with the linked ones
     #   make spotify autostart in special
+    #   change resize shortcut to have to hold down super+R the whole time
+    #   continue trying to make rofi transparent, and also have super+D have cut off text well
 
     ## main desktop stuff
     # app runner
