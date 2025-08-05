@@ -84,12 +84,14 @@
     #   make spotify autostart in special
     #   change resize shortcut to have to hold down super+R the whole time
     #   continue trying to make rofi transparent, and also have super+D have cut off text well
+    #   fix hyprsunset schedule
+    #   switch to hyprpanel
 
     ## main desktop stuff
     # app runner
     rofi-wayland
     # status bar
-    waybar
+    # waybar
     # wallpaper backend
     pkgs-hypr.hyprpaper
     # idle timeout stuff
@@ -169,7 +171,7 @@ in {
     accent = "mauve";
     # TODO re-enable this. it's disabled to prevent conflicts right now
     vscode.profiles.default.enable = false;
-    waybar.mode = "createLink";
+    # waybar.mode = "createLink";
     # for some reason, this is causing the hm switch to get stuck forever...
     # NOTE: currently if flavor != mocha or accent != blue, the build will freeze.
     #       see https://github.com/NixOS/nixpkgs/issues/426952
@@ -188,7 +190,7 @@ in {
       };
     };
     # notification daemon
-    swaync.enable = true;
+    # swaync.enable = true;
     # lockscreen service
     hypridle.enable = true;
     hypridle.package = pkgs-hypr.hypridle;
@@ -223,7 +225,8 @@ in {
       };
     };
     # only down here as well as in home.packages so that catppuccin nix can see it
-    waybar.enable = true;
+    # waybar.enable = true;
+    hyprpanel.enable = true;
     hyprlock = {
       enable = true;
       package = pkgs-hypr.hyprlock;
