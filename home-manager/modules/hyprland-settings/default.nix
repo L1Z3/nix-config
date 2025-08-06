@@ -110,10 +110,10 @@
     pavucontrol
     # gnome gui network manager
     networkmanagerapplet
-    # temp, since the hyprpanel menu is not working great
-    rofi-network-manager
+    networkmanager_dmenu
     # gnome file explorer
     nautilus
+    file-roller
     # gnome image viewer
     eog
     # gnome document viewer
@@ -223,6 +223,7 @@ in {
 
   # TODO make this automatic for more files with nix nonsense instead of copy-paste for more files
   xdg.configFile = {
+    "networkmanager-dmenu/config.ini".source = mkOutOfStoreSymlink "${thisDir}/configs/networkmanager-dmenu/config.ini";
     "hypr/configs/main.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/main.conf";
     "hypr/configs/special-workspaces.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/special-workspaces.conf";
     "hypr/hyprlock-extra.conf".source = mkOutOfStoreSymlink "${thisDir}/configs/hypr/hyprlock-extra.conf";

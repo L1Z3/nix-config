@@ -505,9 +505,10 @@
   "bar.volume.rightClick": "pavucontrol",
   "bar.bluetooth.rightClick": "blueberry",
   "bar.systray.ignore": [
+    "nm-applet",
     "Xwayland Video Bridge_pipewireToXProxy"
   ],
-  "bar.network.rightClick": "",
+  "bar.network.rightClick": "networkmanager_dmenu",
   "bar.bluetooth.label": false,
   "bar.network.label": false,
   "theme.bar.buttons.modules.hyprsunset.enableBorder": false,
