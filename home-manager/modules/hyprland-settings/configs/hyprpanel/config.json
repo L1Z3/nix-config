@@ -505,10 +505,9 @@
   "bar.volume.rightClick": "pavucontrol",
   "bar.bluetooth.rightClick": "blueberry",
   "bar.systray.ignore": [
-    "nm-applet",
     "Xwayland Video Bridge_pipewireToXProxy"
   ],
-  "bar.network.rightClick": "nm-connection-editor",
+  "bar.network.rightClick": "",
   "bar.bluetooth.label": false,
   "bar.network.label": false,
   "theme.bar.buttons.modules.hyprsunset.enableBorder": false,
@@ -523,7 +522,7 @@
   "menus.dashboard.directories.enabled": false,
   "bar.customModules.hypridle.label": false,
   "menus.dashboard.powermenu.logout": "loginctl terminate-user \"\"",
-  "bar.customModules.hyprsunset.temperature": "4000k",
+  "bar.customModules.hyprsunset.temperature": "3200k",
   "menus.clock.weather.enabled": false,
   "bar.windowtitle.title_map": [
     [
@@ -540,7 +539,13 @@
       "ffpwa-01[0-9|A-z]+",
       "󰍩",
       "Google Messages"
+    ],
+    [
+      "syncplay",
+      "󰻏",
+      "Syncplay"
     ]
   ],
-  "bar.windowtitle.class_name": false
+  "bar.windowtitle.class_name": false,
+  "bar.network.middleClick": "nm-connection-editor"
 }

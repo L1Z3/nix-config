@@ -56,9 +56,10 @@
 
     # TODO: --------------------------------------------
     #   nwg-displays for GUI display management (also shortcut for it in hyprpanel dashboardmenu)
+    #   zoom in hotkey like kde
     #   fix btrfs-assistant's theme
     #   theme tuigreet better
-    #   theme firefox/tree style tab
+    #   theme firefox + tree style tab
     #   FIGURE OUT PROPER SESSION MANAGEMENT!!! (maybe just better autostart)
     #   make colors better for hyprland
     #   master layout binds?
@@ -68,6 +69,7 @@
     #   make spotify autostart in special
     #   fix hyprsunset schedule
     #   get keyring figured out... don't want to type in ssh passphrase all the time
+    #   use libinput gestures to make zoom work with touchpad
 
     ## main desktop stuff
     # app runner
@@ -108,6 +110,8 @@
     pavucontrol
     # gnome gui network manager
     networkmanagerapplet
+    # temp, since the hyprpanel menu is not working great
+    rofi-network-manager
     # gnome file explorer
     nautilus
     # gnome image viewer
