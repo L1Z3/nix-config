@@ -73,6 +73,7 @@ in {
     pkgs-hypr.hyprland-qtutils
     pkgs-hypr.hyprland-qt-support
     bibata-cursors
+    networkmanager
   ];
 
   fonts = {
