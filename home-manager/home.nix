@@ -453,6 +453,7 @@ in {
 
     # googleearth-pro
     nix-tree
+    qalculate-gtk
   ];
 
   # flatpaks

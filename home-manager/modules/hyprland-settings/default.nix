@@ -68,6 +68,10 @@
     #   fix hyprsunset schedule
     #   get keyring figured out... don't want to type in ssh passphrase all the time
     #   use libinput gestures to make zoom work with touchpad
+    #   keybind for maddie's... earbud volume (maybe submap?)
+    #      script that has to parse pw-dump or wpctl status for sink ID, then set it with wpctl.
+    #          problem: getting OSD to show up for proper sink, also getting audio indicator to show up
+    #   enable animations that i like :3
 
     ## main desktop stuff
     # app runner
