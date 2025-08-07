@@ -137,7 +137,12 @@
     # clipboard
     wl-clip-persist
     wl-clipboard
+
+    # json parsing
     jq
+
+    # audio stuff
+    libcanberra-gtk3
   ];
   pkgsToVars = pkgsToConv: (with builtins; (listToAttrs (map (aPkg: {
       name = builtins.replaceStrings ["-"] ["_"] "$pkg_${lib.getName aPkg}";
@@ -279,6 +284,7 @@ in {
         "$open_last_screenshot" = "${mkOutOfStoreSymlink "${thisDir}/scripts/open-last-screenshot.sh"}";
         "$pkg_window_search" = "${mkOutOfStoreSymlink "${thisDir}/scripts/window-search.py"}";
         "$swap_monitor_positions" = "${mkOutOfStoreSymlink "${thisDir}/scripts/swap-monitor-positions.sh"}";
+        "$set_sink_volume" = "${mkOutOfStoreSymlink "${thisDir}/scripts/set-sink-volume-by-substring.sh"}";
         "$gtk_theme_name" = "${gtk-theme-name}";
         "$cursor_theme_name" = "${cursor-theme-name}";
         source = [
