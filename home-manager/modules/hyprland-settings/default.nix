@@ -56,10 +56,8 @@
 
     # TODO: --------------------------------------------
     #   nwg-displays for GUI display management (also shortcut for it in hyprpanel dashboardmenu)
-    #   zoom in hotkey like kde
     #   fix btrfs-assistant's theme
     #   theme tuigreet better
-    #   theme firefox + tree style tab
     #   FIGURE OUT PROPER SESSION MANAGEMENT!!! (maybe just better autostart)
     #   make colors better for hyprland
     #   master layout binds?

@@ -46,6 +46,7 @@
     #   inputs.hyprland.follows = "hyprland";
     # };
     catppuccin.url = "github:catppuccin/nix";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
   };
 
   # enable the nix community cache, unfree cache

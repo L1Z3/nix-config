@@ -542,9 +542,24 @@
       "Google Messages"
     ],
     [
+      "love",
+      "󰒓",
+      "Olympus/Loenn"
+    ],
+    [
       "syncplay",
       "󰻏",
       "Syncplay"
+    ],
+    [
+      "com.obsproject.studio",
+      "󱜠",
+      "OBS Studio"
+    ],
+    [
+      "celeste",
+      "",
+      "Celeste"
     ]
   ],
   "bar.windowtitle.class_name": false,

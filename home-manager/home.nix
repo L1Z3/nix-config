@@ -53,6 +53,9 @@ in {
     # enable prebuilt indexes for nix-index
     inputs.nix-index-database.homeModules.nix-index
 
+    # theme/modding spotify
+    inputs.spicetify-nix.homeManagerModules.default
+
     # home-manager settings for GNOME
     # (import ./modules/gnome-settings.nix (args // {inherit secrets;}))
 
@@ -293,6 +296,20 @@ in {
       enableBashIntegration = true; # see note on other shells below
       nix-direnv.enable = true;
     };
+
+    # themed spotify
+    spicetify = let
+      spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+    in {
+      enable = true;
+      theme = spicePkgs.themes.catppuccin;
+      colorScheme = "mocha";
+      enabledExtensions = with spicePkgs.extensions; [
+        adblock
+        shuffle
+        loopyLoop
+      ];
+    };
   };
 
   # Add stuff for your user as you see fit:
@@ -346,7 +363,7 @@ in {
     # vscode, via programs/vscode
 
     # media
-    spotify
+    # spotify # using spicetify-nix instead
     mpv
     # override for vlc 3.0.20 to fix av1/opus issue temporarily
     (let
