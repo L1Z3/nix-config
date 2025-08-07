@@ -61,17 +61,17 @@
     #   FIGURE OUT PROPER SESSION MANAGEMENT!!! (maybe just better autostart)
     #   make colors better for hyprland
     #   master layout binds?
-    #   spicetify for catppuccin spotify theme
     #   make linked monitor switch bind better
     #      specifically, have different a different submap that imports all normal binds (source) and then unbinds workspace switch ones, replacing them with the linked ones
-    #   make spotify autostart in special
+    #          could be a script that unbinds the workspace switch binds and then rebinds them to the linked ones
     #   fix hyprsunset schedule
     #   get keyring figured out... don't want to type in ssh passphrase all the time
     #   use libinput gestures to make zoom work with touchpad
     #   keybind for maddie's... earbud volume (maybe submap?)
     #      script that has to parse pw-dump or wpctl status for sink ID, then set it with wpctl.
     #          problem: getting OSD to show up for proper sink, also getting audio indicator to show up
-    #   enable animations that i like :3
+    #   keybind for pin
+    #   script to swap monitor positions (left/right)
 
     ## main desktop stuff
     # app runner
@@ -137,6 +137,7 @@
     # clipboard
     wl-clip-persist
     wl-clipboard
+    jq
   ];
   pkgsToVars = pkgsToConv: (with builtins; (listToAttrs (map (aPkg: {
       name = builtins.replaceStrings ["-"] ["_"] "$pkg_${lib.getName aPkg}";
@@ -277,6 +278,7 @@ in {
         "$linked_monitor_switch" = "${mkOutOfStoreSymlink "${thisDir}/scripts/linked_monitor_switch.sh"}";
         "$open_last_screenshot" = "${mkOutOfStoreSymlink "${thisDir}/scripts/open-last-screenshot.sh"}";
         "$pkg_window_search" = "${mkOutOfStoreSymlink "${thisDir}/scripts/window-search.py"}";
+        "$swap_monitor_positions" = "${mkOutOfStoreSymlink "${thisDir}/scripts/swap-monitor-positions.sh"}";
         "$gtk_theme_name" = "${gtk-theme-name}";
         "$cursor_theme_name" = "${cursor-theme-name}";
         source = [

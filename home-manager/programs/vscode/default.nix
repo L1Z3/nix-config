@@ -3,6 +3,7 @@
   config,
   extensions,
   lib,
+  secrets,
   ...
 }: let
   inherit (config.lib.file) mkOutOfStoreSymlink;

@@ -66,7 +66,11 @@ in {
     #(import ./modules/hyprland-settings (args // {inherit secrets;}))
     ./modules/hyprland-settings
 
-    (import ./programs/vscode (args // {extensions = inputs.nix-vscode-extensions.extensions.${pkgs.system};}))
+    (import ./programs/vscode (args
+      // {
+        inherit secrets;
+        extensions = inputs.nix-vscode-extensions.extensions.${pkgs.system};
+      }))
     ./programs/htop
     ./programs/syncplay
     ./programs/winapps.nix

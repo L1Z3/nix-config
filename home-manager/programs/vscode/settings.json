@@ -47,5 +47,6 @@
     ],
     "window.zoomLevel": 0.8,
     "workbench.iconTheme": "catppuccin-mocha",
-    "workbench.colorTheme": "Catppuccin Mocha"
+    "workbench.colorTheme": "Catppuccin Mocha",
+    "github.copilot.nextEditSuggestions.enabled": true
 }
