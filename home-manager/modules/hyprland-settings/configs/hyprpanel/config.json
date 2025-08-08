@@ -560,6 +560,11 @@
       "celeste",
       "",
       "Celeste"
+    ],
+    [
+      "cursor",
+      "󰨞",
+      "Visual Studio Code"
     ]
   ],
   "bar.windowtitle.class_name": false,

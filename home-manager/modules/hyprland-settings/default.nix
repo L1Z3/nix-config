@@ -139,6 +139,8 @@
 
     # audio stuff
     libcanberra-gtk3
+
+    hyprls
   ];
   pkgsToVars = pkgsToConv: (with builtins; (listToAttrs (map (aPkg: {
       name = builtins.replaceStrings ["-"] ["_"] "$pkg_${lib.getName aPkg}";

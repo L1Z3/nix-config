@@ -258,8 +258,8 @@
     },
     "secrets": {
       "locked": {
-        "lastModified": 1754592686,
-        "narHash": "sha256-6sQ/YX7sFEQPTvuZAvdXU0x4oTY5BfVgmQMKDdP+4zU=",
+        "lastModified": 1754689376,
+        "narHash": "sha256-ewFsrYcyDO4MQeMBk/qDb8WVwHbvtz3rcIF3krvRoIY=",
         "path": "/home/liz/nix/secrets",
         "type": "path"
       },

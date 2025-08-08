@@ -13,7 +13,10 @@
     if secrets ? vsCodePackageFun
     then secrets.vsCodePackageFun pkgs
     else pkgs.vscode;
-  vsCodeDir = secrets.vsCodeDir or "Code";
+  vsCodeDir =
+    if secrets ? vsCodeDir
+    then secrets.vsCodeDir
+    else "VSCode";
 in {
   programs.vscode = {
     enable = true;
