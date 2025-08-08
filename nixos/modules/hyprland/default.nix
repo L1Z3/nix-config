@@ -68,6 +68,22 @@ in {
   # Optional, hint electron apps to use wayland:
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+  # allow root apps (e.g. btrfs-assistant) to use qt kvantum catppuccin theme
+  qt = {
+    enable = true;
+    style = "kvantum";
+  };
+  environment.etc."xdg/Kvantum/kvantum.kvconfig".text = ''
+    [General]
+    theme=catppuccin-mocha-mauve
+  '';
+  systemd.tmpfiles.rules = [
+    # Ensure the Kvantum theme directory for root exists and is populated
+    "L+ /root/.config/Kvantum/catppuccin-mocha-mauve - - - - ${inputs.catppuccin.packages.${pkgs.stdenv.hostPlatform.system}.kvantum}/share/Kvantum/catppuccin-mocha-mauve"
+    # Symlink the kvantum.kvconfig for root to match the system-wide config
+    "L+ /root/.config/Kvantum/kvantum.kvconfig - - - - /etc/xdg/Kvantum/kvantum.kvconfig"
+  ];
+
   environment.systemPackages = with pkgs; [
     xorg.libXcursor
     pkgs-hypr.hyprland-qtutils

@@ -56,7 +56,6 @@
 
     # TODO: --------------------------------------------
     #   nwg-displays for GUI display management (also shortcut for it in hyprpanel dashboardmenu)
-    #   fix btrfs-assistant's theme
     #   theme tuigreet better
     #   FIGURE OUT PROPER SESSION MANAGEMENT!!! (maybe just better autostart)
     #   make colors better for hyprland
