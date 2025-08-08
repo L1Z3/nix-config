@@ -9,15 +9,11 @@
   inherit (config.lib.file) mkOutOfStoreSymlink;
   pathToHere = "${config.home.homeDirectory}/nix/home-manager/programs/vscode";
 
-  vsCodium = false; # random thing for a cs course breaks with vscodium
   vsCodePackage =
-    if vsCodium
-    then pkgs.vscodium
+    if secrets ? vsCodePackageFun
+    then secrets.vsCodePackageFun pkgs
     else pkgs.vscode;
-  vsCodeDir =
-    if vsCodium
-    then "VSCodium"
-    else "Code";
+  vsCodeDir = secrets.vsCodeDir or "Code";
 in {
   programs.vscode = {
     enable = true;
