@@ -1,0 +1,187 @@
+diff --git a/src/components/osd/bar/helpers.ts b/src/components/osd/bar/helpers.ts
+index cd7bc8b..a060df4 100644
+--- a/src/components/osd/bar/helpers.ts
++++ b/src/components/osd/bar/helpers.ts
+@@ -3,6 +3,7 @@ import AstalWp from 'gi://AstalWp?version=0.1';
+ import LevelBar from 'src/components/shared/LevelBar';
+ import options from 'src/configuration';
+ import BrightnessService from 'src/services/system/brightness';
++import { customOsdActive, customOsdVolume, customOsdMuted } from 'src/services/cli/commander/commands/system/utility';
+ 
+ const wireplumber = AstalWp.get_default() as AstalWp.Wp;
+ const audioService = wireplumber.audio;
+@@ -29,7 +30,22 @@ export const setupOsdBar = (self: LevelBar): void => {
+         self.value = brightnessService.kbd;
+     });
+ 
++    // Custom OSD override binding (e.g., non-default sink)
++    const customBinding = Variable.derive(
++        [bind(customOsdActive), bind(customOsdVolume), bind(customOsdMuted)],
++        () => {
++            if (customOsdActive.get()) {
++                const vol = customOsdVolume.get();
++                const muted = customOsdMuted.get();
++                const showZero = options.theme.osd.muted_zero.get();
++                self.toggleClassName('overflow', vol > 1 && (!showZero || muted === false));
++                self.value = showZero && muted !== false ? 0 : vol <= 1 ? vol : vol - 1;
++            }
++        },
++    );
++
+     const micVolumeBinding = Variable.derive([bind(audioService.defaultMicrophone, 'volume')], () => {
++        if (customOsdActive.get()) return;
+         self.toggleClassName('overflow', audioService.defaultMicrophone.volume > 1);
+         self.value =
+             audioService.defaultMicrophone.volume <= 1
+@@ -38,6 +54,7 @@ export const setupOsdBar = (self: LevelBar): void => {
+     });
+ 
+     const micMuteBinding = Variable.derive([bind(audioService.defaultMicrophone, 'mute')], () => {
++        if (customOsdActive.get()) return;
+         self.toggleClassName(
+             'overflow',
+             audioService.defaultMicrophone.volume > 1 &&
+@@ -52,6 +69,7 @@ export const setupOsdBar = (self: LevelBar): void => {
+     });
+ 
+     const speakerVolumeBinding = Variable.derive([bind(audioService.defaultSpeaker, 'volume')], () => {
++        if (customOsdActive.get()) return;
+         self.toggleClassName('overflow', audioService.defaultSpeaker.volume > 1);
+         self.value =
+             audioService.defaultSpeaker.volume <= 1
+@@ -60,6 +78,7 @@ export const setupOsdBar = (self: LevelBar): void => {
+     });
+ 
+     const speakerMuteBinding = Variable.derive([bind(audioService.defaultSpeaker, 'mute')], () => {
++        if (customOsdActive.get()) return;
+         self.toggleClassName(
+             'overflow',
+             audioService.defaultSpeaker.volume > 1 &&
+@@ -74,6 +93,7 @@ export const setupOsdBar = (self: LevelBar): void => {
+     });
+ 
+     self.connect('destroy', () => {
++        customBinding.drop();
+         micVolumeBinding.drop();
+         micMuteBinding.drop();
+         speakerVolumeBinding.drop();
+diff --git a/src/components/osd/label/helpers.ts b/src/components/osd/label/helpers.ts
+index 9885a8c..bd11717 100644
+--- a/src/components/osd/label/helpers.ts
++++ b/src/components/osd/label/helpers.ts
+@@ -3,6 +3,7 @@ import { Widget } from 'astal/gtk3';
+ import AstalWp from 'gi://AstalWp?version=0.1';
+ import options from 'src/configuration';
+ import BrightnessService from 'src/services/system/brightness';
++import { customOsdActive, customOsdVolume, customOsdMuted } from 'src/services/cli/commander/commands/system/utility';
+ 
+ const wireplumber = AstalWp.get_default() as AstalWp.Wp;
+ const audioService = wireplumber.audio;
+@@ -27,12 +28,29 @@ export const setupOsdLabel = (self: Widget.Label): void => {
+         self.label = `${Math.round(brightnessService.kbd * 100)}`;
+     });
+ 
++    // Custom OSD override binding
++    const customBinding = Variable.derive(
++        [bind(customOsdActive), bind(customOsdVolume), bind(customOsdMuted)],
++        () => {
++            if (customOsdActive.get()) {
++                const vol = customOsdVolume.get();
++                const muted = customOsdMuted.get();
++                const showZero = options.theme.osd.muted_zero.value;
++                self.toggleClassName('overflow', vol > 1 && (!showZero || muted === false));
++                const labelVol = showZero && muted !== false ? 0 : Math.round(vol * 100);
++                self.label = `${labelVol}`;
++            }
++        },
++    );
++
+     const micVolumeBinding = Variable.derive([bind(audioService.defaultMicrophone, 'volume')], () => {
++        if (customOsdActive.get()) return;
+         self.toggleClassName('overflow', audioService.defaultMicrophone.volume > 1);
+         self.label = `${Math.round(audioService.defaultMicrophone.volume * 100)}`;
+     });
+ 
+     const micMuteBinding = Variable.derive([bind(audioService.defaultMicrophone, 'mute')], () => {
++        if (customOsdActive.get()) return;
+         self.toggleClassName(
+             'overflow',
+             audioService.defaultMicrophone.volume > 1 &&
+@@ -46,11 +64,13 @@ export const setupOsdLabel = (self: Widget.Label): void => {
+     });
+ 
+     const speakerVolumeBinding = Variable.derive([bind(audioService.defaultSpeaker, 'volume')], () => {
++        if (customOsdActive.get()) return;
+         self.toggleClassName('overflow', audioService.defaultSpeaker.volume > 1);
+         self.label = `${Math.round(audioService.defaultSpeaker.volume * 100)}`;
+     });
+ 
+     const speakerMuteBinding = Variable.derive([bind(audioService.defaultSpeaker, 'mute')], () => {
++        if (customOsdActive.get()) return;
+         self.toggleClassName(
+             'overflow',
+             audioService.defaultSpeaker.volume > 1 &&
+@@ -64,6 +84,7 @@ export const setupOsdLabel = (self: Widget.Label): void => {
+     });
+ 
+     self.connect('destroy', () => {
++        customBinding.drop();
+         micVolumeBinding.drop();
+         micMuteBinding.drop();
+         speakerVolumeBinding.drop();
+diff --git a/src/services/cli/commander/commands/system/utility/index.ts b/src/services/cli/commander/commands/system/utility/index.ts
+index d266be8..119def8 100644
+--- a/src/services/cli/commander/commands/system/utility/index.ts
++++ b/src/services/cli/commander/commands/system/utility/index.ts
+@@ -9,11 +9,18 @@ import { errorHandler } from 'src/core/errors/handler';
+ import { clearNotifications } from 'src/lib/shared/notifications';
+ import options from 'src/configuration';
+ import { listCpuTempSensors } from '../sensors';
++import { OsdRevealerController } from 'src/components/osd/revealer/revealerController';
++import { timeout, Variable } from 'astal';
+ 
+ const { clearDelay } = options.notifications;
+ const notifdService = AstalNotifd.get_default();
+ const audio = AstalWp.get_default();
+ 
++// Exported variables: OSD override state for custom volume display
++export const customOsdActive = Variable(false);
++export const customOsdVolume = Variable(0);
++export const customOsdMuted = Variable(false);
++
+ export const utilityCommands: Command[] = [
+     {
+         name: 'systrayItems',
+@@ -46,6 +53,32 @@ export const utilityCommands: Command[] = [
+             }
+         },
+     },
++    {
++        name: 'osdVolume',
++        aliases: ['osdv'],
++        description: 'Shows the volume OSD with a specific value (0-150) and optional mute flag.',
++        category: 'System',
++        args: [
++            { name: 'value', description: 'Volume percent (0-150)', type: 'number', required: true },
++            { name: 'muted', description: 'Muted flag (true/false)', type: 'boolean', required: false },
++        ],
++        handler: (args: Record<string, unknown>): string => {
++            try {
++                const valuePct = Math.max(0, Math.min(150, Number(args['value'])));
++                const muted = Boolean(args['muted'] ?? false);
++                customOsdVolume.set(valuePct / 100);
++                customOsdMuted.set(muted);
++                customOsdActive.set(true);
++                const controller = OsdRevealerController.getInstance();
++                controller.show();
++                const hideDelay = options.theme.osd.duration.get?.() ?? options.theme.osd.duration.value ?? 1500;
++                timeout(hideDelay + 50, () => customOsdActive.set(false));
++                return `${valuePct}`;
++            } catch (error) {
++                errorHandler(error);
++            }
++        },
++    },
+     {
+         name: 'toggleDnd',
+         aliases: ['dnd'],

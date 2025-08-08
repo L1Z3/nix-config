@@ -54,6 +54,10 @@
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
+    # Apply custom OSD/CLI patch to HyprPanel so we can trigger volume OSD for non-default sinks
+    hyprpanel = prev.hyprpanel.overrideAttrs (old: {
+      patches = (old.patches or []) ++ [./hyprpanel-custom-osd.patch];
+    });
     # fix vmware download thing temporarily (https://github.com/NixOS/nixpkgs/issues/392841)
     vmware-workstation = let
       finalAttrs = final.vmware-workstation;
