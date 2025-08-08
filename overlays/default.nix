@@ -54,34 +54,10 @@
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
-    # Apply custom OSD/CLI patch to HyprPanel so we can trigger volume OSD for non-default sinks
+    # apply custom OSD/CLI patch to HyprPanel so we can trigger volume OSD for non-default sinks
     hyprpanel = prev.hyprpanel.overrideAttrs (old: {
       patches = (old.patches or []) ++ [./hyprpanel-custom-osd.patch];
     });
-    # fix vmware download thing temporarily (https://github.com/NixOS/nixpkgs/issues/392841)
-    vmware-workstation = let
-      finalAttrs = final.vmware-workstation;
-      version = "17.6.1";
-      build = "24319023";
-      baseUrl = "https://web.archive.org/web/20241105192443if_/https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${version}/${build}/linux";
-      vmware-unpack-env = prev.buildFHSEnv {
-        pname = "vmware-unpack-env";
-        inherit version;
-        targetPkgs = pkgs: [pkgs.zlib];
-      };
-    in
-      prev.vmware-workstation.overrideAttrs {
-        src =
-          prev.fetchzip {
-            url = "${baseUrl}/core/VMware-Workstation-${version}-${build}.x86_64.bundle.tar";
-            hash = "sha256-VzfiIawBDz0f1w3eynivW41Pn4SqvYf/8o9q14hln4s=";
-            stripRoot = false;
-          }
-          + "/VMware-Workstation-${version}-${build}.x86_64.bundle";
-        unpackPhase = ''
-          ${vmware-unpack-env}/bin/vmware-unpack-env -c "sh ${finalAttrs.src} --extract unpacked"
-        '';
-      };
 
     # TODO fix
     # steam launch with steamos version (workaround to allow steam input in wayland native games) (Celeste with env SDL_VIDEODRIVER=wayland)
