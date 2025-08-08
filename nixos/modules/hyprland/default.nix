@@ -78,9 +78,7 @@ in {
     theme=catppuccin-mocha-mauve
   '';
   systemd.tmpfiles.rules = [
-    # Ensure the Kvantum theme directory for root exists and is populated
     "L+ /root/.config/Kvantum/catppuccin-mocha-mauve - - - - ${inputs.catppuccin.packages.${pkgs.stdenv.hostPlatform.system}.kvantum}/share/Kvantum/catppuccin-mocha-mauve"
-    # Symlink the kvantum.kvconfig for root to match the system-wide config
     "L+ /root/.config/Kvantum/kvantum.kvconfig - - - - /etc/xdg/Kvantum/kvantum.kvconfig"
   ];
 
