@@ -408,7 +408,7 @@ in {
     parsec-bin
 
     moonlight-qt
-    warpinator
+    warpinator-fixed # patched version to add pillow TODO upstream
     # rustdesk
 
     # messaging
