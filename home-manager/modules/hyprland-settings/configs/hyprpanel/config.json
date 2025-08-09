@@ -568,5 +568,6 @@
     ]
   ],
   "bar.windowtitle.class_name": false,
-  "bar.network.middleClick": "nm-connection-editor"
+  "bar.network.middleClick": "nm-connection-editor",
+  "bar.media.format": "{title: - }{artist}"
 }

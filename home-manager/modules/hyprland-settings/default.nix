@@ -140,6 +140,8 @@
     libcanberra-gtk3
 
     hyprls
+
+    rofimoji
   ];
   pkgsToVars = pkgsToConv: (with builtins; (listToAttrs (map (aPkg: {
       name = builtins.replaceStrings ["-"] ["_"] "$pkg_${lib.getName aPkg}";
