@@ -395,6 +395,8 @@ in {
     unstable.qpwgraph
     # easyeffects
     gparted
+    ntfs3g
+    exfatprogs
     etcher # custom package, since it's not in repos anymore
     # TODO needs non-declarative configs due to sensitive data, try to find workaround
     duplicacy-web # custom package, since it was never merged into nixpkgs

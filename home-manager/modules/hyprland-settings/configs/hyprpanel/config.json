@@ -565,6 +565,11 @@
       "cursor",
       "󰨞",
       "Visual Studio Code"
+    ],
+    [
+      "everestsplash-linux",
+      "",
+      "Launching Celeste (+ Everest)..."
     ]
   ],
   "bar.windowtitle.class_name": false,
