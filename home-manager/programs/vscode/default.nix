@@ -30,7 +30,7 @@ in {
         mkhl.direnv
         ms-vscode-remote.remote-containers
         ms-vscode.cpptools-extension-pack
-        # asvetliakov.vscode-neovim
+        asvetliakov.vscode-neovim
         ms-vscode-remote.remote-ssh
         # catppuccin theme # actually, these can't easily be installed declaratively due to the decarlative option conflicting with my other vscode setitngs here
         # catppuccin.catppuccin-vsc
