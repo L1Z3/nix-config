@@ -16,5 +16,6 @@ in {
   };
   xdg.configFile = {
     "nvim/main.vim".source = mkOutOfStoreSymlink "${thisDir}/main.vim";
+    "nvim/vscode-init.vim".source = mkOutOfStoreSymlink "${thisDir}/vscode-init.vim";
   };
 }
