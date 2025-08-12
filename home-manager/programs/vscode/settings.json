@@ -58,5 +58,8 @@
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
     },
-    "vscode-neovim.compositeKeys": {}
+    "vscode-neovim.compositeKeys": {
+    
+    },
+    "vscode-neovim.neovimInitVimPaths.linux": "/home/liz/.config/nvim/vscode-init.vim"
 }

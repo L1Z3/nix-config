@@ -1,1 +1,1 @@
-:source main.vim
+:source /home/liz/.config/nvim/main.vim
