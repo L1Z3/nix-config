@@ -56,7 +56,6 @@
 
     # TODO: --------------------------------------------
     #   nwg-displays for GUI display management (also shortcut for it in hyprpanel dashboardmenu)
-    #   theme tuigreet better
     #   FIGURE OUT PROPER SESSION MANAGEMENT!!! (maybe just better autostart)
     #   make colors better for hyprland
     #   master layout binds?

@@ -74,6 +74,7 @@ in {
     ./programs/htop
     ./programs/syncplay
     ./programs/winapps.nix
+    ./modules/neovim
   ];
 
   # TODO list:
@@ -317,7 +318,6 @@ in {
   };
 
   # Add stuff for your user as you see fit:
-  programs.neovim.enable = true;
   home.enableNixpkgsReleaseCheck = true;
   home.packages = with pkgs; [
     # basic command line tools
@@ -360,6 +360,7 @@ in {
     # editors and git stuff
     sublime4
     vim
+    # neovim, via modules/neovim
     # jetbrains really does not play well with a declarative setup. let's just use toolbox and rely on nix-ld
     unstable.jetbrains-toolbox
     git-filter-repo
