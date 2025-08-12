@@ -264,7 +264,7 @@ in {
     # portalPackage = hyprpkg.xdg-desktop-portal-hyprland;
     plugins = with pkgs.hyprlandPlugins; [
       # hyprspace
-      # hyprexpo
+      hyprexpo
       hyprsplit
       hyprgrass
       hypr-dynamic-cursors
