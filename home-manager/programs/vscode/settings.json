@@ -55,10 +55,6 @@
         "markdown",
         "scminput"
     ],
-    "vscode-neovim.afterInitConfig": [
-        "vmap <C-C> \"+y",
-        "set rnu"
-    ],
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
     },
