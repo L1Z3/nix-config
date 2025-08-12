@@ -25,6 +25,17 @@
     magenta = "#cba6f7";
   };
 in {
+  imports = [
+    inputs.catppuccin.nixosModules.catppuccin
+  ];
+
+  catppuccin = {
+    enable = true;
+    cache.enable = true;
+    flavor = "mocha";
+    accent = "mauve";
+  };
+
   programs.hyprland = {
     enable = true;
     withUWSM = true; # better systemd integration
