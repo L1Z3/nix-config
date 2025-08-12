@@ -40,50 +40,14 @@ in {
     restart = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd 'loginctl terminate-user \"\"; exec uwsm start hyprland-uwsm.desktop' -w 69 -t --time-format '%B, %A %d @ %H:%M:%S' -r --remember-session --asterisks --user-menu --config /etc/greetd/tuigreet.toml --greeting 'Welcome to NixOS' --greeting-color '#cba6f7'";
+        # tuigreet with Catppuccin Mocha Mauve theme
+        # Colors: background=#1e1e2e, container=#313244, text=#cdd6f4, prompt=#cba6f7 (mauve), time=#89b4fa (blue), action=#f9e2af (yellow), button=#cba6f7, input=#cdd6f4, border=#cba6f7, input-border=#6c7086, error=#f38ba8 (red), success=#a6e3a1 (green), warning=#fab387 (peach)
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd 'loginctl terminate-user \"\"; exec uwsm start hyprland-uwsm.desktop' -w 69 -t --time-format '%B, %A %d @ %H:%M:%S' -r --remember-session --asterisks --user-menu --greeting 'Welcome to NixOS' --theme 'background=#1e1e2e;container=#313244;text=#cdd6f4;prompt=#cba6f7;time=#89b4fa;action=#f9e2af;button=#cba6f7;input=#cdd6f4;border=#cba6f7;input-border=#6c7086;button-border=#cba6f7;error=#f38ba8;success=#a6e3a1;warning=#fab387' --container-padding 2 --prompt-padding 1 --window-padding 4";
         user = "greeter";
       };
     };
   };
 
-  # tuigreet theme configuration to match Catppuccin Mocha Mauve
-  environment.etc."greetd/tuigreet.toml".text = ''
-    # Catppuccin Mocha Mauve theme for tuigreet
-    [theme]
-    background = "#1e1e2e"
-    container_background = "#313244"
-
-    text = "#cdd6f4"
-    prompt = "#cba6f7"
-    time = "#89b4fa"
-    action = "#f9e2af"
-    button = "#cba6f7"
-    input = "#cdd6f4"
-    label = "#6c7086"
-
-    border = "#cba6f7"
-    input_border = "#6c7086"
-    button_border = "#cba6f7"
-
-    error = "#f38ba8"
-    success = "#a6e3a1"
-    warning = "#fab387"
-
-    container_padding = 2
-    prompt_padding = 1
-    border_width = 2
-    border_radius = 12
-
-    font_family = "Maple Mono"
-    font_size = 14
-    prompt_font_size = 16
-    time_font_size = 18
-    label_font_size = 12
-
-    button_padding = 8
-    input_padding = 6
-    spacing = 4
-  '';
   systemd.services.greetd.serviceConfig = {
     Type = "idle";
     StandardInput = "tty";
