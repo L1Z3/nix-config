@@ -51,9 +51,7 @@ in {
     restart = true;
     settings = {
       default_session = {
-        # tuigreet with Catppuccin Mocha Mauve theme
-        # Colors: background=#1e1e2e, container=#313244, text=#cdd6f4, prompt=#cba6f7 (mauve), time=#89b4fa (blue), action=#f9e2af (yellow), button=#cba6f7, input=#cdd6f4, border=#cba6f7, input-border=#6c7086, error=#f38ba8 (red), success=#a6e3a1 (green), warning=#fab387 (peach)
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd 'loginctl terminate-user \"\"; exec uwsm start hyprland-uwsm.desktop' -w 69 -t --time-format '%B, %A %d @ %H:%M:%S' -r --remember-session --asterisks --user-menu --greeting 'Welcome to NixOS' --theme 'background=#1e1e2e;container=#313244;text=#cdd6f4;prompt=#cba6f7;time=#89b4fa;action=#f9e2af;button=#cba6f7;input=#cdd6f4;border=#cba6f7;input-border=#6c7086;button-border=#cba6f7;error=#f38ba8;success=#a6e3a1;warning=#fab387' --container-padding 2 --prompt-padding 1 --window-padding 4";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd 'loginctl terminate-user \"\"; exec uwsm start hyprland-uwsm.desktop' -w 69 -t --time-format '%B, %A %d @ %H:%M:%S' -r --remember-session --asterisks --user-menu --container-padding 1 --prompt-padding 0 --theme 'border=lightmagenta;text=white;prompt=magenta;time=lightblue;action=yellow;button=magenta;container=black;input=white'";
         user = "greeter";
       };
     };
