@@ -461,7 +461,6 @@ in {
     # googleearth-pro
     nix-tree
     qalculate-gtk
-    vimgolf
   ];
 
   # flatpaks
@@ -519,7 +518,6 @@ in {
   home.sessionVariables = {
     MOZ_ENABLE_WAYLAND = 1;
     # put variables here
-    GOLFVIM = "nvim";
   };
 
   services.activitywatch = {
