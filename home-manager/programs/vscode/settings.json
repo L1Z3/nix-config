@@ -61,5 +61,6 @@
     "vscode-neovim.compositeKeys": {
     
     },
-    "vscode-neovim.neovimInitVimPaths.linux": "/home/liz/.config/nvim/vscode-init.vim"
+    "vscode-neovim.neovimInitVimPaths.linux": "/home/liz/.config/nvim/vscode/init.vim",
+    "editor.lineNumbers": "relative"
 }

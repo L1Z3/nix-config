@@ -1,1 +1,1 @@
-:source /home/liz/.config/nvim/main.vim
+vmap <C-C> "+y
