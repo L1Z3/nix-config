@@ -461,6 +461,8 @@ in {
     # googleearth-pro
     nix-tree
     qalculate-gtk
+
+    wev
   ];
 
   # flatpaks

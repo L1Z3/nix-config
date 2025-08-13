@@ -62,5 +62,35 @@
     
     },
     "vscode-neovim.neovimInitVimPaths.linux": "/home/liz/.config/nvim/vscode/init.vim",
-    "editor.lineNumbers": "relative"
+    "editor.lineNumbers": "relative",
+    "vscode-neovim.ctrlKeysForNormalMode": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "h",
+        "i",
+        "k",
+        "l",
+        "m",
+        "o",
+        "r",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
+        "/",
+        "]",
+        "right",
+        "left",
+        "up",
+        "down",
+        "backspace",
+        "delete"
+    ]
 }
