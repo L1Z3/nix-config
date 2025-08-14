@@ -465,6 +465,7 @@ in {
     wev
     usbutils
     lshw
+    evtest
   ];
 
   # flatpaks
