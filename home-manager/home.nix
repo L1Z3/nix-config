@@ -464,6 +464,7 @@ in {
 
     wev
     usbutils
+    lshw
   ];
 
   # flatpaks
