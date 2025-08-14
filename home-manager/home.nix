@@ -463,6 +463,7 @@ in {
     qalculate-gtk
 
     wev
+    usbutils
   ];
 
   # flatpaks
