@@ -77,7 +77,9 @@
     # lock screen
     pkgs-hypr.hyprlock
     # bluelight filter
-    pkgs-hypr.hyprsunset
+    # pkgs-hypr.hyprsunset
+    # temp switch to master for PR 433461
+    pkgs.master.hyprsunset
     # brightness control
     brightnessctl
     # media controller
