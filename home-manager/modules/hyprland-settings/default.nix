@@ -59,7 +59,7 @@
     #   FIGURE OUT PROPER SESSION MANAGEMENT!!! (maybe just better autostart)
     #   make colors better for hyprland
     #   master layout binds?
-    #   make linked monitor switch bind better
+    #   make linked monitor switch bind better/reintroduce
     #      specifically, have different a different submap that imports all normal binds (source) and then unbinds workspace switch ones, replacing them with the linked ones
     #          could be a script that unbinds the workspace switch binds and then rebinds them to the linked ones
     #   fix hyprsunset schedule
