@@ -15,7 +15,7 @@
     # inputs.hardware.nixosModules.common-ssd
 
     # You can also split up your configuration and import pieces of it here:
-    ./modules/nvidia-egpu.nix
+    # ./modules/nvidia-egpu.nix # not needed anymore, since i'm getting a desktop PC and will not be using the eGPU really
     ./modules/xbox.controller-bluetooth-fix.nix
 
     # enable gnome
