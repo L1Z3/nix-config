@@ -56,6 +56,8 @@
 
     # TODO: --------------------------------------------
     #   nwg-displays for GUI display management (also shortcut for it in hyprpanel dashboardmenu)
+    #   get udiskie/automount working
+    #   lid sleep?
     #   FIGURE OUT PROPER SESSION MANAGEMENT!!! (maybe just better autostart)
     #   make colors better for hyprland
     #   master layout binds?
@@ -79,7 +81,7 @@
     # bluelight filter
     # pkgs-hypr.hyprsunset
     # temp switch to master for PR 433461
-    pkgs.master.hyprsunset
+    pkgs.hyprsunset
     # brightness control
     brightnessctl
     # media controller
