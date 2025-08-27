@@ -39,14 +39,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
   # boot.loader.grub.useOSProber = true;
 
-  # summary of kernel version constraints:
-  # speakers only work on 6.9+
-  # LTS 6.6: suspend/resume works, no kernel memory leaks
-  # 6.12: kernel memory leaks
-  # 6.13-6.13.5: FUSE/Flatpak issues
-  # 6.13.6 seems good? i think the memory leaks i was having are fixed
-  # unstable pkgs to fix a nvidia driver issue
-  # boot.kernelPackages = pkgs.unstable.linuxPackages_xanmod_stable;
   boot.kernelPackages = pkgs.unstable.linuxPackages_latest;
 
   # fix for unable to wake from suspend during some FUSE or BTRFS operations

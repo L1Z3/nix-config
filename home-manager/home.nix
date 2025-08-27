@@ -510,6 +510,7 @@ in {
   nixpkgs.config.permittedInsecurePackages = [
     "openssl-1.1.1w" # for sublime
     "googleearth-pro-7.3.6.10201"
+    "qtwebengine-5.15.19"
   ];
 
   # Extra variables to add to PATH
