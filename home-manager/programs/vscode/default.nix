@@ -9,10 +9,7 @@
   inherit (config.lib.file) mkOutOfStoreSymlink;
   pathToHere = "${config.home.homeDirectory}/nix/home-manager/programs/vscode";
 
-  vsCodePackage =
-    if secrets ? vsCodePackageFun
-    then secrets.vsCodePackageFun pkgs
-    else pkgs.vscode;
+  vsCodePackage = pkgs.vscode;
   vsCodeDir =
     if secrets ? vsCodeDir
     then secrets.vsCodeDir
