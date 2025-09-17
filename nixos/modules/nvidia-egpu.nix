@@ -96,6 +96,8 @@
       export __EGL_VENDOR_LIBRARY_FILENAMES=${config.boot.kernelPackages.nvidiaPackages.beta}/share/glvnd/egl_vendor.d/10_nvidia.json
       exec "$@"
     '')
+
+    nvtopPackages.full
   ];
 
   # udev rule for seamless hotplugs on plasma!

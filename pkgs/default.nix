@@ -19,4 +19,5 @@ pkgs: {
   godot-4-mono-bin = pkgs.callPackage ./godot-4-mono-bin.nix {};
   audiorelay = pkgs.callPackage ./audiorelay.nix {};
   warpinator-fixed = pkgs.callPackage ./warpinator-fixed.nix {};
+  stremio-linux-shell = pkgs.callPackage ./stremio-linux-shell.nix {};
 }

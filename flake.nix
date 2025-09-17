@@ -34,17 +34,30 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
     # hyprland = {
-    #   type = "git";
-    #   url = "https://github.com/hyprwm/Hyprland";
-    #   submodules = true;
-    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   url = "github:hyprwm/Hyprland?ref=v0.50.1";
+    #   # inputs.nixpkgs.follows = "nixpkgs";
     # };
-    # hyprspace = {
-    #   url = "github:KZDKM/Hyprspace";
-
-    #   # Hyprspace uses latest Hyprland. We declare this to keep them in sync.
+    # hyprland-plugins = {
+    #   url = "github:hyprwm/hyprland-plugins?ref=v0.50.0";
     #   inputs.hyprland.follows = "hyprland";
     # };
+    # hypr-dynamic-cursors = {
+    #   url = "github:VirtCode/hypr-dynamic-cursors?ref=d6eb0b798c9b07f7f866647c8eb1d75a930501be";
+    #   inputs.hyprland.follows = "hyprland";
+    # };
+    # hyprsplit = {
+    #   url = "github:shezdy/hyprsplit";
+    #   inputs.hyprland.follows = "hyprland";
+    # };
+    # hyprland-qtutils = {
+    #   url = "github:hyprwm/hyprland-qtutils";
+    #   inputs.hyprland.follows = "hyprland";
+    # };
+    # hyprland-qt-support = {
+    #   url = "github:hyprwm/hyprland-qt-support";
+    #   inputs.hyprland.follows = "hyprland";
+    # };
+
     catppuccin.url = "github:catppuccin/nix";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
   };
@@ -52,18 +65,12 @@
   # enable the nix community cache, unfree cache
   nixConfig = {
     extra-substituters = [
-      "https://nix-community.cachix.org"
-      "https://nixpkgs-unfree.cachix.org"
       "https://hyprland.cachix.org"
     ];
     extra-trusted-substituters = [
-      "https://nix-community.cachix.org"
-      "https://nixpkgs-unfree.cachix.org"
       "https://hyprland.cachix.org"
     ];
     extra-trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
     ];
   };

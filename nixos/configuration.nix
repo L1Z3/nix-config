@@ -222,6 +222,9 @@
       auto-optimise-store = true;
       # allow cachix with nonroot
       trusted-users = ["root" "@wheel"];
+      substituters = ["https://hyprland.cachix.org"];
+      trusted-substituters = ["https://hyprland.cachix.org"];
+      trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
     };
     # Opinionated: disable channels
     channel.enable = false;
@@ -514,7 +517,6 @@
     # game-devices-udev-rules # attempt at fixing steam input in wayland native games (not working)
     # easytether # my own packaging of easytether TODO needs fixes
     protontricks
-    nvtopPackages.full
     pciutils
     intel-gpu-tools
     atop

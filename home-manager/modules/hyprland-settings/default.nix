@@ -71,7 +71,7 @@
 
     ## main desktop stuff
     # app runner
-    rofi-wayland
+    rofi
     # wallpaper backend
     pkgs-hypr.hyprpaper
     # idle timeout stuff
@@ -154,6 +154,10 @@
   colorsToVars = colorsAttrSet: (lib.attrsets.mapAttrs' (name: value: lib.nameValuePair ("$color_" + (builtins.replaceStrings ["-"] ["_"] name)) (lib.strings.removePrefix "#" value)) colorsAttrSet);
   # pkgs-hypr = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
   pkgs-hypr = pkgs;
+  # hypr-flake = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
+  hypr-flake = pkgs;
+  # hypr-plugin-flake = inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system};
+  hypr-plugin-flake = pkgs.hyprlandPlugins;
 in {
   imports = [
     inputs.catppuccin.homeModules.catppuccin
@@ -267,9 +271,19 @@ in {
     # portalPackage = hyprpkg.xdg-desktop-portal-hyprland;
     plugins = with pkgs.hyprlandPlugins; [
       # hyprspace
-      hyprexpo
-      hyprsplit
-      hyprgrass
+      hypr-plugin-flake.hyprexpo
+      # inputs.hyprsplit.packages.${pkgs.stdenv.hostPlatform.system}.hyprsplit
+      # chase hyprland faster than nixpkgs does
+      (hyprsplit.overrideAttrs {
+        version = "0.51.0"; # replace with 0.50.1 if applicable
+        src = pkgs.fetchFromGitHub {
+          owner = "shezdy";
+          repo = "hyprsplit";
+          tag = "v0.51.0";
+          hash = "sha256-h6vDtBKTfyuA/6frSFcTrdjoAKhwlGBT+nzjoWf9sQE=";
+        };
+      })
+      # hyprgrass
       hypr-dynamic-cursors
       # hyprwinwrap # reenable if i want wallpaper engine
     ];

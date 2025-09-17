@@ -35,7 +35,7 @@
     else "DYLD_LIBRARY_PATH";
   patchedpython = pkgs.symlinkJoin {
     name = "python";
-    paths = [(pkgs.python311Full.withPackages (ppkgs: []))];
+    paths = [(pkgs.python311.withPackages (ppkgs: []))];
     buildInputs = [pkgs.makeWrapper];
     postBuild = ''
       wrapProgram "$out/bin/python3.11" --prefix ${wrapPrefix} : "${pythonldlibpath}"
@@ -383,7 +383,7 @@ in {
     gimp
     deluge
     # syncplay, via programs/syncplay
-    stremio
+    stremio-linux-shell # custom package since nixpkgs doesn't have it yet
     # disable for now
     # davinci-resolve-studio-patched # TODO can we pin this to a nixpkgs commit so it doesn't take 10 years to build every time
     kdePackages.kdenlive
@@ -510,7 +510,6 @@ in {
   nixpkgs.config.permittedInsecurePackages = [
     "openssl-1.1.1w" # for sublime
     "googleearth-pro-7.3.6.10201"
-    "qtwebengine-5.15.19"
   ];
 
   # Extra variables to add to PATH

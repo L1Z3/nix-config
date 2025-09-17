@@ -21,7 +21,6 @@ in {
     profiles.default.extensions = with pkgs.vscode-extensions;
       [
         jnoortheen.nix-ide
-        k--kato.intellij-idea-keybindings
         github.copilot
         github.copilot-chat
         mkhl.direnv

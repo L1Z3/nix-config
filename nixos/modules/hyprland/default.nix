@@ -5,9 +5,9 @@
   inputs,
   ...
 }: let
-  # hyprpkg = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
+  # hypr-flake = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
+  hypr-flake = pkgs;
   # pkgs-hypr = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-  hyprpkg = pkgs;
   pkgs-hypr = pkgs;
   theme-colors = {
     accent = "#cba6f7";
@@ -41,9 +41,9 @@ in {
     withUWSM = true; # better systemd integration
     xwayland.enable = true;
     # set the flake package
-    package = hyprpkg.hyprland;
+    package = hypr-flake.hyprland;
     # make sure to also set the portal package, so that they are in sync
-    portalPackage = hyprpkg.xdg-desktop-portal-hyprland;
+    portalPackage = hypr-flake.xdg-desktop-portal-hyprland;
   };
   # ly + uwsm failed to start hyprland, so we use tuigreet for now
   services.greetd = {
@@ -96,8 +96,10 @@ in {
 
   environment.systemPackages = with pkgs; [
     xorg.libXcursor
-    pkgs-hypr.hyprland-qtutils
-    pkgs-hypr.hyprland-qt-support
+    # inputs.hyprland-qtutils.packages.${pkgs.stdenv.hostPlatform.system}.hyprland-qtutils
+    hyprland-qtutils
+    # inputs.hyprland-qt-support.packages.${pkgs.stdenv.hostPlatform.system}.hyprland-qt-support
+    hyprland-qt-support
     bibata-cursors
     networkmanager
   ];
